@@ -1,0 +1,37 @@
+# Archivos y carpetas comunes a ignorar en entornos PHP/XAMPP
+
+# Directorios del sistema
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Carpetas temporales
+tmp/
+temp/
+.cache/
+logs/
+*.log
+
+# Archivos de configuración sensibles
+.env
+config.php
+*.bak
+*.swp
+
+# Configuración de editores
+.vscode/
+.idea/
+
+# XAMPP / Localhost específicos
+xampp/
+htdocs/
+xamppfiles/
+
+# Bases de datos exportadas o grandes
+*.sql
+*.sql.gz
+*.db
+
+# Node y vendor (si se llegaran a usar)
+node_modules/
+vendor/
