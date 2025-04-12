@@ -1,6 +1,6 @@
 # SalCooking
 
-**SalCooking** es una aplicación web diseñada para facilitar la planificación semanal de la alimentación, con menús equilibrados y personalizados, teniendo muy en cuenta la salud: sus alergias, intolerancias, y enfermedades, además de generar listas de la compra automáticas, todo ello desde una interfaz sencilla y adaptable a diferentes perfiles de usuario.
+**SalCooking** es una aplicación web diseñada para facilitar la planificación semanal de la alimentación, con menús equilibrados y personalizados. Tiene en cuenta los gustos del usuario, sus alergias, intolerancias, y enfermedades, además de generar listas de la compra automáticas, todo ello desde una interfaz sencilla y adaptable a diferentes perfiles de usuario.
 
 ## 🧩 Características principales
 
@@ -26,7 +26,6 @@
     ```bash
     git clone https://github.com/tu-usuario/salcooking.git
     ```
-    oscartechdevai@gmail.com 
 
 2. Copia el contenido a la carpeta de tu servidor local:
     ```
