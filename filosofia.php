@@ -23,7 +23,7 @@ $css_extra = '<link rel="stylesheet" href="styles/filosofia.css?v=<?php echo tim
 
   <div class="titulo">
   <img src="images/iconos/Book-Star--Streamline-Ultimate.svg"  alt="Book Star - Libro destacado">
-  <h1>Nuestra Filosofía</h1>
+  <h1>Nuestra Filosofía: El arte de cocinar cuidando tu salud</h1>
   </div>
  
     <div class="contenido-filosofia">
@@ -40,8 +40,7 @@ $css_extra = '<link rel="stylesheet" href="styles/filosofia.css?v=<?php echo tim
       </div>
 
       <div class="texto-filosofia">
-        <h3><strong>El arte de cocinar cuidando tu salud</strong></h3>
-
+       
         <h4>> Cómo surgió SalCooking</h4>
         <p> SalCooking nace de la pasión por la cocina saludable y de una necesidad real detectada durante un hackathon de innovación organizado por INCIBE en La Terminal. En aquel reto de 48 horas, surgió la primera idea bajo el nombre de Recooking, centrada inicialmente en el reaprovechamiento de alimentos. Sin embargo, al observar la gran cantidad de personas afectadas por intolerancias, alergias o enfermedades como la diabetes y la hipertensión, el proyecto evolucionó hacia lo que hoy es SalCooking:
           una plataforma dedicada a planificar tu alimentación de forma inteligente, segura y totalmente adaptada a tu salud y gustos.

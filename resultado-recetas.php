@@ -1,5 +1,5 @@
 <?php
-$css_extra = '<link rel="stylesheet" href="styles/resultado- styles/recetas.css">';
+$css_extra = '<link rel="stylesheet" href="styles/resultado-recetas.css">';
 ?>
 
 <?php include('header.php'); ?>

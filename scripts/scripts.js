@@ -26,12 +26,18 @@ $(document).ready(function() {
 
     // Agregar clase activa a la página actual en la navegación
     const currentPage = window.location.pathname.split('/').pop();
-    
+
+    // si la página actual es la raíz o index.html, se activa el primer elemento
     if (currentPage === '' || currentPage === 'index.html') {
         $('.nav-tabs li:first-child').addClass('active');
         $('.mobile-nav li:first-child').addClass('active');
     } else {
+        // si la página actual no es la raíz, se activa el elemento correspondiente
+        // y se quita la clase active de los demás
         $(`.nav-tabs li a[href="${currentPage}"]`).parent().addClass('active');
         $(`.mobile-nav li a[href="${currentPage}"]`).parent().addClass('active');
+        // y quitar la clase active de los demás
+        $(`.nav-tabs li a[href="${currentPage}"]`).parent().siblings().removeClass('active');
+        $(`.mobile-nav li a[href="${currentPage}"]`).parent().siblings().removeClass('active');
     }
 });
