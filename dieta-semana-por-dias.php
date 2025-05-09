@@ -341,5 +341,5 @@ $css_extra = '<link rel="stylesheet" href="styles/dieta-semana-dias.css">';
         <br>
     </div>
 </div>
-<script src="js/dieta-semana.js"></script>
+<script src="scripts/dieta-semana.js"></script>
 <?php include 'footer.php'; ?>

@@ -14,6 +14,7 @@ if (!$resultado || $resultado->num_rows === 0) {
   include 'footer.php';
   exit;
 }
+// Obtener la receta
 
 $receta = $resultado->fetch_assoc();
 

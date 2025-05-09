@@ -55,8 +55,8 @@
 
 </footer>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-<script src="scripts.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/scripts/bootstrap.bundle.min.js"></script>
+<script src="scripts/scripts.js"></script>
 
 <!-- jsPDF (UMD version es preferible para compatibilidad con plugins) -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script> <!-- Cambio: Usar jspdf.umd.min.js -->
@@ -67,8 +67,8 @@
 <!-- Tu función personalizada -->
 <?php
 
-echo '<script src="js/descargarListaPDF.js"></script>'; // Para la lista de compra
-echo '<script src="js/descargarFichaReceta.js"></script>'; // Para la ficha de receta
+echo '<script src="scripts/descargarListaPDF.js"></script>'; // Para la lista de compra
+echo '<script src="scripts/descargarFichaReceta.js"></script>'; // Para la ficha de receta
 ?>
 
 

@@ -58,7 +58,7 @@ $css_extra = '<link rel="stylesheet" href="styles/login.css">';
             </div>
             
             <div class="login-logo">
-              <a href="index.php"><img src="images/salcooking solo logo cuadrado.png" alt="SalCooking Logo"></a>  
+              <a href="index.php"><img src="images//logos/salcooking-solo-logo- cuadrado.png" alt="SalCooking Logo"></a>  
             </div>
         </div>
     </div>

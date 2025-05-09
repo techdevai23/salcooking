@@ -192,5 +192,5 @@ $css_extra = '<link rel="stylesheet" href="styles/resultado-recetas.css">';
         </div>
     </div>
 </section>
-<script src="js/carrusel-script.js"></script>
+<script src="scripts/carrusel-script.js"></script>
 <?php include('footer.php'); ?>

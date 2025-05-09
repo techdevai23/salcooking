@@ -170,7 +170,7 @@ $nombre_pagina = "Perfil-Ajustes"; // Para el título y migas
 
 
 
-  <script src="js/perfil-ajustes.js"></script>
+  <script src="scripts/perfil-ajustes.js"></script>
   <script>
     // Pequeño script para añadir la clase al body para JS (simulado)
     document.body.classList.add('usuario-logueado');

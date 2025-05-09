@@ -5,6 +5,8 @@ $css_extra = '<link rel="stylesheet" href="styles/plantilla.css">';
 
 <?php include 'header.php'; ?>
 
+<!-- LISTA / CESTA DE LA COMPRA -->
+
 <!-- migas -->
 
 <div class="migas-container">
@@ -18,6 +20,7 @@ $css_extra = '<link rel="stylesheet" href="styles/plantilla.css">';
     </div>
   </div>
 </div>
+
 
 
 

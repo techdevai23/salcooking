@@ -20,7 +20,7 @@
 <body>
     <header class="main-header">
         <div class="logo-cabecera">
-            <a href="index.php"><img src="images/cabecera.png" alt="SalCooking cabecera Logo"></a>
+            <a href="index.php"><img src="images//logos/cabecera.png" alt="SalCooking cabecera Logo"></a>
         </div>
         <nav class="top-nav mb-2">
             <div class="container">
@@ -38,7 +38,7 @@
             <div class="container mb-3">
                 <div class="header-content">
                     <div class="logo d-none d-md-block">
-                        <a href="index.php"><img src="images/logo.png" alt="SalCooking Logo"></a>
+                        <a href="index.php"><img src="images//logos/logo.png" alt="SalCooking Logo"></a>
                     </div>
                     <div class="search-box">
                         <form action="search.php" method="get">

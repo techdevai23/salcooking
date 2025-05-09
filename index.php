@@ -12,7 +12,7 @@
                 </div>
 
                 <div class="tarjeta-logo row-md-6 col-md-6 text-center fondo-tarjeta">
-                    <img src="images/composicion-tarjeta-completa.png" class="img-fluid" alt="Tarjeta Logo">
+                    <img src="images//logos/composicion-tarjeta-completa.png" class="img-fluid" alt="Tarjeta Logo">
                     <div class="texto-tarjeta">
                         <p>SalCooking permite planificar la alimentación de forma inteligente con menús semanales,
                             equilibrados, totalmente personalizados, teniendo en cuenta tanto los gustos personales como

@@ -1,4 +1,4 @@
-// js/perfil-ajustes.js
+// scripts/perfil-ajustes.js
 document.addEventListener('DOMContentLoaded', function() {
   const perfilForm = document.getElementById('perfilForm');
   const cambiarContrasenaLink = document.getElementById('cambiarContrasenaLink');

@@ -1,4 +1,4 @@
-// js/descargarListaPDF.js
+// scripts/descargarListaPDF.js
 function descargarListaPDF(nombreArchivo, tituloLista) {
   const listaElement = document.getElementById('lista-para-descargar');
   if (!listaElement) {
