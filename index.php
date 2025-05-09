@@ -14,17 +14,17 @@
                 <div class="tarjeta-logo row-md-6 col-md-6 text-center fondo-tarjeta">
                     <img src="images/logos/composicion-tarjeta-completa.png" class="img-fluid" alt="Tarjeta Logo">
                     <div class="texto-tarjeta">
-                        <p>SalCooking permite planificar la alimentación de forma inteligente con menús semanales,
+                        <h4>SalCooking permite planificar la alimentación de forma inteligente con menús semanales,
                             equilibrados, totalmente personalizados, teniendo en cuenta tanto los gustos personales como
-                            las intolerancias, alergias y enfermedades del usuario.</p>
+                            las intolerancias, alergias y enfermedades del usuario.</h4>
                     </div>
                 </div>
 
                 <div class="mensaje row-md-6 col-md-3 fondo-tarjeta d-flex flex-column justify-content-center">
-                    <p>Puedes <strong>consultar y descargar</strong> todas las recetas de manera <strong>gratuita</strong>,
-                        incluyendo los alérgenos que tiene, y haciéndote <span class="premium">Prémium</span>,
-                        da un paso más hacia una <span class="saludable"> alimentación saludable y segura </span>con nuestro <strong>plan de dietas</strong>, encontrar recetas <strong>aptas para distintas enfermedades</strong>,
-                      podrás <strong>  descargar recetas</strong>... ¡Y muchas funciones más!</p>
+                    <p>Puedes <i>consultar y descargar</i> todas las recetas, incluyendo los <b>alérgenos</b> que tiene, de manera <b>gratuita</b>,
+                         y haciéndote <span class="premium">Prémium</span>,
+                        da un paso más hacia una <span class="saludable"> alimentación saludable y segura</span> encontrando recetas <strong>aptas para distintas enfermedades</strong>,
+                  y crearte un <strong>plan de dietas semanal</strong>,    podrás <strong>  descargar recetas</strong>... ¡Y muchas funciones más! ¿A qué estas esperando?</p>
                     <div>
                         <a href="contacto.php" class="btn-premium">Hazte Premium</a>
                     </div>

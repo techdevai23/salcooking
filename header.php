@@ -11,7 +11,11 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   
-    <!-- <link rel="stylesheet" href=" styles/styles.css"> -->
+      <!-- Google Fonts con Copse (titulos y que usamos en el logo), Poppins(textos) y Nunito(botones) -->
+  <link href="https://fonts.googleapis.com/css2?family=Copse&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Nunito&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
+
      <!-- hago un truco para evitar problemas de caché que pueden volver loco pensando que no
       se actualizan los cambios -->
     <link rel="stylesheet" href="styles/styles.css?v=<?php echo filemtime('styles/styles.css'); ?>">
@@ -49,7 +53,7 @@
                     <div class="search-box">
                         <form action="resultado-recetas.php" method="get">
                             <input type="text" placeholder="Busca recetas" name="query">
-                            <button type="submit"><img src="images/iconos/Search-Circle--Streamline-Ultimate.svg" alt="User Icon" style="width: 44px; height: 44px;"></button>
+                            <button type="submit"><img src="images/iconos/Search-Circle--Streamline-Ultimate.svg" alt="User Icon" style="width: 24px; height: 24px;"></button>
                         </form>
                     </div>
                     <div class="premium-button">

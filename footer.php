@@ -24,7 +24,7 @@
             </div>
             <!-- columna 3 -->
             <div class="footer-column">
-                <h5>Píde- nuestro boletín o síguenos en nuestras RRSS</h5>
+                <h5>Píde nuestro boletín o síguenos en nuestras RRSS</h5>
                 <form class="subscribe-form">
                     <input type="email" placeholder="Tu email">
                     <div class="btn-suscribir"><button type="submit">Suscribir</button></div>
