@@ -12,7 +12,7 @@
                 </div>
 
                 <div class="tarjeta-logo row-md-6 col-md-6 text-center fondo-tarjeta">
-                    <img src="images//logos/composicion-tarjeta-completa.png" class="img-fluid" alt="Tarjeta Logo">
+                    <img src="images/logos/composicion-tarjeta-completa.png" class="img-fluid" alt="Tarjeta Logo">
                     <div class="texto-tarjeta">
                         <p>SalCooking permite planificar la alimentación de forma inteligente con menús semanales,
                             equilibrados, totalmente personalizados, teniendo en cuenta tanto los gustos personales como
@@ -22,9 +22,9 @@
 
                 <div class="mensaje row-md-6 col-md-3 fondo-tarjeta d-flex flex-column justify-content-center">
                     <p>Puedes <strong>consultar y descargar</strong> todas las recetas de manera <strong>gratuita</strong>,
-                        incluyendo los alérgenos que tiene, pero si te haces <span class="premium">Prémium</span>,
-                        podrás además <strong>confeccionar dietas</strong>, encontrar recetas <strong>aptas para distintas enfermedades</strong>,
-                        guardar <strong>recetas en favoritos</strong> ¡y muchas opciones más!</p>
+                        incluyendo los alérgenos que tiene, y haciéndote <span class="premium">Prémium</span>,
+                        da un paso más hacia una <span class="saludable"> alimentación saludable y segura </span>con nuestro <strong>plan de dietas</strong>, encontrar recetas <strong>aptas para distintas enfermedades</strong>,
+                      podrás <strong>  descargar recetas</strong>... ¡Y muchas funciones más!</p>
                     <div>
                         <a href="contacto.php" class="btn-premium">Hazte Premium</a>
                     </div>
