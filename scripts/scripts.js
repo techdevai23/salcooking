@@ -11,7 +11,7 @@ $(document).ready(function() {
         }
     });
 
-    // Smooth scrolling for anchor links
+    // Desplazamiento suave para enlaces de anclaje
     $('a[href^="#"]').on('click', function(e) {
         e.preventDefault();
         
@@ -24,14 +24,19 @@ $(document).ready(function() {
         );
     });
 
-    // Add active class to current page in navigation
+    // Agregar clase activa a la página actual en la navegación
     const currentPage = window.location.pathname.split('/').pop();
     
+    // Si la página actual es la raíz o index.html, activa el primer elemento
     if (currentPage === '' || currentPage === 'index.html') {
         $('.nav-tabs li:first-child').addClass('active');
         $('.mobile-nav li:first-child').addClass('active');
     } else {
+        // Agregar clase activa a la pestaña de navegación correspondiente
         $(`.nav-tabs li a[href="${currentPage}"]`).parent().addClass('active');
         $(`.mobile-nav li a[href="${currentPage}"]`).parent().addClass('active');
+        // y quitar la clase activa de la pestaña de navegación principal
+        $(`.nav-tabs li a[href="${currentPage}"]`).parent().siblings().removeClass('active');
+        $(`.mobile-nav li a[href="${currentPage}"]`).parent().siblings().removeClass('active');
     }
 });
