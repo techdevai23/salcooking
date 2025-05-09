@@ -1,0 +1,157 @@
+/* Estilos para la página de Trucos de Cocina */
+.trucos-cocina {
+    padding: 30px 0;
+}
+
+
+/* Contenedor principal para los trucos de cocina */
+
+.container-trucos {
+     position: relative;
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 15px;
+    background-color: transparent;
+    padding: 30px;
+    margin: 0 auto;
+     /* z-index: 1;  */
+    min-height: 800px; 
+  }
+
+.container-trucos::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    
+    background-image: url('../images/solo-fondo.png');
+    background-size: 100% 100%; /* Fuerza la imagen a adaptarse al tamaño del contenedor */
+    background-position: center;
+    background-repeat: no-repeat;
+    z-index: -1; /* Asegúrate de que el pseudo-elemento esté detrás del contenido */
+    opacity: 0.5; /* Ajusta este valor entre 0 y 1 según la transparencia deseada */
+  }
+
+  .contenido-trucos {
+    position: relative; 
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 25px;
+}
+
+.tarjeta-truco {
+    position: relative; /* Asegúrate de que los hijos no interfieran con el pseudo-elemento */
+    background-color: transparent; /* Asegúrate de que no haya fondo opaco */
+    display: grid;
+    grid-template-columns: auto 1fr;
+    grid-gap: 20px;
+    align-items: center;
+    margin-left: 30px;
+    margin-right: 30px;
+    margin-bottom: 20px;
+    padding: 15px;
+    /* background-color: #fff; */
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+    transition: transform 0.3s ease;
+}
+
+.tarjeta-receta {
+    position: relative; /* Asegúrate de que los hijos no interfieran con el pseudo-elemento */
+    background-color: transparent; /* Asegúrate de que no haya fondo opaco */
+    display: grid;
+    grid-template-columns: auto 1fr;
+    grid-gap: 20px;
+    align-items: center;
+    margin-left: 200px;
+    margin-right: 200px;
+    margin-bottom: 20px;
+    padding: 15px;
+    /* background-color: #fff; */
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+    transition: transform 0.3s ease;
+}
+
+.tarjeta-truco .foto-truco {
+    grid-column: 1;
+    border-radius: 8px;
+  
+}
+
+.tarjeta-truco .texto-truco {
+    grid-column: 2;
+    font-size: 1.1rem;
+    color: var(--text-color);
+    
+}
+
+h5 {
+    margin-bottom: 10px;
+    color: purple;
+    font-size: 1.2rem;
+}
+
+.tarjeta-truco:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+.tarjeta-receta:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+.tarjeta-truco h2 {
+    color: var(--primary-color);
+    margin-bottom: 15px;
+    font-size: 1.3rem;
+}
+
+.tip-content {
+    line-height: 1.6;
+    color: var(--text-color);
+}
+
+
+
+/* Responsive Styles */
+@media (max-width: 992px) {
+    .results-container {
+        grid-template-columns: 1fr;
+    }
+    
+    .filters-sidebar {
+        order: 2;
+    }
+    
+    .results-grid {
+        order: 1;
+    }
+}
+
+@media (max-width: 768px) {
+    .results-grid {
+        grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    }
+    
+    .recipe-info-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 576px) {
+    .results-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .recipe-title {
+        font-size: 1.5rem;
+    }
+    
+    .tarjeta-truco {
+        padding: 15px;
+    }
+}

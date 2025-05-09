@@ -10,7 +10,13 @@
     <title>SalCooking - Menús personalizados e inteligentes</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="stylesheet" href="styles.css">
+  
+    <!-- <link rel="stylesheet" href="styles.css"> -->
+     <!-- hago un truco para evitar problemas de caché que pueden volver loco pensando que no
+      se actualizan los cambios -->
+    <link rel="stylesheet" href="styles.css?v=<?php echo filemtime('styles.css'); ?>">
+<script src="js/descargarListaPDF.js?v=<?php echo filemtime('js/descargarListaPDF.js'); ?>"></script>
+
     <!-- cargo hoja de estilos propias -->
     <?php if (isset($css_extra)) echo $css_extra; ?>
 
@@ -27,8 +33,8 @@
                 <ul class="nav-tabs">
                     <li class="active"><a href="index.php">Inicio</a></li>
                     <li><a href="filosofia.php">Nuestra Filosofía</a></li>
-                    <li><a href="recetas.php">Recetas</a></li>
-                    <li><a href="dieta-semana.php">Dieta</a></li>
+                    <li><a href="recetas-categoria.php">Recetas</a></li>
+                    <li><a href="dieta-semana-por-dias.php">Dieta</a></li>
                     <li><a href="trucos.php">Trucos</a></li>
                     <li><a href="planes.php">Planes</a></li>
                     <li><a href="ayuda.php">Ayuda</a></li>
@@ -41,19 +47,19 @@
                         <a href="index.php"><img src="images/logo.png" alt="SalCooking Logo"></a>
                     </div>
                     <div class="search-box">
-                        <form action="search.php" method="get">
+                        <form action="resultado-recetas.php" method="get">
                             <input type="text" placeholder="Busca recetas" name="query">
-                            <button type="submit"><i class="fas fa-search"></i></button>
+                            <button type="submit"><img src="images/iconos/Search-Circle--Streamline-Ultimate.svg" alt="User Icon" style="width: 44px; height: 44px;"></button>
                         </form>
                     </div>
                     <div class="premium-button">
-                        <a href="premium.php" class="btn-premium">Hazte Premium</a>
+                        <a href="contacto.php" class="btn-premium">Hazte Premium</a>
                     </div>
                     <!-- icono de usuario con enlace a web de usuario -->
                     <div class="header-actions">
 
                         <div class="user-icon">
-                            <a href="perfil.php"><i class="fas fa-user"></i></a>
+                            <a href="login.php"><img src="images/iconos/Single-Neutral-Circle--Streamline-Ultimate.svg" alt="User Icon" style="width: 34px; height: 34px;"></a>
                         </div>
                     </div>
 

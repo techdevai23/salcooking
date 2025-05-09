@@ -1,0 +1,215 @@
+
+/* Contenedor principal para lista dia */
+
+.contenedor-lista-dia {
+     position: relative;
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 15px;
+    background-color: transparent;
+    padding: 30px;
+    margin: 0 auto;
+     /* z-index: 1;  */
+    min-height: 800px; 
+    overflow: hidden; /* Asegura que el pseudo-elemento no se salga del contenedor */
+  }
+
+.contenedor-lista-dia::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-image: url('../images/solo-fondo.png');
+    background-size: 102% 100%; /* Fuerza la imagen a adaptarse al tamaño del contenedor */
+    background-position: center;
+    background-repeat: no-repeat;
+    z-index: -1; /* Asegúrate de que el pseudo-elemento esté detrás del contenido */
+    opacity: 0.5; /* Ajusta este valor entre 0 y 1 según la transparencia deseada */
+  }
+
+  .contenido-lista-dia {
+    position: relative; 
+    display: grid;
+    /* grid-template-columns: 1fr; cuantas columnas queremos */
+    gap: 25px;
+    /* margin-left: 30px;
+    margin-right: 30px;
+    margin-bottom: 20px; dependiendo de los elementos para no pisar el landing*/
+}
+ 
+/* Estilos para la lista de ingredientes (AÑADIR ESTO) */
+.lista-ingredientes-compra {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); /* 2 o 3 columnas según espacio */
+    gap: 20px;
+    padding: 0;
+    margin-top: 20px;
+    margin-bottom: 30px;
+}
+
+.ingrediente-item {
+    background-color: rgba(255, 255, 255, 0.7); /* Fondo blanco semi-transparente para destacar sobre el fondo general */
+    border: 1px solid var(--border-color);
+    padding: 15px;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    display: flex;
+    flex-direction: column; /* Para alinear nombre y cantidad */
+}
+
+.ingrediente-nombre {
+    font-weight: bold;
+    color: var(--negro-verdoso); /* Usando tu variable de color */
+    font-size: 1.1em;
+    margin-bottom: 5px;
+}
+
+.ingrediente-cantidad {
+    font-size: 0.95em;
+    color: #555;
+}
+
+.mensaje-lista-vacia {
+    text-align: center;
+    font-size: 1.1em;
+    color: var(--text-color);
+    padding: 20px;
+    background-color: rgba(255,255,255,0.7);
+    border-radius: 8px;
+    margin-top: 20px;
+}
+
+.acciones-lista {
+    text-align: center;
+    margin-top: 30px;
+    margin-bottom: 20px;
+}
+
+.descargar-lista-btn {
+    /* Reutilizando tu clase de botón verde */
+    padding: 12px 25px !important; /* Ajusta el padding si es necesario */
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    text-decoration: none;
+    font-weight: bold; /* Lo he puesto más bold que el original */
+    transition: background-color 0.3s;
+    background-color: var(--verde-corp);
+    color: var(--white); /* Texto blanco para mejor contraste en verde */
+    font-size: 1em;
+    display: inline-flex; /* Para alinear icono y texto */
+    align-items: center;
+    gap: 8px; /* Espacio entre icono y texto */
+}
+
+.descargar-lista-btn:hover {
+    background-color: var(--primary-dark);
+}
+
+.descargar-lista-btn img {
+    width: 20px; /* Tamaño del icono del carrito */
+    height: auto;
+    filter: brightness(0) invert(1); /* Para que el icono sea blanco */
+}
+
+.mensaje-apoyo-premium {
+    text-align: center;
+    margin-top: 25px;
+    font-size: 0.95em;
+    color: var(--terciary-color); /* Usando tu color rosa para mensajes premium */
+}
+
+.mensaje-apoyo-premium strong {
+    font-weight: bold;
+}
+
+
+
+
+/* Responsive Styles */
+@media (max-width: 992px) {
+    .results-container {
+        grid-template-columns: 1fr;
+    }
+    
+    .filters-sidebar {
+        order: 2;
+    }
+    
+    .results-grid {
+        order: 1;
+    }
+}
+
+@media (max-width: 768px) {
+    .results-grid {
+        grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    }
+    
+    .recipe-info-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 576px) {
+    .results-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .recipe-title {
+        font-size: 1.5rem;
+    }
+    
+    .tarjeta-truco {
+        padding: 15px;
+    }
+}
+
+/* @media (max-width: 576px) {
+    .lista-ingredientes-compra {
+        grid-template-columns: 1fr; /* Una columna en móviles pequeños 
+    }
+} */
+
+
+/* Responsive Styles */
+@media (max-width: 992px) {
+    .results-container {
+        grid-template-columns: 1fr;
+    }
+    
+    .filters-sidebar {
+        order: 2;
+    }
+    
+    .results-grid {
+        order: 1;
+    }
+}
+
+@media (max-width: 768px) {
+    .results-grid {
+        grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    }
+    
+    .recipe-info-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 576px) {
+    .results-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .recipe-title {
+        font-size: 1.5rem;
+    }
+    
+    .tarjeta-truco {
+        padding: 15px;
+    }
+}

@@ -1,0 +1,464 @@
+/* Mantenemos los estilos generales existentes */
+:root {
+  --primary-color: #4caf50;
+  --primary-dark: #0B593C;
+  --secondary-color: #ff9800;
+  --verde-corp: #80A665;
+  --negro-verdoso: #2D3E2E;
+  --naranja-corp: #D98B2B;
+  --text-color: #333;
+  --beig-corp: #F2EADF;
+  --white: #ffffff;
+  --border-color: #ddd;
+}
+
+.page-background {
+  position: relative;
+  background-color: transparent;
+  padding: 5px;
+  margin: 2px 0;
+  z-index: 1;
+  min-height: 400px;
+}
+
+.container-resultados {
+  position: relative;
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 15px;
+  background-color: transparent;
+  padding: 30px;
+  margin: 0 auto;
+  min-height: 800px; 
+}
+
+.container-resultados::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-image: url('../images/solo-fondo.png');
+  background-size: 100% 100%;
+  background-position: center;
+  background-repeat: no-repeat;
+  z-index: -1;
+  opacity: 0.5;
+}
+
+.content-wrapper {
+  position: relative;
+  z-index: 2;
+}
+
+.resultados-recetas {
+  padding: 40px 0;
+}
+
+/* Contenedor con esquinas líneas corporativas y fondo */
+.results-container {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  background-color: transparent;
+  border-radius: var(--rounded-corner);
+  padding: 30px;
+  position: relative;
+}
+
+/* Barra de filtros superior - NUEVO */
+.top-filters-bar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 15px;
+  background-color: #f9f9f9;
+  border-radius: 8px;
+  padding: 20px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+  align-items: center;
+  justify-content: space-between;
+}
+
+.filter-section {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.filter-section label {
+  font-weight: 500;
+  color: var(--text-color);
+}
+
+.filter-section select, 
+.premium-option select,
+.premium-option input[type="text"] {
+  padding: 8px 12px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  background-color: #ffffff;
+  color: var(--text-color);
+}
+
+/* Sección de filtros premium */
+.premium-filters {
+  flex-grow: 1;
+  margin: 0 auto; /* Centra el div dentro de su contenedor */
+  padding: 15px;
+  background-color: #f7f9fc;
+  border: 1px dashed #ccc;
+  border-radius: 6px;
+  max-width: 550px;
+}
+
+.premium-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.premium-header h4 {
+  margin: 0;
+  color: var(--secondary-color);
+}
+
+.premium-options {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  align-items: center;
+}
+
+.premium-option select,
+.premium-option input[type="text"] {
+  background-color: #f5f5f5;
+  color: #888;
+  cursor: not-allowed;
+}
+
+.btn-premium {
+  display: inline-block;
+  background-color: var(--secondary-color);
+  color: white !important;
+  text-decoration: none;
+  padding: 8px 15px;
+  border-radius: 4px;
+  font-weight: 500;
+  transition: background-color 0.2s;
+  font-size: 0.85rem;
+}
+
+.btn-premium:hover {
+  background-color: #e67e00;
+}
+
+/* Carrusel de recetas - NUEVO */
+.recipiente-carrusel-container {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 10px 0;
+  padding: 20px 0;
+}
+
+.recipiente-carrusel {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  position: relative;
+  overflow: hidden;
+  height: 420px; /* Altura ajustada para las tarjetas */
+}
+
+.carrusel-nav {
+  background-color: var(--primary-color);
+  color: white;
+  border: none;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  cursor: pointer;
+  font-size: 1.2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 15px;
+  z-index: 10;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+  transition: transform 0.2s, background-color 0.2s;
+}
+
+.carrusel-nav:hover {
+  background-color: var(--primary-dark);
+  transform: scale(1.1);
+}
+
+/* Estilos para las tarjetas de recetas en el carrusel */
+.recipiente-card {
+  background-color: #fff;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s, box-shadow 0.3s;
+  flex-shrink: 0;
+  margin: 0 10px;
+}
+
+/* Tarjeta destacada (central) */
+.featured-card {
+  width: 320px;
+  transform: scale(1.1);
+  z-index: 5;
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
+  position: relative;
+}
+
+.featured-card:hover {
+  transform: scale(1.15);
+}
+
+/* Tarjetas laterales */
+.hidden {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+}
+.side-card {
+  width: 260px;
+  opacity: 0.8;
+  transform: scale(0.85);
+}
+
+.side-card:hover {
+  opacity: 0.9;
+  transform: scale(0.9);
+}
+
+.recipiente-card img {
+  width: 100%;
+  height: 180px;
+  object-fit: cover;
+}
+
+.recipiente-info {
+  padding: 15px;
+}
+
+.recipiente-info h4 {
+  margin: 0 0 10px 0;
+  font-size: 1.1rem;
+  color: var(--text-color);
+}
+
+/* Indicadores del carrusel */
+.carrusel-indicators {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 20px;
+}
+
+.indicator {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background-color: #ddd;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.indicator.active {
+  background-color: var(--primary-color);
+}
+
+/* Mantenemos los estilos para las etiquetas (tags) */
+.recipiente-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+  margin-bottom: 15px;
+}
+
+.tag {
+  font-size: 0.75rem;
+  padding: 3px 8px;
+  border-radius: 15px;
+  color: white;
+}
+
+.tag-plato {
+  font-size: 1rem;
+  padding: 3px 8px;
+  border-radius: 15px;
+  border: 3px solid var(--verde-corp);
+  color: var(--primary-dark);
+  background-color: white;
+}
+/* colores etiquetas */
+.tag.gluten { background-color: #FFA000; }
+.tag.colesterol { background-color: #E53935; }
+.tag.diabetes { background-color: #00ACC1; }
+.tag.secos { background-color: #8D6E63; }
+.tag.marisco { background-color: #039BE5; }
+.tag.pescado { background-color: #0277BD; } /* Añadido para etiqueta de pescado */
+
+.btn-view-recipiente {
+  display: block;
+  text-align: center;
+  background-color: var(--primary-color);
+  color: white;
+  text-decoration: none;
+  padding: 8px 12px;
+  border-radius: 4px;
+  font-weight: 500;
+  transition: background-color 0.2s;
+}
+
+.btn-view-recipiente:hover {
+  background-color: #388E3C;
+}
+
+/* Checkbox container (mantenemos el estilo) */
+.checkbox-container {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  position: relative;
+  padding-left: 35px;
+  -webkit-user-select: none;
+  user-select: none;
+}
+
+.checkbox-container input {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+  height: 0;
+  width: 0;
+}
+
+.checkmark {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 20px;
+  width: 20px;
+  background-color: #fff;
+  border: 1px solid #ccc;
+  border-radius: 3px;
+}
+
+.checkbox-container:hover input ~ .checkmark {
+  background-color: #f0f0f0;
+}
+
+.checkbox-container input:checked ~ .checkmark {
+  background-color: var(--primary-color);
+  border-color: var(--primary-color);
+}
+
+.checkmark:after {
+  content: "";
+  position: absolute;
+  display: none;
+}
+
+.checkbox-container input:checked ~ .checkmark:after {
+  display: block;
+}
+
+.checkbox-container .checkmark:after {
+  left: 7px;
+  top: 3px;
+  width: 5px;
+  height: 10px;
+  border: solid white;
+  border-width: 0 2px 2px 0;
+  transform: rotate(45deg);
+}
+
+/* Media queries para responsive */
+@media (max-width: 1100px) {
+  .top-filters-bar {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  
+  .premium-filters {
+    width: 100%;
+    max-width: none;
+  }
+  
+  .premium-options {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  
+  .premium-option {
+    width: 100%;
+    margin-bottom: 10px;
+  }
+  
+  .premium-option select,
+  .premium-option input[type="text"] {
+    width: 100%;
+  }
+}
+
+@media (max-width: 900px) {
+  .recipiente-carrusel {
+    height: auto;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+  
+  .recipiente-card {
+    margin-bottom: 20px;
+  }
+  
+  .featured-card, .side-card {
+    width: 280px;
+    transform: none;
+    opacity: 1;
+  }
+  
+  .featured-card:hover, .side-card:hover {
+    transform: translateY(-5px);
+  }
+  
+  .left-card:nth-child(n+2),
+  .right-card:nth-child(n+2) {
+    display: none;
+  }
+  
+  
+}
+
+@media (max-width: 600px) {
+  .top-filters-bar {
+    padding: 15px;
+  }
+  
+  .filter-section {
+    width: 100%;
+  }
+  
+  .filter-section select {
+    width: 100%;
+  }
+  
+  .recipiente-carrusel {
+    padding: 0;
+  }
+  
+
+
+}
+
+

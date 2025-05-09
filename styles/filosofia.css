@@ -1,0 +1,145 @@
+.filosofia {
+  position: relative;
+  padding: 40px 20px;
+}
+
+.contenedor-filosofia {
+  position: relative;
+ width: 100%;
+ max-width: 1200px;
+ margin: 0 auto;
+ padding: 0 15px;
+ background-color: transparent;
+ padding: 30px;
+ margin: 0 auto;
+  /* z-index: 1;  */
+ min-height: 800px; 
+ overflow: hidden; 
+}
+
+.contenedor-filosofia::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-image: url('../images/solo-fondo.png');
+  background-size: 100% 100%;
+  background-position: center;
+  background-repeat: no-repeat;
+  z-index: -1;
+  opacity: 0.5;
+}
+
+
+
+.contenido-filosofia {
+  display: grid;
+  grid-template-columns: 1fr 5fr;
+  gap: 40px;
+  align-items: start;
+  margin-left: 30px;
+  
+}
+
+.foto{
+  display: flex;
+  justify-content: space-between;
+  flex-direction: column;
+  gap: 20px;
+  align-items: center;
+  border-radius: 8px;
+  overflow: hidden;
+  max-width: 100%;
+}
+
+.foto img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 8px;
+}
+
+.texto-filosofia {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+ 
+  margin-right: 20px;
+  margin-bottom: 20px;
+}
+
+.faldon {
+  border:10px solid var(--naranja-corp);
+  /* border-color: var(--naranja-corp); */
+  background-color: var(--beig-corp);
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+  padding: 15px;
+  text-align: center;
+  border-radius: 12px;
+  
+}
+
+.boton-faldon {
+  display: inline-block;
+  background-color: #80A665;
+  color: white;
+  padding: 10px 20px;
+  border-radius: 8px;
+  text-decoration: none;
+  margin-top: 20px;
+  font-weight: bold;
+}
+
+.ingredientes-clave {
+  display: flex;
+  justify-content: center;
+  gap: 30px;
+  margin-top: 20px;
+}
+
+.ingredientes-clave div {
+  font-size: 40px;
+  text-align: center;
+}
+
+.ingredientes-clave span {
+  display: block;
+  margin-top: 10px;
+  font-size: 18px;
+  color: #0B593C;
+}
+
+/***** para el detalle receta *****/
+.acciones-lista {
+  text-align: center;
+  margin-top: 30px;
+  margin-bottom: 20px;
+}
+
+.descargar-lista-btn {
+  /* Reutilizando tu clase de botón verde */
+  padding: 12px 25px !important; /* Ajusta el padding si es necesario */
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  text-decoration: none;
+  font-weight: bold; /* Lo he puesto más bold que el original */
+  transition: background-color 0.3s;
+  background-color: var(--verde-corp);
+  color: var(--white); /* Texto blanco para mejor contraste en verde */
+  font-size: 1em;
+  display: inline-flex; /* Para alinear icono y texto */
+  align-items: center;
+  gap: 8px; /* Espacio entre icono y texto */
+}
+
+.descargar-lista-btn:hover {
+  background-color: var(--primary-dark);
+}
+
+.descargar-lista-btn img {
+  width: 20px; /* Tamaño del icono del carrito */
+  height: auto;
+  filter: brightness(0) invert(1); /* Para que el icono sea blanco */
+}
