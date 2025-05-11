@@ -16,6 +16,9 @@
   <link href="https://fonts.googleapis.com/css2?family=Nunito&display=swap" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
 
+  <!-- // Font Awesome para iconos -->
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
      <!-- hago un truco para evitar problemas de caché que pueden volver loco pensando que no
       se actualizan los cambios -->
     <link rel="stylesheet" href="styles/styles.css?v=<?php echo filemtime('styles/styles.css'); ?>">
@@ -42,7 +45,7 @@
                     <li><a href="trucos.php">Trucos</a></li>
                     <li><a href="planes.php">Planes</a></li>
                     <li><a href="ayuda.php">Ayuda</a></li>
-                    <li><a href="contacto.php">Contacto</a></li>
+                    <li><a href="contacto.php">Contáctanos</a></li>
                 </ul>
             </div>
             <div class="container mb-3">

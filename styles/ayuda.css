@@ -41,6 +41,36 @@
     margin-bottom: 20px; dependiendo de los elementos para no pisar el landing*/
 }
  
+/***************** SECCIÓN FAQ  */
+.contact-faq {
+  background-color: rgb(0, 26, 51, 0.7);
+  border-radius: 10px;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+}
+
+.contact-faq h3 {
+  color: var(--secondary-color);
+  margin-bottom: 20px;
+  text-align: center;
+  font-weight: 600;
+}
+
+.accordion-item {
+  border: none;
+  margin-bottom: 10px;
+}
+
+.accordion-button {
+  background-color: var(--primary-color-light);
+  color: var(--primary-color);
+}
+
+select#tipoConsulta option.opcion {
+
+  color: var(--primary-color) !important;
+}
+
 
 
 /* Responsive Styles */

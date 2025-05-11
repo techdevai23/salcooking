@@ -191,11 +191,14 @@ ul {
     padding: 10px 20px !important;
     border-radius: 4px;
     font-weight: bold;
+    cursor: pointer;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
     transition: background-color 0.3s ease;
 }
 
 .btn-premium:hover {
     background-color: var(--primary-color);
+    transform: translateY(-3px);
 }
 
 .btn-opciones {
@@ -210,13 +213,15 @@ ul {
     font-weight: bold;
     cursor: pointer;
     transition: background-color 0.3s;
+    cursor: pointer;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
     text-align: center;
     text-decoration: none;
     width: fit-content;
 }
 
 .btn-opciones:hover {
-
+transform: translateY(-3px);
     background-color: var(--primary-dark);
 }
 
@@ -231,10 +236,13 @@ ul {
     transition: background-color 0.3s;
     background-color: var(--verde-corp);
     color: #333;
+    cursor: pointer;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
 .action-btn-verde:hover {
     background-color: var(--primary-dark);
+    transform: translateY(-3px);
 }
 
 .action-btn-naranja {
@@ -248,10 +256,13 @@ ul {
     transition: background-color 0.3s;
     background-color: var(--secondary-color);
     color: #333;
+    cursor: pointer;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
 .action-btn-naranja:hover {
     background-color: var(--naranja-corp);
+    transform: translateY(-3px);
 }
 
 .action-btn-rosa {
@@ -266,10 +277,13 @@ ul {
     background-color: var(--terciary-color);
     color: #333;
     box-sizing: border-box;
+    cursor: pointer;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
 .action-btn-rosa:hover {
     background-color: var(--terciary-dark);
+    transform: translateY(-3px);
 }
 
 

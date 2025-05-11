@@ -22,9 +22,10 @@
 
                 <div class="mensaje row-md-6 col-md-3 fondo-tarjeta d-flex flex-column justify-content-center">
                     <p>Puedes <i>consultar y descargar</i> todas las recetas, incluyendo los <b>alérgenos</b> que tiene, de manera <b>gratuita</b>,
-                         y haciéndote <span class="premium">Prémium</span>,
+                        y haciéndote <span class="premium">Prémium</span>,
                         da un paso más hacia una <span class="saludable"> alimentación saludable y segura</span> encontrando recetas <strong>aptas para distintas enfermedades</strong>,
-                  y crearte un <strong>plan de dietas semanal</strong>,    podrás <strong>  descargar recetas</strong>... ¡Y muchas funciones más! ¿A qué estas esperando?</p>
+                        y crearte un <strong>plan de dietas semanal</strong>, podrás <strong> descargar recetas</strong>... ¡Y muchas funciones más! ¿A qué estas esperando? 
+                    </p>
                     <div>
                         <a href="contacto.php" class="btn-premium">Hazte Premium</a>
                     </div>
