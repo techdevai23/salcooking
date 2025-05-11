@@ -237,6 +237,44 @@ textarea.form-control {
   margin-right: 8px;
 }
 
+a {
+    text-decoration:underline;
+    color: inherit;
+}
+
+/* Estilos para el modal de privacidad */
+.modal-dialog {
+  background-color: var(--fondoDIV);
+  border-radius: 10px;
+  padding: 20px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+}
+.modal-header {
+  background-color: var(--fondoDIV);
+  color: var(--primary-color);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+}
+.modal-header h5 {
+  margin: 0;
+  color: var(--primary-color);
+  font-size: 1.5rem;
+}
+.modal-body {
+background-color: rgba(var(--naranja-corp-rgb), 0.2);
+  
+  padding: 20px;
+  text-align: left;
+}
+.modal-body p {
+  margin-bottom: 15px;
+  color: var(--text-color);
+  line-height: 1.6;
+}
+.modal-footer {
+  background-color: var(--fondoDIV);
+  border-top: 1px solid rgba(0, 0, 0, 0.1);
+}
+
 
 /************ Columna derecha - Video ******************/
 .contact-right-column {

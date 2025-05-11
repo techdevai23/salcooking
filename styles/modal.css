@@ -39,18 +39,18 @@
 }
 
 .my-swal-confirm-button {
-    background-color: #27ae60 !important;
+    background-color: var(--secondary-color) !important;
     color: white !important;
     border-radius: 5px !important;
     padding: 10px 24px !important;
     font-size: 16px !important;
     font-weight: 500 !important;
-    box-shadow: 0 3px 8px rgba(39, 174, 96, 0.3) !important;
+    box-shadow: 0 3px 8px rgba(180, 169, 7, 0.3) !important;
 }
 
 .my-swal-confirm-button:hover {
-    background-color: #219653 !important;
-    box-shadow: 0 5px 15px rgba(39, 174, 96, 0.4) !important;
+    background-color: var(--naranja-corp) !important;
+    box-shadow: 0 5px 15px rgba(180, 169, 7, 0.3) !important;
 }
 
 .my-swal-cancel-button {

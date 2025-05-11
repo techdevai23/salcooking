@@ -1,5 +1,5 @@
 <?php
-$css_extra = '<link rel="stylesheet" href="styles/contacto.css">';
+$css_extra = '<link rel="stylesheet" href="styles/contacto.css"><link rel="stylesheet" href="styles/modal.css">';
 ?>
 
 
@@ -63,7 +63,7 @@ $css_extra = '<link rel="stylesheet" href="styles/contacto.css">';
         <div class="contact-form-container">
           <form id="contactForm" class="needs-validation" novalidate>
             <div class="form-group">
-              <label for="nombre"><i class="bi bi-person"></i> Nombre*:</label>
+              <label for="nombre"><i class="bi bi-person"></i> Nombre<b><span style="color:crimson">*</span></b>:</label>
               <input type="text" class="form-control" id="nombre" name="nombre" required
                 data-bs-toggle="tooltip" data-bs-placement="top"
                 title="Campo obligatorio. Introduce tu nombre ">
@@ -73,7 +73,7 @@ $css_extra = '<link rel="stylesheet" href="styles/contacto.css">';
             </div>
 
             <div class="form-group">
-              <label for="email"><i class="bi bi-envelope"></i> Email*:</label>
+              <label for="email"><i class="bi bi-envelope"></i> Email<b><span style="color:crimson">*</span></b>:</label>
               <input type="email" class="form-control" id="email" name="email" required
                 pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" data-bs-toggle="tooltip"
                 data-bs-placement="top" title="Campo obligatorio. Introduce un email válido">
@@ -91,11 +91,11 @@ $css_extra = '<link rel="stylesheet" href="styles/contacto.css">';
                 Por favor, introduce un número de teléfono válido.
               </div>
             </div>
-
+  <p>Es obligatorio que elijas una opción de uno de los selectores <b><span style="color:crimson">*</span></b></p>
             <div class="form-group" id="contacto-premium">
               <label for="modeloRobot"><i class="bi bi-robot"></i> Relacionado con cuenta prémium:</label>
               <select class="form-select" id="modeloRobot" name="modeloRobot" data-bs-toggle="tooltip"
-                data-bs-placement="top" title="Opcional selecciona el modelo de robot">
+                data-bs-placement="top" title="Opcional si elegiste una opcion general" required>
                 <option value="">Seleccione una opción</option>
                 <option value="problemas">Quiero una cuenta prémium. Estoy registrado.</option>
                 <option value="factura">He tenido un problema con el pago.</option>
@@ -108,7 +108,7 @@ $css_extra = '<link rel="stylesheet" href="styles/contacto.css">';
             <div class="form-group">
               <label for="tipoConsulta"><i class="bi bi-question-circle"></i> Solicitar información general:</label>
               <select class="form-select" id="tipoConsulta" name="tipoConsulta" data-bs-toggle="tooltip"
-                data-bs-placement="top" title="Opcional selecciona el tipo de consulta">
+                data-bs-placement="top" title="Opcional si elegiste una opción premium" required>
                 <option id="opcion" class="opcion" value="">Selecciona una opción</option>
                 <option value="dudas">Quiero registrarme</option>
                 <option value="compra">He tenido un problema en el momento de registro.</option>
@@ -119,14 +119,14 @@ $css_extra = '<link rel="stylesheet" href="styles/contacto.css">';
 
 
 
-            <p>Nos pondremos en contacto contigo en menos de 24 horas</p>
+            <p>Es obligatorio que elijas una opción de uno de los selectores</p>
 
 
             <div class="form-check mb-3">
               <input type="checkbox" class="form-check-input" id="privacidad" name="privacidad" required>
               <label class="form-check-label" for="privacidad">
                 He leído y acepto la <a href="#" data-bs-toggle="modal"
-                  data-bs-target="#privacidadModal">política de privacidad</a>*
+                  data-bs-target="#privacidadModal">política de privacidad</a><b><span style="color:crimson">*</span></b>
               </label>
               <div class="invalid-feedback">
                 Debes aceptar la política de privacidad.
@@ -176,8 +176,106 @@ $css_extra = '<link rel="stylesheet" href="styles/contacto.css">';
       </div>
     </div>
 
+      <!-- Modal Política de Privacidad -->
+    <div class="modal fade" id="privacidadModal" tabindex="-1" aria-labelledby="privacidadModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog modal-dialog-scrollable">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="privacidadModalLabel">Política de Privacidad de Salcooking</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                   
+                    <p>En Salcooking, nos comprometemos a proteger y respetar tu privacidad. Esta política describe cómo
+                        recopilamos y procesamos tus datos personales.</p>
+
+                    <h5>1. Datos que recopilamos</h5>
+                    <p>Recopilamos la información que nos proporcionas a través de nuestros formularios, incluyendo
+                        nombre, dirección de correo electrónico, número de teléfono y detalles sobre tu consulta o
+                        problema.</p>
+
+                    <h5>2. Cómo utilizamos tus datos</h5>
+                    <p>Utilizamos tus datos para:</p>
+                    <ul>
+                        <li>Responder a tus consultas y proporcionar soporte técnico</li>
+                        <li>Mejorar nuestros productos y servicios</li>
+                        <li>Enviarte información relevante sobre nuestros productos (si has dado tu consentimiento)</li>
+                    </ul>
+
+                    <h5>3. Protección de datos</h5>
+                    <p>Implementamos medidas de seguridad técnicas y organizativas para proteger tus datos personales
+                        contra accesos no autorizados, pérdida o alteración.</p>
+
+                    <h5>4. Tus derechos</h5>
+                    <p>Tienes derecho a acceder, rectificar, limitar o eliminar tus datos personales. Para ejercer estos
+                        derechos, contáctanos en privacy@techdevai.es.</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn-opciones" data-bs-dismiss="modal">Cerrar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+      document.addEventListener('DOMContentLoaded', function() {
 
 
+        // Configuración del formulario
+        const paymentForm = document.getElementById('contactForm');
+
+        paymentForm.addEventListener('submit', function(e) {
+          e.preventDefault(); // Previene que el formulario se envíe
+
+          
+      // Validar que al menos uno de los dos select tenga un valor seleccionado
+      if (!modeloRobot.value && !tipoConsulta.value) {
+        e.stopPropagation(); // Detener la propagación si no es válido
+        modeloRobot.classList.add('is-invalid');
+        tipoConsulta.classList.add('is-invalid');
+        return; // Salir si ninguno de los dos tiene un valor
+      } else {
+        modeloRobot.classList.remove('is-invalid');
+        tipoConsulta.classList.remove('is-invalid');
+      }
+
+          // Validar el formulario
+          if (paymentForm.checkValidity() === false) {
+            e.stopPropagation(); // Detener la propagación si no es válido
+            paymentForm.classList.add('was-validated'); // Agregar clase de validación
+            return; // Salir si el formulario no es válido
+          }
+
+          // Si el formulario es válido, Sweet Alert personalizado para confirmación de pago
+          Swal.fire({
+            title: '¡Formulario Procesado Correctamente!',
+            html: `
+                        <p>Pronto tendrás noticas nuestras. Guarde este número de seguimiento</p>
+                        <p>Nº: <strong>${Math.floor(1000000 + Math.random() * 9000000)}</strong></p>
+                    `,
+            icon: 'success',
+            showCancelButton: true,
+            confirmButtonText: 'Volver al inicio',
+            cancelButtonText: 'Cerrar y seguir en ésta página',
+            customClass: {
+              container: 'my-swal-container',
+              popup: 'my-swal-popup',
+              header: 'my-swal-header',
+              title: 'my-swal-title',
+              content: 'my-swal-content',
+              confirmButton: 'my-swal-confirm-button',
+              cancelButton: 'my-swal-cancel-button'
+            }
+          }).then((result) => {
+            if (result.isConfirmed) {
+              window.location.href = 'index.php'; // Redirigir al inicio
+            }
+          });
+        });
+      });
+      // Fin Validación del formulario
+    </script>
 
 
 

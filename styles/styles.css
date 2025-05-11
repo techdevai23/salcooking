@@ -7,7 +7,8 @@
     --terciary-dark: #BF6576;
     --verde-corp: #80A665;
     --negro-verdoso: #2D3E2E;
-    --naranja-corp: #D98B2B;
+    --naranja-corp: rgb(217, 139, 43);
+    --naranja-corp-rgb: 217, 139, 43; /* Solo valores RGB para difuminados*/
     --text-color: #080808;
     --beig-corp: #F2EADF;
     --white: #ffffff;
