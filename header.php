@@ -33,7 +33,7 @@
 <body>
     <header class="main-header">
         <div class="logo-cabecera">
-            <a href="index.php"><img src="images/logos/cabecera.png" alt="SalCooking cabecera Logo"></a>
+            <a href="index.php"><img src="sources/logos/cabecera.png" alt="SalCooking cabecera Logo"></a>
         </div>
         <nav class="top-nav mb-2">
             <div class="container">
@@ -51,22 +51,22 @@
             <div class="container mb-3">
                 <div class="header-content">
                     <div class="logo d-none d-md-block">
-                        <a href="index.php"><img src="images//logos/logo.png" alt="SalCooking Logo"></a>
+                        <a href="index.php"><img src="sources//logos/logo.png" alt="SalCooking Logo"></a>
                     </div>
                     <div class="search-box">
                         <form action="resultado-recetas.php" method="get">
                             <input type="text" placeholder="Busca recetas" name="query">
-                            <button type="submit"><img src="images/iconos/Search-Circle--Streamline-Ultimate.svg" alt="User Icon" style="width: 24px; height: 24px;"></button>
+                            <button type="submit"><img src="sources/iconos/Search-Circle--Streamline-Ultimate.svg" alt="User Icon" style="width: 24px; height: 24px;"></button>
                         </form>
                     </div>
                     <div class="premium-button">
-                        <a href="contacto.php" class="btn-premium">Hazte Premium</a>
+                        <a href="perfil.php" class="btn-premium">Hazte Premium</a>
                     </div>
                     <!-- icono de usuario con enlace a web de usuario -->
                     <div class="header-actions">
 
                         <div class="user-icon">
-                            <a href="login.php"><img src="images/iconos/Single-Neutral-Circle--Streamline-Ultimate.svg" alt="User Icon" style="width: 34px; height: 34px;"></a>
+                            <a href="login.php"><img src="sources/iconos/Single-Neutral-Circle--Streamline-Ultimate.svg" alt="User Icon" style="width: 34px; height: 34px;"></a>
                         </div>
                     </div>
 

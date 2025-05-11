@@ -14,7 +14,7 @@ $css_extra = '<link rel="stylesheet" href="styles/contacto.css"><link rel="style
       <li class="current">Contáctanos</li>
     </ul>
     <div class="volver-atras-contenedor">
-      <a href="javascript:history.back()" class="volver-atras"><img src="images/iconos/Arrow-Thick-Left-3--Streamline-Ultimate.svg" width="32px" alt="icono atrás"></a>
+      <a href="javascript:history.back()" class="volver-atras"><img src="sources/iconos/Arrow-Thick-Left-3--Streamline-Ultimate.svg" width="32px" alt="icono atrás"></a>
     </div>
   </div>
 </div>
@@ -26,7 +26,7 @@ $css_extra = '<link rel="stylesheet" href="styles/contacto.css"><link rel="style
   <div class="contenedor-Contacto">
 
     <div class="titulo">
-      <img src="images/iconos/contact--Streamline-Ultimate.svg" alt="Contacto">
+      <img src="sources/iconos/contact--Streamline-Ultimate.svg" alt="Contacto">
       <h1>Contáctanos</h1>
     </div>
 
@@ -45,7 +45,7 @@ $css_extra = '<link rel="stylesheet" href="styles/contacto.css"><link rel="style
             Si ya estas registrado elige <i>"Hacer el pago"</i>, si no <i>"Quiero registrarme"</i>. Tienes otras opciones también,
             porque no queremos que te quedes con ninguna duda. <strong>Porque tú y tu salud sois nuestra razón de ser</strong></p>
           <div class="imagen-contacto">
-            <img src="images/logos/tarjeta-salcooking-letras-grandes.png" alt="tarjeta salcooking" width="200px" class="tarjeta-imagen">
+            <img src="sources/logos/tarjeta-salcooking-letras-grandes.png" alt="tarjeta salcooking" width="200px" class="tarjeta-imagen">
 
 
           </div>
@@ -146,7 +146,7 @@ $css_extra = '<link rel="stylesheet" href="styles/contacto.css"><link rel="style
           <!-- VIDEO-->
           <div class="video-container">
             <video autoplay loop muted playsinline class="vertical-video" style="width: 100%;">
-              <source src="images/videos/letras-brillan-y-desaparecen-comprimido-2.mp4" type="video/mp4">
+              <source src="sources/videos/letras-brillan-y-desaparecen-comprimido-2.mp4" type="video/mp4">
               Tu navegador no soporta videos.
             </video>
           </div>

@@ -15,7 +15,7 @@ $css_extra = '<link rel="stylesheet" href="styles/trucos.css">';
       <li class="current">Categoría Recetas</li>
     </ul>
     <div class="volver-atras-contenedor">
-      <a href="javascript:history.back()" class="volver-atras"><img src="images/iconos/Arrow-Thick-Left-3--Streamline-Ultimate.svg" width="32px" alt="icono atrás"></a>
+      <a href="javascript:history.back()" class="volver-atras"><img src="sources/iconos/Arrow-Thick-Left-3--Streamline-Ultimate.svg" width="32px" alt="icono atrás"></a>
     </div>
   </div>
 </div>
@@ -30,13 +30,13 @@ $css_extra = '<link rel="stylesheet" href="styles/trucos.css">';
     <div class="container-trucos">
 
     <div class="titulo">
-  <img src="images/iconos/Navigation-Menu-1--Streamline-Ultimate.svg"  alt="Book Star - Libro destacado">
+  <img src="sources/iconos/Navigation-Menu-1--Streamline-Ultimate.svg"  alt="Book Star - Libro destacado">
   <h1>Categorias de recetas</h1>
   </div>
        
   <div class="contenido-trucos">
             <a href="resultado-recetas.php" class="tarjeta-receta">
-                <img class="foto-truco" src="images/platos/entrante1.png" alt="plato entrante" style="width: 150px;">
+                <img class="foto-truco" src="sources/platos/entrante1.png" alt="plato entrante" style="width: 150px;">
                 <div class="texto-truco">
                     <h2>Entrante</h2>
                     <div class="tip-content">
@@ -46,7 +46,7 @@ $css_extra = '<link rel="stylesheet" href="styles/trucos.css">';
             </a>
 
             <a href="resultado-recetas.php" class="tarjeta-receta">
-                <img class="foto-truco" src="images/platos/principal1.png" alt="plato principal" style="width: 150px;">
+                <img class="foto-truco" src="sources/platos/principal1.png" alt="plato principal" style="width: 150px;">
                 <div class="texto-truco">
                     <h2>Plato principal</h2>
                     <div class="tip-content">
@@ -56,7 +56,7 @@ $css_extra = '<link rel="stylesheet" href="styles/trucos.css">';
             </a>
 
             <a href="resultado-recetas.php" class="tarjeta-receta">
-              <img class="foto-truco" src="images/platos/postre3.png" alt="ajo" style="width: 150px;">
+              <img class="foto-truco" src="sources/platos/postre3.png" alt="ajo" style="width: 150px;">
               <div class="texto-truco">
                 <h2>Postre</h2>
                 <div class="tip-content">

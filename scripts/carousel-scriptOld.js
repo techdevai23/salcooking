@@ -8,31 +8,31 @@ document.addEventListener('DOMContentLoaded', function() {
     // Datos de las recetas (estas serían reemplazadas por datos reales de PHP)
     const recetas = [
         {
-            imagen: "images/platos/postre1.png",
+            imagen: "sources/platos/postre1.png",
             titulo: "Tarta con frutos rojos y nueces (con edulcorante)",
             tags: [{ clase: "secos", texto: "Frutos secos" }],
             url: "receta-ejemplo.php"
         },
         {
-            imagen: "images/platos/entrante1.png",
+            imagen: "sources/platos/entrante1.png",
             titulo: "Ensalada César Clásica",
             tags: [{ clase: "gluten", texto: "Contiene Gluten" }],
             url: "receta-detalle.php"
         },
         {
-            imagen: "images/platos/entrante1.png",
+            imagen: "sources/platos/entrante1.png",
             titulo: "Pescado con verduras",
             tags: [{ clase: "pescado", texto: "Contiene Pescado" }],
             url: "receta-detalle.php"
         },
         {
-            imagen: "images/recipes/albondigas.jpg",
+            imagen: "sources/recipes/albondigas.jpg",
             titulo: "Albóndigas en salsa de tomate",
             tags: [],
             url: "receta-detalle.php"
         },
         {
-            imagen: "images/platos/entrante2.png",
+            imagen: "sources/platos/entrante2.png",
             titulo: "Pasta con gambas y piñones",
             tags: [
                 { clase: "secos", texto: "Frutos secos" },
@@ -41,7 +41,7 @@ document.addEventListener('DOMContentLoaded', function() {
             url: "receta-detalle.php"
         },
         {
-            imagen: "images/platos/postre3.png",
+            imagen: "sources/platos/postre3.png",
             titulo: "Tarta de queso y frutos rojos",
             tags: [{ clase: "diabetes", texto: "No apto diabetes" }],
             url: "receta-detalle.php"

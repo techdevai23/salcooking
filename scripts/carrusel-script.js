@@ -8,52 +8,52 @@ document.addEventListener('DOMContentLoaded', function () {
     // Datos de las recetas (estas serían reemplazadas por datos reales de PHP)
     const recetas = [
         {
-            imagen: "images/platos/postre1.png",
+            imagen: "sources/platos/postre1.png",
             titulo: "Tarta con frutos rojos y nueces (con edulcorante)",
             tags: [{ clase: "tag-plato", texto: "POSTRE" },
             { clase: "secos", texto: "Frutos secos" },
             ],
 
-            url: "receta-ejemplo.php"
+            url: "detalle-receta.php?id=23"
         },
         {
-            imagen: "images/platos/entrante1.png",
+            imagen: "sources/platos/entrante1.png",
             titulo: "Ensalada César Clásica",
             tags: [
                 { clase: "tag-plato", texto: "ENTRANTE" },
                 { clase: "gluten", texto: "Contiene Gluten" }],
-            url: "receta-detalle.php"
+            url: "detalle-receta.php?id=23"
         },
         {
-            imagen: "images/platos/principal1.png",
+            imagen: "sources/platos/principal1.png",
             titulo: "Pescado con verduras",
             tags: [{ clase: "tag-plato", texto: "PRINCIPAL" },
                 { clase: "pescado", texto: "Contiene Pescado" }],
-            url: "receta-detalle.php"
+            url: "detalle-receta.php?id=23"
         },
         {
-            imagen: "images/PLATOS/PRINCIPAL2.PNG",
+            imagen: "sources/PLATOS/PRINCIPAL2.PNG",
             titulo: "Atún con verduras asadas y piñones",
             tags: [{ clase: "tag-plato", texto: "PRINCIPAL" },
                 { clase: "secos", texto: "Frutos secos" },
                 { clase: "pescado", texto: "Contiene Pescado" }],
-            url: "receta-detalle.php"
+            url: "detalle-receta.php?id=23"
         },
         {
-            imagen: "images/platos/entrante2.png",
+            imagen: "sources/platos/entrante2.png",
             titulo: "Pasta con gambas y almendras",
             tags: [{ clase: "tag-plato", texto: "ENTRANTE" },
                 { clase: "secos", texto: "Frutos secos" },
                 { clase: "marisco", texto: "Contiene Marisco" }
             ],
-            url: "receta-detalle.php"
+            url: "detalle-receta.php?id=23"
         },
         {
-            imagen: "images/platos/postre3.png",
+            imagen: "sources/platos/postre3.png",
             titulo: "Tarta de queso y frutos rojos",
             tags: [{ clase: "tag-plato", texto: "POSTRE" },
                 { clase: "diabetes", texto: "No apto diabetes" }],
-            url: "receta-detalle.php"
+            url: "detalle-receta.php?id=23"
         }
     ];
 

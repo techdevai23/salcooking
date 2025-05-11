@@ -18,7 +18,7 @@ $css_extra = '<link rel="stylesheet" href="styles/dieta-semana.css">';
 <section class="dieta-semana">
     <div class="main-content">
         <div class="titulo">
-            <img src="images/iconos/semana.svg" alt="calendario semana">
+            <img src="sources/iconos/semana.svg" alt="calendario semana">
             <h1>Dieta del Día</h1>
 
         </div>
@@ -87,7 +87,7 @@ $css_extra = '<link rel="stylesheet" href="styles/dieta-semana.css">';
             <div class="meal-section" id="izq">
                 <h2>Desayuno</h2>
                 <div class="meal-container">
-                    <div class="meal-item"><img src="images/platos/id17.png" alt="Desayuno Martes">
+                    <div class="meal-item"><img src="sources/platos/id17.png" alt="Desayuno Martes">
                         <h3>Lunes</h3>
                         <p>Yogur Natural con Copos de Avena y Plátano</p>
                     </div>
@@ -99,16 +99,16 @@ $css_extra = '<link rel="stylesheet" href="styles/dieta-semana.css">';
                 <h2>Comida</h2>
                 <div class="meal-container">
 
-                    <div class="meal-item"><img src="images/platos/id33.png" alt="Almuerzo Martes">
+                    <div class="meal-item"><img src="sources/platos/id33.png" alt="Almuerzo Martes">
                         <h3>Martes</h3>
                         <p>Lentejas Estofadas con Verduras</p>
                     </div>
-                    <div class="meal-item"><img src="images/platos/id16.png" alt="Almuerzo Miércoles">
+                    <div class="meal-item"><img src="sources/platos/id16.png" alt="Almuerzo Miércoles">
                         <h3>Miércoles</h3>
                         <p>Bonito a la plancha con Pimientos al Ajillo</p>
                     </div>
 
-                    <div class="meal-item"><img src="images/platos/id30.png" alt="Almuerzo Sábado">
+                    <div class="meal-item"><img src="sources/platos/id30.png" alt="Almuerzo Sábado">
                         <h3>Sábado</h3>
                         <p></p>
                     </div>
@@ -120,7 +120,7 @@ $css_extra = '<link rel="stylesheet" href="styles/dieta-semana.css">';
                 <h2>Cena</h2>
                 <div class="meal-container">
 
-                    <div class="meal-item"><img src="images/platos/id26.png" alt="Cena lunes">
+                    <div class="meal-item"><img src="sources/platos/id26.png" alt="Cena lunes">
                         <h3>Lunes</h3>
                         <p>Bowl Macrobiótico de Mijo con Verduras y Tahini</p>
                     </div>

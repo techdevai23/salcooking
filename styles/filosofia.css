@@ -24,7 +24,7 @@
   left: 0;
   right: 0;
   bottom: 0;
-  background-image: url('../images/solo-fondo.png');
+  background-image: url('../sources/solo-fondo.png');
   background-size: 100% 100%;
   background-position: center;
   background-repeat: no-repeat;
@@ -48,7 +48,7 @@
   justify-content: space-between;
   flex-direction: column;
   gap: 20px;
-  align-items: center;
+  align-items: left;
   border-radius: 8px;
   overflow: hidden;
   max-width: 100%;
@@ -58,6 +58,7 @@
   max-width: 100%;
   height: auto;
   border-radius: 8px;
+  align-items: center;
 }
 
 .texto-filosofia {
@@ -142,4 +143,93 @@
   width: 20px; /* Tamaño del icono del carrito */
   height: auto;
   filter: brightness(0) invert(1); /* Para que el icono sea blanco */
+}
+
+/*************modal audio*************/
+
+.filosofia-modal {
+  display: none; /* Oculto por defecto */
+  position: fixed;
+  z-index: 999;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(13, 24, 17, 0.5); /* Negro verdoso translúcido */
+  padding: 20px;
+  overflow: auto; /* Permite desplazamiento si el modal es más grande que la pantalla */
+}
+
+/* Contenedor que centra el contenido del modal */
+.filosofia-modal-dialog {
+  position: relative;
+  width: auto;
+  margin: 8% auto; /* Centra verticalmente y horizontalmente */
+  pointer-events: none; /* Permite que los clics pasen al modal */
+  max-width: 500px; /* Ancho máximo */
+}
+
+.filosofia-modal-content {
+  background-color: var(--verde-corp);
+  color: #0C0C0C;
+  padding: 2rem;
+  border-radius: 12px;
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.4);
+  text-align: center;
+  position: relative; /* Para el posicionamiento correcto del botón de cierre */
+  pointer-events: auto; /* Activa los eventos de clic en el contenido */
+  animation: modalFadeIn 0.3s ease; /* Animación de aparición */
+}
+
+.close {
+  color: #D98B2B; /* Naranja */
+  font-size: 28px;
+  font-weight: bold;
+  position: absolute;
+  right: 1rem;
+  top: 1rem;
+  cursor: pointer;
+  transition: color 0.2s;
+}
+
+.close:hover {
+  color: #B56E1E; /* Naranja más oscuro al pasar el ratón */
+}
+
+/* Clase para el efecto de desenfoque del fondo */
+.blur-background {
+  filter: blur(4px);
+  transition: filter 0.3s ease;
+}
+
+/* Prevenir scroll en el body cuando el modal está abierto */
+body.modal-open {
+  overflow: hidden;
+}
+
+/* Animación para la aparición del modal */
+@keyframes modalFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-50px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Estilo para el botón que abre el modal (añadir a tu HTML) */
+.boton-audio {
+  background-color: #D98B2B;
+  color: white;
+  padding: 10px 15px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.boton-audio:hover {
+  background-color: #B56E1E;
 }

@@ -5,23 +5,24 @@ $css_extra = '<link rel="stylesheet" href="styles/login.css">';
 <?php include 'header.php'; ?>
 
 <!-- migas -->
-<div class="migas-container">
-  <div class="container migas-flex">
-    <ul class="migas">
-      <li><a href="index.php">Inicio</a></li>
-      <li class="current">Login</li>
-    </ul>
-    <div class="volver-atras-contenedor">
-      <a href="javascript:history.back()" class="volver-atras"><img src="images/iconos/Arrow-Thick-Left-3--Streamline-Ultimate.svg" width="32px" alt="icono atrás"></a>
+ <!-- migas -->
+  <div class="migas-container">
+    <div class="container migas-flex">
+      <ul class="migas">
+        <li><a href="index.php">Inicio</a></li>
+        <li class="current">Login</li>
+      </ul>
+      <div class="volver-atras-contenedor">
+        <a href="javascript:history.back()" class="volver-atras"><img src="sources/iconos/Arrow-Thick-Left-3--Streamline-Ultimate.svg" width="32px" alt="icono atrás"></a>
+      </div>
     </div>
   </div>
-</div>
 
 <!-- Contenido principal-->
 <section class="login-section">
     <div class="contenedor-nombre-landing">
         <div class="titulo">
-            <img src="images/iconos/Dial-Finger-1--Streamline-Ultimate.svg" alt="Icono identificación">
+            <img src="sources/iconos/Dial-Finger-1--Streamline-Ultimate.svg" alt="Icono identificación">
             <h1>Identificación</h1>
         </div>
        
@@ -58,7 +59,7 @@ $css_extra = '<link rel="stylesheet" href="styles/login.css">';
             </div>
             
             <div class="login-logo">
-              <a href="index.php"><img src="images//logos/salcooking-solo-logo- cuadrado.png" alt="SalCooking Logo"></a>  
+              <a href="index.php"><img src="sources//logos/salcooking-solo-logo- cuadrado.png" alt="SalCooking Logo"></a>  
             </div>
         </div>
     </div>

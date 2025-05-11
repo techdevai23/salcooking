@@ -31,7 +31,7 @@ $ingredientes_compra_falsos = [
       <li class="current">Lista de la Compra (Estática)</li>
     </ul>
     <div class="volver-atras-contenedor">
-      <a href="javascript:history.back()" class="volver-atras"><img src="images/iconos/Arrow-Thick-Left-3--Streamline-Ultimate.svg" width="32px" alt="icono atrás"></a>
+      <a href="javascript:history.back()" class="volver-atras"><img src="sources/iconos/Arrow-Thick-Left-3--Streamline-Ultimate.svg" width="32px" alt="icono atrás"></a>
     </div>
   </div>
 </div>
@@ -41,7 +41,7 @@ $ingredientes_compra_falsos = [
     <div class="contenedor-lista-semana"> <!-- Usamos clase lista-semana para el layout base -->
 
         <div class="titulo">
-            <img src="images/iconos/Shopping-Basket-3--Streamline-Ultimate.svg" width="48px" alt="Carrito de la compra">
+            <img src="sources/iconos/Shopping-Basket-3--Streamline-Ultimate.svg" width="48px" alt="Carrito de la compra">
             <h1>Lista de la compra (Ejemplo Estático)</h1>
         </div>
        
@@ -65,7 +65,7 @@ $ingredientes_compra_falsos = [
 
             <div class="acciones-lista">
             <button class="descargar-lista-btn" onclick="descargarListaPDF('lista-compra.pdf', 'Lista de la Compra')">
-                    <img src="images/iconos/Arrow-Double-Down-1--Streamline-Ultimate.svg" alt="Descargar">
+                    <img src="sources/iconos/Arrow-Double-Down-1--Streamline-Ultimate.svg" alt="Descargar">
                     Descargar lista ingredientes
                 </button>
             </div>

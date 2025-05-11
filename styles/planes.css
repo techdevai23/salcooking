@@ -23,7 +23,7 @@
     right: 0;
     bottom: 0;
     
-    background-image: url('../images/solo-fondo.png');
+    background-image: url('../sources/solo-fondo.png');
     background-size: 102% 100%; /* Fuerza la imagen a adaptarse al tamaño del contenedor */
     background-position: center;
     background-repeat: no-repeat;
@@ -41,43 +41,213 @@
     margin-bottom: 20px; dependiendo de los elementos para no pisar el landing*/
 }
  
+/* Estilos específicos para la página de planes */
 
+.contenedor-planes-landing {
+    position: relative;
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 30px;
+    background-color: transparent;
+    min-height: 800px; 
+    overflow: hidden;
+}
+
+.contenedor-planes-landing::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-image: url('../sources/solo-fondo.png');
+    background-size: 102% 100%;
+    background-position: center;
+    background-repeat: no-repeat;
+    z-index: -1;
+    opacity: 0.5;
+}
+
+.contenido-planes-landing {
+    position: relative; 
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 30px;
+    margin-top: 30px;
+}
+
+/* Estilos para la tabla */
+.planes-tabla-container {
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+}
+
+.planes-tabla-container h2 {
+    text-align: center;
+    margin-bottom: 20px;
+    color: #333;
+}
+
+.planes-tabla table {
+    width: 100%;
+    border-collapse: collapse;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+.planes-tabla th, 
+.planes-tabla td {
+    padding: 12px 15px;
+    text-align: center;
+    border-bottom: 1px solid #eee;
+}
+
+.planes-tabla th {
+    background-color: #f8f9fa;
+    font-weight: 600;
+    color: #333;
+    position: relative;
+}
+
+.planes-tabla th.columna-visitante {
+    background-color: #e9ecef;
+    color: #495057;
+}
+
+.planes-tabla th.columna-registrado {
+    background-color: #c8e6c9;
+    color: #2e7d32;
+}
+
+.planes-tabla th.columna-premium {
+    background-color: #bbdefb;
+    color: #1565c0;
+}
+
+.planes-tabla th .subtitulo {
+    display: block;
+    font-size: 0.75em;
+    font-weight: normal;
+    margin-top: 4px;
+}
+
+.planes-tabla tbody tr:hover {
+    background-color: #f8f9fa;
+}
+
+.planes-tabla td:first-child {
+    text-align: left;
+    font-weight: 500;
+}
+
+.planes-tabla .check {
+    color: #4caf50;
+    font-size: 1.2em;
+    font-weight: bold;
+}
+
+.planes-tabla .cross {
+    color: #f44336;
+    font-size: 1.2em;
+    font-weight: bold;
+}
+
+.planes-tabla .check-note {
+    color: #4caf50;
+    font-size: 1.2em;
+    font-weight: bold;
+    position: relative;
+}
+
+.planes-tabla .check-note .nota {
+    font-size: 0.7em;
+    color: #757575;
+    display: block;
+    font-weight: normal;
+}
+
+/* Estilos para la descripción */
+.planes-descripcion {
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+}
+
+.planes-descripcion h2 {
+    text-align: center;
+    margin-bottom: 20px;
+    color: #333;
+}
+
+.plan-card {
+    margin-bottom: 20px;
+    padding: 15px;
+    border-radius: 8px;
+    background-color: #f9f9f9;
+}
+
+.plan-card h3 {
+    margin-top: 0;
+    color: #333;
+}
+
+.plan-card.visitante {
+    border-left: 4px solid #6c757d;
+}
+
+.plan-card.registrado {
+    border-left: 4px solid #4caf50;
+}
+
+.plan-card.premium {
+    border-left: 4px solid #2196f3;
+}
+
+.plan-card ul {
+    padding-left: 20px;
+}
+
+.plan-card li {
+    margin-bottom: 5px;
+}
+
+.notas {
+    margin-top: 30px;
+    font-size: 0.85em;
+    color: #6c757d;
+}
+
+.notas p {
+    margin: 5px 0;
+}
 
 /* Responsive Styles */
 @media (max-width: 992px) {
-    .results-container {
+    .contenido-planes-landing {
         grid-template-columns: 1fr;
-    }
-    
-    .filters-sidebar {
-        order: 2;
-    }
-    
-    .results-grid {
-        order: 1;
     }
 }
 
 @media (max-width: 768px) {
-    .results-grid {
-        grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    .planes-tabla {
+        overflow-x: auto;
     }
     
-    .recipe-info-grid {
-        grid-template-columns: 1fr;
+    .planes-tabla table {
+        min-width: 600px;
     }
 }
 
 @media (max-width: 576px) {
-    .results-grid {
-        grid-template-columns: 1fr;
+    .contenedor-planes-landing {
+        padding: 15px;
     }
     
-    .recipe-title {
-        font-size: 1.5rem;
-    }
-    
-    .tarjeta-truco {
+    .planes-tabla-container,
+    .planes-descripcion {
         padding: 15px;
     }
 }

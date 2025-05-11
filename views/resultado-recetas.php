@@ -67,7 +67,7 @@
             <!-- Grid de resultados -->
             <div class="results-grid">
                 <div class="recipe-card">
-                    <img src="images/recipes/sopa-fideos.jpg" alt="Sopa de fideos con pollo">
+                    <img src="sources/recipes/sopa-fideos.jpg" alt="Sopa de fideos con pollo">
                     <div class="recipe-info">
                         <h4>Sopa de fideos con pollo y zanahoria</h4>
                         <p class="recipe-tags">
@@ -80,7 +80,7 @@
                 </div>
                 
                 <div class="recipe-card">
-                    <img src="images/recipes/ensalada-cesar.jpg" alt="Ensalada César">
+                    <img src="sources/recipes/ensalada-cesar.jpg" alt="Ensalada César">
                     <div class="recipe-info">
                         <h4>Ensalada César Clásica</h4>
                         <p class="recipe-tags">
@@ -92,7 +92,7 @@
                 </div>
                 
                 <div class="recipe-card">
-                    <img src="images/recipes/pollo-asado.jpg" alt="Pollo asado con patatas">
+                    <img src="sources/recipes/pollo-asado.jpg" alt="Pollo asado con patatas">
                     <div class="recipe-info">
                         <h4>Pollo asado con patatas y romero</h4>
                         <p class="recipe-tags">
@@ -104,7 +104,7 @@
                 </div>
                 
                 <div class="recipe-card">
-                    <img src="images/recipes/albondigas.jpg" alt="Albóndigas en salsa">
+                    <img src="sources/recipes/albondigas.jpg" alt="Albóndigas en salsa">
                     <div class="recipe-info">
                         <h4>Albóndigas en salsa de tomate</h4>
                         <p class="recipe-tags">
@@ -116,7 +116,7 @@
                 </div>
                 
                 <div class="recipe-card">
-                    <img src="images/recipes/pasta-pesto.jpg" alt="Pasta al pesto">
+                    <img src="sources/recipes/pasta-pesto.jpg" alt="Pasta al pesto">
                     <div class="recipe-info">
                         <h4>Pasta al pesto con piñones</h4>
                         <p class="recipe-tags">
@@ -129,7 +129,7 @@
                 </div>
                 
                 <div class="recipe-card">
-                    <img src="images/recipes/gazpacho.jpg" alt="Gazpacho andaluz">
+                    <img src="sources/recipes/gazpacho.jpg" alt="Gazpacho andaluz">
                     <div class="recipe-info">
                         <h4>Gazpacho andaluz tradicional</h4>
                         <p class="recipe-tags">

@@ -2,7 +2,7 @@
 $host = "127.0.0.1";      // o 127.0.0.1
 $usuario = "admin";       
 $contrasena = "osso";         
-$basedatos = "recooking"; 
+$basedatos = "salcooking"; 
 $puerto = 3306;
 
 $conexion = new mysqli($host, $usuario, $contrasena, $basedatos, $puerto);

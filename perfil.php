@@ -7,6 +7,7 @@ $nombre_pagina = "Perfil-Ajustes"; // Para el título y migas
 <?php include 'header.php'; ?>
 
 <body class="usuario-logueado"> <!-- Clase para JS, simula usuario existente -->
+  
   <!-- migas -->
   <div class="migas-container">
     <div class="container migas-flex">
@@ -15,7 +16,7 @@ $nombre_pagina = "Perfil-Ajustes"; // Para el título y migas
         <li class="current"><?php echo htmlspecialchars($nombre_pagina); ?></li>
       </ul>
       <div class="volver-atras-contenedor">
-        <a href="javascript:history.back()" class="volver-atras"><img src="images/iconos/Arrow-Thick-Left-3--Streamline-Ultimate.svg" width="32px" alt="icono atrás"></a>
+        <a href="javascript:history.back()" class="volver-atras"><img src="sources/iconos/Arrow-Thick-Left-3--Streamline-Ultimate.svg" width="32px" alt="icono atrás"></a>
       </div>
     </div>
   </div>
@@ -27,7 +28,7 @@ $nombre_pagina = "Perfil-Ajustes"; // Para el título y migas
     <div class="contenedor-Perfil-Ajustes">
 
       <div class="titulo">
-        <img src="images/iconos/Book-Star--Streamline-Ultimate.svg" alt="Icono Perfil">
+        <img src="sources/iconos/Book-Star--Streamline-Ultimate.svg" alt="Icono Perfil">
         <h1><?php echo htmlspecialchars($nombre_pagina); ?></h1>
       </div>
 
@@ -63,8 +64,8 @@ $nombre_pagina = "Perfil-Ajustes"; // Para el título y migas
               <label for="fecha_nacimiento">Edad:</label> <!-- En la imagen dice "Edad:" y luego el campo muestra // -->
               <div style="display: flex; align-items: center;">
                 <input type="text" id="fecha_nacimiento_display" name="fecha_nacimiento_display" value="//" style="width: 80px; text-align: center;">
-                <img src="images/iconos/calendar_icon.svg" alt="calendario" style="width:24px; height:24px; margin-left: 10px; cursor:pointer;" title="Seleccionar fecha de nacimiento">
-                <!-- Nota: necesitarías un icono de calendario real en images/iconos/calendar_icon.svg -->
+                <img src="sources/iconos/calendar_icon.svg" alt="calendario" style="width:24px; height:24px; margin-left: 10px; cursor:pointer;" title="Seleccionar fecha de nacimiento">
+                <!-- Nota: necesitarías un icono de calendario real en sources/iconos/calendar_icon.svg -->
               </div>
             </div>
 
@@ -125,7 +126,7 @@ $nombre_pagina = "Perfil-Ajustes"; // Para el título y migas
           <div class="premium-section" style="margin-top:30px;">
             <h3>
               Opciones Prémium
-              <img src="images/iconos/info_icon.svg" alt="info" class="info-icon" title="Funcionalidades exclusivas para usuarios premium" style="width:20px; height:20px;">
+              <img src="sources/iconos/info_icon.svg" alt="info" class="info-icon" title="Funcionalidades exclusivas para usuarios premium" style="width:20px; height:20px;">
               <!-- Reemplaza 'info_icon.svg' con un icono real -->
             </h3>
             <div class="premium-options-grid">
@@ -134,9 +135,8 @@ $nombre_pagina = "Perfil-Ajustes"; // Para el título y migas
                 <select id="intolerancias" name="intolerancias[]" multiple style="min-height: 100px;">
                   <option selected>Gluten</option>
                   <option>Frutos secos</option>
-                  <option selected>Pescado</option>
-                  <option>Lactosa</option>
-                  <option>Marisco</option>
+                  <option selected>Pescados</option>
+                  
                 </select>
               </div>
               <div class="form-group">
@@ -144,7 +144,7 @@ $nombre_pagina = "Perfil-Ajustes"; // Para el título y migas
                 <select id="enfermedades" name="enfermedades[]" multiple style="min-height: 100px;">
                   <option>Colesterol</option>
                   <option selected>Diabetes</option>
-                  <option>Hipertensión</option>
+                 
                 </select>
               </div>
             </div>

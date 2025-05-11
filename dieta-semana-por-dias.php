@@ -19,7 +19,7 @@ $css_extra = '<link rel="stylesheet" href="styles/dieta-semana-dias.css">';
 <div class="dieta-semana">
     <div class="main-content">
         <div class="titulo">
-            <img src="images/iconos/semana.svg" alt="calendario semana">
+            <img src="sources/iconos/semana.svg" alt="calendario semana">
             <h1>Dieta de la Semana</h1>
         </div>
         <!-- barra de navegación de opciones -->
@@ -68,7 +68,7 @@ $css_extra = '<link rel="stylesheet" href="styles/dieta-semana-dias.css">';
                             <h3>Lunes</h3>
                         </a>
                         <br>
-                        <a href="detalle-receta" title="ver receta de Tortilla de Verduras con Avena sin Gluten"> <img src="images/platos/id16.png" alt="Desayuno Lunes"></a>
+                        <a href="detalle-receta" title="ver receta de Tortilla de Verduras con Avena sin Gluten"> <img src="sources/platos/id16.png" alt="Desayuno Lunes"></a>
                         <p>Tortilla de Verduras con Avena sin Gluten</p>
                     </div>
                     <div class="meal-item">
@@ -76,7 +76,7 @@ $css_extra = '<link rel="stylesheet" href="styles/dieta-semana-dias.css">';
                             <h3>Martes</h3>
                         </a>
                         <br>
-                        <img src="images/platos/id17.png" alt="Desayuno Martes">
+                        <img src="sources/platos/id17.png" alt="Desayuno Martes">
                         <p>Avena cocida con plátano y canela</p>
                     </div>
                     <div class="meal-item">
@@ -84,7 +84,7 @@ $css_extra = '<link rel="stylesheet" href="styles/dieta-semana-dias.css">';
                             <h3>Miércoles</h3>
                         </a>
                         <br>
-                        <img src="images/platos/id23.png" alt="Desayuno Miércoles">
+                        <img src="sources/platos/id23.png" alt="Desayuno Miércoles">
                         <p>Tortilla Vegana de Patatas con Crudités</p>
                     </div>
                     <div class="meal-item">
@@ -92,7 +92,7 @@ $css_extra = '<link rel="stylesheet" href="styles/dieta-semana-dias.css">';
                             <h3>Jueves</h3>
                         </a>
                         <br>
-                        <img src="images/platos/id27.png" alt="Desayuno Jueves">
+                        <img src="sources/platos/id27.png" alt="Desayuno Jueves">
                         <p>Batido Verde de Pera, Perejil y Proteína de Guisante</p>
                     </div>
                     <div class="meal-item">
@@ -100,7 +100,7 @@ $css_extra = '<link rel="stylesheet" href="styles/dieta-semana-dias.css">';
                             <h3>Viernes</h3>
                         </a>
                         <br>
-                        <img src="images/platos/id24.png" alt="Desayuno Viernes">
+                        <img src="sources/platos/id24.png" alt="Desayuno Viernes">
                         <p>Ensalada Dulce de Frutos Rojos, Kiwi y Almendras</p>
                     </div>
                     <div class="meal-item">
@@ -108,7 +108,7 @@ $css_extra = '<link rel="stylesheet" href="styles/dieta-semana-dias.css">';
                             <h3>Sábado</h3>
                         </a>
                         <br>
-                        <img src="images/platos/id22.png" alt="Desayuno Sábado">
+                        <img src="sources/platos/id22.png" alt="Desayuno Sábado">
                         <p>Tortitas de Plátano y Harina de Arroz</p>
                     </div>
                     <div class="meal-item">
@@ -116,7 +116,7 @@ $css_extra = '<link rel="stylesheet" href="styles/dieta-semana-dias.css">';
                             <h3>Domingo</h3>
                         </a>
                         <br>
-                        <img src="images/platos/id33.png" alt="Desayuno Domingo">
+                        <img src="sources/platos/id33.png" alt="Desayuno Domingo">
                         <p>Porridge de avena sin gluten con frutos rojos, chía y cúrcuma</p>
                     </div>
                 </div>
@@ -133,7 +133,7 @@ $css_extra = '<link rel="stylesheet" href="styles/dieta-semana-dias.css">';
                             <h3>Lunes</h3>
                         </a>
                         <br>
-                        <img src="images/platos/id43.png" alt="Entrante Lunes">
+                        <img src="sources/platos/id43.png" alt="Entrante Lunes">
                         <p>Crema fría de guisantes y menta</p>
                     </div>
                     <div class="meal-item">
@@ -141,7 +141,7 @@ $css_extra = '<link rel="stylesheet" href="styles/dieta-semana-dias.css">';
                             <h3>Martes</h3>
                         </a>
                         <br>
-                        <img src="images/platos/id44.png" alt="Entrante Martes">
+                        <img src="sources/platos/id44.png" alt="Entrante Martes">
                         <p>Gazpacho de Melón y Pepino con Hierbabuena</p>
                     </div>
                     <div class="meal-item">
@@ -149,7 +149,7 @@ $css_extra = '<link rel="stylesheet" href="styles/dieta-semana-dias.css">';
                             <h3>Miércoles</h3>
                         </a>
                         <br>
-                        <img src="images/platos/id45.png" alt="Entrante Miércoles">
+                        <img src="sources/platos/id45.png" alt="Entrante Miércoles">
                         <p>Crema fría de calabacín y manzana sin gluten</p>
                     </div>
                     <div class="meal-item">
@@ -157,7 +157,7 @@ $css_extra = '<link rel="stylesheet" href="styles/dieta-semana-dias.css">';
                             <h3>Jueves</h3>
                         </a>
                         <br>
-                        <img src="images/platos/id46.png" alt="Entrante Jueves">
+                        <img src="sources/platos/id46.png" alt="Entrante Jueves">
                         <p>Sopa Juliana de Verduras Saludable</p>
                     </div>
                     <div class="meal-item">
@@ -165,7 +165,7 @@ $css_extra = '<link rel="stylesheet" href="styles/dieta-semana-dias.css">';
                             <h3>Viernes</h3>
                         </a>
                         <br>
-                        <img src="images/platos/id47.png" alt="Entrante Viernes">
+                        <img src="sources/platos/id47.png" alt="Entrante Viernes">
                         <p>Ensalada de Remolacha, Naranja y Rúcula</p>
                     </div>
                     <div class="meal-item">
@@ -173,7 +173,7 @@ $css_extra = '<link rel="stylesheet" href="styles/dieta-semana-dias.css">';
                             <h3>Sábado</h3>
                         </a>
                         <br>
-                        <img src="images/platos/id48.png" alt="Entrante Sábado">
+                        <img src="sources/platos/id48.png" alt="Entrante Sábado">
                         <p>Gazpacho de Remolacha y Yogur Natural</p>
                     </div>
                     <div class="meal-item">
@@ -181,7 +181,7 @@ $css_extra = '<link rel="stylesheet" href="styles/dieta-semana-dias.css">';
                             <h3>Domingo</h3>
                         </a>
                         <br>
-                        <img src="images/platos/id39.png" alt="Entrante Domingo">
+                        <img src="sources/platos/id39.png" alt="Entrante Domingo">
                         <p>Chips de Alga Nori con Sésamo y Paté de Berenjena</p>
                     </div>
                 </div>
@@ -195,37 +195,37 @@ $css_extra = '<link rel="stylesheet" href="styles/dieta-semana-dias.css">';
                 <div class="meal-container">
                     <div class="meal-item">
 
-                        <img src="images/platos/id26.png" alt="Principal Lunes">
+                        <img src="sources/platos/id26.png" alt="Principal Lunes">
                         <p>Bowl Macrobiótico de Mijo con Verduras y Tahini</p>
                     </div>
                     <div class="meal-item">
 
-                        <img src="images/platos/id21.png" alt="Principal Martes">
+                        <img src="sources/platos/id21.png" alt="Principal Martes">
                         <p>Rollitos de Pavo con Espinacas y Queso</p>
                     </div>
                     <div class="meal-item">
 
-                        <img src="images/platos/id49.png" alt="Principal Miércoles">
+                        <img src="sources/platos/id49.png" alt="Principal Miércoles">
                         <p>Rollitos de col rellenos de verduras con mayonesa de cilantro</p>
                     </div>
                     <div class="meal-item">
 
-                        <img src="images/platos/id50.png" alt="Principal Jueves">
+                        <img src="sources/platos/id50.png" alt="Principal Jueves">
                         <p>Tartaletas de Coliflor con Wok de Verduras y Salsa Cítrica</p>
                     </div>
                     <div class="meal-item">
 
-                        <img src="images/platos/id51.png" alt="Principal Viernes">
+                        <img src="sources/platos/id51.png" alt="Principal Viernes">
                         <p>Escalivada de Berenjena, Calabacín y Pimientos con Salsa de Granada</p>
                     </div>
                     <div class="meal-item">
 
-                        <img src="images/platos/id38.png" alt="Principal Sábado">
+                        <img src="sources/platos/id38.png" alt="Principal Sábado">
                         <p>Tostadas de Garbanzo Batido con Tomate y Orégano</p>
                     </div>
                     <div class="meal-item">
 
-                        <img src="images/platos/id34.png" alt="Principal Domingo">
+                        <img src="sources/platos/id34.png" alt="Principal Domingo">
                         <p>Tostadas de Boniato con Hummus y Tomates Cherry</p>
                     </div>
                 </div>
@@ -238,31 +238,31 @@ $css_extra = '<link rel="stylesheet" href="styles/dieta-semana-dias.css">';
                 </div>
                 <div class="meal-container">
                     <div class="meal-item">
-                        <img src="images/platos/id20.png" alt="Postre Lunes">
+                        <img src="sources/platos/id20.png" alt="Postre Lunes">
                         <p>Pudding de Chía con Leche de Coco y Fruta</p>
                     </div>
                     <div class="meal-item">
-                        <img src="images/platos/id19.png" alt="Postre Martes">
+                        <img src="sources/platos/id19.png" alt="Postre Martes">
                         <p>Parfait de Yogur Griego con Frutas y Semillas</p>
                     </div>
                     <div class="meal-item">
-                        <img src="images/platos/id40.png" alt="Postre Miércoles">
+                        <img src="sources/platos/id40.png" alt="Postre Miércoles">
                         <p>Cereal crujiente horneado con yogur y uvas moscatel</p>
                     </div>
                     <div class="meal-item">
-                        <img src="images/platos/id41.png" alt="Postre Jueves">
+                        <img src="sources/platos/id41.png" alt="Postre Jueves">
                         <p>Gofre de Avena con Mermelada Casera de Cítricos y Chocolate 70%</p>
                     </div>
                     <div class="meal-item">
-                        <img src="images/platos/id35.png" alt="Postre Viernes">
+                        <img src="sources/platos/id35.png" alt="Postre Viernes">
                         <p>Crepes de Harina de Sorgo con Ricotta Vegana y Frutas del Bosque</p>
                     </div>
                     <div class="meal-item">
-                        <img src="images/platos/id37.png" alt="Postre Sábado">
+                        <img src="sources/platos/id37.png" alt="Postre Sábado">
                         <p>Pa de Pessic con Harina de Arroz y Kiwi Oro</p>
                     </div>
                     <div class="meal-item">
-                        <img src="images/platos/id30.png" alt="Postre Domingo">
+                        <img src="sources/platos/id30.png" alt="Postre Domingo">
                         <p>Smoothie Antiinflamatorio de Frutos Rojos, Aguacate y Colágeno</p>
                     </div>
                 </div>
@@ -279,7 +279,7 @@ $css_extra = '<link rel="stylesheet" href="styles/dieta-semana-dias.css">';
                             <h3>Lunes</h3>
                         </a>
                         <br>
-                        <img src="images/platos/id29.png" alt="Cena Lunes">
+                        <img src="sources/platos/id29.png" alt="Cena Lunes">
                         <p>Tortilla de Espinacas con Aguacate y Cúrcuma</p>
                     </div>
                     <div class="meal-item">
@@ -287,7 +287,7 @@ $css_extra = '<link rel="stylesheet" href="styles/dieta-semana-dias.css">';
                             <h3>Martes</h3>
                         </a>
                         <br>
-                        <img src="images/platos/id18.png" alt="Cena Martes">
+                        <img src="sources/platos/id18.png" alt="Cena Martes">
                         <p>Smoothie Verde de Espinacas, Plátano y Almendras</p>
                     </div>
                     <div class="meal-item">
@@ -295,7 +295,7 @@ $css_extra = '<link rel="stylesheet" href="styles/dieta-semana-dias.css">';
                             <h3>Miércoles</h3>
                         </a>
                         <br>
-                        <img src="images/platos/id25.png" alt="Cena Miércoles">
+                        <img src="sources/platos/id25.png" alt="Cena Miércoles">
                         <p>Porridge de Mijo con Manzana y Canela</p>
                     </div>
                     <div class="meal-item">
@@ -303,7 +303,7 @@ $css_extra = '<link rel="stylesheet" href="styles/dieta-semana-dias.css">';
                             <h3>Jueves</h3>
                         </a>
                         <br>
-                        <img src="images/platos/id36.png" alt="Cena Jueves">
+                        <img src="sources/platos/id36.png" alt="Cena Jueves">
                         <p>Porridge de Copos de Arroz con Frutas y Semillas</p>
                     </div>
                     <div class="meal-item">
@@ -311,7 +311,7 @@ $css_extra = '<link rel="stylesheet" href="styles/dieta-semana-dias.css">';
                             <h3>Viernes</h3>
                         </a>
                         <br>
-                        <img src="images/platos/id42.png" alt="Cena Viernes">
+                        <img src="sources/platos/id42.png" alt="Cena Viernes">
                         <p>Muffins Salados con Té de Canela, Jengibre y Salvia</p>
                     </div>
                     <div class="meal-item">
@@ -319,7 +319,7 @@ $css_extra = '<link rel="stylesheet" href="styles/dieta-semana-dias.css">';
                             <h3>Sábado</h3>
                         </a>
                         <br>
-                        <img src="images/platos/id19.png" alt="Cena Sábado">
+                        <img src="sources/platos/id19.png" alt="Cena Sábado">
                         <p>Parfait de Yogur Griego con Frutas y Semillas</p>
                     </div>
                     <div class="meal-item">
@@ -327,7 +327,7 @@ $css_extra = '<link rel="stylesheet" href="styles/dieta-semana-dias.css">';
                             <h3>Domingo</h3>
                         </a>
                         <br>
-                        <img src="images/platos/id20.png" alt="Cena Domingo">
+                        <img src="sources/platos/id20.png" alt="Cena Domingo">
                         <p>Pudding de Chía con Leche de Coco y Fruta</p>
                     </div>
                 </div>

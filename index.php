@@ -6,13 +6,13 @@
             <div class="contenedor-tarjeta row align-items-stretch">
 
                 <div class="platos row-md-6 col-md-3 d-flex flex-column align-items-center">
-                    <img src="images/platos/entrante1.png" class="img-fluid mb-2" alt="Plato 1">
-                    <img src="images/platos/principal2.png" class="img-fluid mb-2" alt="Plato 2">
-                    <img src="images/platos/postre3.png" class="img-fluid" alt="Plato 3">
+                    <img src="sources/platos/entrante1.png" class="img-fluid mb-2" alt="Plato 1">
+                    <img src="sources/platos/principal2.png" class="img-fluid mb-2" alt="Plato 2">
+                    <img src="sources/platos/postre3.png" class="img-fluid" alt="Plato 3">
                 </div>
 
                 <div class="tarjeta-logo row-md-6 col-md-6 text-center fondo-tarjeta">
-                    <img src="images/logos/composicion-tarjeta-completa.png" class="img-fluid" alt="Tarjeta Logo">
+                    <img src="sources/logos/composicion-tarjeta-completa.png" class="img-fluid" alt="Tarjeta Logo">
                     <div class="texto-tarjeta">
                         <h4>SalCooking permite planificar la alimentación de forma inteligente con menús semanales,
                             equilibrados, totalmente personalizados, teniendo en cuenta tanto los gustos personales como
@@ -27,7 +27,7 @@
                         y crearte un <strong>plan de dietas semanal</strong>, podrás <strong> descargar recetas</strong>... ¡Y muchas funciones más! ¿A qué estas esperando? 
                     </p>
                     <div>
-                        <a href="contacto.php" class="btn-premium">Hazte Premium</a>
+                        <a href="perfil.php" class="btn-premium">Hazte Premium</a>
                     </div>
                 </div>
 

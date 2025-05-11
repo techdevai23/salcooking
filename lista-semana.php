@@ -2,7 +2,7 @@
 // Definir $css_extra ANTES de incluir header.php
 $css_extra = '<link rel="stylesheet" href="styles/lista-semana.css">';
 include 'header.php';
-include 'conexion.php'; // Para la conexión a la BBDD
+include 'controllers/conexion.php'; // Para la conexión a la BBDD
 
 $ingredientes_compra = [];
 $id_plan_semanal = null; // Aquí deberías obtener el ID del plan semanal (ej. desde $_GET['plan_id'])
@@ -83,7 +83,7 @@ $conexion->close();
       <li class="current">Lista de la Compra de la Semana</li>
     </ul>
     <div class="volver-atras-contenedor">
-      <a href="javascript:history.back()" class="volver-atras"><img src="images/iconos/Arrow-Thick-Left-3--Streamline-Ultimate.svg" width="32px" alt="icono atrás"></a>
+      <a href="javascript:history.back()" class="volver-atras"><img src="sources/iconos/Arrow-Thick-Left-3--Streamline-Ultimate.svg" width="32px" alt="icono atrás"></a>
     </div>
   </div>
 </div>
@@ -93,7 +93,7 @@ $conexion->close();
     <div class="contenedor-lista-semana">
 
         <div class="titulo">
-            <img src="images/iconos/Cart-Shopping--Streamline-Ultimate.png" width="48px" alt="Carrito de la compra"> <!-- Cambié el icono -->
+            <img src="sources/iconos/Cart-Shopping--Streamline-Ultimate.png" width="48px" alt="Carrito de la compra"> <!-- Cambié el icono -->
             <h1>Lista de la compra de la Semana</h1>
         </div>
        
@@ -116,7 +116,7 @@ $conexion->close();
 
             <div class="acciones-lista">
             <button class="descargar-lista-btn" onclick="descargarListaPDF('lista-compra-semana.pdf', 'Lista de la Compra de la Semana')">
-                    <img src="images/iconos/Business-Cart-Add--Streamline-Ultimate.svg" alt="Descargar"> <!-- Icono ejemplo, ajusta la ruta -->
+                    <img src="sources/iconos/Business-Cart-Add--Streamline-Ultimate.svg" alt="Descargar"> <!-- Icono ejemplo, ajusta la ruta -->
                     Descargar lista ingredientes
                 </button>
             </div>

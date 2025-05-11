@@ -13,7 +13,7 @@ $css_extra = '<link rel="stylesheet" href="styles/cambio.css">';
       <li class="current">Cambiar Contraseña</li>
     </ul>
     <div class="volver-atras-contenedor">
-      <a href="javascript:history.back()" class="volver-atras"><img src="images/iconos/Arrow-Thick-Left-3--Streamline-Ultimate.svg" width="32px" alt="icono atrás"></a>
+      <a href="javascript:history.back()" class="volver-atras"><img src="sources/iconos/Arrow-Thick-Left-3--Streamline-Ultimate.svg" width="32px" alt="icono atrás"></a>
     </div>
   </div>
 </div>
@@ -22,7 +22,7 @@ $css_extra = '<link rel="stylesheet" href="styles/cambio.css">';
 <section class="cambio-contrasena-section">
     <div class="contenedor-nombre-landing">
         <div class="titulo">
-            <img src="images/iconos/Lock-Shield--Streamline-Ultimate.svg" alt="Icono cambio contraseña">
+            <img src="sources/iconos/Lock-Shield--Streamline-Ultimate.svg" alt="Icono cambio contraseña">
             <h1>Cambiar contraseña</h1>
         </div>
         

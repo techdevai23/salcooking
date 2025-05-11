@@ -14,7 +14,7 @@ $css_extra = '<link rel="stylesheet" href="styles/plantilla.css">';
       <li class="current">Ayuda</li>
     </ul>
     <div class="volver-atras-contenedor">
-      <a href="javascript:history.back()" class="volver-atras"><img src="images/iconos/Arrow-Thick-Left-3--Streamline-Ultimate.svg" width="32px" alt="icono atrás"></a>
+      <a href="javascript:history.back()" class="volver-atras"><img src="sources/iconos/Arrow-Thick-Left-3--Streamline-Ultimate.svg" width="32px" alt="icono atrás"></a>
     </div>
   </div>
 </div>
@@ -26,14 +26,14 @@ $css_extra = '<link rel="stylesheet" href="styles/plantilla.css">';
     <div class="contenedor-Ayuda">
 
     <div class="titulo">
-  <img src="images/iconos/Headphones-Customer-Support-Question--Streamline-Ultimate.svg"  alt="Book Star - Libro destacado">
+  <img src="sources/iconos/Headphones-Customer-Support-Question--Streamline-Ultimate.svg"  alt="Book Star - Libro destacado">
   <h1>Ayuda</h1>
   </div>
        
     <div class="contenido-Ayuda">
         
-    <img src="images/iconos/Information-Circle--Streamline-Ultimate.svg"  alt="Book Star - Libro destacado">
-    <img src="images/iconos/Question-Help-Message--Streamline-Ultimate.svg"  alt="Book Star - Libro destacado">
+    <img src="sources/iconos/Information-Circle--Streamline-Ultimate.svg"  alt="Book Star - Libro destacado">
+    <img src="sources/iconos/Question-Help-Message--Streamline-Ultimate.svg"  alt="Book Star - Libro destacado">
  
     <p>Texto de la Ayuda</p>
 

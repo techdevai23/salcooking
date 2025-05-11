@@ -10,9 +10,9 @@ $sql = "SELECT * FROM recetas WHERE id = $id";
 $resultado = $conexion->query($sql);
 
 if (!$resultado || $resultado->num_rows === 0) {
-    echo "<div class='container mt-5'><h2>Receta no encontrada.</h2></div>";
-    include 'footer.php';
-    exit;
+  echo "<div class='container mt-5'><h2>Receta no encontrada.</h2></div>";
+  include 'footer.php';
+  exit;
 }
 
 $receta = $resultado->fetch_assoc();
@@ -49,7 +49,7 @@ $enfermedades = $conexion->query($sql_enf);
       <li class="current"><?php echo htmlspecialchars($receta['nombre']); ?></li>
     </ul>
     <div class="volver-atras-contenedor">
-      <a href="javascript:history.back()" class="volver-atras"><img src="images/iconos/Arrow-Thick-Left-3--Streamline-Ultimate.svg" width="32px" alt="icono atrás"></a>
+      <a href="javascript:history.back()" class="volver-atras"><img src="sources/iconos/Arrow-Thick-Left-3--Streamline-Ultimate.svg" width="32px" alt="icono atrás"></a>
     </div>
   </div>
 </div>
@@ -58,25 +58,35 @@ $enfermedades = $conexion->query($sql_enf);
 <section class="filosofia">
   <div class="contenedor-filosofia">
     <div class="contenido-filosofia">
-      
+
       <!-- Columna de imagen -->
       <div class="foto">
-        <img src="images/platos/postre1.png" alt="Imagen representativa receta" width="300px">
+        <?php
+        $imagePath = "sources/platos/id{$id}.png";
+        if (file_exists($imagePath)) {
+          echo "<img src='{$imagePath}' alt='Imagen representativa receta' width='300px'>";
+        } else {
+          echo "<img src='sources/platos/default.png' alt='Imagen no disponible' width='300px'>";
+        }
+        ?>
+        <p><strong>⏱️ Tiempo de preparación:</strong> <?php echo $receta['tiempo_preparacion']; ?> min</p>
+        <p><strong>🍽️ Porciones:</strong> <?php echo $receta['porciones']; ?></p>
+        <!-- boton descargar -->
+        <button class="descargar-lista-btn" onclick="descargarListaPDF('lista-para-descargar.pdf', 'Receta <?php echo htmlspecialchars($receta['nombre']); ?>')">
+          <img src="sources/iconos/Arrow-Double-Down-1--Streamline-Ultimate.svg" alt="Descargar" width="30px"> <!-- Icono ejemplo, ajusta la ruta -->
+          Descargar receta
+        </button>
       </div>
 
       <!-- Columna de texto -->
       <div class="texto-filosofia">
-        <h2><?php echo htmlspecialchars($receta['nombre']); ?></h2> 
-        <button class="descargar-lista-btn" onclick="descargarListaPDF('lista-para-descargar.pdf', 'Receta <?php echo htmlspecialchars($receta['nombre']); ?>')">
-                    <img src="images/iconos/Download-Bottom--Streamline-Ultimate.svg" alt="Descargar" width="30px"> <!-- Icono ejemplo, ajusta la ruta -->
-                    Descargar receta completa
-                </button>
-        <p><strong>⏱️ Tiempo de preparación:</strong> <?php echo $receta['tiempo_preparacion']; ?> min</p>
-        <p><strong>🍽️ Porciones:</strong> <?php echo $receta['porciones']; ?></p>
+        <h2><?php echo htmlspecialchars($receta['nombre']); ?></h2>
+        
+       
 
         <h4>🛒 Ingredientes:</h4>
         <ul>
-          <?php while($ing = $ingredientes->fetch_assoc()): ?>
+          <?php while ($ing = $ingredientes->fetch_assoc()): ?>
             <li>
               <?php echo "{$ing['cantidad']} {$ing['fraccion']} {$ing['unidad']} de {$ing['nombre']}"; ?>
             </li>
@@ -93,23 +103,25 @@ $enfermedades = $conexion->query($sql_enf);
 
         <h4>⚠️ Alergias asociadas:</h4>
         <ul>
-          <?php while($al = $alergias->fetch_assoc()): ?>
+          <?php while ($al = $alergias->fetch_assoc()): ?>
             <li><?php echo "{$al['nombre']} ({$al['observaciones']})"; ?></li>
           <?php endwhile; ?>
         </ul>
 
         <h4>💊 Indicaciones para enfermedades:</h4>
         <ul>
-          <?php while($enf = $enfermedades->fetch_assoc()): ?>
+          <?php while ($enf = $enfermedades->fetch_assoc()): ?>
             <li><?php echo "{$enf['nombre']} ({$enf['indicaciones']})"; ?></li>
           <?php endwhile; ?>
         </ul>
+        
+        
 
         <!-- Faldón final -->
         <section class="faldon">
           <h2>¿Quieres más recetas exclusivas?</h2>
           <br>
-          <a href="contacto.php" class="btn-premium">Hazte Prémium</a>
+          <a href="perfil.php" class="btn-premium">Hazte Prémium</a>
         </section>
 
       </div>

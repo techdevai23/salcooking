@@ -52,7 +52,7 @@ $conexion->close();
       <li class="current">Lista de la Compra del Día</li>
     </ul>
     <div class="volver-atras-contenedor">
-      <a href="javascript:history.back()" class="volver-atras"><img src="images/iconos/Arrow-Thick-Left-3--Streamline-Ultimate.svg" width="32px" alt="icono atrás"></a>
+      <a href="javascript:history.back()" class="volver-atras"><img src="sources/iconos/Arrow-Thick-Left-3--Streamline-Ultimate.svg" width="32px" alt="icono atrás"></a>
     </div>
   </div>
 </div>
@@ -62,7 +62,7 @@ $conexion->close();
     <div class="contenedor-lista-dia">
 
         <div class="titulo">
-            <img src="images/iconos/Cart-Shopping--Streamline-Ultimate.png" width="48px" alt="Carrito de la compra">
+            <img src="sources/iconos/Cart-Shopping--Streamline-Ultimate.png" width="48px" alt="Carrito de la compra">
             <h1>Lista de la compra del Día</h1>
         </div>
        
@@ -85,7 +85,7 @@ $conexion->close();
 
             <div class="acciones-lista">
             <button class="descargar-lista-btn" onclick="descargarListaPDF('lista-compra-dia.pdf', 'Lista de la Compra del Día')">
-                    <img src="images/iconos/Business-Cart-Add--Streamline-Ultimate.svg" alt="Descargar">
+                    <img src="sources/iconos/Business-Cart-Add--Streamline-Ultimate.svg" alt="Descargar">
                     Descargar lista ingredientes
                 </button>
             </div>

@@ -50,7 +50,7 @@ $enfermedades = $conexion->query($sql_enf);
       <li class="current"><?php echo htmlspecialchars($receta['nombre']); ?></li>
     </ul>
     <div class="volver-atras-contenedor">
-      <a href="javascript:history.back()" class="volver-atras"><img src="images/iconos/Arrow-Thick-Left-3--Streamline-Ultimate.svg" width="32px" alt="icono atrás"></a>
+      <a href="javascript:history.back()" class="volver-atras"><img src="sources/iconos/Arrow-Thick-Left-3--Streamline-Ultimate.svg" width="32px" alt="icono atrás"></a>
     </div>
   </div>
 </div>
@@ -62,14 +62,14 @@ $enfermedades = $conexion->query($sql_enf);
 
       <!-- Columna de imagen -->
       <div class="foto">
-        <img src="images/platos/postre1.png" alt="Imagen representativa receta" width="300px">
+        <img src="sources/platos/postre1.png" alt="Imagen representativa receta" width="300px">
       </div>
 
       <!-- Columna de texto -->
       <div class="texto-filosofia">
         <h2><?php echo htmlspecialchars($receta['nombre']); ?></h2>
         <button class="descargar-lista-btn" onclick="descargarFichaRecetaPDF('receta_<?php echo str_replace(' ', '_', htmlspecialchars($receta['nombre'])); ?>.pdf', 'Receta: <?php echo htmlspecialchars($receta['nombre']); ?>')">
-          <img src="images/iconos/Download-Bottom--Streamline-Ultimate.svg" alt="Descargar" width="30px">
+          <img src="sources/iconos/Download-Bottom--Streamline-Ultimate.svg" alt="Descargar" width="30px">
           Descargar receta completa
         </button>
         <p id="receta-tiempo"><strong>⏱️ Tiempo de preparación:</strong> <?php echo $receta['tiempo_preparacion']; ?> min</p>
@@ -122,7 +122,7 @@ $enfermedades = $conexion->query($sql_enf);
         <section class="faldon">
           <h2>¿Quieres más recetas exclusivas?</h2>
           <br>
-          <a href="contacto.php" class="btn-premium">Hazte Prémium</a>
+          <a href="perfil.php" class="btn-premium">Hazte Prémium</a>
         </section>
 
       </div>

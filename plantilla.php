@@ -14,7 +14,7 @@ $css_extra = '<link rel="stylesheet" href="styles/plantilla.css">';
       <li class="current">nombre-landing</li>
     </ul>
     <div class="volver-atras-contenedor">
-      <a href="javascript:history.back()" class="volver-atras"><img src="images/iconos/Arrow-Thick-Left-3--Streamline-Ultimate.svg" width="32px" alt="icono atrás"></a>
+      <a href="javascript:history.back()" class="volver-atras"><img src="sources/iconos/Arrow-Thick-Left-3--Streamline-Ultimate.svg" width="32px" alt="icono atrás"></a>
     </div>
   </div>
 </div>
@@ -26,7 +26,7 @@ $css_extra = '<link rel="stylesheet" href="styles/plantilla.css">';
     <div class="contenedor-nombre-landing">
 
     <div class="titulo">
-  <img src="images/iconos/Book-Star--Streamline-Ultimate.svg"  alt="Book Star - Libro destacado">
+  <img src="sources/iconos/Book-Star--Streamline-Ultimate.svg"  alt="Book Star - Libro destacado">
   <h1>Plantilla: Nombre de la landing</h1>
   </div>
        

@@ -23,7 +23,7 @@
     right: 0;
     bottom: 0;
     
-    background-image: url('../images/solo-fondo.png');
+    background-image: url('../sources/solo-fondo.png');
     background-size: 102% 100%; /* Fuerza la imagen a adaptarse al tamaño del contenedor */
     background-position: center;
     background-repeat: no-repeat;
@@ -101,6 +101,10 @@ padding-bottom: 15px;
             background-color: #f9f9f9;
             border-radius: 4px;
             margin-top: 10px;
+        }
+
+        #detalles-paypal {
+            display: none;
         }
         
         .form-group {

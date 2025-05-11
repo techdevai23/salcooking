@@ -19,7 +19,7 @@ $css_extra = '<link rel="stylesheet" href="styles/dieta-semana-combinada.css">';
 <div class="dieta-semana">
     <div class="main-content">
         <div class="titulo">
-            <img src="images/iconos/semana.svg" alt="calendario semana">
+            <img src="sources/iconos/semana.svg" alt="calendario semana">
             <h1>Dieta de la Semana</h1>
 
         </div>
@@ -77,31 +77,31 @@ $css_extra = '<link rel="stylesheet" href="styles/dieta-semana-combinada.css">';
                 </div>
                 <div class="meal-container">
                     <div class="meal-item">
-                        <img src="images/platos/id16.png" alt="Desayuno Lunes">
+                        <img src="sources/platos/id16.png" alt="Desayuno Lunes">
                         <p>Tostadas Francesas con Fruta y Miel</p>
                     </div>
                     <div class="meal-item">
-                        <img src="images/platos/id17.png" alt="Desayuno Martes">
+                        <img src="sources/platos/id17.png" alt="Desayuno Martes">
                         <p>Yogur Natural con Copos de Avena y Plátano</p>
                     </div>
                     <div class="meal-item">
-                        <img src="images/platos/id23.png" alt="Desayuno Miércoles">
+                        <img src="sources/platos/id23.png" alt="Desayuno Miércoles">
                         <p>Pan de Avena con Semillas</p>
                     </div>
                     <div class="meal-item">
-                        <img src="images/platos/id27.png" alt="Desayuno Jueves">
+                        <img src="sources/platos/id27.png" alt="Desayuno Jueves">
                         <p>Bizcocho de Avena y Manzana</p>
                     </div>
                     <div class="meal-item">
-                        <img src="images/platos/id24.png" alt="Desayuno Viernes">
+                        <img src="sources/platos/id24.png" alt="Desayuno Viernes">
                         <p>Ensalada Dulce de Frutos Rojos, Kiwi y Almendras</p>
                     </div>
                     <div class="meal-item">
-                        <img src="images/platos/id22.png" alt="Desayuno Sábado">
+                        <img src="sources/platos/id22.png" alt="Desayuno Sábado">
                         <p>Cheesecake de Frutos Rojos</p>
                     </div>
                     <div class="meal-item">
-                        <img src="images/platos/id32.png" alt="Desayuno Domingo">
+                        <img src="sources/platos/id32.png" alt="Desayuno Domingo">
                         <p>Flan de Huevo Casero</p>
                     </div>
                 </div>
@@ -114,31 +114,31 @@ $css_extra = '<link rel="stylesheet" href="styles/dieta-semana-combinada.css">';
                 </div>
                 <div class="meal-container">
                     <div class="meal-item">
-                        <img src="images/platos/id15.png" alt="Almuerzo Lunes">
+                        <img src="sources/platos/id15.png" alt="Almuerzo Lunes">
                         <p>Arroz Integral con Verduras y Tofu</p>
                     </div>
                     <div class="meal-item">
-                        <img src="images/platos/id33.png" alt="Almuerzo Martes">
+                        <img src="sources/platos/id33.png" alt="Almuerzo Martes">
                         <p>Lentejas Estofadas con Verduras</p>
                     </div>
                     <div class="meal-item">
-                        <img src="images/platos/id16.png" alt="Almuerzo Miércoles">
+                        <img src="sources/platos/id16.png" alt="Almuerzo Miércoles">
                         <p>Bonito a la plancha con Pimientos al Ajillo</p>
                     </div>
                     <div class="meal-item">
-                        <img src="images/platos/id21.png" alt="Almuerzo Jueves">
+                        <img src="sources/platos/id21.png" alt="Almuerzo Jueves">
                         <p>Pechuga de Pavo a la Plancha con Arroz</p>
                     </div>
                     <div class="meal-item">
-                        <img src="images/platos/id25.png" alt="Almuerzo Viernes">
+                        <img src="sources/platos/id25.png" alt="Almuerzo Viernes">
                         <p>Lubina al Horno con Escalibada</p>
                     </div>
                     <div class="meal-item">
-                        <img src="images/platos/id30.png" alt="Almuerzo Sábado">
+                        <img src="sources/platos/id30.png" alt="Almuerzo Sábado">
                         <p>Hamburguesa Vegetal con Patatas al Horno</p>
                     </div>
                     <div class="meal-item">
-                        <img src="images/platos/id20.png" alt="Almuerzo Domingo">
+                        <img src="sources/platos/id20.png" alt="Almuerzo Domingo">
                         <p>Paella de Verduras y Marisco</p>
                     </div>
                 </div>
@@ -151,31 +151,31 @@ $css_extra = '<link rel="stylesheet" href="styles/dieta-semana-combinada.css">';
                 </div>
                 <div class="meal-container">
                     <div class="meal-item">
-                        <img src="images/platos/id29.png" alt="Cena Lunes">
+                        <img src="sources/platos/id29.png" alt="Cena Lunes">
                         <p>Crema de Champiñones Ligera</p>
                     </div>
                     <div class="meal-item">
-                        <img src="images/platos/id4.png" alt="Cena Martes">
+                        <img src="sources/platos/id4.png" alt="Cena Martes">
                         <p>Merluza al Horno con Limón y Patatas</p>
                     </div>
                     <div class="meal-item">
-                        <img src="images/platos/id44.png" alt="Cena Miércoles">
+                        <img src="sources/platos/id44.png" alt="Cena Miércoles">
                         <p>Crema de Calabacín con Pipas Tostadas</p>
                     </div>
                     <div class="meal-item">
-                        <img src="images/platos/id18.png" alt="Cena Jueves">
+                        <img src="sources/platos/id18.png" alt="Cena Jueves">
                         <p>Ensalada César con Pollo a la Plancha</p>
                     </div>
                     <div class="meal-item">
-                        <img src="images/platos/id26.png" alt="Cena Viernes">
+                        <img src="sources/platos/id26.png" alt="Cena Viernes">
                         <p>Salmón al Horno con Eneldo y Limón</p>
                     </div>
                     <div class="meal-item">
-                        <img src="images/platos/id19.png" alt="Cena Sábado">
+                        <img src="sources/platos/id19.png" alt="Cena Sábado">
                         <p>Sopa de Pollo con Fideos Integrales</p>
                     </div>
                     <div class="meal-item">
-                        <img src="images/platos/id16.png" alt="Cena Domingo">
+                        <img src="sources/platos/id16.png" alt="Cena Domingo">
                         <p>Pizza Casera de Masa Integral</p>
                     </div>
                 </div>

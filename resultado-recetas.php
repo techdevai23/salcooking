@@ -19,7 +19,7 @@ $css_extra = '<link rel="stylesheet" href="styles/resultado-recetas.css">';
 <section class="resultados-recetas">
     <div class="container-resultados">
         <div class="titulo">
-            <img src="images/iconos/Search-Circle--Streamline-Ultimate.svg" alt="Book Star - Libro destacado">
+            <img src="sources/iconos/Search-Circle--Streamline-Ultimate.svg" alt="Book Star - Libro destacado">
             <h1>Resultados de Recetas</h1>
         </div>
         <div class="page-background">
@@ -115,56 +115,55 @@ $css_extra = '<link rel="stylesheet" href="styles/resultado-recetas.css">';
                         <div class="recipiente-carrusel">
                             <!-- Las recetas que aparecen a la izquierda de la principal -->
                             <div class="recipiente-card side-card left-card">
-                                <img src="images/platos/entrante1.png" alt="Ensalada César">
+                                <img src="sources/platos/entrante1.png" alt="Ensalada César">
                                 <div class="recipiente-info">
                                     <h4>Ensalada César Clásica</h4>
                                     <p class="recipiente-tags">
                                         <span class="tag-plato">ENTRANTE</span>
                                         <span class="tag gluten">Contiene Gluten</span>
                                     </p>
-                                    <a href="receta-detalle.php" class="btn-view-recipiente">Ver receta</a>
+                                    <a href="" class="btn-view-recipiente">Ver receta</a>
                                 </div>
                             </div>
                             
                             <div class="recipiente-card side-card left-card">
-                                <img src="images/platos/entrante1.png" alt="Pollo asado con patatas">
+                                <img src="sources/platos/entrante1.png" alt="Pollo asado con patatas">
                                 <div class="recipiente-info">
                                     <h4>Pescado con verduras</h4>
                                     <p class="recipiente-tags">
                                     <span class="tag-plato">PRINCIPAL</span>
                                         <span class="tag pescado">Contiene Pescado</span>
                                     </p>
-                                    <a href="receta-detalle.php" class="btn-view-recipiente">Ver receta</a>
-                                </div>
+                                    <a href="" class="btn-view-recipiente">Ver receta</a>                                </div>
                             </div>
                             
                             <!-- Receta central destacada -->
                             <div class="recipiente-card featured-card">
-                                <img src="images/platos/postre1.png" alt="Tarta con frutos rojos">
+                                <img src="sources/platos/postre1.png" alt="Tarta con frutos rojos">
                                 <div class="recipiente-info">
                                     <h4>Tarta con frutos rojos y nueces (con edulcorante)</h4>
                                     <p class="recipiente-tags">
                                     <span class="tag-plato">POSTRE</span>
                                         <span class="tag secos">Frutos secos</span>
                                     </p>
-                                    <a href="receta-ejemplo.php" class="btn-view-recipiente">Ver receta</a>
+                                    <a href="" class="btn-view-recipiente">Ver receta</a>
                                 </div>
                             </div>
                             
                             <!-- Las recetas que aparecen a la derecha de la principal -->
                             <div class="recipiente-card side-card right-card">
-                                <img src="images/platos/principal1.png" alt="Albóndigas en salsa">
+                                <img src="sources/platos/principal1.png" alt="Albóndigas en salsa">
                                 <div class="recipiente-info">
                                     <h4>Albóndigas en salsa de tomate</h4>
                                     <p class="recipiente-tags">
                                     <span class="tag-plato">PRINCIPAL</span>
                                     </p>
-                                    <a href="receta-detalle.php" class="btn-view-recipiente">Ver receta</a>
+                                    <a href="" class="btn-view-recipiente">Ver receta</a>
                                 </div>
                             </div>
                             
                             <div class="recipiente-card side-card right-card">
-                                <img src="images/platos/entrante2.png" alt="Pasta al pesto">
+                                <img src="sources/platos/entrante2.png" alt="Pasta al pesto">
                                 <div class="recipiente-info">
                                     <h4>Pasta con gambas y piñones</h4>
                                     <p class="recipiente-tags">
@@ -172,7 +171,7 @@ $css_extra = '<link rel="stylesheet" href="styles/resultado-recetas.css">';
                                         <span class="tag secos">Frutos secos</span>
                                         <span class="tag marisco">Contiene Marisco</span>
                                     </p>
-                                    <a href="receta-detalle.php" class="btn-view-recipiente">Ver receta</a>
+                                    <a href="" class="btn-view-recipiente">Ver receta</a>
                                 </div>
                             </div>
                         </div>

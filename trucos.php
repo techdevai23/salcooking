@@ -20,12 +20,12 @@ $css_extra = '<link rel="stylesheet" href="styles/trucos.css">';
     <div class="container-trucos">
        
         <div class="titulo">
-  <img src="images/iconos/Notes-Book-Text--Streamline-Ultimate.svg"  alt="Book Star - Libro destacado">
+  <img src="sources/iconos/Notes-Book-Text--Streamline-Ultimate.svg"  alt="Book Star - Libro destacado">
   <h1>Trucos de cocina</h1>
   </div>
         <div class="contenido-trucos">
             <article class="tarjeta-truco">
-                <img class="foto-truco" src="images/recursos/CEBOLLA.jpg" alt="cebolla" style="width: 150px;">
+                <img class="foto-truco" src="sources/recursos/CEBOLLA.jpg" alt="cebolla" style="width: 150px;">
                 <div class="texto-truco">
                     <h2>Adiós, lágrimas de cebolla</h2>
                     <div class="tip-content">
@@ -35,7 +35,7 @@ $css_extra = '<link rel="stylesheet" href="styles/trucos.css">';
             </article>
 
             <article class="tarjeta-truco">
-                <img class="foto-truco" src="images/recursos/aguacate.jpg" alt="aguacate" style="width: 150px;">
+                <img class="foto-truco" src="sources/recursos/aguacate.jpg" alt="aguacate" style="width: 150px;">
                 <div class="texto-truco">
                     <h2>Aguacate, siempre perfecto</h2>
                     <div class="tip-content">
@@ -45,7 +45,7 @@ $css_extra = '<link rel="stylesheet" href="styles/trucos.css">';
             </article>
 
             <article class="tarjeta-truco">
-            <img class="foto-truco" src="images/recursos/ajo.jpg" alt="ajo" style="width: 150px;">
+            <img class="foto-truco" src="sources/recursos/ajo.jpg" alt="ajo" style="width: 150px;">
             <div class="texto-truco">
                 <h2>Ajo, pelado veloz</h2>
                 <div class="tip-content">
@@ -55,7 +55,7 @@ $css_extra = '<link rel="stylesheet" href="styles/trucos.css">';
             </article>
 
             <article class="tarjeta-truco">
-            <img class="foto-truco" src="images/recursos/olla QUE SE ECHA SAL.webp" alt="ajo" style="width: 150px;">
+            <img class="foto-truco" src="sources/recursos/olla QUE SE ECHA SAL.webp" alt="ajo" style="width: 150px;">
             <div class="texto-truco">
                 <h2>Pasta perfecta</h2>
                 <div class="tip-content">
@@ -65,7 +65,7 @@ $css_extra = '<link rel="stylesheet" href="styles/trucos.css">';
             </article>
 
             <article class="tarjeta-truco">
-            <img class="foto-truco" src="images/recursos/carne reposo.webp" alt="ajo" style="width: 150px;">
+            <img class="foto-truco" src="sources/recursos/carne reposo.webp" alt="ajo" style="width: 150px;">
             <div class="texto-truco">
                 <h2>Carnes jugosas a la parrilla</h2>
                 <div class="tip-content">
@@ -75,7 +75,7 @@ $css_extra = '<link rel="stylesheet" href="styles/trucos.css">';
             </article>
 
             <article class="tarjeta-truco">
-            <img class="foto-truco" src="images/recursos/huevo agua.webp" alt="ajo" style="width: 150px;">
+            <img class="foto-truco" src="sources/recursos/huevo agua.webp" alt="ajo" style="width: 150px;">
             <div class="texto-truco">
                 <h2>Huevos frescos vs. antiguos</h2>
                 <div class="tip-content">
