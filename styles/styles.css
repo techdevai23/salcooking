@@ -770,31 +770,55 @@ contenedor-tarjeta {
     .mobile-menu-toggle {
         display: block;
     }
-
+/*ajustes nuevos para movil*/
     .header-content {
-        flex-wrap: wrap;
+         display: flex;
+        justify-content: space-between;
+        align-items: center;
     }
-    /*ajustes nuevos para movil*/
-
+    
+    
+/* Contenedor izquierdo para el menú completo */
     .logo {
         order: 1;
-        flex-basis: 50%;
+         flex: 0 0 auto;
+        margin-right: auto;
+    }
+
+     .logo img {
+        height: 30px; /* Ajustar tamaño del logo en móvil */
+    }
+
+     /* Ajustar el icono de usuario */
+    .user-icon {
+        display: flex;
+        align-items: center;
+        height: 30px; /* Ajustar tamaño del logo en móvil */
+    }
+
+     /* Contenedor derecho para user-icon y menu hamburguesa */
+    .header-actions {
+        order: 2;
+        display: flex;
+        align-items: center;
+        gap: 15px;
+        margin-left: auto; /* Empuja los elementos a la izquierda */
     }
 
     .mobile-menu-toggle {
-        order: 2;
+        order: 3;
         flex-basis: 50%;
         text-align: right;
     }
 
     .search-box {
-        order: 3;
+        order: 4;
         margin: 15px 0;
         flex-basis: 100%;
     }
 
     .premium-button {
-        order: 4;
+        order: 5;
         flex-basis: 100%;
         text-align: center;
         margin-top: 15px;
@@ -817,6 +841,11 @@ contenedor-tarjeta {
         font-size: 2rem;
     }
 }
+
+/* Asegurar que el logo es visible en móvil */
+    .logo.d-none.d-md-block {
+        display: block !important;
+    }
 
 @media (max-width: 576px) {
     .footer-grid {

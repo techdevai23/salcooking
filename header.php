@@ -31,6 +31,7 @@
 </head>
 
 <body>
+<!-- tener en cuenta la vision de la cabecera en versión escritorio y movil -->
     <header class="main-header">
         <div class="logo-cabecera">
             <a href="index.php"><img src="sources/logos/cabecera.png" title="Ir al inicio" alt="SalCooking cabecera Logo"></a>
