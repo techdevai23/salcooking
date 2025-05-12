@@ -33,7 +33,7 @@
 <body>
     <header class="main-header">
         <div class="logo-cabecera">
-            <a href="index.php"><img src="sources/logos/cabecera.png" alt="SalCooking cabecera Logo"></a>
+            <a href="index.php"><img src="sources/logos/cabecera.png" title="Ir al inicio" alt="SalCooking cabecera Logo"></a>
         </div>
         <nav class="top-nav mb-2">
             <div class="container">
@@ -51,7 +51,7 @@
             <div class="container mb-3">
                 <div class="header-content">
                     <div class="logo d-none d-md-block">
-                        <img src="sources/logos/logo.png" alt="SalCooking Logo">
+                        <img src="sources/logos/logo.png" title="Accede a todas las secciones"" alt="SalCooking Logo">
                     </div>
                     <div class="search-box">
                         <form action="resultado-recetas.php" method="get">
@@ -78,6 +78,7 @@
             </div>
         </nav>
     </header>
+    <!-- menú en tamaño pequeño -->
     <nav class="mobile-nav">
         <ul>
             <li class="active"><a href="index.php">Inicio</a></li>
@@ -91,3 +92,41 @@
             <li><a href="profile.php">Editar Perfil</a></li>
         </ul>
     </nav>
+<!-- menú desplegable izquierdo -->
+    <div class="slide-menu" id="slideMenu">
+    <div class="slide-menu-header">
+        <span id="closeSlideMenu" class="close-slide-menu">&times;</span>
+        <h3>Menú</h3>
+    </div>
+    <ul>
+        <li><a href="planes.php">inicio</a></li>
+        <hr style="border: 0.5px solid #ccc; margin: 0;">
+        <li class="cabecera">RECETAS</li>
+        <li><a href="filosofia.php">Categorías</a></li>
+        <li><a href="recetas-categoria.php">Búsqueda de recetas</a></li>
+        <li><a href="recetas-categoria.php">La receta del día</a></li>
+        <hr style="border: 0.5px solid #ccc; margin: 0;">
+        <li class="cabecera" >ZONA PRÉMIUM</li>
+        <li><a href="trucos.php">Perfil principal</a></li>
+        <li><a href="planes.php">Perfil secundario </a></li>
+        <li class="cabecera" >DIETAS</li>
+        <li><a href="contacto.php">Dieta semanal</a></li>
+        <li><a href="contacto.php">Dieta del día</a></li>
+        <li><a href="contacto.php">Lista de la compra semanal</a></li>
+    <li><a href="contacto.php">Lista de la compra del día</a></li>
+    <hr style="border: 0.5px solid #ccc; margin: 0;">
+    <li class="cabecera" >INFORMACIÓN</li>
+    <li><a href="contacto.php">Nuestra filosofía</a></li>
+        <li><a href="contacto.php">Contacto</a></li>
+        <li><a href="contacto.php">Ayuda</a></li>
+        <li><a href="planes.php">Planes</a></li>
+        <hr style="border: 0.5px solid #ccc; margin: 0;">
+        <li class="cabecera" >GESTIÓN DE CUENTA</li>
+    <li><a href="contacto.php">Login</a></li>
+     <li><a href="contacto.php">Perfil-Ajustes</a></li>
+        <li><a href="contacto.php">Cambio de contraseña</a></li>
+        <li><a href="contacto.php">Cerrar sesión</a></li>
+
+
+    </ul>
+</div>
