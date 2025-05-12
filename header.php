@@ -33,9 +33,11 @@
 <body>
 <!-- tener en cuenta la vision de la cabecera en versión escritorio y movil -->
     <header class="main-header">
+        <!-- logotipo principal -->
         <div class="logo-cabecera">
             <a href="index.php"><img src="sources/logos/cabecera.png" title="Ir al inicio" alt="SalCooking cabecera Logo"></a>
         </div>
+        <!-- menú en tamaño grande -->
         <nav class="top-nav mb-2">
             <div class="container">
                 <ul class="nav-tabs">
@@ -49,29 +51,32 @@
                     <li><a href="contacto.php">Contáctanos</a></li>
                 </ul>
             </div>
+            <!-- Contenedor principal - Elementos comunes -->
             <div class="container mb-3">
                 <div class="header-content">
+                    <!-- logotipo menu completo -->
                     <div class="logo d-none d-md-block">
                         <img src="sources/logos/logo.png" title="Accede a todas las secciones"" alt="SalCooking Logo">
                     </div>
+                    <!-- barra de búsqueda -->
                     <div class="search-box">
                         <form action="resultado-recetas.php" method="get">
                             <input type="text" placeholder="Busca recetas" name="query">
-                            <button type="submit"><img src="sources/iconos/Search-Circle--Streamline-Ultimate.svg" alt="User Icon" style="width: 24px; height: 24px;"></button>
+                            <button type="submit"><img src="sources/iconos/Search-Circle--Streamline-Ultimate.svg" alt="búsqueda Icon" ></button>
                         </form>
                     </div>
+                    <!-- boton premium -->
                     <div class="premium-button">
                         <a href="perfil.php" class="btn-premium">Hazte Prémium</a>
                     </div>
                     <!-- icono de usuario con enlace a web de usuario -->
                     <div class="header-actions">
-
                         <div class="user-icon">
-                            <a href="login.php"><img src="sources/iconos/Single-Neutral-Circle--Streamline-Ultimate.svg" alt="User Icon" style="width: 34px; height: 34px;"></a>
+                            <a href="login.php"><img src="sources/iconos/Single-Neutral-Circle--Streamline-Ultimate.svg" alt="User Icon" style="width: 24px; height: 24px;"></a>
                         </div>
                     </div>
 
-
+                    <!-- icono de menú hambirguesa desplegable -->
                     <div class="mobile-menu-toggle">
                         <i class="fas fa-bars"></i>
                     </div>
