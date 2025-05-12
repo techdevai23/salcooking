@@ -97,7 +97,7 @@ $enfermedades = $conexion->query($sql_enf);
         <p><?php echo nl2br(htmlspecialchars($receta['instrucciones'])); ?></p>
 
         <?php if (!empty($receta['sustitutos'])): ?>
-          <h5>♻️ Sustitutos:</h5>
+          <h4>♻️ Sustitutos:</h4>
           <p><?php echo nl2br(htmlspecialchars($receta['sustitutos'])); ?></p>
         <?php endif; ?>
 

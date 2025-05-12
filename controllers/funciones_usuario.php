@@ -122,7 +122,7 @@ function aplicarCodigoPremium($pdo, $id_usuario, $codigo_id, $codigo_texto) {
         return true;
     } catch (Exception $e) {
         $pdo->rollBack();
-        error_log("Error al aplicar código premium: " . $e->getMessage());
+        error_log("Error al aplicar código Prémium: " . $e->getMessage());
         return false;
     }
 }

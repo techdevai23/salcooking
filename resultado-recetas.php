@@ -72,7 +72,7 @@ $css_extra = '<link rel="stylesheet" href="styles/resultado-recetas.css">';
                         <div class="premium-filters">
                             <div class="premium-header">
                                 <h4>Opciones Premium</h4>
-                                <a href="premium.php" class="btn-premium">Hazte Premium</a>
+                                <a href="premium.php" class="btn-premium">Hazte Prémium</a>
                             </div>
                             <div class="premium-options">
                                 <div class="premium-option">

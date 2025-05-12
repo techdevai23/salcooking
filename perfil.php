@@ -126,7 +126,7 @@ $nombre_pagina = "Perfil-Ajustes"; // Para el título y migas
           <div class="premium-section" style="margin-top:30px;">
             <h3>
               Opciones Prémium
-              <img src="sources/iconos/info_icon.svg" alt="info" class="info-icon" title="Funcionalidades exclusivas para usuarios premium" style="width:20px; height:20px;">
+              <img src="sources/iconos/info_icon.svg" alt="info" class="info-icon" title="Funcionalidades exclusivas para usuarios Prémium" style="width:20px; height:20px;">
               <!-- Reemplaza 'info_icon.svg' con un icono real -->
             </h3>
             <div class="premium-options-grid">

@@ -47,7 +47,7 @@
                         </form>
                     </div>
                     <div class="premium-button">
-                        <a href="premium.php" class="btn-premium">Hazte Premium</a>
+                        <a href="premium.php" class="btn-premium">Hazte Prémium</a>
                     </div>
                     <!-- icono de usuario con enlace a web de usuario -->
                     <div class="header-actions">

@@ -108,7 +108,7 @@ $css_extra = '<link rel="stylesheet" href="styles/contacto.css"><link rel="style
             <div class="form-group">
               <label for="tipoConsulta"><i class="bi bi-question-circle"></i> Solicitar información general:</label>
               <select class="form-select" id="tipoConsulta" name="tipoConsulta" data-bs-toggle="tooltip"
-                data-bs-placement="top" title="Opcional si elegiste una opción premium" required>
+                data-bs-placement="top" title="Opcional si elegiste una opción Prémium" required>
                 <option id="opcion" class="opcion" value="">Selecciona una opción</option>
                 <option value="dudas">Quiero registrarme</option>
                 <option value="compra">He tenido un problema en el momento de registro.</option>

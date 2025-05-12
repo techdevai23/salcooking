@@ -126,9 +126,9 @@ function abrirModal() {
 
 
         <ul>
-          <li><strong>Personalización total:</strong> Puedes configurar tu perfil con tus intolerancias, alergias y necesidades médicas.</li>
-          <li><strong>Creatividad:</strong> Sugerencias de recetas equilibradas y adaptadas a tus preferencias de salud</li>
-          <li><strong>Trucos de cocina:</strong> Que facilitan tu día a día y hacen de la cocina una experiencia agradable.</li>
+          <li><strong>🧬 Personalización total:</strong> Puedes configurar tu perfil con tus intolerancias, alergias y necesidades médicas.</li>
+          <li><strong>🍽️ Creatividad:</strong> Sugerencias de recetas equilibradas y adaptadas a tus preferencias de salud</li>
+          <li><strong>🧂Trucos de cocina:</strong> Que facilitan tu día a día y hacen de la cocina una experiencia agradable.</li>
 
         </ul>
         Todo ello con un compromiso firme: hacer que cuidar de tu salud sea fácil, de manera inteligente y sabrosa. SalCooking no es solo una herramienta, es un compañero de cocina que entiende tus necesidades reales y se adapta a tu vida.
@@ -139,7 +139,7 @@ function abrirModal() {
           <h2>Nuestros Ingredientes Clave</h2>
           <div class="ingredientes-clave">
             <div>❤️ Salud</div>
-            <div>🧠Cabeza</div>
+            <div>🧠Conocimiento</div>
             <div>😋 Sabor</div>
           </div>
           <h4>Tres valores que guían cada receta y cada decisión en SalCooking.</h4>

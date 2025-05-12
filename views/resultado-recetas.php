@@ -32,7 +32,7 @@
                     <div class="filter-group premium-filter">
                         <h4>Búsqueda Premium</h4>
                         <div class="premium-filter-notice">
-                            <p>* Necesitas ser usuario Premium para usar estas características</p>
+                            <p>* Necesitas ser usuario Prémium para usar estas características</p>
                         </div>
                         
                         <div class="filter-item">
@@ -59,7 +59,7 @@
                             </div>
                         </div>
                         
-                        <a href="premium.php" class="btn-premium">Hazte Premium</a>
+                        <a href="premium.php" class="btn-premium">Hazte Prémium</a>
                     </div>
                 </form>
             </aside>
