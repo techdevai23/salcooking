@@ -51,7 +51,7 @@
             <div class="container mb-3">
                 <div class="header-content">
                     <div class="logo d-none d-md-block">
-                        <a href="index.php"><img src="sources//logos/logo.png" alt="SalCooking Logo"></a>
+                        <img src="sources/logos/logo.png" alt="SalCooking Logo">
                     </div>
                     <div class="search-box">
                         <form action="resultado-recetas.php" method="get">
@@ -60,7 +60,7 @@
                         </form>
                     </div>
                     <div class="premium-button">
-                        <a href="perfil.php" class="btn-premium">Hazte Premium</a>
+                        <a href="perfil.php" class="btn-premium">Hazte Prémium</a>
                     </div>
                     <!-- icono de usuario con enlace a web de usuario -->
                     <div class="header-actions">
