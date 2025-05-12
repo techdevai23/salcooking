@@ -233,3 +233,33 @@ body.modal-open {
 .boton-audio:hover {
   background-color: #B56E1E;
 }
+
+@media (max-width: 768px) {
+  .contenido-filosofia {
+    grid-template-columns: 1fr;
+    gap: 20px;
+    margin-left: 0;
+  }
+
+  .foto {
+    align-items: center;
+    text-align: center;
+  }
+
+  .texto-filosofia {
+    margin: 0 15px;
+  }
+
+  .ingredientes-clave {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .ingredientes-clave div {
+    font-size: 30px;
+  }
+
+  .ingredientes-clave span {
+    font-size: 16px;
+  }
+}

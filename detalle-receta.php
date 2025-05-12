@@ -62,6 +62,7 @@ $enfermedades = $conexion->query($sql_enf);
       <!-- Columna de imagen -->
       <div class="foto">
         <?php
+        // Comprobamos si la imagen existe y la mostramos
         $imagePath = "sources/platos/id{$id}.png";
         if (file_exists($imagePath)) {
           echo "<img src='{$imagePath}' alt='Imagen representativa receta' width='300px'>";
@@ -69,21 +70,23 @@ $enfermedades = $conexion->query($sql_enf);
           echo "<img src='sources/platos/default.png' alt='Imagen no disponible' width='300px'>";
         }
         ?>
-        <p><strong>⏱️ Tiempo de preparación:</strong> <?php echo $receta['tiempo_preparacion']; ?> min</p>
-        <p><strong>🍽️ Porciones:</strong> <?php echo $receta['porciones']; ?></p>
-        <!-- boton descargar -->
+         <!-- boton descargar -->
         <button class="descargar-lista-btn" onclick="descargarListaPDF('lista-para-descargar.pdf', 'Receta <?php echo htmlspecialchars($receta['nombre']); ?>')">
           <img src="sources/iconos/Arrow-Double-Down-1--Streamline-Ultimate.svg" alt="Descargar" width="30px"> <!-- Icono ejemplo, ajusta la ruta -->
           Descargar receta
         </button>
+        <!-- información datos básicos -->
+        <p><strong>⏱️ Tiempo de preparación:</strong> <?php echo $receta['tiempo_preparacion']; ?> min</p>
+        <p><strong>🍽️ Porciones:</strong> <?php echo $receta['porciones']; ?></p>
+
       </div>
 
       <!-- Columna de texto -->
       <div class="texto-filosofia">
-        <h2><?php echo htmlspecialchars($receta['nombre']); ?></h2>
-        
-       
+        <h1><?php echo htmlspecialchars($receta['nombre']); ?></h1>
 
+
+        <!-- Datos principales -->
         <h4>🛒 Ingredientes:</h4>
         <ul>
           <?php while ($ing = $ingredientes->fetch_assoc()): ?>
@@ -114,8 +117,8 @@ $enfermedades = $conexion->query($sql_enf);
             <li><?php echo "{$enf['nombre']} ({$enf['indicaciones']})"; ?></li>
           <?php endwhile; ?>
         </ul>
-        
-        
+
+
 
         <!-- Faldón final -->
         <section class="faldon">

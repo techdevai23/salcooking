@@ -41,23 +41,23 @@ $nombre_pagina = "Perfil-Ajustes"; // Para el título y migas
           <div class="perfil-form-grid">
             <div class="form-group">
               <label for="nombre_completo">Nombre:</label>
-              <input type="text" id="nombre_completo" name="nombre_completo" value="">
+              <input type="text" id="nombre_completo" name="nombre_completo" value="Juan Pérez Ejemplo">
             </div>
 
             <div class="form-group">
               <label for="nick">Nick: <span class="required">*</span></label>
-              <input type="text" id="nick" name="nick" value="" required>
+              <input type="text" id="nick" name="nick" value="juanito_p" required>
               <a href="#" class="form-link">cambiar usuario</a>
             </div>
 
             <div class="form-group">
               <label for="email">Email: <span class="required">*</span></label>
-              <input type="email" id="email" name="email" value="" required>
+              <input type="email" id="email" name="email" value="juan.perez@example.com" required>
             </div>
 
             <div class="form-group">
               <label for="direccion">Dirección:</label>
-              <input type="text" id="direccion" name="direccion" value="">
+              <input type="text" id="direccion" name="direccion" value="Calle Falsa 123, Apto 4B">
             </div>
 
             <div class="form-group edad-group">
@@ -71,13 +71,13 @@ $nombre_pagina = "Perfil-Ajustes"; // Para el título y migas
 
             <div class="form-group">
               <label for="ciudad">Ciudad:</label>
-              <input type="text" id="ciudad" name="ciudad" value="">
+              <input type="text" id="ciudad" name="ciudad" value="Ciudad Ejemplo">
             </div>
 
            
             <div class="form-group">
               <label for="pais">País:</label>
-              <input type="text" id="pais" name="pais" value="">
+              <input type="text" id="pais" name="pais" value="País Ejemplo">
             </div>
 
             <div class="form-group">
@@ -94,7 +94,7 @@ $nombre_pagina = "Perfil-Ajustes"; // Para el título y migas
             </div>
             <div class="form-group">
               <label for="contrasena_display">Contraseña:</label>
-              <input type="text" id="contrasena_display" name="contrasena_display" value="" >
+              <input type="text" id="contrasena_display" name="contrasena_display" value="******************" readonly disabled>
               <a href="#" id="cambiarContrasenaLink" class="form-link">Cambio contraseña</a>
              
             </div>

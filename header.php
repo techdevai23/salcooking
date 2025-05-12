@@ -91,7 +91,7 @@
             <li><a href="filosofia.php">Nuestra Filosofía</a></li>
             <li><a href="recetas.php">Recetas</a></li>
             <li><a href="dieta.php">Dieta</a></li>
-            <li><a href="trucos.php">Trucos</a></li>
+            <li><a href="trucos.php">Trucos de cocina</a></li>
             <li><a href="planes.php">Planes</a></li>
             <li><a href="ayuda.php">Ayuda</a></li>
             <li><a href="contacto.php">Contacto</a></li>
@@ -105,33 +105,46 @@
         <h3>Menú</h3>
     </div>
     <ul>
-        <li><a href="planes.php">inicio</a></li>
+        <li><a href="index.php">inicio</a></li>
         <hr style="border: 0.5px solid #ccc; margin: 0;">
         <li class="cabecera">RECETAS</li>
-        <li><a href="filosofia.php">Categorías</a></li>
-        <li><a href="recetas-categoria.php">Búsqueda de recetas</a></li>
-        <li><a href="recetas-categoria.php">La receta del día</a></li>
+        <li><a href="recetas-categoria.php">Categorías</a></li>
+        <li><a href="resultado-recetas.php">Búsqueda de recetas</a></li>
+        <li><a href="detalle-receta.php?id=23">La receta del día</a></li>
+        <li><a href="detalle-receta.php?id=23">Trucos de cocina</a></li>
         <hr style="border: 0.5px solid #ccc; margin: 0;">
         <li class="cabecera" >ZONA PRÉMIUM</li>
-        <li><a href="trucos.php">Perfil principal</a></li>
-        <li><a href="planes.php">Perfil secundario </a></li>
+        <!-- solo boton de selecccion no redirección -->
+        <li class="cabecera">PERFILES</li>
+        <li>
+            <label>
+                <input type="radio" name="perfil" id="input-menu" value="principal" checked>
+                Perfil principal
+            </label>
+        </li>
+        <li>
+            <label>
+                <input type="radio" name="perfil" value="secundario">
+                Perfil secundario
+            </label>
+        </li>
         <li class="cabecera" >DIETAS</li>
-        <li><a href="contacto.php">Dieta semanal</a></li>
-        <li><a href="contacto.php">Dieta del día</a></li>
-        <li><a href="contacto.php">Lista de la compra semanal</a></li>
-    <li><a href="contacto.php">Lista de la compra del día</a></li>
+        <li><a href="dieta-semana-agrupado-franjas.php">Dieta semanal</a></li>
+        <li><a href="dieta-semana-por-dias.php" >Dieta del día</a></li>
+        <li><a href="lista-semana.php">Lista de la compra semanal</a></li>
+    <li><a href="lista-dia.php">Lista de la compra del día</a></li>
     <hr style="border: 0.5px solid #ccc; margin: 0;">
     <li class="cabecera" >INFORMACIÓN</li>
-    <li><a href="contacto.php">Nuestra filosofía</a></li>
+    <li><a href="filosofia.php">Nuestra filosofía</a></li>
         <li><a href="contacto.php">Contacto</a></li>
-        <li><a href="contacto.php">Ayuda</a></li>
+        <li><a href="ayuda.php">Ayuda</a></li>
         <li><a href="planes.php">Planes</a></li>
         <hr style="border: 0.5px solid #ccc; margin: 0;">
         <li class="cabecera" >GESTIÓN DE CUENTA</li>
-    <li><a href="contacto.php">Login</a></li>
-     <li><a href="contacto.php">Perfil-Ajustes</a></li>
-        <li><a href="contacto.php">Cambio de contraseña</a></li>
-        <li><a href="contacto.php">Cerrar sesión</a></li>
+    <li><a href="login.php">Login</a></li>
+     <li><a href="perfil.php">Perfil-Ajustes</a></li>
+        <li><a href="cambio-pass.php">Cambio de contraseña</a></li>
+        <li><a href="accion-completada.php">Cerrar sesión</a></li>
 
 
     </ul>

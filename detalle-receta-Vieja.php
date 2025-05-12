@@ -67,7 +67,7 @@ $enfermedades = $conexion->query($sql_enf);
 
       <!-- Columna de texto -->
       <div class="texto-filosofia">
-        <h2><?php echo htmlspecialchars($receta['nombre']); ?></h2>
+        <h1><?php echo htmlspecialchars($receta['nombre']); ?></h1>
         <button class="descargar-lista-btn" onclick="descargarFichaRecetaPDF('receta_<?php echo str_replace(' ', '_', htmlspecialchars($receta['nombre'])); ?>.pdf', 'Receta: <?php echo htmlspecialchars($receta['nombre']); ?>')">
           <img src="sources/iconos/Download-Bottom--Streamline-Ultimate.svg" alt="Descargar" width="30px">
           Descargar receta completa

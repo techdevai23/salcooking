@@ -473,6 +473,12 @@ ul.migas {
     color: #fff;
 }
 
+.slide-menu input[type="radio"] {
+    accent-color: var(--naranja-corp);
+    margin-left: 3px;
+}
+    
+
 /* Mostrar el menú */
 .slide-menu.open {
     left: 0;
@@ -564,12 +570,13 @@ ul.migas {
 }
 
 .titulo img {
-    width: 40px;
-    /* Ajusta el tamaño del icono */
-    height: auto;
-    /* Mantiene la proporción del icono */
-    margin-bottom: 30px;
+  display: inline-block;
+  margin: 0;
+  width: 40px;
+  height: auto;
+  margin-bottom: 30px;
 }
+
 
 contenedor-tarjeta {
     display: flex;
@@ -790,7 +797,7 @@ html, body {
         grid-template-columns: 1fr;
          overflow-x: hidden;
     }
-     html {
+     html, label, select {
     font-size: 14px;
   }
 
@@ -801,6 +808,18 @@ html, body {
   h2 {
     font-size: 1.5rem;
   }
+
+  h3 {
+    font-size: 1.2rem;
+  }
+
+    h4 {
+        font-size: 1rem;
+    }
+
+    h5 {
+        font-size: 0.9rem;
+    }
 
   img {
     max-width: 100%;
@@ -859,7 +878,10 @@ html, body {
     }
 
     /* Ajustar tamaños de iconos */
-    logo img,
+    logo img, .volver-atras-contenedor img, .premium-button img {
+        width: 24px;
+        height: 24px;
+    }
     .mobile-menu-toggle i {
         width: 24px;
         height: 24px;
@@ -938,14 +960,6 @@ html, body {
 
 
 
-@media (max-width: 576px) {
-    .footer-grid {
-        grid-template-columns: 1fr;
-    }
-
-    .hero-cta {
-        padding: 20px;
-    }
 
  /**** moviles ****/  
 @media (max-width: 576px) {
@@ -990,10 +1004,19 @@ html, body {
 }
 
 
+/* 
+
+ajustes para arreglar individualmete landings
+
+  .contenedores con margin {
+    width: 90%;
+    margin: 0 auto;
+    padding: 10px;
+    box-sizing: border-box;
+  }
 
 
 
-
-
+*/
 
 }

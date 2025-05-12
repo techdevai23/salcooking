@@ -432,15 +432,23 @@
     transform: translateY(-5px);
   }
   
-  .left-card:nth-child(n+2),
-  .right-card:nth-child(n+2) {
+  .left-card:nth-child(n+1),
+  .right-card:nth-child(n+1) {
     display: none;
   }
   
   
 }
 
-@media (max-width: 600px) {
+@media (max-width: 768px) {
+
+ .checkbox-container{
+  font-size: 12px;
+ }
+  .results-container {
+    padding: 15px;
+    margin: 0 auto;
+  }
   .top-filters-bar {
     padding: 15px;
   }
@@ -453,10 +461,73 @@
     width: 100%;
   }
   
+  .recipiente-info {
+    padding: 10px;
+    min-height: 150px;
+  }
   .recipiente-carrusel {
+    min-width: 250px;
+    /* flex-wrap: wrap; */
+    justify-content: center;
     padding: 0;
   }
   
+   .resultados-grid, 
+  .receta-carrusel, 
+  .recipiente-card {
+    width: 90%;
+    margin: 0 auto;
+    padding: 10px;
+    box-sizing: border-box;
+  }
+
+    .recipiente.card img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+    margin: 0 auto 10px;
+    border-radius: 8px;
+  }
+
+   .recipiente.card h3,
+  .recipiente.card p,
+  .recipiente.card .etiquetas,
+  .recipiente.card .boton .premium-options {
+    text-align: center;
+    font-size: 0.85rem;
+  }
+
+  .recipiente-tags{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin-bottom: 5px;
+  }
+
+  .etiqueta {
+    font-size: 0.75rem;
+    padding: 5px 10px;
+    margin: 4px 6px;
+    display: inline-block;
+    text-align: center;
+  }
+
+  
+  /* .boton {
+    display: block;
+    margin: 15px auto 0;
+    padding: 10px 20px;
+    font-size: 1rem;
+  } */
+
+  .premium-header .btn-premium {
+    font-size: 0.7rem !important;
+    padding: 2px 3px !important;
+    margin: 0 !important;
+    width: 100% !important;
+    text-align: center !important;
+    display: block !important;
+  }
 
 
 }
