@@ -56,11 +56,14 @@ ul {
     list-style: none;
 }
 
-.container {
-    width: 100%;
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 0 15px;
+
+
+/* CONTENEDORES estándar */
+.container, .main-content, .contenido-trucos, .contenido-contacto, .contenido-recetas, .contenido-perfil {
+  padding: 0 15px;
+  margin: 0 auto;
+  width: 90%;
+  box-sizing: border-box;
 }
 
 /* Top Navigation Tabs */
@@ -122,6 +125,14 @@ ul {
     cursor: pointer;
     
 
+}
+/* IMÁGENES - global */
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+  margin: 0 auto;
+  object-fit: cover;
 }
 
 .header-content {
@@ -759,7 +770,11 @@ contenedor-tarjeta {
     gap: 10px;
 }
 
-/* Responsive Styles */
+html, body {
+  overflow-x: hidden;
+  width: 100%;
+}
+  /* Responsive  Styles */
 @media (max-width: 992px) {
     .footer-grid {
         grid-template-columns: repeat(2, 1fr);
@@ -771,6 +786,52 @@ contenedor-tarjeta {
 }
 
 @media (max-width: 768px) {
+      .footer-grid {
+        grid-template-columns: 1fr;
+         overflow-x: hidden;
+    }
+     html {
+    font-size: 14px;
+  }
+
+  h1 {
+    font-size: 2rem;
+  }
+
+  h2 {
+    font-size: 1.5rem;
+  }
+
+  img {
+    max-width: 100%;
+    height: auto;
+  }
+
+ .container, .main-content {
+    padding: 0 15px;
+    width: 100%;
+  }
+
+  .footer-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .subscribe-form {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .subscribe-form input,
+  .subscribe-form button {
+    width: 100%;
+  }
+
+  .recipe-info-grid,
+  .meal-container {
+    grid-template-columns: 1fr !important;
+  }
+   
+   
     a, li {
         font-size: 14px;
         
@@ -795,6 +856,18 @@ contenedor-tarjeta {
         align-items: center;
         flex-wrap: wrap;
         /* gap: 10px; */
+    }
+
+    /* Ajustar tamaños de iconos */
+    logo img,
+    .mobile-menu-toggle i {
+        width: 24px;
+        height: 24px;
+    }
+
+/* Asegurar que el logo es visible en móvil */
+    .logo.d-none.d-md-block {
+        display: block !important;
     }
     
     
@@ -863,17 +936,7 @@ contenedor-tarjeta {
     }
 }
 
-/* Ajustar tamaños de iconos */
-    logo img,
-    .mobile-menu-toggle i {
-        width: 24px;
-        height: 24px;
-    }
 
-/* Asegurar que el logo es visible en móvil */
-    .logo.d-none.d-md-block {
-        display: block !important;
-    }
 
 @media (max-width: 576px) {
     .footer-grid {
@@ -883,4 +946,54 @@ contenedor-tarjeta {
     .hero-cta {
         padding: 20px;
     }
+
+ /**** moviles ****/  
+@media (max-width: 576px) {
+  .footer-grid {
+    grid-template-columns: 1fr;
+    padding: 0 15px;
+  }
+
+  .footer-column {
+    width: 100%;
+  }
+
+  .footer-column li {
+    text-align: center;
+  }
+
+  .subscribe-form {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 10px;
+  }
+
+  .subscribe-form input,
+  .subscribe-form button {
+    width: 100%;
+    border-radius: 4px;
+  }
+
+  .footer-bottom {
+    text-align: center;
+  }
+
+  .footer-links {
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+
+  .copyright {
+    text-align: center;
+    padding-bottom: 15px;
+  }
+}
+
+
+
+
+
+
+
+
 }

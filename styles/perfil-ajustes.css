@@ -52,7 +52,11 @@
 
 .perfil-form-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); /* Responsive grid */
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); html, body {
+  overflow-x: hidden;
+  width: 100%;
+}
+  /* Responsive  grid */
     gap: 20px 30px; /* row-gap column-gap */
     margin-bottom: 30px;
 }
@@ -245,7 +249,11 @@
     width: auto; /* Para que no ocupe todo el ancho */
 }
 
-/* Responsive Styles */
+html, body {
+  overflow-x: hidden;
+  width: 100%;
+}
+  /* Responsive  Styles */
 @media (max-width: 992px) {
     .results-container {
         grid-template-columns: 1fr;

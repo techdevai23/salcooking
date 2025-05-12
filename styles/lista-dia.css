@@ -129,7 +129,11 @@
 
 
 
-/* Responsive Styles */
+html, body {
+  overflow-x: hidden;
+  width: 100%;
+}
+  /* Responsive  Styles */
 @media (max-width: 992px) {
     .results-container {
         grid-template-columns: 1fr;
@@ -175,7 +179,11 @@
 } */
 
 
-/* Responsive Styles */
+html, body {
+  overflow-x: hidden;
+  width: 100%;
+}
+  /* Responsive  Styles */
 @media (max-width: 992px) {
     .results-container {
         grid-template-columns: 1fr;

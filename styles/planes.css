@@ -230,7 +230,11 @@
     margin: 5px 0;
 }
 
-/* Responsive Styles */
+html, body {
+  overflow-x: hidden;
+  width: 100%;
+}
+  /* Responsive  Styles */
 @media (max-width: 992px) {
     .contenido-planes-landing {
         grid-template-columns: 1fr;
