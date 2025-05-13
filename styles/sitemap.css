@@ -1,0 +1,467 @@
+/* Estilos para el sitemap */
+
+.contenedor-sitemap-landing {
+    position: relative;
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 30px;
+    background-color: transparent;
+    min-height: 800px; 
+    overflow: hidden;
+}
+
+.contenedor-sitemap-landing::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-image: url('../sources/solo-fondo.png');
+    background-size: 102% 100%;
+    background-position: center;
+    background-repeat: no-repeat;
+    z-index: -1;
+    opacity: 0.5;
+}
+
+.contenido-sitemap-landing {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+    margin-top: 30px;
+}
+
+.sitemap-descripcion {
+    text-align: center;
+    max-width: 800px;
+    margin: 0 auto 20px;
+    font-size: 1.1em;
+    color: #333;
+}
+
+/* Estilos para el sitemap visual */
+.sitemap-visual {
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    padding: 30px;
+    overflow: hidden;
+    position: relative;
+}
+
+.sitemap-container {
+    position: relative;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: auto auto auto;
+    gap: 30px;
+    margin: 0 auto;
+}
+
+/* Definición de áreas para los nodos */
+#inicio {
+    grid-column: 2;
+    grid-row: 1;
+}
+
+#recetas {
+    grid-column: 1;
+    grid-row: 2;
+}
+
+#premium {
+    grid-column: 2;
+    grid-row: 2;
+}
+
+#info {
+    grid-column: 3;
+    grid-row: 2;
+}
+
+#perfiles {
+    grid-column: 1;
+    grid-row: 3;
+}
+
+#dietas {
+    grid-column: 2;
+    grid-row: 3;
+}
+
+#cuenta {
+    grid-column: 3;
+    grid-row: 3;
+}
+
+/* Nodos del sitemap */
+.sitemap-node {
+    position: relative;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    transition: all 0.3s ease;
+    cursor: pointer;
+    border: 2px solid transparent;
+}
+
+.sitemap-node:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+}
+
+.sitemap-node h3 {
+    margin-top: 0;
+    margin-bottom: 15px;
+    color: #333;
+    text-align: center;
+    position: relative;
+    padding-bottom: 10px;
+}
+
+.sitemap-node h3::after {
+    content: '';
+    position: absolute;
+    left: 50%;
+    bottom: 0;
+    transform: translateX(-50%);
+    width: 50px;
+    height: 3px;
+    background-color: #ddd;
+}
+
+/* Estilos específicos para cada tipo de nodo */
+.sitemap-home {
+    background-color: #f8f9fa;
+    border-color: #4caf50;
+}
+
+.sitemap-home h3::after {
+    background-color: #4caf50;
+}
+
+.sitemap-section {
+    background-color: #f8f9fa;
+    border-color: #2196f3;
+}
+
+.sitemap-section h3::after {
+    background-color: #2196f3;
+}
+
+.sitemap-subsection {
+    background-color: #f8f9fa;
+    border-color: #ff9800;
+}
+
+.sitemap-subsection h3::after {
+    background-color: #ff9800;
+}
+
+.premium-section {
+    border-color: #9c27b0;
+    background-color: #faf8ff;
+}
+
+.premium-section h3::after {
+    background-color: #9c27b0;
+}
+
+/* Links dentro de los nodos */
+.sitemap-links {
+    list-style-type: none;
+    padding-left: 0;
+    margin: 0;
+}
+
+.sitemap-links li {
+    margin-bottom: 10px;
+    position: relative;
+    padding-left: 20px;
+}
+
+.sitemap-links li::before {
+    content: '→';
+    position: absolute;
+    left: 0;
+    color: #666;
+}
+
+.sitemap-links a {
+    color: #1976d2;
+    text-decoration: none;
+    transition: color 0.2s ease;
+}
+
+.sitemap-links a:hover {
+    color: #0d47a1;
+    text-decoration: underline;
+}
+
+/* Conexiones entre nodos */
+.node-connections {
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    height: 20px;
+    width: 100%;
+}
+
+.connection {
+    position: absolute;
+    width: 2px;
+    background-color: #ddd;
+    transition: background-color 0.3s ease;
+}
+
+/* Insignia Premium */
+.premium-badge {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #9c27b0;
+    color: white;
+    padding: 8px 15px;
+    border-radius: 20px;
+    font-size: 0.9em;
+    margin: 10px auto;
+    max-width: fit-content;
+}
+
+.premium-icon {
+    margin-right: 5px;
+    font-size: 1.2em;
+}
+
+/* Selector de perfiles */
+.perfiles-selector {
+    margin-top: 15px;
+}
+
+.perfil-option {
+    display: block;
+    position: relative;
+    padding-left: 35px;
+    margin-bottom: 12px;
+    cursor: pointer;
+    font-size: 16px;
+    user-select: none;
+}
+
+.perfil-option input {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+    height: 0;
+    width: 0;
+}
+
+.checkmark {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 20px;
+    width: 20px;
+    background-color: #eee;
+    border-radius: 50%;
+}
+
+.perfil-option:hover input ~ .checkmark {
+    background-color: #ccc;
+}
+
+.perfil-option input:checked ~ .checkmark {
+    background-color: #2196F3;
+}
+
+.checkmark:after {
+    content: "";
+    position: absolute;
+    display: none;
+}
+
+.perfil-option input:checked ~ .checkmark:after {
+    display: block;
+}
+
+.perfil-option .checkmark:after {
+    top: 6px;
+    left: 6px;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: white;
+}
+
+/* Estado activo y expandido */
+.sitemap-node.highlighted {
+    box-shadow: 0 0 0 3px rgba(33, 150, 243, 0.5), 0 8px 20px rgba(0, 0, 0, 0.15);
+    z-index: 10;
+}
+
+.sitemap-node.expanded {
+    height: auto;
+    z-index: 20;
+}
+
+/* Leyenda del sitemap */
+.sitemap-leyenda {
+    max-width: 500px;
+    margin: 30px auto;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+}
+
+.sitemap-leyenda h3 {
+    text-align: center;
+    margin-top: 0;
+}
+
+.sitemap-leyenda ul {
+    list-style-type: none;
+    padding-left: 0;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+}
+
+.leyenda-icon {
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    margin-right: 8px;
+    text-align: center;
+    line-height: 20px;
+    font-size: 12px;
+}
+
+.leyenda-home {
+    background-color: #4caf50;
+    color: white;
+}
+
+.leyenda-section {
+    background-color: #2196f3;
+    color: white;
+}
+
+.leyenda-subsection {
+    background-color: #ff9800;
+    color: white;
+}
+
+.leyenda-premium {
+    background-color: #9c27b0;
+    color: white;
+}
+
+/* Vista móvil alternativa */
+.sitemap-mobile {
+    display: none;
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    margin-top: 30px;
+}
+
+.sitemap-mobile h3 {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.mobile-section {
+    margin-bottom: 20px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid #eee;
+}
+
+.mobile-section h4 {
+    margin-top: 0;
+    margin-bottom: 10px;
+    color: #333;
+    display: flex;
+    align-items: center;
+}
+
+.mobile-section ul {
+    list-style-type: none;
+    padding-left: 20px;
+}
+
+.mobile-section li {
+    margin-bottom: 8px;
+}
+
+.premium-mobile h4 {
+    color: #9c27b0;
+}
+
+.premium-badge-small {
+    display: inline-block;
+    background-color: #9c27b0;
+    color: white;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    text-align: center;
+    line-height: 20px;
+    font-size: 12px;
+    margin-left: 8px;
+}
+
+/* Responsive */
+@media (max-width: 992px) {
+    .sitemap-container {
+        grid-template-columns: repeat(2, 1fr);
+        grid-template-rows: auto;
+    }
+
+    #inicio {
+        grid-column: 1 / span 2;
+        grid-row: 1;
+    }
+
+    #recetas, #premium {
+        grid-column: 1;
+    }
+
+    #info, #cuenta {
+        grid-column: 2;
+    }
+
+    #perfiles, #dietas {
+        grid-column: 1 / span 2;
+    }
+    
+    .sitemap-leyenda ul {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 768px) {
+    .sitemap-visual {
+        display: none;
+    }
+    
+    .sitemap-mobile {
+        display: block;
+    }
+    
+    .contenedor-sitemap-landing {
+        padding: 15px;
+    }
+}
+
+@media (max-width: 576px) {
+    .sitemap-leyenda {
+        margin: 20px auto;
+    }
+}

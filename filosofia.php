@@ -61,10 +61,16 @@ $css_extra = '<link rel="stylesheet" href="styles/filosofia.css?v=<?php echo tim
       <h2>Entrevista en RNE</h2>
       <h2>(ficción sonora)</h2>
       <p>Escucha la entrevista completa en el programa especializado de Startups de RNE, donde hablan sobre SalCooking y su impacto en la cocina saludable.</p>
-      <audio controls>
+      <!-- <audio controls>
         <source src="sources/audios/entrevista-completa-SalCooking-Premium.wav" type="audio/wav">
         Tu navegador no soporta el elemento de audio.
-      </audio>
+      </audio> -->
+  <audio controls>
+  <source src="https://raw.githubusercontent.com/techdevai23/salcooking/main/sources/audios/entrevista-completa-SalCooking-Premium.wav" type="audio/wav">
+  Tu navegador no soporta el elemento de audio.
+</audio>
+
+      
     </div>
   </div>
 </div>

@@ -18,7 +18,7 @@
                 <ul class="footer-links">
                     <li><a href="planes.php">Planes de suscripción</a></li>
                     <li><a href="ayuda.php">Ayuda</a></li>
-                    <li><a href="profile.php">Editar Perfil</a></li>
+                    <li><a href="perfil.php">Editar Perfil</a></li>
                     <li><a href="sitemap.php">Sitemap</a></li>
                 </ul>
             </div>
