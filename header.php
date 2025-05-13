@@ -94,7 +94,7 @@
             <li><a href="trucos.php">Trucos de cocina</a></li>
             <li><a href="planes.php">Planes</a></li>
             <li><a href="ayuda.php">Ayuda</a></li>
-            <li><a href="contacto.php">Contacto</a></li>
+            <li><a href="contacto.php">Contáctanos</a></li>
             
         </ul>
     </nav>
@@ -136,7 +136,7 @@
     <hr style="border: 0.5px solid #ccc; margin: 0;">
     <li class="cabecera" >INFORMACIÓN</li>
     <li><a href="filosofia.php">Nuestra filosofía</a></li>
-        <li><a href="contacto.php">Contacto</a></li>
+        <li><a href="contacto.php">Contáctanos</a></li>
         <li><a href="ayuda.php">Ayuda</a></li>
         <li><a href="planes.php">Planes</a></li>
         <hr style="border: 0.5px solid #ccc; margin: 0;">
