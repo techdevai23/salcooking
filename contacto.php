@@ -91,7 +91,7 @@ $css_extra = '<link rel="stylesheet" href="styles/contacto.css"><link rel="style
                 Por favor, introduce un número de teléfono válido.
               </div>
             </div>
-  <p>Es obligatorio que elijas una opción de uno de los selectores <b><span style="color:crimson">*</span></b></p>
+            <p>Es obligatorio que elijas una opción de uno de los selectores <b><span style="color:crimson">*</span></b></p>
             <div class="form-group" id="contacto-premium">
               <label for="modeloRobot"><i class="bi bi-robot"></i> Relacionado con cuenta prémium:</label>
               <select class="form-select" id="modeloRobot" name="modeloRobot" data-bs-toggle="tooltip"
@@ -145,10 +145,16 @@ $css_extra = '<link rel="stylesheet" href="styles/contacto.css"><link rel="style
         <div class="right-column">
           <!-- VIDEO-->
           <div class="video-container">
-            <video autoplay loop muted playsinline class="vertical-video" style="width: 100%;">
+            <iframe
+              src="https://drive.google.com/file/d/1o37x17UJECUQT7zcv2NBCeuoBTNzfslB/view?usp=sharing"
+              width="640" height="480" allow="autoplay">
+            </iframe>
+            <!-- <video autoplay loop muted playsinline class="vertical-video" style="width: 100%;">
               <source src="sources/videos/letras-brillan-y-desaparecen-comprimido-2.mp4" type="video/mp4">
               Tu navegador no soporta videos.
-            </video>
+            </video> -->
+            
+
           </div>
           <!-- formas de contacto -->
 
@@ -176,48 +182,48 @@ $css_extra = '<link rel="stylesheet" href="styles/contacto.css"><link rel="style
       </div>
     </div>
 
-      <!-- Modal Política de Privacidad -->
+    <!-- Modal Política de Privacidad -->
     <div class="modal fade" id="privacidadModal" tabindex="-1" aria-labelledby="privacidadModalLabel"
-        aria-hidden="true">
-        <div class="modal-dialog modal-dialog-scrollable">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="privacidadModalLabel">Política de Privacidad de Salcooking</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                   
-                    <p>En Salcooking, nos comprometemos a proteger y respetar tu privacidad. Esta política describe cómo
-                        recopilamos y procesamos tus datos personales.</p>
+      aria-hidden="true">
+      <div class="modal-dialog modal-dialog-scrollable">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="privacidadModalLabel">Política de Privacidad de Salcooking</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
 
-                    <h5>1. Datos que recopilamos</h5>
-                    <p>Recopilamos la información que nos proporcionas a través de nuestros formularios, incluyendo
-                        nombre, dirección de correo electrónico, número de teléfono y detalles sobre tu consulta o
-                        problema.</p>
+            <p>En Salcooking, nos comprometemos a proteger y respetar tu privacidad. Esta política describe cómo
+              recopilamos y procesamos tus datos personales.</p>
 
-                    <h5>2. Cómo utilizamos tus datos</h5>
-                    <p>Utilizamos tus datos para:</p>
-                    <ul>
-                        <li>Responder a tus consultas y proporcionar soporte técnico</li>
-                        <li>Mejorar nuestros productos y servicios</li>
-                        <li>Enviarte información relevante sobre nuestros productos (si has dado tu consentimiento)</li>
-                    </ul>
+            <h5>1. Datos que recopilamos</h5>
+            <p>Recopilamos la información que nos proporcionas a través de nuestros formularios, incluyendo
+              nombre, dirección de correo electrónico, número de teléfono y detalles sobre tu consulta o
+              problema.</p>
 
-                    <h5>3. Protección de datos</h5>
-                    <p>Implementamos medidas de seguridad técnicas y organizativas para proteger tus datos personales
-                        contra accesos no autorizados, pérdida o alteración.</p>
+            <h5>2. Cómo utilizamos tus datos</h5>
+            <p>Utilizamos tus datos para:</p>
+            <ul>
+              <li>Responder a tus consultas y proporcionar soporte técnico</li>
+              <li>Mejorar nuestros productos y servicios</li>
+              <li>Enviarte información relevante sobre nuestros productos (si has dado tu consentimiento)</li>
+            </ul>
 
-                    <h5>4. Tus derechos</h5>
-                    <p>Tienes derecho a acceder, rectificar, limitar o eliminar tus datos personales. Para ejercer estos
-                        derechos, contáctanos en privacy@techdevai.es.</p>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn-opciones" data-bs-dismiss="modal">Cerrar</button>
-                </div>
-            </div>
+            <h5>3. Protección de datos</h5>
+            <p>Implementamos medidas de seguridad técnicas y organizativas para proteger tus datos personales
+              contra accesos no autorizados, pérdida o alteración.</p>
+
+            <h5>4. Tus derechos</h5>
+            <p>Tienes derecho a acceder, rectificar, limitar o eliminar tus datos personales. Para ejercer estos
+              derechos, contáctanos en privacy@techdevai.es.</p>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn-opciones" data-bs-dismiss="modal">Cerrar</button>
+          </div>
         </div>
+      </div>
     </div>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
     <script>
       document.addEventListener('DOMContentLoaded', function() {
 
@@ -228,17 +234,17 @@ $css_extra = '<link rel="stylesheet" href="styles/contacto.css"><link rel="style
         paymentForm.addEventListener('submit', function(e) {
           e.preventDefault(); // Previene que el formulario se envíe
 
-          
-      // Validar que al menos uno de los dos select tenga un valor seleccionado
-      if (!modeloRobot.value && !tipoConsulta.value) {
-        e.stopPropagation(); // Detener la propagación si no es válido
-        modeloRobot.classList.add('is-invalid');
-        tipoConsulta.classList.add('is-invalid');
-        return; // Salir si ninguno de los dos tiene un valor
-      } else {
-        modeloRobot.classList.remove('is-invalid');
-        tipoConsulta.classList.remove('is-invalid');
-      }
+
+          // Validar que al menos uno de los dos select tenga un valor seleccionado
+          if (!modeloRobot.value && !tipoConsulta.value) {
+            e.stopPropagation(); // Detener la propagación si no es válido
+            modeloRobot.classList.add('is-invalid');
+            tipoConsulta.classList.add('is-invalid');
+            return; // Salir si ninguno de los dos tiene un valor
+          } else {
+            modeloRobot.classList.remove('is-invalid');
+            tipoConsulta.classList.remove('is-invalid');
+          }
 
           // Validar el formulario
           if (paymentForm.checkValidity() === false) {
