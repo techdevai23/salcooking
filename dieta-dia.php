@@ -26,7 +26,7 @@ $css_extra = '<link rel="stylesheet" href="styles/dieta-semana.css">';
         <!-- barra de navegación de opciones -->
         <div class="top-filters-bar">
             <div class="filter-section">
-                <a href="dieta-semana-dias.php" class="action-btn-naranja">Dieta de la semana</a>
+                <a href="dieta-semana-por-dias.php" class="action-btn-naranja">Dieta de la semana</a>
             </div>
             <div class="filter-section">
                 <a href="lista-semana.php" class="action-btn-rosa">Lista compra semanal</a>

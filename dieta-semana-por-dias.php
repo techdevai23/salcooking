@@ -20,7 +20,7 @@ $css_extra = '<link rel="stylesheet" href="styles/dieta-semana-dias.css">';
     <div class="main-content">
         <div class="titulo">
             <img src="sources/iconos/semana.svg" alt="calendario semana">
-            <h1>Dieta de la Semana</h1>
+            <h1>Dieta de la Semana </h1>
         </div>
         <!-- barra de navegación de opciones -->
         <div class="top-filters-bar">

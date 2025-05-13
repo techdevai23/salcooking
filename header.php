@@ -129,8 +129,8 @@
             </label>
         </li>
         <li class="cabecera" >DIETAS</li>
-        <li><a href="dieta-semana-agrupado-franjas.php">Dieta semanal</a></li>
-        <li><a href="dieta-semana-por-dias.php" >Dieta del día</a></li>
+        <li><a href="dieta-semana-por-dias.php.php">Dieta semanal</a></li>
+        <li><a href="dieta-dia.php" >Dieta del día</a></li>
         <li><a href="lista-semana.php">Lista de la compra semanal</a></li>
     <li><a href="lista-dia.php">Lista de la compra del día</a></li>
     <hr style="border: 0.5px solid #ccc; margin: 0;">
