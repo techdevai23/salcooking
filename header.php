@@ -89,13 +89,13 @@
         <ul>
             <li class="active"><a href="index.php">Inicio</a></li>
             <li><a href="filosofia.php">Nuestra Filosofía</a></li>
-            <li><a href="recetas.php">Recetas</a></li>
-            <li><a href="dieta.php">Dieta</a></li>
+            <li><a href="recetas-categoria.php">Categorías de Recetas</a></li>
+            <li><a href="dieta-semana-por-dias.php">Dietas</a></li>
             <li><a href="trucos.php">Trucos de cocina</a></li>
             <li><a href="planes.php">Planes</a></li>
             <li><a href="ayuda.php">Ayuda</a></li>
             <li><a href="contacto.php">Contacto</a></li>
-            <li><a href="profile.php">Editar Perfil</a></li>
+            
         </ul>
     </nav>
 <!-- menú desplegable izquierdo -->
@@ -129,7 +129,7 @@
             </label>
         </li>
         <li class="cabecera" >DIETAS</li>
-        <li><a href="dieta-semana-por-dias.php.php">Dieta semanal</a></li>
+        <li><a href="dieta-semana-por-dias.php">Dieta semanal</a></li>
         <li><a href="dieta-dia.php" >Dieta del día</a></li>
         <li><a href="lista-semana.php">Lista de la compra semanal</a></li>
     <li><a href="lista-dia.php">Lista de la compra del día</a></li>

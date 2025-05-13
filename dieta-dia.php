@@ -42,25 +42,25 @@ $css_extra = '<link rel="stylesheet" href="styles/dieta-semana.css">';
 
 
             <div class="filter-section">
-                <a href="perfil.php" class="action-btn">Lunes</a>
+                <a href="#" class="action-btn">Lunes</a>
             </div>
             <div class="filter-section">
-                <a href="perfil.php" class="action-btn">Martes</a>
+                <a href="#" class="action-btn">Martes</a>
             </div>
             <div class="filter-section">
-                <a href="perfil.php" class="action-btn">Miércoles</a>
+                <a href="#" class="action-btn">Miércoles</a>
             </div>
             <div class="filter-section">
-                <a href="perfil.php" class="action-btn">Jueves</a>
+                <a href="#" class="action-btn">Jueves</a>
             </div>
             <div class="filter-section">
-                <a href="perfil.php" class="action-btn">Viernes</a>
+                <a href="#" class="action-btn">Viernes</a>
             </div>
             <div class="filter-section">
-                <a href="perfil.php" class="action-btn">Sábado</a>
+                <a href="#" class="action-btn">Sábado</a>
             </div>
             <div class="filter-section">
-                <a href="perfil.php" class="action-btn">Domingo</a>
+                <a href="#" class="action-btn">Domingo</a>
             </div>
 
         </div>

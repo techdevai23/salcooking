@@ -128,7 +128,19 @@
     font-weight: bold;
 }
 
-
+/* Mensaje premium */
+.premium-message {
+  margin-top: 30px;
+  margin-bottom: 40px;
+  padding: 15px;
+  width: 50%;
+  margin: 0 auto;
+  background-color: #FF9800;
+  border-radius: 8px;
+  text-align: center;
+  font-weight: bold;
+  color: black;
+}
 
 
 html, body {
@@ -158,6 +170,8 @@ html, body {
     .recipe-info-grid {
         grid-template-columns: 1fr;
     }
+
+    
 }
 
 @media (max-width: 576px) {

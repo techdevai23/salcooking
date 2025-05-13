@@ -371,20 +371,134 @@
 
 /* Estilos responsivos */
 @media (max-width: 768px) {
-    .meal-schedule {
-        overflow-x: scroll;
+
+@media (max-width: 768px) {
+    /* --- Ajustes generales para el contenedor principal --- */
+    section.dieta-semana .main-content { /* section.dieta-semana es el contenedor en dieta-dia.php */
+        padding: 15px; 
     }
-    
-    .week-header h2 {
-        font-size: 14px;
-        padding: 5px;
+    section.dieta-semana {
+        padding: 15px 0;
     }
-    
-    .time-label {
-        width: 60px;
+
+    /* --- Primera Barra de Filtros (Acciones) --- */
+    section.dieta-semana .main-content > .top-filters-bar:first-of-type {
+        flex-direction: column;
+        align-items: stretch;
+        margin-left: 0;
+        margin-right: 0;
+        padding: 15px;
     }
-    
-    .meal-item p {
-        font-size: 12px;
+    section.dieta-semana .main-content > .top-filters-bar:first-of-type .filter-section {
+        width: 100%;
+        margin-bottom: 10px;
     }
+    section.dieta-semana .main-content > .top-filters-bar:first-of-type .filter-section:last-child {
+        margin-bottom: 0;
+    }
+    section.dieta-semana .main-content > .top-filters-bar:first-of-type .action-btn-naranja,
+    section.dieta-semana .main-content > .top-filters-bar:first-of-type .action-btn-rosa,
+    section.dieta-semana .main-content > .top-filters-bar:first-of-type .action-btn-verde {
+        width: 100%;
+        display: block;
+        text-align: center;
+        padding: 12px 15px;
+        box-sizing: border-box;
+    }
+
+    /* --- Segunda Barra de Filtros (Navegación de Días) --- */
+    section.dieta-semana .main-content > .top-filters-bar:nth-of-type(2) {
+        flex-direction: row;
+        flex-wrap: nowrap;
+        overflow-x: auto;
+        justify-content: flex-start;
+        margin-left: 0;
+        margin-right: 0;
+        padding: 10px 5px;
+        position: sticky;
+        top: 0; /* Ajustar si hay cabecera global fija */
+        z-index: 990;
+        background-color: var(--white); /* Para que no se vea contenido detrás */
+        box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        -webkit-overflow-scrolling: touch;
+        scrollbar-width: thin;
+        scrollbar-color: var(--primary-color) var(--beig-corp);
+    }
+    section.dieta-semana .main-content > .top-filters-bar:nth-of-type(2)::-webkit-scrollbar {
+        height: 6px;
+    }
+    section.dieta-semana .main-content > .top-filters-bar:nth-of-type(2)::-webkit-scrollbar-track {
+        background: var(--beig-corp);
+        border-radius: 3px;
+    }
+    section.dieta-semana .main-content > .top-filters-bar:nth-of-type(2)::-webkit-scrollbar-thumb {
+        background: var(--primary-color);
+        border-radius: 3px;
+    }
+    section.dieta-semana .main-content > .top-filters-bar:nth-of-type(2) .filter-section {
+        flex-shrink: 0;
+        margin-bottom: 0;
+    }
+    section.dieta-semana .main-content > .top-filters-bar:nth-of-type(2) .action-btn {
+        padding: 8px 10px; /* Más compactos */
+        font-size: 0.9em;
+        white-space: nowrap;
+    }
+
+    /* --- Estructura de Comidas del Día --- */
+    section.dieta-semana .meal-schedule { /* Contenedor de .meal-section */
+        flex-direction: column;
+        gap: 25px; /* Más espacio entre Desayuno, Comida, Cena */
+        margin-top: 15px; /* Espacio después de la barra de días sticky */
+    }
+    section.dieta-semana .meal-section {
+        width: 100%;
+        margin-left: 0 !important;
+        margin-right: 0 !important;
+        padding: 15px;
+        box-sizing: border-box;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.08); /* Sombra más sutil */
+    }
+    section.dieta-semana .meal-section h2 {
+        font-size: 1.5rem;
+        margin-bottom: 15px;
+    }
+    section.dieta-semana .meal-section .meal-container {
+        grid-template-columns: 1fr; /* Apilar platos si hay varios (ej. en "Comida") */
+        gap: 15px;
+    }
+    section.dieta-semana .meal-item {
+        padding: 15px;
+    }
+    section.dieta-semana .meal-item img {
+        height: 180px;
+    }
+    section.dieta-semana .meal-item h3 { /* Lunes, Martes... en tarjeta. Podría ser redundante */
+        font-size: 1.1rem;            /* Si la página ya indica el día claramente. */
+        margin-bottom: 8px;
+    }
+    section.dieta-semana .meal-item p {
+        font-size: 1rem;
+    }
+
+    /* --- Botón y Mensaje Premium --- */
+     section.dieta-semana .btn-opciones { /* "Ver lista de ingredientes" */
+        width: calc(100% - 30px);
+        margin-left: auto;
+        margin-right: auto;
+        padding: 15px;
+        box-sizing: border-box;
+    }
+    section.dieta-semana .premium-message {
+        width: calc(100% - 30px);
+        margin-left: auto;
+        margin-right: auto;
+        margin-top: 20px;
+        margin-bottom: 20px;
+        padding: 15px;
+        box-sizing: border-box;
+    }
+}
+
+
 }

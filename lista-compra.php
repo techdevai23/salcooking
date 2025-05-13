@@ -24,16 +24,16 @@ $ingredientes_compra_falsos = [
 
 <!-- migas (ejemplo) -->
 <div class="migas-container">
-  <div class="container migas-flex">
-    <ul class="migas">
-      <li><a href="index.php">Inicio</a></li>
-      <li><a href="#">Demo</a></li>
-      <li class="current">Lista de la Compra (Estática)</li>
-    </ul>
-    <div class="volver-atras-contenedor">
-      <a href="javascript:history.back()" class="volver-atras"><img src="sources/iconos/Arrow-Thick-Left-3--Streamline-Ultimate.svg" width="32px" alt="icono atrás"></a>
+    <div class="container migas-flex">
+        <ul class="migas">
+            <li><a href="index.php">Inicio</a></li>
+            <li><a href="#">Demo</a></li>
+            <li class="current">Lista de la Compra (Estática)</li>
+        </ul>
+        <div class="volver-atras-contenedor">
+            <a href="javascript:history.back()" class="volver-atras"><img src="sources/iconos/Arrow-Thick-Left-3--Streamline-Ultimate.svg" width="32px" alt="icono atrás"></a>
+        </div>
     </div>
-  </div>
 </div>
 
 <!-- Contenido principal (usando clases de lista-semana para el layout) -->
@@ -44,9 +44,9 @@ $ingredientes_compra_falsos = [
             <img src="sources/iconos/Shopping-Basket-3--Streamline-Ultimate.svg" width="48px" alt="Carrito de la compra">
             <h1>Lista de la compra (Ejemplo Estático)</h1>
         </div>
-       
+
         <div class="contenido-lista-semana"> <!-- Usamos clase lista-semana para el layout base -->
-          
+
             <?php if (!empty($ingredientes_compra_falsos)): ?>
                 <div class="lista-ingredientes-compra" id="lista-para-descargar">
                     <?php foreach ($ingredientes_compra_falsos as $ingrediente): ?>
@@ -64,20 +64,23 @@ $ingredientes_compra_falsos = [
             <?php endif; ?>
 
             <div class="acciones-lista">
-            <button class="descargar-lista-btn" onclick="descargarListaPDF('lista-compra.pdf', 'Lista de la Compra')">
+                <button class="descargar-lista-btn" onclick="descargarListaPDF('lista-compra.pdf', 'Lista de la Compra')">
                     <img src="sources/iconos/Arrow-Double-Down-1--Streamline-Ultimate.svg" alt="Descargar">
                     Descargar lista ingredientes
                 </button>
+
+
             </div>
-            
-            <p class="mensaje-apoyo-premium">
-                ¡Gracias por seguir apoyándonos siendo un usuario <strong>Prémium</strong>!
-            </p>
+            <div class="premium-message">
+                ¡Gracias por seguir apoyándonos siendo un usuario Prémium!
+            </div>
+
+
         </div>
     </div>
 </section>
 
 <?php include 'footer.php'; ?>
 
-            <!-- Arrow-Double-Down-1--Streamline-Ultimate.svg
+<!-- Arrow-Double-Down-1--Streamline-Ultimate.svg
              Download-Bottom--Streamline-Ultimate.svg-->

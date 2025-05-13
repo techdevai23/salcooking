@@ -47,10 +47,8 @@
     position: relative;
     width: 100%;
     max-width: 1200px;
-    /* margin: 0 auto; */
-    margin-left: 30px;
-    margin-right: 30px;
-    padding: 50px;
+    margin: 0 auto;
+   padding: 0 60px;
     background-color: transparent;
     min-height: 800px; 
     overflow: hidden;
@@ -239,16 +237,153 @@ html, body {
     .contenido-planes-landing {
         grid-template-columns: 1fr;
     }
+
+  .contenedor-Planes-de-uso{
+        padding: 0 50px; /* Ajustar si los estilos generales añaden padding aquí */
+        margin: 0 auto !important;
+        
+    }
+
 }
 
 @media (max-width: 768px) {
-    .planes-tabla {
-        overflow-x: auto;
+   * --- Media Query para Móvil --- */
+
+
+    .contenedor-Planes-de-uso{
+        padding: 0 50px; /* Ajustar si los estilos generales añaden padding aquí */
+        /* margin: 0 auto !important; */
+        
     }
-    
-    .planes-tabla table {
-        min-width: 600px;
+
+    .planes-landing .titulo h1 {
+        font-size: 1.8em; /* Ajuste específico si el H1 general es muy grande */
     }
+    .planes-landing .intro h2,
+    .planes-landing .planes-tabla-container h2 { /* Comparativa completa */
+        font-size: 1.4em; /* Ajuste específico si el H2 general es muy grande */
+    }
+    .planes-landing .contenido-planes-landing > .planes-descripcion h3 { /* Formas de acceso... */
+        font-size: 1.3em;
+    }
+
+
+    /* Apilar las secciones principales en móvil */
+    .planes-landing .contenido-planes-landing {
+        display: flex;
+        flex-direction: column;
+        gap: 35px; /* Espacio entre la "tabla" y las "tarjetas de descripción" */
+    }
+
+    .planes-landing .planes-tabla-container,
+    .planes-landing .contenido-planes-landing > .planes-descripcion { /* El contenedor de .plan-card */
+        width: 100%;
+    }
+
+    /* --- Transformación de la tabla comparativa --- */
+    .planes-landing .planes-tabla thead {
+        display: none; /* Ocultar cabecera de la tabla */
+    }
+
+    .planes-landing .planes-tabla,
+    .planes-landing .planes-tabla tbody,
+    .planes-landing .planes-tabla tr,
+    .planes-landing .planes-tabla td {
+        display: block; /* Fundamental para la transformación */
+    }
+
+    .planes-landing .planes-tabla {
+        border: none;
+    }
+
+    .planes-landing .planes-tabla tr {
+        border: 1px solid var(--border-color, #ddd);
+        border-radius: 8px;
+        padding: 15px;
+        margin-bottom: 20px;
+        box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+    }
+
+    .planes-landing .planes-tabla td {
+        padding: 8px 0; /* Espaciado vertical dentro de la "fila-tarjeta" */
+        border: none; /* Quitar bordes de celda individuales */
+    }
+
+    /* La primera celda (nombre de la funcionalidad) actúa como título */
+    .planes-landing .planes-tabla td:first-child {
+        font-weight: bold;
+        font-size: 1.1em;
+        color: var(--primary-dark, #0e7c54);
+        margin-bottom: 12px;
+        padding-bottom: 8px;
+        border-bottom: 1px dashed var(--border-color, #eee); /* Separador ligero */
+    }
+
+    /* Celdas de los planes (Visitante, Registrado, Premium) */
+    .planes-landing .planes-tabla td:not(:first-child) {
+        display: flex; /* Para alinear la etiqueta ::before y el contenido (check/nota) */
+        align-items: center;
+        font-size: 0.95em;
+    }
+
+    .planes-landing .planes-tabla td:not(:first-child)::before {
+        font-weight: 500; /* Normal o semi-bold */
+        color: #333;
+        margin-right: 10px;
+        min-width: 150px; /* Para alinear los checks/crosses verticalmente. Ajustar según el texto más largo. */
+        /* Opcional: text-align: right; si se prefiere etiquetas alineadas a la derecha antes del check */
+    }
+
+    /* Contenido de las etiquetas ::before para cada plan */
+    /* Estas se basan en el orden de las celdas (td) en cada fila (tr) */
+    .planes-landing .planes-tabla tr td:nth-child(2)::before { /* Segunda celda = Visitante */
+        content: "Visitante (sin registro):";
+    }
+    .planes-landing .planes-tabla tr td:nth-child(3)::before { /* Tercera celda = Usuario (registrado) */
+        content: "Usuario (registrado):";
+    }
+    .planes-landing .planes-tabla tr td:nth-child(4)::before { /* Cuarta celda = Usuario (Prémium) */
+        content: "Usuario (Prémium):";
+    }
+
+    /* Estilos para los checks/crosses que ya están en el HTML */
+    .planes-landing .planes-tabla td.check,
+    .planes-landing .planes-tabla td.cross,
+    .planes-landing .planes-tabla td.check-note { /* El texto ✓ o ✗ */
+        flex-shrink: 0; /* Para que no se encoja si la etiqueta es larga */
+    }
+    /* Los colores para .check y .cross ya deberían estar definidos globalmente o en la sección desktop */
+
+    /* Estilo para la nota (ej. "(hasta 2)") */
+    .planes-landing .planes-tabla td span.nota {
+        font-size: 0.9em; /* Relativo al td */
+        color: #666;
+        margin-left: 6px; /* Espacio después del check */
+        font-style: italic;
+    }
+
+    /* --- Notas debajo de la tabla --- */
+    .planes-landing .planes-tabla-container .notas {
+        font-size: 0.85em; /* Un poco más pequeño en móvil */
+    }
+    .planes-landing .planes-tabla-container .notas p {
+        text-align: left; /* Asegurar alineación en móvil */
+    }
+
+    /* --- Tarjetas de Descripción de Planes (.plan-card) --- */
+    .planes-landing .plan-card {
+        width: 100%; /* Ya deberían ocupar el ancho por ser block, pero por si acaso */
+        margin-bottom: 20px;
+        padding: 15px; /* Un poco menos de padding en móvil */
+    }
+    .planes-landing .plan-card h3 {
+        font-size: 1.25em; /* Ajustar si es necesario */
+    }
+    .planes-landing .plan-card ul li {
+        font-size: 0.95em;
+    }
+
+
 }
 
 @media (max-width: 576px) {
