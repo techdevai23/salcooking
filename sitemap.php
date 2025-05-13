@@ -144,7 +144,7 @@ $css_extra = '<link rel="stylesheet" href="styles/sitemap.css">';
         </div>
 
         <!-- Mapa alternativo lineal para móviles -->
-        <div class="sitemap-mobile">
+        <!-- <div class="sitemap-mobile">
           <h3>Mapa del sitio lineal</h3>
           
           <div class="mobile-section">
@@ -167,9 +167,34 @@ $css_extra = '<link rel="stylesheet" href="styles/sitemap.css">';
           <div class="mobile-section premium-mobile">
             <h4>Zona Prémium <span class="premium-badge-small">★</span></h4>
             <p>Contenido exclusivo para usuarios premium</p>
-          </div>
+          </div> -->
 
-          <div class="mobile-section">
+          div class="sitemap-mobile">
+    <h3>Mapa del sitio lineal</h3>
+    
+    <div class="mobile-section home-mobile">
+        <h4>Página Principal</h4>
+        <ul>
+            <li><a href="index.php">Inicio</a></li>
+        </ul>
+    </div>
+
+    <div class="mobile-section section-mobile">
+        <h4>Recetas</h4>
+        <ul>
+            <li><a href="recetas-categoria.php">Categorías</a></li>
+            <li><a href="resultado-recetas.php">Búsqueda de recetas</a></li>
+            <li><a href="detalle-receta.php?id=23">La receta del día</a></li>
+            <li><a href="detalle-receta.php?id=23">Trucos de cocina</a></li>
+        </ul>
+    </div>
+
+    <div class="mobile-section premium-mobile">
+        <h4>Zona Prémium <span class="premium-badge-small">★</span></h4>
+        <p>Contenido exclusivo para usuarios premium</p>
+    </div>
+
+          <div class="mobile-section subsection-mobile">
             <h4>Perfiles</h4>
             <ul>
               <li>Perfil principal</li>
@@ -177,7 +202,7 @@ $css_extra = '<link rel="stylesheet" href="styles/sitemap.css">';
             </ul>
           </div>
 
-          <div class="mobile-section">
+          <div class="mobile-section subsection-mobile">
             <h4>Dietas</h4>
             <ul>
               <li><a href="dieta-semana-por-dias.php">Dieta semanal</a></li>

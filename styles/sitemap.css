@@ -417,11 +417,59 @@
     margin-left: 8px;
 }
 
+
+.mobile-section {
+    margin-bottom: 20px;
+    padding: 15px;
+    border-radius: 8px;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+    border-left: 4px solid transparent;
+}
+
+/* Colores específicos para cada sección en móvil */
+.mobile-section.home-mobile {
+    background-color: #f8f9fa;
+    border-left-color: #4caf50;
+}
+
+.mobile-section.home-mobile h4 {
+    color: #4caf50;
+}
+
+.mobile-section.section-mobile {
+    background-color: #f8f9fa;
+    border-left-color: #2196f3;
+}
+
+.mobile-section.section-mobile h4 {
+    color: #2196f3;
+}
+
+.mobile-section.premium-mobile {
+    background-color: #faf8ff;
+    border-left-color: #9c27b0;
+}
+
+.mobile-section.premium-mobile h4 {
+    color: #9c27b0;
+}
+
+.mobile-section.subsection-mobile {
+    background-color: #f8f9fa;
+    border-left-color: #ff9800;
+}
+
+.mobile-section.subsection-mobile h4 {
+    color: #ff9800;
+}
+
 /* Responsive */
 @media (max-width: 992px) {
-    .sitemap-container {
+    /* .sitemap-container {
         grid-template-columns: repeat(2, 1fr);
         grid-template-rows: auto;
+         gap: 20px;
+        padding: 15px;
     }
 
     #inicio {
@@ -443,11 +491,52 @@
     
     .sitemap-leyenda ul {
         grid-template-columns: 1fr;
+    } */
+   .sitemap-container {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 20px;
+        padding: 15px;
     }
+
+    #inicio {
+        grid-column: 1 / span 2;
+        grid-row: 1;
+    }
+
+    #recetas {
+        grid-column: 1;
+        grid-row: 2;
+    }
+
+    #premium {
+        grid-column: 2;
+        grid-row: 2;
+    }
+
+    #info {
+        grid-column: 1;
+        grid-row: 3;
+    }
+
+    #cuenta {
+        grid-column: 2;
+        grid-row: 3;
+    }
+
+    #perfiles {
+        grid-column: 1;
+        grid-row: 4;
+    }
+
+    #dietas {
+        grid-column: 2;
+        grid-row: 4;
+    }
+
 }
 
 @media (max-width: 768px) {
-    .sitemap-visual {
+    /* .sitemap-visual {
         display: none;
     }
     
@@ -457,6 +546,34 @@
     
     .contenedor-sitemap-landing {
         padding: 15px;
+    } */
+
+      .sitemap-visual {
+        display: none;
+    }
+    
+    .sitemap-mobile {
+        display: block;
+    }
+
+    .mobile-section {
+        margin-bottom: 15px;
+        transition: transform 0.3s ease;
+    }
+
+    .mobile-section:hover {
+        transform: translateY(-2px);
+    }
+
+    .mobile-section a {
+        color: #1976d2;
+        text-decoration: none;
+        transition: color 0.2s ease;
+    }
+
+    .mobile-section a:hover {
+        color: #0d47a1;
+        text-decoration: underline;
     }
 }
 
