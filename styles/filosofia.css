@@ -235,6 +235,11 @@ body.modal-open {
 }
 
 @media (max-width: 768px) {
+
+  .filosofia{
+    padding: 40px 0;
+  }
+
   .contenido-filosofia {
     grid-template-columns: 1fr;
     gap: 20px;
