@@ -392,6 +392,207 @@
   .dieta-semana .time-label {
       width: 60px;
   }
+  
+  @media (max-width: 768px) {
+    /* --- Ajustes generales para el contenedor principal --- */
+    .dieta-semana .main-content {
+        padding: 15px; /* Reducir padding general si es necesario */
+    }
+    .dieta-semana {
+        padding: 15px 0; /* Ajustar padding de la sección */
+    }
+
+    /* --- Controles Superiores --- */
+    .dieta-semana .top-filters-bar {
+        flex-direction: column;
+        align-items: stretch;
+        margin-left: 0;
+        margin-right: 0;
+        padding: 15px;
+    }
+    .dieta-semana .top-filters-bar .filter-section {
+        width: 100%;
+        margin-bottom: 10px;
+    }
+    .dieta-semana .top-filters-bar .filter-section:last-child {
+        margin-bottom: 0;
+    }
+    .dieta-semana .top-filters-bar .filter-section label,
+    .dieta-semana .top-filters-bar .filter-section select {
+        width: 100%;
+        display: block;
+    }
+    .dieta-semana .top-filters-bar .filter-section label {
+        margin-bottom: 5px;
+        text-align: left;
+    }
+    .dieta-semana .top-filters-bar .action-btn-naranja,
+    .dieta-semana .top-filters-bar .action-btn-rosa,
+    .dieta-semana .top-filters-bar .action-btn-verde {
+        width: 100%;
+        display: block;
+        text-align: center;
+        padding: 12px 15px;
+        box-sizing: border-box;
+    }
+    /* Ocultar opción "Dieta Completa" en el select en móvil */
+    .dieta-semana .top-filters-bar select option[value="todo"] {
+        display: none;
+    }
+
+    /* --- Indicaciones --- */
+    .dieta-semana .instrucciones.banner-redondeado {
+        width: 100%;
+        margin-left: 0;
+        margin-right: 0;
+        padding: 15px;
+        box-sizing: border-box;
+    }
+    .dieta-semana .instrucciones.banner-redondeado p {
+        text-align: left;
+    }
+
+    /* --- Barra de Navegación de Días (Nueva) --- */
+    .mobile-day-nav {
+        display: flex; /* Por defecto se muestra, JS la ocultará en desktop */
+        justify-content: space-around;
+        background-color: var(--white);
+        padding: 10px 5px;
+        border-bottom: 1px solid var(--border-color);
+        margin-bottom: 20px;
+        position: sticky;
+        top: 0; /* Ajustar si tienes una cabecera global fija más arriba */
+        z-index: 990;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+    .mobile-day-nav .day-tab {
+        background-color: transparent;
+        border: 1px solid transparent; /* Para mantener tamaño al activar */
+        padding: 8px;
+        font-weight: bold;
+        color: var(--text-color);
+        cursor: pointer;
+        border-radius: 4px;
+        transition: background-color 0.3s, color 0.3s, border-color 0.3s;
+        flex-grow: 1;
+        text-align: center;
+    }
+    .mobile-day-nav .day-tab.active {
+        background-color: var(--primary-color);
+        color: var(--white);
+        border-color: var(--primary-dark);
+    }
+    .mobile-day-nav .day-tab:hover:not(.active) {
+        background-color: var(--beig-corp);
+    }
+
+    /* --- Estructura de Comidas --- */
+    .dieta-semana .meal-schedule {
+        margin-right: 0;
+        overflow-x: hidden;
+    }
+    .dieta-semana .meal-time-row {
+        flex-direction: column;
+        border-bottom: none;
+        margin-bottom: 0; /* Gestionado por JS o .visible-meal-row */
+        display: none; /* Ocultar por defecto, JS las mostrará */
+    }
+    .dieta-semana .meal-time-row.visible-meal-row {
+        display: block; /* O flex si el contenido interno lo requiere */
+        margin-bottom: 20px; /* Espacio entre tipos de comida si "Comida" muestra varias */
+    }
+    .dieta-semana .meal-time-row .time-label {
+        display: none; /* Ocultar etiqueta lateral "DESAYUNOS" */
+    }
+    .dieta-semana .meal-time-row .meal-container {
+        flex-direction: column;
+        width: 100%;
+        margin-right: 0;
+    }
+    .dieta-semana .meal-item {
+        display: none; /* Ocultar todos por defecto, JS mostrará el activo */
+        width: 100%;
+        margin: 0 0 15px 0;
+        min-height: auto;
+        box-sizing: border-box;
+    }
+    .dieta-semana .meal-item.active-day-meal {
+        display: flex; /* O block, según el layout interno del item */
+    }
+    .dieta-semana .meal-item h3 {
+        background-color: var(--primary-color);
+        color: white;
+        padding: 8px;
+        margin-top: 0;
+        font-size: 1.1rem;
+    }
+    .dieta-semana .meal-item img {
+        height: 180px;
+    }
+    .dieta-semana .meal-item p {
+        padding: 12px;
+        font-size: 1rem;
+    }
+    
+    /* Títulos para cuando se muestra "Comida" (Entrante, Principal, Postre) */
+    .meal-type-title-mobile { /* JS creará este elemento */
+        display: block;
+        font-size: 1.3rem;
+        font-weight: bold;
+        color: var(--primary-dark);
+        margin-bottom: 10px;
+        text-align: center;
+        padding-top: 10px;
+    }
+
+    /* --- Botón y Mensaje Premium --- */
+    .dieta-semana .btn-opciones, /* "Ver lista de la compra" */
+    .dieta-semana .ingredients-btn { /* Este es de la vista de día, pero por si acaso */
+        width: calc(100% - 30px); /* Ancho completo menos padding lateral */
+        margin-left: auto;
+        margin-right: auto;
+        padding: 15px;
+        box-sizing: border-box;
+    }
+    .dieta-semana .premium-message {
+        width: calc(100% - 30px);
+        margin-left: auto;
+        margin-right: auto;
+        margin-top: 20px;
+        margin-bottom: 20px;
+        padding: 15px;
+        box-sizing: border-box;
+    }
+}
+
+/* Ocultar barra de días móvil en desktop */
+@media (min-width: 769px) {
+    .mobile-day-nav {
+        display: none;
+    }
+    /* Asegurar que los meal-time-row se comportan como en desktop */
+    .dieta-semana .meal-time-row {
+      display: flex; /* Restaurar display flex original */
+      /* Otros estilos de desktop que se hayan sobreescrito para móvil... */
+    }
+    .dieta-semana .meal-time-row .time-label {
+      display: flex; /* Restaurar */
+    }
+     .dieta-semana .meal-time-row .meal-container {
+      display: flex; /* Restaurar */
+      flex: 1;
+    }
+    .dieta-semana .meal-item {
+        display: flex; /* O el display original de meal-item en desktop */
+        flex: 1; /* Para que se distribuyan en la fila */
+        margin: 5px; /* Restaurar margen original si es necesario */
+    }
+    /* Ocultar títulos de móvil en desktop */
+    .meal-type-title-mobile {
+        display: none;
+    }
+}
+  
 }
 
 /* ESTILOS PARA LA VISTA 3 - Por momentos del día */
