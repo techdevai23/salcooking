@@ -1,7 +1,7 @@
 // scripts generales que se ejecutan en todas las páginas, 
 // ya que se CARGA en el FOOTER
 
-/***** Función para cargar el contenido de un archivo HTML en la vista de móvil****/
+/***** Función para  para mostrar u ocultar la barra de navegación en la vista móvil pasa a menú derecho****/
 //
 $(document).ready(function() {
     // Alternar menú móvil
@@ -47,7 +47,7 @@ $(document).ready(function() {
     }
 });
 
-/**** menú desplegable izquierdo ******* */
+/********** menú desplegable izquierdo ************ */
 document.addEventListener("DOMContentLoaded", function () {
     const slideMenu = document.getElementById("slideMenu");
     const openMenuButton = document.querySelector(".logo img"); // Imagen de la línea 54
