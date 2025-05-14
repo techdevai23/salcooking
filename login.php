@@ -50,7 +50,7 @@ $css_extra = '<link rel="stylesheet" href="styles/login.css">';
                 
                 <div class="form-buttons">
                     
-                    <a href="perfil.php" class="btn-entrar">Entrar</a>
+                    <a href="perfil-loguedo.php" class="btn-entrar">Entrar</a>
                 </div>
                 
                 <div class="create-account">

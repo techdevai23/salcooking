@@ -324,6 +324,11 @@ transform: translateY(-3px);
     /* gap: 20px; 
 } */
 
+/** menu movil oculto en vista escritorio*/
+.mobile-menu-toggle {
+        display:none;
+        
+    }
 
 
 
@@ -780,6 +785,11 @@ contenedor-tarjeta {
 html, body {
   overflow-x: hidden;
   width: 100%;
+
+}
+
+.user-icon img {
+    width: 34px;
 }
   /* Responsive  Styles */
 @media (max-width: 992px) {
@@ -887,6 +897,10 @@ html, body {
         height: 24px;
     }
 
+    user-icon img {
+         width: 28px;
+    }
+
 /* Asegurar que el logo es visible en móvil */
     .logo.d-none.d-md-block {
         display: block !important;
@@ -908,7 +922,7 @@ html, body {
     .user-icon {
         display: flex;
         align-items: center;
-        height: 30px; /* Ajustar tamaño del logo en móvil */
+        height: 28px; /* Ajustar tamaño del logo en móvil */
     }
 
      /* Contenedor derecho para user-icon y menu hamburguesa */

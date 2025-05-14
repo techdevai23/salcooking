@@ -62,7 +62,7 @@
                     <div class="search-box">
                         <form action="resultado-recetas.php" method="get">
                             <input type="text" placeholder="Busca recetas" name="query">
-                            <button type="submit"><img src="sources/iconos/Search-Circle--Streamline-Ultimate.svg" alt="búsqueda Icon" ></button>
+                            <button type="submit"><img src="sources/iconos/Search-Circle--Streamline-Ultimate.svg" width="28px" alt="búsqueda Icon" ></button>
                         </form>
                     </div>
                     <!-- boton premium -->
@@ -72,7 +72,7 @@
                     <!-- icono de usuario con enlace a web de usuario -->
                     <div class="header-actions">
                         <div class="user-icon">
-                            <a href="login.php"><img src="sources/iconos/Single-Neutral-Circle--Streamline-Ultimate.svg" alt="User Icon" style="width: 24px; height: 24px;"></a>
+                            <a href="login.php"><img src="sources/iconos/Single-Neutral-Circle--Streamline-Ultimate.svg" alt="User Icon"width= "34px "></a>
                         </div>
                     </div>
 
