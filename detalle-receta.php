@@ -45,7 +45,7 @@ $enfermedades = $conexion->query($sql_enf);
   <div class="container migas-flex">
     <ul class="migas">
       <li><a href="index.php">Inicio</a></li>
-      <li><a href="recetas.php">Recetas</a></li>
+      <li><a href="recetas-categoria.php">Recetas</a></li>
       <li class="current"><?php echo htmlspecialchars($receta['nombre']); ?></li>
     </ul>
     <div class="volver-atras-contenedor">

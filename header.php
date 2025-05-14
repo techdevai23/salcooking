@@ -37,7 +37,7 @@
         <div class="logo-cabecera">
             <a href="index.php"><img src="sources/logos/cabecera.png" title="Ir al inicio" alt="SalCooking cabecera Logo"></a>
         </div>
-        <!-- menú en tamaño grande -->
+        <!-- menú en tamaño grande de pantalla como barra de navegación -->
         <nav class="top-nav mb-2">
             <div class="container">
                 <ul class="nav-tabs">
@@ -54,7 +54,7 @@
             <!-- Contenedor principal - Elementos comunes -->
             <div class="container mb-3">
                 <div class="header-content">
-                    <!-- logotipo menu completo -->
+                    <!-- logotipo para ver el menu completo -->
                     <div class="logo d-none d-md-block">
                         <img src="sources/logos/logo.png" title="Accede a todas las secciones"" alt="SalCooking Logo">
                     </div>
@@ -111,7 +111,7 @@
         <li><a href="recetas-categoria.php">Categorías</a></li>
         <li><a href="resultado-recetas.php">Búsqueda de recetas</a></li>
         <li><a href="detalle-receta.php?id=23">La receta del día</a></li>
-        <li><a href="detalle-receta.php?id=23">Trucos de cocina</a></li>
+        <li><a href="trucos.php">Trucos de cocina</a></li>
         <hr style="border: 0.5px solid #ccc; margin: 0;">
         <li class="cabecera" >ZONA PRÉMIUM</li>
         <!-- solo boton de selecccion no redirección -->

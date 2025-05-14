@@ -3,6 +3,14 @@
   padding: 40px 20px;
 }
 
+* {
+  outline: 1px solid red;
+}
+html, body {
+  overflow-x: hidden;
+}
+
+
 .contenedor-filosofia {
   position: relative;
  width: 100%;

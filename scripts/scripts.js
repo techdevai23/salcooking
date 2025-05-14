@@ -1,6 +1,8 @@
-// scripts generales que se ejecutan en todas las páginas, ya que se cargan en el footer
+// scripts generales que se ejecutan en todas las páginas, 
+// ya que se CARGA en el FOOTER
 
 /***** Función para cargar el contenido de un archivo HTML en la vista de móvil****/
+//
 $(document).ready(function() {
     // Alternar menú móvil
     $('.mobile-menu-toggle').click(function() {

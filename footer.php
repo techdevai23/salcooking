@@ -25,9 +25,10 @@
             <!-- columna 3 -->
             <div class="footer-column">
                 <h5>Píde nuestro boletín o síguenos en RRSS</h5>
-                <form class="subscribe-form">
+                <form class="subscribe-form" action="accion-completada.php">
                     <input type="email" placeholder="Tu email">
                     <div class="btn-suscribir"><button type="submit">Suscribir</button></div>
+                    
                     <div class="social-icons">
                         <a href="https://www.facebook.com/SalCooking" target="_blank"><i class="fab fa-facebook-f"></i></a>
                         <a href="https://twitter.com/SalCooking" target="_blank"><i class="fab fa-twitter"></i></a>

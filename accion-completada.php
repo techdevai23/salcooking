@@ -12,7 +12,7 @@ $js_extra = '<script src="scripts/accion-completada.js"></script>';
     <div class="overlay"></div>
     <div class="modal-accion-completada">
         <div class="modal-content">
-            <h2>Acción realizada con éxito</h2>
+            <h2>Acción realizada con éxito. Muchas gracias.</h2>
             <div class="boton-volver">
                 <a href="index.php" class="btn-aceptar">
                     <span class="icono-volver">
