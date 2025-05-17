@@ -1,5 +1,5 @@
 <?php
-$css_extra = '<link rel="stylesheet" href="styles/dieta-semana-dias.css">';
+$css_extra = '<link rel="stylesheet" href="styles/dieta-semana-dias.css?v=3">';
 ?>
 
 <?php include 'header.php'; ?>

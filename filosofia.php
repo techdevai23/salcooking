@@ -1,5 +1,5 @@
 <?php
-$css_extra = '<link rel="stylesheet" href="styles/filosofia.css?v=<?php echo time(); ?>">';
+$css_extra = '<link rel="stylesheet" href="styles/filosofia.css?v=3">';
 ?>
 
 
