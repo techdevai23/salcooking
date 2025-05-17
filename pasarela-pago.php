@@ -1,5 +1,10 @@
 <?php
-$css_extra = '<link rel="stylesheet" href="styles/pasarela-pago.css"><link rel="stylesheet" href="styles/modal.css">';
+$css_extra .= '<link rel="stylesheet" href="styles/pasarela-pago.css?v=' . filemtime('styles/pasarela-pago.css') . '">
+<link rel="stylesheet" href="styles/modal.css?v=' . filemtime('styles/modal.css') . '">
+
+';
+
+
 ?>
 
 

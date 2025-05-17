@@ -1,6 +1,6 @@
 <?php
 // Este archivo es solo para visualización HTML. No hay lógica PHP.
-$css_extra = '<link rel="stylesheet" href="styles/perfil-ajustes.css">'; // CSS específico
+$css_extra .= '<link rel="stylesheet" href="styles/perfil-ajustes.css?v=' . filemtime('styles/perfil-ajustes.css') . '">';// CSS específico
 $nombre_pagina = "Perfil-Ajustes"; // Para el título y migas
 ?>
 

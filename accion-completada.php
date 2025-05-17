@@ -1,5 +1,5 @@
 <?php
-$css_extra = '<link rel="stylesheet" href="styles/accion.css">';
+$css_extra .= '<link rel="stylesheet" href="styles/accion.css?v=' . filemtime('styles/accion.css') . '">';
 $js_extra = '<script src="scripts/accion-completada.js"></script>';
 ?>
 

@@ -1,5 +1,5 @@
 <?php
-$css_extra = '<link rel="stylesheet" href="styles/planes.css">';
+$css_extra .= '<link rel="stylesheet" href="styles/planes.css?v=' . filemtime('styles/planes.css') . '">';
 ?>
 
 
@@ -80,8 +80,8 @@ $css_extra = '<link rel="stylesheet" href="styles/planes.css">';
                             </tr>
                             <tr>
                                 <td>4. Ver resultado de recetas con enfermedades</td>
-                                <td class="cross">✗</td>
-                                <td class="cross">✗</td>
+                                <td class="cross">·</td>
+                                <td class="cross">·</td>
                                 <td class="check">✓</td>
                             </tr>
                             <tr>
@@ -92,8 +92,8 @@ $css_extra = '<link rel="stylesheet" href="styles/planes.css">';
                             </tr>
                             <tr>
                                 <td>6. Filtros avanzados en el resultado del buscador***</td>
-                                <td class="cross">✗</td>
-                                <td class="cross">✗</td>
+                                <td class="cross"></td>
+                                <td class="cross"></td>
                                 <td class="check">✓</td>
                             </tr>
                             <tr>

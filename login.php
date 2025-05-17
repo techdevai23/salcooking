@@ -1,5 +1,5 @@
 <?php
-$css_extra = '<link rel="stylesheet" href="styles/login.css">';
+$css_extra .= '<link rel="stylesheet" href="styles/login.css?v=' . filemtime('styles/login.css') . '">';
 ?>
 
 <?php include 'header.php'; ?>

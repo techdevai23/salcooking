@@ -1017,6 +1017,14 @@ html, body {
   }
 }
 
+.logo-cabecera img {
+
+ width: 90%;
+    margin: 0 auto;
+    padding: 1px;
+    box-sizing: border-box;
+
+}
 
 /* 
 

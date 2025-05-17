@@ -1,6 +1,6 @@
 <?php
 // Definir $css_extra ANTES de incluir header.php
-$css_extra = '<link rel="stylesheet" href="styles/lista-semana.css">';
+$css_extra .= '<link rel="stylesheet" href="styles/lista-semana.css?v=' . filemtime('styles/lista-semana.css') . '">';
 include 'header.php';
 include 'controllers/conexion.php'; // Para la conexión a la BBDD
 

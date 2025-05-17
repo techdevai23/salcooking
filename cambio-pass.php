@@ -1,5 +1,5 @@
 <?php
-$css_extra = '<link rel="stylesheet" href="styles/cambio.css">';
+$css_extra .= '<link rel="stylesheet" href="styles/cambio.css?v=' . filemtime('styles/cambio.css') . '">';
 ?>
 
 <?php include 'header.php'; ?>

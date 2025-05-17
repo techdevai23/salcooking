@@ -1,5 +1,5 @@
 <?php
-$css_extra = '<link rel="stylesheet" href="styles/plantilla.css">';
+$css_extra .= '<link rel="stylesheet" href="styles/ayuda.css?v=' . filemtime('styles/ayuda.css') . '">';
 ?>
 
 

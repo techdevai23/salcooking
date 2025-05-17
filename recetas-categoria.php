@@ -1,6 +1,6 @@
 <?php
-// comparto la hoja de estilos con trucos.php
-$css_extra = '<link rel="stylesheet" href="styles/trucos.css">'; 
+// comparto la hoja de estilos de trucos.php
+$css_extra .= '<link rel="stylesheet" href="styles/trucos.css?v=' . filemtime('styles/trucos.css') . '">';
 ?>
 
 

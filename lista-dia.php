@@ -1,5 +1,5 @@
 <?php
-$css_extra = '<link rel="stylesheet" href="styles/lista-dia.css">';
+$css_extra .= '<link rel="stylesheet" href="styles/lista-dia.css?v=' . filemtime('styles/lista-dia.css') . '">';
 include 'header.php';
 include 'conexion.php';
 

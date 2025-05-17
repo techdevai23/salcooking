@@ -1,5 +1,5 @@
 <?php
-$css_extra = '<link rel="stylesheet" href="styles/dieta-semana.css">';
+$css_extra .= '<link rel="stylesheet" href="styles/dieta-semana.css?v=' . filemtime('styles/dieta-semana.css') . '">';
 ?>
 
 <?php include 'header.php'; ?>

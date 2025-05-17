@@ -1,6 +1,6 @@
 <?php
 include 'controllers/conexion.php';
-$css_extra = '<link rel="stylesheet" href="styles/filosofia.css?v=3">'; // Usamos el mismo estilo que filosofía
+$css_extra .= '<link rel="stylesheet" href="styles/filosofia.css?v=' . filemtime('styles/filosofia.css') . '">'; // Usamos el mismo estilo que filosofía
 include 'header.php';
 
 $id = isset($_GET['id']) ? intval($_GET['id']) : 0;

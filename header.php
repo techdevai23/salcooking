@@ -18,7 +18,8 @@
 
   <!-- // Font Awesome para iconos -->
   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-
+<!-- icono web -->
+        <link rel="icon" type="image/png" href="sources/logos/icono-salcooking.ico">
      <!-- hago un truco para evitar problemas de caché que pueden volver loco pensando que no
       se actualizan los cambios -->
     <link rel="stylesheet" href="styles/styles.css?v=<?php echo filemtime('styles/styles.css'); ?>">
@@ -35,7 +36,9 @@
     <header class="main-header">
         <!-- logotipo principal -->
         <div class="logo-cabecera">
-            <a href="index.php"><img src="sources/logos/cabecera.png" title="Ir al inicio" alt="SalCooking cabecera Logo"></a>
+            <a href="index.php"><img src="sources/logos/logo salcooking alargado.png" title="Ir al inicio" alt="SalCooking cabecera Logo">
+        <img src="sources/logos/s" alt="">
+        </a>
         </div>
         <!-- menú en tamaño grande de pantalla como barra de navegación -->
         <nav class="top-nav mb-2">
