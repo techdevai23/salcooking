@@ -1,9 +1,10 @@
 <?php
+$css_extra = '';
 $css_extra .= '<link rel="stylesheet" href="styles/planes.css?v=' . filemtime('styles/planes.css') . '">';
 ?>
 
-
 <?php include 'header.php'; ?>
+
 
 <!-- migas -->
 
@@ -24,7 +25,7 @@ $css_extra .= '<link rel="stylesheet" href="styles/planes.css?v=' . filemtime('s
 <!-- Contenido principal-->
 <section class="planes-landing">
     <div class="contenedor-planes-landing">
-    
+
         <div class="titulo">
             <img src="sources/iconos/Book-Star--Streamline-Ultimate.svg" alt="Book Star - Libro destacado">
             <h1>Planes de suscripción</h1>
@@ -79,45 +80,47 @@ $css_extra .= '<link rel="stylesheet" href="styles/planes.css?v=' . filemtime('s
                                 <td class="check">✓</td>
                             </tr>
                             <tr>
-                                <td>4. Ver resultado de recetas con enfermedades</td>
+                                <td>4. Filtros básicos en el resultado del buscador**</td>
+                                <td class="check">✓</td>
+                                <td class="check">✓</td>
+                                <td class="check">✓</td>
+                            </tr>
+                              <tr>
+                                <td>5. Crear 2 perfiles</td>
+                                <td class="cross">·</td>
+                                <td class="check-note">✓<span class="nota"></span></td>
+                                <td class="check-note">✓<span class="nota"></span></td>
+                            </tr>
+                            <tr>
+                                <td>6. Descargar recetas</td>
+                                <td class="cross">·</td>
+                                <td class="check">✓</td>
+                                <td class="check">✓</td>
+                            </tr>
+                            <tr>
+
+                                <td>7. Ver resultado de recetas con enfermedades</td>
                                 <td class="cross">·</td>
                                 <td class="cross">·</td>
                                 <td class="check">✓</td>
                             </tr>
                             <tr>
-                                <td>5. Filtros básicos en el resultado del buscador**</td>
-                                <td class="check">✓</td>
-                                <td class="check">✓</td>
-                                <td class="check">✓</td>
-                            </tr>
-                            <tr>
-                                <td>6. Filtros avanzados en el resultado del buscador***</td>
-                                <td class="cross"></td>
-                                <td class="cross"></td>
+                                <td>8. Filtros avanzados en el resultado del buscador***</td>
+                                <td class="cross">·</td>
+                                <td class="cross">·</td>
                                 <td class="check">✓</td>
                             </tr>
-                            <tr>
-                                <td>7. Crear perfiles</td>
-                                <td class="cross">✗</td>
-                                <td class="check-note">✓<span class="nota">(hasta 2)</span></td>
-                                <td class="check-note">✓<span class="nota">(hasta 2)</span></td>
-                            </tr>
-                            <tr>
-                                <td>8. Descargar recetas</td>
-                                <td class="cross">✗</td>
-                                <td class="check">✓</td>
-                                <td class="check">✓</td>
-                            </tr>
+                          
                             <tr>
                                 <td>9. Crear dietas</td>
-                                <td class="cross">✗</td>
-                                <td class="cross">✗</td>
+                                <td class="cross">·</td>
+                                <td class="cross">·</td>
                                 <td class="check">✓</td>
                             </tr>
                             <tr>
                                 <td>10. Generar lista de la compra</td>
-                                <td class="cross">✗</td>
-                                <td class="cross">✗</td>
+                                <td class="cross">·</td>
+                                <td class="cross">·</td>
                                 <td class="check">✓</td>
                             </tr>
                         </tbody>
@@ -174,7 +177,7 @@ $css_extra .= '<link rel="stylesheet" href="styles/planes.css?v=' . filemtime('s
 
             </div>
         </div>
-   
+
         <!-- ultimo div contenedor principal -->
     </div>
 </section>

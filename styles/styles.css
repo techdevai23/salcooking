@@ -92,12 +92,12 @@ ul {
 }
 
 .nav-tabs li.active a {
-    color: var(--primary-color);
+    color: var(--primary-dark);
     border-bottom: 3px solid var(--primary-color);
 }
 
 .nav-tabs li a:hover {
-    color: var(--primary-color);
+    color: var(--primary-dark);
 }
 
 /* Header with Logo, Search and Premium Button */
@@ -209,7 +209,7 @@ img {
 .btn-premium {
     background-color: var(--secondary-color);
     font-family: 'Nunito', 'Segoe UI', sans-serif;
-    color: white;
+    color: black;
     padding: 10px 20px !important;
     border-radius: 4px;
     font-weight: bold;
@@ -372,11 +372,11 @@ transform: translateY(-3px);
 }
 
 .migas li a:hover {
-    color: var(--primary-color);
+    color: var(--primary-dark);
 }
 
 .migas li.current {
-    color: var(--primary-color);
+    color: var(--primary-dark);
     font-weight: 600;
 }
 
@@ -511,12 +511,12 @@ ul.migas {
 }
 
 .mobile-nav li.active a {
-    color: var(--primary-color);
+    color: var(--primary-dark);
     font-weight: bold;
 }
 
 .user-icon {
-    color: var(--primary-color);
+    color: var(--primary-dark);
     margin-left: 15px;
     margin-right: 20px;
 }
@@ -536,7 +536,7 @@ ul.migas {
 .hero h1 {
     font-size: 3.5rem;
     margin-bottom: 20px;
-    color: var(--primary-color);
+    color: var(--primary-dark);
 }
 
 .hero p {
@@ -688,13 +688,13 @@ contenedor-tarjeta {
 .footer-column h4 {
     font-size: 1.2rem;
     margin-bottom: 15px;
-    color: var(--primary-color);
+    color: var(--primary-dark);
 }
 
 .footer-column h5 {
     font-size: 1rem;
     margin-bottom: 15px;
-    color: var(--primary-color);
+    color: var(--primary-dark);
 }
 
 .footer-column ul {
@@ -706,7 +706,7 @@ contenedor-tarjeta {
 }
 
 .footer-column a:hover {
-    color: var(--primary-color);
+    color: var(--primary-dark);
 }
 
 .subscribe-form {
@@ -724,7 +724,7 @@ contenedor-tarjeta {
     padding: 8px 15px;
     font-family: 'Nunito', 'Segoe UI', sans-serif;
     background-color: var(--secondary-color);
-    color: white;
+    color: black;
     border: none;
     border-radius: 0 4px 4px 0;
     cursor: pointer;

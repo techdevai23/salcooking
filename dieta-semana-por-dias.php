@@ -1,8 +1,10 @@
+
 <?php
+$css_extra = '';
 $css_extra .= '<link rel="stylesheet" href="styles/dieta-semana-dias.css?v=' . filemtime('styles/dieta-semana-dias.css') . '">';
 ?>
-
 <?php include 'header.php'; ?>
+
 <!-- dieta semana organizada por dias -->
 
 <!-- migas -->

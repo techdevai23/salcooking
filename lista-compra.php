@@ -1,4 +1,5 @@
 <?php
+$css_extra = '';
 // Usamos el CSS de lista-semana como ejemplo, ya que el estilo de la lista es el mismo
 $css_extra = '<link rel="stylesheet" href="styles/lista-semana.css">';
 include 'header.php';

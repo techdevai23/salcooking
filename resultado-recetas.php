@@ -1,4 +1,6 @@
+
 <?php
+$css_extra = '';
 $css_extra .= '<link rel="stylesheet" href="styles/resultado-recetas.css?v=' . filemtime('styles/resultado-recetas.css') . '">';
 ?>
 

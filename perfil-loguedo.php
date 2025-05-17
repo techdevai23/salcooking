@@ -1,10 +1,12 @@
+
 <?php
+$css_extra = '';
 // Este archivo es solo para visualización HTML. No hay lógica PHP.
 $css_extra .= '<link rel="stylesheet" href="styles/perfil-ajustes.css?v=' . filemtime('styles/perfil-ajustes.css') . '">'; // CSS específico
 $nombre_pagina = "Perfil-Ajustes"; // Para el título y migas
 ?>
-
 <?php include 'header.php'; ?>
+
 
 <body class="usuario-logueado"> <!-- Clase para JS, simula usuario existente -->
   

@@ -1,8 +1,10 @@
 <?php
+$css_extra = '';
 $css_extra .= '<link rel="stylesheet" href="styles/login.css?v=' . filemtime('styles/login.css') . '">';
 ?>
 
 <?php include 'header.php'; ?>
+
 
 <!-- migas -->
  <!-- migas -->

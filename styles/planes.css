@@ -149,8 +149,9 @@
 }
 
 .planes-tabla .cross {
-    color: #f44336;
+    color:#afafaf;
     font-size: 1.2em;
+    text-shadow: 1px 1px #e9ecef ;
     font-weight: bold;
 }
 
@@ -346,9 +347,11 @@ html, body {
         content: "Usuario (Prémium):";
     }
 
+
+
     /* Estilos para los checks/crosses que ya están en el HTML */
     .planes-landing .planes-tabla td.check,
-    .planes-landing .planes-tabla td.cross,
+   
     .planes-landing .planes-tabla td.check-note { /* El texto ✓ o ✗ */
         flex-shrink: 0; /* Para que no se encoja si la etiqueta es larga */
     }
@@ -382,7 +385,9 @@ html, body {
     .planes-landing .plan-card ul li {
         font-size: 0.95em;
     }
-
+ .planes-landing .planes-tabla td.cross{
+    display: none;
+}
 
 }
 

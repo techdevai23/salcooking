@@ -1,9 +1,11 @@
+
 <?php
+$css_extra = '';
 $css_extra = '<link rel="stylesheet" href="styles/filosofia.css?v=' . filemtime('styles/filosofia.css') . '">';
 ?>
 
-
 <?php include 'header.php'; ?>
+
 
 <!-- migas -->
 <div class="migas-container">

@@ -1,9 +1,12 @@
+<?php include 'header.php'; ?>
 <?php
-$css_extra = '<link rel="stylesheet" href="styles/plantilla.css">';
+$css_extra = '';
+$css_extra .= '<link rel="stylesheet" href="styles/plantilla.css?v=' . filemtime('styles/plantilla.css') . '">';
 ?>
 
 
-<?php include 'header.php'; ?>
+
+
 
 <!-- migas -->
 

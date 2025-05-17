@@ -1,5 +1,7 @@
 <?php
+$css_extra = '';
 include 'controllers/conexion.php';
+
 $css_extra .= '<link rel="stylesheet" href="styles/filosofia.css?v=' . filemtime('styles/filosofia.css') . '">'; // Usamos el mismo estilo que filosofía
 include 'header.php';
 

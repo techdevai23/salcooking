@@ -1,4 +1,6 @@
+
 <?php
+$css_extra = '';
 $css_extra .= '<link rel="stylesheet" href="styles/sitemap.css?v=' . filemtime('styles/sitemap.css') . '">';
 ?>
 

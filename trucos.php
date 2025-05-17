@@ -1,9 +1,11 @@
+
 <?php
+$css_extra = '';
 // se comparte esta hoja por estructura con recetas categoría
 $css_extra .= '<link rel="stylesheet" href="styles/trucos.css?v=' . filemtime('styles/trucos.css') . '">';
 ?>
-
 <?php include('header.php'); ?>
+
 
 
 <!-- migas -->

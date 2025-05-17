@@ -5,34 +5,50 @@
 <html lang="es">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SalCooking - Menús personalizados e inteligentes</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-  
-      <!-- Google Fonts con Copse (titulos y que usamos en el logo), Poppins(textos) y Nunito(botones) -->
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="SalCooking: Planifica tu alimentación con menús semanales inteligentes, personalizados según tus gustos, alergias, intolerancias y enfermedades. Cocina con salud.">
+
+  <title>SalCooking - Menús personalizados e inteligentes</title>
+
+  <!-- Seguridad: Content Security Policy (CSP) -->
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://cdn.jsdelivr.net; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://cdn.jsdelivr.net https://cdnjs.cloudflare.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data:; frame-ancestors 'self';">
+
+  <!-- Seguridad: Prevención XSS, Clickjacking, MIME sniffing -->
+  <meta http-equiv="X-Content-Type-Options" content="nosniff">
+  <meta http-equiv="X-Frame-Options" content="SAMEORIGIN">
+  <meta http-equiv="X-XSS-Protection" content="1; mode=block">
+  <meta http-equiv="Cross-Origin-Opener-Policy" content="same-origin">
+  <meta http-equiv="Cross-Origin-Embedder-Policy" content="require-corp">
+
+  <!-- Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-...hash..." crossorigin="anonymous">
+
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha384-...hash..." crossorigin="anonymous">
+
+  <!-- Google Fonts con Copse (titulos y que usamos en el logo), Poppins(textos) y Nunito(botones) -->
   <link href="https://fonts.googleapis.com/css2?family=Copse&display=swap" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css2?family=Nunito&display=swap" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
 
-  <!-- // Font Awesome para iconos -->
+  <!-- SweetAlert2 -->
   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-<!-- icono web -->
-        <link rel="icon" type="image/png" href="sources/logos/icono-salcooking.ico">
-     <!-- hago un truco para evitar problemas de caché que pueden volver loco pensando que no
-      se actualizan los cambios -->
-    <link rel="stylesheet" href="styles/styles.css?v=<?php echo filemtime('styles/styles.css'); ?>">
-<script src="scripts/descargarListaPDF.js?v=<?php echo filemtime('scripts/descargarListaPDF.js'); ?>"></script>
 
-    <!-- cargo hoja de estilos propias -->
-    <?php
-if (!isset($css_extra)) $css_extra = '';
-if (isset($css_extra)) echo $css_extra;
-?>
+  <!-- Icono en la pestaña-->
+  <link rel="icon" type="image/png" href="sources/logos/icono-salcooking.ico">
 
+  <!-- Truco para evitar problemas de caché que pueden hacer ver al usuario estilos antiguos, por el comportamiento
+   del servidor gratuito elegido -->
+  <link rel="stylesheet" href="styles/styles.css?v=<?php echo filemtime('styles/styles.css'); ?>">
 
+  <!-- Script para la descarga de la lista de la compra en PDF -->
+  <script src="scripts/descargarListaPDF.js?v=<?php echo filemtime('scripts/descargarListaPDF.js'); ?>"></script>
+
+  <!-- CSS adicional si se define -->
+  <?php if (isset($css_extra)) echo $css_extra; ?>
 </head>
+
 
 <body>
 <!-- tener en cuenta la vision de la cabecera en versión escritorio y movil -->

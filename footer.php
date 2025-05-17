@@ -17,8 +17,8 @@
                 <h4>Enlaces rápidos</h4>
                 <ul class="footer-links">
                     <li><a href="planes.php">Planes de suscripción</a></li>
+                    <li><a href="perfil.php">Hazte Prémium</a></li>
                     <li><a href="ayuda.php">Ayuda</a></li>
-                    <li><a href="perfil.php">Editar Perfil</a></li>
                     <li><a href="sitemap.php">Sitemap</a></li>
                 </ul>
             </div>
@@ -30,9 +30,9 @@
                     <div class="btn-suscribir"><button type="submit">Suscribir</button></div>
                     
                     <div class="social-icons">
-                        <a href="https://www.facebook.com/SalCooking" target="_blank"><i class="fab fa-facebook-f"></i></a>
-                        <a href="https://twitter.com/SalCooking" target="_blank"><i class="fab fa-twitter"></i></a>
-                        <a href="https://www.instagram.com/SalCooking" target="_blank"><i class="fab fa-instagram"></i></a>
+                        <a href="https://www.facebook.com/SalCooking" target="_blank"><i class="fab fa-facebook-f" style="font-size:18px;"></i></a>
+                        <a href="https://twitter.com/SalCooking" target="_blank"><i class="fab fa-twitter" style="font-size:18px;"></i></a>
+                        <a href="https://www.instagram.com/SalCooking" target="_blank"><i class="fab fa-instagram" style="font-size:18px;"></i></a>
                     </div>
                 </form>
 
