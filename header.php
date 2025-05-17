@@ -12,7 +12,7 @@
   <title>SalCooking - Menús personalizados e inteligentes</title>
 
   <!-- Seguridad: Content Security Policy (CSP) -->
-  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://cdn.jsdelivr.net; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://cdn.jsdelivr.net https://cdnjs.cloudflare.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data:; frame-ancestors 'self';">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://cdn.jsdelivr.net https://cdnjs.cloudflare.com; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://cdn.jsdelivr.net https://cdnjs.cloudflare.com https://code.jquery.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data:;">
 
   <!-- Seguridad: Prevención XSS, Clickjacking, MIME sniffing -->
   <meta http-equiv="X-Content-Type-Options" content="nosniff">
@@ -56,7 +56,7 @@
         <!-- logotipo principal -->
         <div class="logo-cabecera">
             <a href="index.php"><img src="sources/logos/logo salcooking alargado.png" title="Ir al inicio" alt="SalCooking cabecera Logo">
-        <img src="sources/logos/s" alt="">
+        
         </a>
         </div>
         <!-- menú en tamaño grande de pantalla como barra de navegación -->
