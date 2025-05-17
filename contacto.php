@@ -1,4 +1,5 @@
 <?php
+$css_extra = '';
 
 $css_extra .= '<link rel="stylesheet" href="styles/contacto.css?v=' . filemtime('styles/contacto.css') . '">
 <link rel="stylesheet" href="styles/modal.css?v=' . filemtime('styles/modal.css') . '">

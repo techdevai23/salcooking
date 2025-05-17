@@ -26,7 +26,10 @@
 <script src="scripts/descargarListaPDF.js?v=<?php echo filemtime('scripts/descargarListaPDF.js'); ?>"></script>
 
     <!-- cargo hoja de estilos propias -->
-    <?php if (isset($css_extra)) echo $css_extra; ?>
+    <?php
+if (!isset($css_extra)) $css_extra = '';
+if (isset($css_extra)) echo $css_extra;
+?>
 
 
 </head>
