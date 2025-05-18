@@ -27,7 +27,7 @@
     right: 0;
     bottom: 0;
 
-    background-image: url('../sources/solo-fondo.png');
+    background-image: url('../sources/fondo-nuevo.png');
     background-size: 100% 100%;
     /* Fuerza la imagen a adaptarse al tamaño del contenedor */
     background-position: center;
@@ -82,10 +82,10 @@
     transition: transform 0.3s ease;
 }
 
-.tarjeta-truco .foto-truco {
-    grid-column: 1;
-    border-radius: 8px;
 
+
+.foto-truco {
+    min-width: 150px;
 }
 
 .tarjeta-truco .texto-truco {
@@ -152,14 +152,14 @@ body {
 }
 
 @media (max-width: 768px) {
-    .results-grid {
+    /* .results-grid {
         grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
     }
 
     .recipe-info-grid {
         grid-template-columns: 1fr;
-    }
-    .tarjeta-truco {
+    } */
+    .tarjeta-receta {
         padding: 15px;
         margin: 0 auto;
         margin-bottom: 20px;
@@ -168,9 +168,28 @@ body {
         align-items: center;
         justify-content: center;
     }
+
+    .tarjeta-truco {
+          padding: 15px;
+        margin: 0 auto;
+        margin-bottom: 20px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+
+    }
 }
 
 @media (max-width: 576px) {
+
+    .container-trucos::before{
+    background-image: url('../sources/fondo-nuevo-movil.png');
+       background-size: cover; /* Asegura que el fondo cubra todo el contenedor */
+    background-position: center; /* Centra la imagen */
+    background-repeat: no-repeat; /* Evita que el fondo se repita */
+ 
+}
     .results-grid {
         grid-template-columns: 1fr;
     }

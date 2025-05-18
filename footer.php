@@ -25,9 +25,11 @@
             <!-- columna 3 -->
             <div class="footer-column">
                 <h5>Píde nuestro boletín o síguenos en RRSS</h5>
-                <form class="subscribe-form" action="accion-completada.php">
-                    <input type="email" placeholder="Tu email">
-                    <div class="btn-suscribir"><button type="submit">Suscribir</button></div>
+                <form id="suscribir" class="subscribe-form" action="accion-completada.php">
+                    <input id="email" type="email" placeholder="Tu email">
+                    <!-- <div class="btn-submit"> -->
+                        <button class="btn-submit" id="mio" type="submit">Suscribir</button>
+                    <!-- </div> -->
                     
                     <div class="social-icons">
                         <a href="https://www.facebook.com/SalCooking" target="_blank"><i class="fab fa-facebook-f" style="font-size:18px;"></i></a>

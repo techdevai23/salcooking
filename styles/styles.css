@@ -186,13 +186,14 @@ img {
     margin: 0 auto;
 }
 
-.search-box input {
-    flex-grow: 1;
+#email  .search-box input {
+    /* flex-grow: 1; */
     width: 250px;
-    padding: 8px 18px;
+    height: 50px;
+    padding: 2px 18px;
     border: 1px solid var(--border-color);
     border-radius: 4px 0 0 4px;
-    font-size: 14px;
+    font-size: 12px;
 }
 
 .search-box button {
@@ -306,6 +307,51 @@ transform: translateY(-3px);
 .action-btn-rosa:hover {
     background-color: var(--terciary-dark);
     transform: translateY(-3px);
+}
+
+
+
+
+ .btn-submit {
+  background: linear-gradient(135deg, var(--secondary-color)  0%, var(--primary-color) 100%) !important;
+  border: none;
+  padding: 12px 25px;
+  font-size: 1.1rem;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  display: block;
+  width: 100%;
+  /* margin-top: 30px; */
+}
+
+.btn-submit:hover {
+  transform: translateY(-3px);
+  background: linear-gradient(135deg, var(--naranja-corp)  0%, var(--primary-dark) 100%);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+}
+
+.subscribe-form button {
+  background: linear-gradient(135deg, var(--secondary-color)  0%, var(--primary-color) 100%) !important;
+  border: none;
+   height: 50px; /* Igual altura que el input */
+    padding: 0 20px; /* Ajusta el padding interno */
+  font-size:0.8 rem;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  display: block;
+  width: 100%;
+  margin-top: 0px !important;
+}
+.subscribe-form button :hover {
+  transform: translateY(-3px);
+  background: linear-gradient(135deg, var(--naranja-corp)  0%, var(--primary-dark) 100%);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+}
+
+.btn-submit i {
+  margin-right: 8px;
 }
 
 
@@ -714,25 +760,22 @@ contenedor-tarjeta {
 }
 
 .subscribe-form input {
-    flex-grow: 1;
+    /* flex-grow: 1;
     padding: 8px 12px;
     border: 1px solid var(--border-color);
+    border-radius: 4px 0 0 4px; */
+     height: 50px; /* Ajusta la altura para que coincida con el botón */
+    padding: 0 12px; /* Ajusta el padding interno */
+    border: 1px solid var(--border-color);
     border-radius: 4px 0 0 4px;
+    font-size: 1rem; /* Tamaño de texto consistente */
+    box-sizing: border-box;
 }
 
-.subscribe-form button {
-    padding: 8px 15px;
-    font-family: 'Nunito', 'Segoe UI', sans-serif;
-    background-color: var(--secondary-color);
-    color: black;
-    border: none;
-    border-radius: 0 4px 4px 0;
-    cursor: pointer;
-}
 
-.subscribe-form button:hover {
+/* .subscribe-form button:hover {
     background-color: var(--primary-color);
-}
+} */
 
 /* .btn-suscribir {
     background-color: var(--secondary-color);
@@ -897,13 +940,14 @@ html, body {
         height: 24px;
     }
 
-    user-icon img {
-         width: 28px;
+   .user-icon img {
+         width: 24px !important;
     }
 
 /* Asegurar que el logo es visible en móvil */
     .logo.d-none.d-md-block {
-        display: block !important;
+        /* display: block !important; */
+        display: none !important;
     }
     
     

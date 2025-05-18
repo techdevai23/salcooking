@@ -12,7 +12,7 @@
   <title>SalCooking - Menús personalizados e inteligentes</title>
 
   <!-- Seguridad: Content Security Policy (CSP) -->
-<meta http-equiv="Content-Security-Policy" content="default-src 'self'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://cdn.jsdelivr.net https://cdnjs.cloudflare.com; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://cdn.jsdelivr.net https://cdnjs.cloudflare.com https://code.jquery.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data:;">
+<!-- <meta http-equiv="Content-Security-Policy" content="default-src 'self'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://cdn.jsdelivr.net https://cdnjs.cloudflare.com; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://cdn.jsdelivr.net https://cdnjs.cloudflare.com https://code.jquery.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data:;"> -->
 
   <!-- Seguridad: Prevención XSS, Clickjacking, MIME sniffing -->
   <meta http-equiv="X-Content-Type-Options" content="nosniff">
@@ -106,7 +106,7 @@
             </div>
         </nav>
     </header>
-    <!-- menú en tamaño pequeño -->
+    <!-- ************* menú en tamaño pequeño **************-->
     <nav class="mobile-nav">
         <ul>
             <li class="active"><a href="index.php">Inicio</a></li>
@@ -115,8 +115,9 @@
             <li><a href="dieta-semana-por-dias.php">Dietas</a></li>
             <li><a href="trucos.php">Trucos de cocina</a></li>
             <li><a href="planes.php">Planes</a></li>
-            <li><a href="ayuda.php">Ayuda</a></li>
+            <!-- <li><a href="ayuda.php">Ayuda</a></li> -->
             <li><a href="contacto.php">Contáctanos</a></li>
+            <li><a href="sitemap.php">Mapa del sitio</a></li>
             
         </ul>
     </nav>
