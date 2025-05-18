@@ -75,6 +75,19 @@ $css_extra .= '<link rel="stylesheet" href="styles/sitemap.css?v=' . filemtime('
               </div>
             </div>
 
+             <!-- Dietas -->
+            <div class="sitemap-node sitemap-section" id="dietas">
+              <div class="node-content">
+                <h3>Dietas</h3>
+                <ul class="sitemap-links">
+                  <li><a href="dieta-semana-por-dias.php">Dieta semanal</a></li>
+                  <li><a href="dieta-dia.php">Dieta del día</a></li>
+                  <li><a href="lista-semana.php">Lista de la compra semanal</a></li>
+                  <li><a href="lista-dia.php">Lista de la compra del día</a></li>
+                </ul>
+              </div>
+            </div>
+
             <!-- Perfiles -->
             <div class="sitemap-node sitemap-subsection" id="perfiles">
               <div class="node-content">
@@ -94,21 +107,10 @@ $css_extra .= '<link rel="stylesheet" href="styles/sitemap.css?v=' . filemtime('
               </div>
             </div>
 
-            <!-- Dietas -->
-            <div class="sitemap-node sitemap-subsection" id="dietas">
-              <div class="node-content">
-                <h3>Dietas</h3>
-                <ul class="sitemap-links">
-                  <li><a href="dieta-semana-por-dias.php">Dieta semanal</a></li>
-                  <li><a href="dieta-dia.php">Dieta del día</a></li>
-                  <li><a href="lista-semana.php">Lista de la compra semanal</a></li>
-                  <li><a href="lista-dia.php">Lista de la compra del día</a></li>
-                </ul>
-              </div>
-            </div>
+           
 
             <!-- Información -->
-            <div class="sitemap-node sitemap-section" id="info">
+            <div class="sitemap-node sitemap-subsection" id="info">
               <div class="node-content">
                 <h3>Información</h3>
                 <ul class="sitemap-links">
@@ -121,7 +123,7 @@ $css_extra .= '<link rel="stylesheet" href="styles/sitemap.css?v=' . filemtime('
             </div>
 
             <!-- Cuenta -->
-            <div class="sitemap-node sitemap-section" id="cuenta">
+            <div class="sitemap-node sitemap-subsection" id="cuenta">
               <div class="node-content">
                 <h3>Gestión de Cuenta</h3>
                 <ul class="sitemap-links">
@@ -171,7 +173,8 @@ $css_extra .= '<link rel="stylesheet" href="styles/sitemap.css?v=' . filemtime('
             <p>Contenido exclusivo para usuarios premium</p>
           </div> -->
 
-          div class="sitemap-mobile">
+               
+          <div class="sitemap-mobile">
     <h3>Mapa del sitio lineal</h3>
     
     <div class="mobile-section home-mobile">
@@ -204,17 +207,7 @@ $css_extra .= '<link rel="stylesheet" href="styles/sitemap.css?v=' . filemtime('
             </ul>
           </div>
 
-          <div class="mobile-section subsection-mobile">
-            <h4>Dietas</h4>
-            <ul>
-              <li><a href="dieta-semana-por-dias.php">Dieta semanal</a></li>
-              <li><a href="dieta-dia.php">Dieta del día</a></li>
-              <li><a href="lista-semana.php">Lista de la compra semanal</a></li>
-              <li><a href="lista-dia.php">Lista de la compra del día</a></li>
-            </ul>
-          </div>
-
-          <div class="mobile-section">
+            <div class="mobile-section subsection-mobile">
             <h4>Información</h4>
             <ul>
               <li><a href="filosofia.php">Nuestra filosofía</a></li>
@@ -224,7 +217,19 @@ $css_extra .= '<link rel="stylesheet" href="styles/sitemap.css?v=' . filemtime('
             </ul>
           </div>
 
-          <div class="mobile-section">
+          <div class="mobile-section section-mobile">
+            <h4>Dietas</h4>
+            <ul>
+              <li><a href="dieta-semana-por-dias.php">Dieta semanal</a></li>
+              <li><a href="dieta-dia.php">Dieta del día</a></li>
+              <li><a href="lista-semana.php">Lista de la compra semanal</a></li>
+              <li><a href="lista-dia.php">Lista de la compra del día</a></li>
+            </ul>
+          </div>
+
+        
+
+          <div class="mobile-section subsection-mobile">
             <h4>Gestión de Cuenta</h4>
             <ul>
               <li><a href="login.php">Login</a></li>

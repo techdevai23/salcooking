@@ -1,44 +1,73 @@
 @echo off
 setlocal enabledelayedexpansion
 
-REM Crear carpeta para originales si no existe
-if not exist original_png (
-    mkdir original_png
+REM Verificar si pngquant está instalado
+where pngquant >nul 2>&1
+if errorlevel 1 (
+    echo ❌ Error: pngquant no está instalado o no está en el PATH
+    echo Por favor, instala pngquant desde: https://pngquant.org/
+    pause
+    exit /b 1
 )
 
-echo 🔄 Moviendo imágenes desde id1.png hasta id100.png a carpeta original_png...
+REM Crear carpeta para originales si no existe
+if not exist "original_png" (
+    echo 📁 Creando carpeta para originales...
+    mkdir "original_png"
+)
 
-for %%f in (id*.png) do (
-    set "filename=%%~nf"
-    set "num=!filename:~2!"
-    REM Validar si es un número del 1 al 100
-    for /f "tokens=* delims=0" %%n in ("!num!") do (
-        set /a test=%%n
-        if !test! GEQ 1 if !test! LEQ 100 (
-            move "%%f" original_png\ >nul
-            echo ✅ Movido: %%f
+echo 🔄 Procesando imágenes PNG en la carpeta actual...
+
+REM Contador para imágenes procesadas
+set "contador=0"
+
+REM Procesar todas las imágenes PNG en la carpeta actual
+for %%f in (*.png) do (
+    echo ⏳ Procesando: %%f
+    
+    REM Obtener el nombre del archivo sin extensión
+    set "nombre_archivo=%%~nf"
+    
+    REM Extraer solo los números del nombre
+    set "numero="
+    for /f "tokens=* delims=0123456789" %%a in ("!nombre_archivo!") do (
+        set "numero=!nombre_archivo:%%a=!"
+    )
+    
+    REM Si no hay números, usar un contador
+    if "!numero!"=="" (
+        set "numero=!contador!"
+    )
+    
+    REM Crear nuevo nombre en minúsculas con el número
+    set "nuevo_nombre=imagen!numero!.png"
+    
+    REM Mover el original a la carpeta de originales con el nuevo nombre
+    move "%%f" "original_png\!nuevo_nombre!" >nul
+    if !errorlevel! equ 0 (
+        echo ✅ Original guardado como: !nuevo_nombre!
+        
+        REM Comprimir la imagen
+        pngquant --quality=80-95 --speed 1 --floyd=0 --ext .png --force "original_png\!nuevo_nombre!"
+        if !errorlevel! equ 0 (
+            echo 💾 Imagen comprimida creada: !nuevo_nombre!
+            set /a "contador+=1"
+        ) else (
+            echo ❌ Error al comprimir: !nuevo_nombre!
         )
+    ) else (
+        echo ❌ Error al mover: %%f
     )
 )
 
-cd original_png
-
-echo 🎯 Comprimiendo imágenes con calidad alta y sin dithering...
-
-for %%f in (*.png) do (
-    pngquant --quality=80-95 --speed 1 --floyd=0 --ext -compressed.png --force "%%f"
+echo.
+if !contador! gtr 0 (
+    echo 🎉 ¡Proceso completado!
+    echo ✅ Se procesaron !contador! imágenes
+    echo 📁 Los originales están en la carpeta 'original_png'
+    echo 📁 Las imágenes comprimidas están en la carpeta actual
+) else (
+    echo ⚠️ No se encontraron imágenes PNG para procesar
 )
-
-echo 🔁 Renombrando y devolviendo archivos comprimidos...
-
-for %%f in (*-compressed.png) do (
-    set "name=%%~nf"
-    set "name=!name:-compressed=!"
-    move "%%f" "..\!name!.png" >nul
-    echo 💾 Guardado como: !name!.png
-)
-
-cd ..
-echo 🎉 ¡Proceso completado! Archivos comprimidos están en esta carpeta. Originales están en original_png\
 
 pause

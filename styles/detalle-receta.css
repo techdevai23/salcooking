@@ -118,9 +118,10 @@ html, body {
     }
 
      .container-trucos::before {
-        background-image: url('../sources/fono-nuevo-movil2.png');
-        background-size: cover;
-        background-position: left;
-        background-repeat: no-repeat;
+        background-image: url('../sources/fono-nuevo-movil.png');
+     background-position: left;
+        background-size: auto 70%;
+        background-repeat: repeat-y;
+       
     }
 }

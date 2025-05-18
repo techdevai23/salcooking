@@ -100,10 +100,8 @@ $css_extra .= '<link rel="stylesheet" href="styles/pasarela-pago.css?v=' . filem
     <!-- Importamos Sweet Alert 2 -->
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
-<!-- importamos gestión de la pasarela de pago -->
-    <script src="scripts/pasarela.js">
-   
-    </script>
+    <!-- importamos gestión de la pasarela de pago -->
+    <script src="scripts/pasarela.js"></script>
 
 
 </section>

@@ -1,17 +1,19 @@
 @echo off
 setlocal enabledelayedexpansion
 
+REM Rutas
+set PNGQUANT=pngquant.exe
+
 REM Crear carpeta para originales si no existe
 if not exist original_png (
     mkdir original_png
 )
 
-echo 🔄 Moviendo imágenes desde id1.png hasta id100.png a carpeta original_png...
+echo 🔄 Moviendo imágenes desde id1.png hasta id100.png...
 
 for %%f in (id*.png) do (
     set "filename=%%~nf"
     set "num=!filename:~2!"
-    REM Validar si es un número del 1 al 100
     for /f "tokens=* delims=0" %%n in ("!num!") do (
         set /a test=%%n
         if !test! GEQ 1 if !test! LEQ 100 (
@@ -21,12 +23,24 @@ for %%f in (id*.png) do (
     )
 )
 
-cd original_png
+cd original_png || exit /b
 
-echo 🎯 Comprimiendo imágenes con calidad alta y sin dithering...
+echo 🎯 Iniciando compresión con %PNGQUANT%...
+
+if not exist %PNGQUANT% (
+    echo ❌ ERROR: No se encuentra pngquant.exe en esta carpeta.
+    pause
+    exit /b
+)
 
 for %%f in (*.png) do (
-    pngquant --quality=80-95 --speed 1 --floyd=0 --ext -compressed.png --force "%%f"
+    echo 🛠️ Procesando: %%f
+    %PNGQUANT% --quality=80-95 --speed 1 --floyd=0 --ext -compressed.png --force "%%f"
+    if exist "%%~nf-compressed.png" (
+        echo 💾 Comprimido: %%~nf-compressed.png
+    ) else (
+        echo ⚠️ Fallo al comprimir: %%f
+    )
 )
 
 echo 🔁 Renombrando y devolviendo archivos comprimidos...
@@ -35,10 +49,10 @@ for %%f in (*-compressed.png) do (
     set "name=%%~nf"
     set "name=!name:-compressed=!"
     move "%%f" "..\!name!.png" >nul
-    echo 💾 Guardado como: !name!.png
+    echo 📦 Guardado como: !name!.png
 )
 
 cd ..
-echo 🎉 ¡Proceso completado! Archivos comprimidos están en esta carpeta. Originales están en original_png\
+echo 🎉 ¡Completado! Archivos optimizados están aquí. Originales en original_png\
 
 pause

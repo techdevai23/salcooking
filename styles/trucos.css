@@ -27,9 +27,9 @@
     right: 0;
     bottom: 0;
     background-image: url('../sources/fondo-nuevo.png');
-    background-size: 100% 100%;
+  background-size: auto 100%;
     background-position: center;
-    background-repeat: no-repeat;
+    background-repeat: repeat-y;
     z-index: -1;
     opacity: 0.5;
 }
@@ -187,11 +187,11 @@ body {
 
 @media (max-width: 576px) {
     .container-trucos::before {
-        background-image: url('../sources/fono-nuevo-movil2.png');
-        background-size: cover;
-       
+        background-image: url('../sources/fono-nuevo-movil.png');
+     
         background-position: left;
-        background-repeat: repeat;
+        background-size: auto 70%;
+        background-repeat: repeat-y;
     }
 
     .tarjeta-truco {
