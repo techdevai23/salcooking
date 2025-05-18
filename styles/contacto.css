@@ -1,5 +1,10 @@
 
-/* Contenedor principal para ?????? */
+/* Contenedor principal para contacto */
+
+.Contacto {
+  position: relative;
+  padding: 40px 20px;
+}
 
 .contenedor-Contacto {
      position: relative;

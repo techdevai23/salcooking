@@ -18,6 +18,7 @@ $css_extra .= '<link rel="stylesheet" href="styles/dieta-semana-dias.css?v=' . f
 </div>
 
 <!-- Contenido principal-->
+ <section class="dieta-semana-por-dias"> 
 <div class="dieta-semana">
     <div class="main-content">
         <div class="titulo">
@@ -354,5 +355,6 @@ $css_extra .= '<link rel="stylesheet" href="styles/dieta-semana-dias.css?v=' . f
         <br>
     </div>
 </div>
+</section>
 <script src="scripts/dieta-semana.js"></script>
 <?php include 'footer.php'; ?>

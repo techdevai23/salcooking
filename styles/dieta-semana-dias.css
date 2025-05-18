@@ -7,6 +7,11 @@
 
 }
 
+.dieta-semana-por-dias {
+  position: relative;
+  padding: 40px 20px;
+}
+
 .main-content {
   /* box-sizing: border-box; */
   position: relative;
@@ -15,7 +20,7 @@
   /* margin: 30px auto;
   padding: 0 15px; */
   background-color: transparent;
-  /* padding: 55px; */
+  padding: 30px;
   z-index: 1;
   min-height: 800px;
   overflow-x: hidden;
@@ -44,7 +49,7 @@
 }
 
 .dieta-semana {
-  padding: 40px;
+ 
   overflow: visible;
   /* Permite que los elementos sticky funcionen */
 }
@@ -111,7 +116,7 @@
 .dieta-semana .main-content {
   max-width: 1200px;
   margin: 30px auto;
-  padding: 0 20px;
+  padding: 20px 20px;
 }
 
 .dieta-semana .breadcrumb {
