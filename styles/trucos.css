@@ -26,17 +26,15 @@
     left: 0;
     right: 0;
     bottom: 0;
-
     background-image: url('../sources/fondo-nuevo.png');
     background-size: 100% 100%;
-    /* Fuerza la imagen a adaptarse al tamaño del contenedor */
     background-position: center;
     background-repeat: no-repeat;
     z-index: -1;
-    /* Asegúrate de que el pseudo-elemento esté detrás del contenido */
     opacity: 0.5;
-    /* Ajusta este valor entre 0 y 1 según la transparencia deseada */
 }
+
+
 
 .contenido-trucos {
     position: relative;
@@ -149,16 +147,22 @@ body {
     .results-grid {
         order: 1;
     }
+
+    .container-trucos::before {
+        background-size: cover;
+        background-position: left;
+    }
 }
 
 @media (max-width: 768px) {
-    /* .results-grid {
-        grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-    }
+   
 
-    .recipe-info-grid {
-        grid-template-columns: 1fr;
-    } */
+    .container-trucos::before {
+        background-size: cover;
+        background-position: left;
+        
+        
+    }
     .tarjeta-receta {
         padding: 15px;
         margin: 0 auto;
@@ -182,23 +186,28 @@ body {
 }
 
 @media (max-width: 576px) {
+    .container-trucos::before {
+        background-image: url('../sources/fono-nuevo-movil2.png');
+        background-size: cover;
+       
+        background-position: left;
+        background-repeat: repeat;
+    }
 
-    .container-trucos::before{
-    background-image: url('../sources/fondo-nuevo-movil.png');
-       background-size: cover; /* Asegura que el fondo cubra todo el contenedor */
-    background-position: center; /* Centra la imagen */
-    background-repeat: no-repeat; /* Evita que el fondo se repita */
- 
-}
+    .tarjeta-truco {
+        padding: 15px;
+        width: 100%;
+    }
+    
+    .container-trucos {
+        padding: 20px 10px;
+    }
+
     .results-grid {
         grid-template-columns: 1fr;
     }
 
     .recipe-title {
         font-size: 1.5rem;
-    }
-
-    .tarjeta-truco {
-        padding: 15px;
     }
 }

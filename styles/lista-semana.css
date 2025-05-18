@@ -22,7 +22,7 @@
     left: 0;
     right: 0;
     bottom: 0;
-    background-image: url('../sources/solo-fondo.png');
+    background-image: url('../sources/fondo-nuevo.png');
     background-size: 102% 100%; /* Fuerza la imagen a adaptarse al tamaño del contenedor */
     background-position: center;
     background-repeat: no-repeat;
@@ -175,21 +175,12 @@ html, body {
 }
 
 @media (max-width: 576px) {
-    .results-grid {
-        grid-template-columns: 1fr;
-    }
     
-    .recipe-title {
-        font-size: 1.5rem;
-    }
-    
-    .tarjeta-truco {
-        padding: 15px;
+   
+     .contenedor-Contacto::before {
+        background-image: url('../sources/fono-nuevo-movil2.png');
+        background-size: cover;
+        background-position: left;
+        background-repeat: no-repeat;
     }
 }
-
-/* @media (max-width: 576px) {
-    .lista-ingredientes-compra {
-        grid-template-columns: 1fr; /* Una columna en móviles pequeños 
-    }
-} */

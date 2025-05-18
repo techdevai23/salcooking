@@ -116,4 +116,11 @@ html, body {
     .tip-card {
         padding: 15px;
     }
+
+     .container-trucos::before {
+        background-image: url('../sources/fono-nuevo-movil2.png');
+        background-size: cover;
+        background-position: left;
+        background-repeat: no-repeat;
+    }
 }

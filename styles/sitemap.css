@@ -18,7 +18,7 @@
     left: 0;
     right: 0;
     bottom: 0;
-    background-image: url('../sources/solo-fondo.png');
+    background-image: url('../sources/fondo-nuevo.png');
     background-size: 102% 100%;
     background-position: center;
     background-repeat: no-repeat;
@@ -581,4 +581,13 @@
     .sitemap-leyenda {
         margin: 20px auto;
     }
+
+    .contenedor-sitemap-landing::before{
+    
+        background-image: url('../sources/fono-nuevo-movil2.png');
+        background-size: cover;
+        background-position: left;
+        background-repeat: no-repeat;
+ 
+}
 }

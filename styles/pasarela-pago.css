@@ -23,7 +23,7 @@
     right: 0;
     bottom: 0;
     
-    background-image: url('../sources/solo-fondo.png');
+    background-image: url('../sources/fondo-nuevo.png');
     background-size: 102% 100%; /* Fuerza la imagen a adaptarse al tamaño del contenedor */
     background-position: center;
     background-repeat: no-repeat;
@@ -255,12 +255,15 @@ html, body {
 
 @media (max-width: 576px) {
 .contenedor-nombre-landing::before{
-    background-image: url('../sources/fondo-nuevo-movil.png');
-       background-size: cover; /* Asegura que el fondo cubra todo el contenedor */
-    background-position: center; /* Centra la imagen */
-    background-repeat: no-repeat; /* Evita que el fondo se repita */
+    
+        background-image: url('../sources/fono-nuevo-movil2.png');
+        background-size: cover;
+        background-position: left;
+        background-repeat: no-repeat;
  
 }
+
+
   .contenido-nombre-landing .container, #payment-form {
     min-width: 100%;
 
@@ -285,15 +288,4 @@ width: auto;
 }
 
 
-    .results-grid {
-        grid-template-columns: 1fr;
-    }
-    
-    .recipe-title {
-        font-size: 1.5rem;
-    }
-    
-    .tarjeta-truco {
-        padding: 15px;
-    }
 }
