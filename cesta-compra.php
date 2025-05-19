@@ -37,7 +37,7 @@ $css_extra = '<link rel="stylesheet" href="styles/plantilla.css">';
     <div class="contenido-landing">
         <p>Texto de la landing</p>
 
-    <p>Texto de la landing</p>
+    <p> COMPROBANDO CAMBIOS</p>
 
     <!-- div contenido -->
     </div>

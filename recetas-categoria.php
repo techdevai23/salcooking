@@ -13,6 +13,7 @@ $css_extra .= '<link rel="stylesheet" href="styles/trucos.css?v=' . filemtime('s
         <ul class="migas">
             <li><a href="index.php">Inicio</a></li>
             <li class="current">Trucos de cocina</li>
+           
         </ul>
     </div>
 </div>

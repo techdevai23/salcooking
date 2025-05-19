@@ -13,9 +13,10 @@ $css_extra .= '<link rel="stylesheet" href="styles/planes.css?v=' . filemtime('s
         <ul class="migas">
             <li><a href="index.php">Inicio</a></li>
             <li class="current">Planes de uso</li>
+           
         </ul>
         <div class="volver-atras-contenedor">
-            <a href="javascript:history.back()" class="volver-atras"><img src="sources/iconos/Arrow-Thick-Left-3--Streamline-Ultimate.svg" width="32px" alt="icono atrás" title="Pantalla anterior"></a>
+            <a href="javascript:history.back()" class="volver-atras"><img src="sources/iconos/Arrow-Thick-Left-3--Streamline-Ultimate.svg" width="32px" alt="icono atrás" title="Atrás. Pantalla anterior"></a>
         </div>
     </div>
 </div>

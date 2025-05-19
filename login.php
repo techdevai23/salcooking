@@ -1,5 +1,8 @@
 <?php
-session_start(); // Siempre al principio
+// Comprobamos si la sesión está iniciada
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
 
 // Si ya está logueado, redirigir a la página de perfil
 if (isset($_SESSION['id_usuario'])) {

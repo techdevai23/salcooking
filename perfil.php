@@ -1,5 +1,8 @@
 <?php
-session_start(); // Siempre al principio
+// Comprobamos si la sesión está iniciada
+if (session_status() === PHP_SESSION_NONE) {
+  session_start();
+}
 include 'controllers/conexion.php'; // Conexión a la BD
 
 $nombre_pagina = "Crear Perfil"; // Para el título y migas cuando es nuevo
