@@ -1,20 +1,24 @@
 <?php
 session_start(); // Siempre al principio
 
-// Si ya está logueado, redirigir a la página de perfil o index
+// Si ya está logueado, redirigir a la página de perfil
 if (isset($_SESSION['id_usuario'])) {
-    header("Location: perfil-logueado.php"); // O index.php si prefieres
+    header("Location: perfil-logueado.php"); 
     exit();
 }
 
 include 'controllers/conexion.php'; // Conexión a la BD
 
 $error_login = '';
-
+// comenzamos  comprobando si hay usuario y contraseña
 if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['login_submit'])) {
+    // DEBUG
+    echo '<pre>';
+    print_r($_POST);
+    echo '</pre>';
     $usuario_input = trim($_POST['usuario']); // Puede ser email o nick
     $contrasena_input = trim($_POST['contrasena']);
-
+    // si no hay usuario o contraseña, error
     if (empty($usuario_input) || empty($contrasena_input)) {
         $error_login = "Por favor, introduce tu usuario y contraseña.";
     } else {
@@ -22,14 +26,23 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['login_submit'])) {
         // Asumiendo que tienes un campo 'nick' en tu tabla 'usuarios'
         $sql = "SELECT id_usuario, nombre_completo, email, nick, contrasena_hash, es_premium FROM usuarios WHERE email = ? OR nick = ?";
         $stmt = $conexion->prepare($sql);
-
+        // con este if comprobamos si la consulta está preparada 
         if ($stmt) {
+            // con este bind_param le pasamos los parametros a la consulta
             $stmt->bind_param("ss", $usuario_input, $usuario_input);
+            // con este execute ejecutamos la consulta
             $stmt->execute();
+            // con este get_result obtenemos el resultado de la consulta
             $resultado = $stmt->get_result();
-
+            // con este if comprobamos si el resultado de la consulta es 1
             if ($resultado->num_rows === 1) {
+                // con este fetch_assoc obtenemos el resultado de la consulta
                 $usuario_db = $resultado->fetch_assoc();
+                // DEBUG
+                echo '<pre>';
+                print_r($usuario_db);
+                echo '</pre>';
+                // con este if comprobamos si la contraseña es correcta
                 if (password_verify($contrasena_input, $usuario_db['contrasena_hash'])) {
                     // Contraseña correcta, iniciar sesión
                     $_SESSION['id_usuario'] = $usuario_db['id_usuario'];
@@ -39,17 +52,19 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['login_submit'])) {
                     $_SESSION['es_premium'] = $usuario_db['es_premium'];
 
                     // Redirigir a la página de inicio o perfil
-                    header("Location: index.php"); // O perfil-logueado.php
+                    header("Location: perfil-logueado.php"); 
                     exit();
                 } else {
-                    $error_login = "Usuario o contraseña incorrectos.";
+                    echo "Hash en BD: " . $usuario_db['contrasena_hash'] . "<br>";
+                    echo "Contraseña introducida: " . $contrasena_input . "<br>";
+                    $error_login = "Lo siento: Usuario o contraseña incorrectos.";
                 }
             } else {
-                $error_login = "Usuario o contraseña incorrectos.";
+                $error_login = "Lo siento: Usuario o contraseña incorrectos.";
             }
             $stmt->close();
         } else {
-            $error_login = "Error en la preparación de la consulta: " . $conexion->error;
+            $error_login = "Lo siento: Error en la preparación de la consulta: " . $conexion->error;
         }
     }
 }
