@@ -30,7 +30,7 @@
   background-color: transparent;
   padding: 30px;
   margin: 0 auto;
-  min-height: 800px; 
+   min-height: 100vh;
 }
 
 .container-resultados::before {
@@ -41,12 +41,16 @@
   right: 0;
   bottom: 0;
   background-image: url('../sources/fondo-nuevo.png');
- background-size: 100% 100%;
-  background-position: center;
-  background-repeat: no-repeat;
+  background-size: contain;
+    background-position: center center;
+    background-repeat: repeat-y;
   z-index: -1;
   opacity: 0.5;
 }
+
+
+
+
 
 .content-wrapper {
   position: relative;
@@ -534,10 +538,11 @@
 
 .container-resultados::before{
     
-        background-image: url('../sources/fono-nuevo-movil2.png');
-        background-size: cover;
-        background-position: left;
-        background-repeat: no-repeat;
+        background-image: url('../sources/fono-nuevo-movil.png');
+     background-position: left;
+        background-size: auto 70%;
+        background-repeat: repeat-y;
+       
  
 }
 

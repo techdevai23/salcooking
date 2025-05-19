@@ -2,11 +2,11 @@
 <?php
 $css_extra = '';
 // Este archivo es solo para visualización HTML. No hay lógica PHP.
-$css_extra .= '<link rel="stylesheet" href="styles/perfil-ajustes.css?v=' . filemtime('styles/perfil-ajustes.css') . '">'; // CSS específico
+$css_extra .= '<link rel="stylesheet" href="styles/perfil-ajustes.css?v=' . filemtime('styles/perfil-ajustes.css') . '">';// CSS específico
 $nombre_pagina = "Perfil-Ajustes"; // Para el título y migas
 ?>
-<?php include 'header.php'; ?>
 
+<?php include 'header.php'; ?>
 
 <body class="usuario-logueado"> <!-- Clase para JS, simula usuario existente -->
   
@@ -43,27 +43,27 @@ $nombre_pagina = "Perfil-Ajustes"; // Para el título y migas
           <div class="perfil-form-grid">
             <div class="form-group">
               <label for="nombre_completo">Nombre:</label>
-              <input type="text" id="nombre_completo" name="nombre_completo" value="Juan Pérez Ejemplo">
+              <input type="text" id="nombre_completo" name="nombre_completo" value="">
             </div>
 
             <div class="form-group">
               <label for="nick">Nick: <span class="required">*</span></label>
-              <input type="text" id="nick" name="nick" value="juanito_p" required>
+              <input type="text" id="nick" name="nick" value="" required>
               <a href="#" class="form-link">cambiar usuario</a>
             </div>
 
             <div class="form-group">
               <label for="email">Email: <span class="required">*</span></label>
-              <input type="email" id="email" name="email" value="juan.perez@example.com" required>
+              <input type="email" id="email" name="email" value="" required>
             </div>
 
             <div class="form-group">
               <label for="direccion">Dirección:</label>
-              <input type="text" id="direccion" name="direccion" value="Calle Falsa 123, Apto 4B">
+              <input type="text" id="direccion" name="direccion" value="">
             </div>
 
             <div class="form-group edad-group">
-              <label for="fecha_nacimiento">Edad:</label> <!-- En la imagen dice "Edad:" y luego el campo muestra // -->
+              <label for="fecha_nacimiento">Fecha de nacimiento:</label> <!-- En la imagen dice "Edad:" y luego el campo muestra // -->
               <div style="display: flex; align-items: center;">
                 <input type="text" id="fecha_nacimiento_display" name="fecha_nacimiento_display" value="//" style="width: 80px; text-align: center;">
                 <img src="sources/iconos/calendar_icon.svg" alt="calendario" style="width:24px; height:24px; margin-left: 10px; cursor:pointer;" title="Seleccionar fecha de nacimiento">
@@ -73,13 +73,13 @@ $nombre_pagina = "Perfil-Ajustes"; // Para el título y migas
 
             <div class="form-group">
               <label for="ciudad">Ciudad:</label>
-              <input type="text" id="ciudad" name="ciudad" value="Ciudad Ejemplo">
+              <input type="text" id="ciudad" name="ciudad" value="">
             </div>
 
            
             <div class="form-group">
               <label for="pais">País:</label>
-              <input type="text" id="pais" name="pais" value="País Ejemplo">
+              <input type="text" id="pais" name="pais" value="">
             </div>
 
             <div class="form-group">
@@ -96,7 +96,7 @@ $nombre_pagina = "Perfil-Ajustes"; // Para el título y migas
             </div>
             <div class="form-group">
               <label for="contrasena_display">Contraseña:</label>
-              <input type="text" id="contrasena_display" name="contrasena_display" value="******************" readonly disabled>
+              <input type="text" id="contrasena_display" name="contrasena_display" value="" >
               <a href="#" id="cambiarContrasenaLink" class="form-link">Cambio contraseña</a>
              
             </div>

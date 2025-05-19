@@ -15,7 +15,7 @@ $css_extra .= '<link rel="stylesheet" href="styles/cambio.css?v=' . filemtime('s
       <li class="current">Cambiar Contraseña</li>
     </ul>
     <div class="volver-atras-contenedor">
-      <a href="javascript:history.back()" class="volver-atras"><img src="sources/iconos/Arrow-Thick-Left-3--Streamline-Ultimate.svg" width="32px" alt="icono atrás"></a>
+      <a href="javascript:history.back()" class="volver-atras"><img src="sources/iconos/Arrow-Thick-Left-3--Streamline-Ultimate.svg" width="32px" alt="icono atrás" title="Pantalla anterior"></a>
     </div>
   </div>
 </div>

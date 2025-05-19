@@ -3,13 +3,14 @@
 $css_extra = '';
 $css_extra .= '<link rel="stylesheet" href="styles/lista-dia.css?v=' . filemtime('styles/lista-dia.css') . '">';
 include 'header.php';
-include 'conexion.php';
+include 'controllers/conexion.php';
 
 $ingredientes_compra = [];
 // --- LÓGICA PARA OBTENER INGREDIENTES DEL DÍA ---
 // Esto es un EJEMPLO. Necesitarás adaptar esto a cómo pases la información de las recetas del día.
 // Por ejemplo, si pasas una lista de IDs de recetas por GET (ej: ?recetas_ids=1,5,7)
-$recetas_ids_str = isset($_GET['recetas_ids']) ? $_GET['recetas_ids'] : ''; // ej: "1,5,7"
+$recetas_ids_str = isset($_GET['id']) ? intval($_GET['id']) : 0; // ej: "1,5,7"
+
 $ids_recetas_dia = [];
 if (!empty($recetas_ids_str)) {
     $ids_recetas_dia = array_map('intval', explode(',', $recetas_ids_str));
@@ -54,7 +55,7 @@ $conexion->close();
       <li class="current">Lista de la Compra del Día</li>
     </ul>
     <div class="volver-atras-contenedor">
-      <a href="javascript:history.back()" class="volver-atras"><img src="sources/iconos/Arrow-Thick-Left-3--Streamline-Ultimate.svg" width="32px" alt="icono atrás"></a>
+      <a href="javascript:history.back()" class="volver-atras"><img src="sources/iconos/Arrow-Thick-Left-3--Streamline-Ultimate.svg" width="32px" alt="icono atrás" title="Pantalla anterior"></a>
     </div>
   </div>
 </div>

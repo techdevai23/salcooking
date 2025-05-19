@@ -85,7 +85,7 @@ $conexion->close();
       <li class="current">Lista de la Compra de la Semana</li>
     </ul>
     <div class="volver-atras-contenedor">
-      <a href="javascript:history.back()" class="volver-atras"><img src="sources/iconos/Arrow-Thick-Left-3--Streamline-Ultimate.svg" width="32px" alt="icono atrás"></a>
+      <a href="javascript:history.back()" class="volver-atras"><img src="sources/iconos/Arrow-Thick-Left-3--Streamline-Ultimate.svg" width="32px" alt="icono atrás" title="Pantalla anterior"></a>
     </div>
   </div>
 </div>
