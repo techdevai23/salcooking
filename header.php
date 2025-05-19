@@ -95,6 +95,10 @@
                     <div class="header-actions">
                         <div class="user-icon">
                             <a href="login.php"><img src="sources/iconos/Single-Neutral-Circle--Streamline-Ultimate.svg" alt="User Icon"width= "34px "></a>
+                            <?php if (isset($_SESSION['id_usuario'])): ?>
+            <a href="logout.php" class="btn-cerrar-sesion" style="margin-left:10px;">Cerrar sesión</a>
+        <?php endif; ?>
+    </div>
                         </div>
                     </div>
 
