@@ -130,6 +130,53 @@ $css_extra .= '<link rel="stylesheet" href="styles/perfil-ajustes.css?v=' . file
           </div>
 
           <!-- Aquí puedes añadir la sección premium si el usuario es premium -->
+
+           <!-- SECCIÓN PREMIUM (como en la imagen) -->
+          
+           <div class="form-group registro-codigo-group" style="max-width: 400px;">
+          <div style="margin-top: 30px; margin-bottom: 20px;">
+            <button type="button" class="action-btn-rosa" style="padding: 10px 20px !important;">Hazte Prémium</button>
+          </div>
+
+            <label for="codigo_registro" style="white-space: nowrap; margin-bottom:0; margin-right: 10px;">Código de registro:</label>
+            <input type="text" id="codigo_registro" name="codigo_registro" placeholder="">
+            <button type="button" title="Aplicar Código" style="background: #ccc; border:1px solid #999; color: #333; padding: 8px 12px; font-size: 1.2rem; cursor:pointer;">➤</button>
+          </div>
+
+
+          <div class="premium-section" style="margin-top:30px;">
+            <h3>
+              Opciones Prémium
+              <img src="sources/iconos/info_icon.svg" alt="info" class="info-icon" title="Funcionalidades exclusivas para usuarios Prémium" style="width:20px; height:20px;">
+              <!-- Reemplaza 'info_icon.svg' con un icono real -->
+            </h3>
+            <div class="premium-options-grid">
+              <div class="form-group">
+                <label for="intolerancias">Intolerancias</label>
+                <select id="intolerancias" name="intolerancias[]" multiple style="min-height: 100px;">
+                  <option selected>Gluten</option>
+                  <option>Frutos secos</option>
+                  <option selected>Pescados</option>
+                  
+                </select>
+              </div>
+              <div class="form-group">
+                <label for="enfermedades">Enfermedades</label>
+                <select id="enfermedades" name="enfermedades[]" multiple style="min-height: 100px;">
+                  <option>Colesterol</option>
+                  <option selected>Diabetes</option>
+                 
+                </select>
+              </div>
+            </div>
+            <button type="button" class="action-btn-naranja" style="margin-top:20px; padding: 10px 20px !important;">Generar dieta semanal</button>
+          </div>
+
+          <div class="form-actions" style="margin-top:30px;">
+            <button type="submit" name="accion" value="guardar_cambios" class="action-btn-verde" style="background-color: #2D3E2E; color: white; padding: 12px 30px !important; font-size: 1.1rem;">Guardar cambios</button>
+          </div>
+
+
           <div class="form-actions" style="margin-top:30px;">
             <button type="submit" class="action-btn-verde">Guardar cambios</button>
           </div>

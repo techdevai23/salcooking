@@ -6,14 +6,39 @@ if (session_status() === PHP_SESSION_NONE) {
 
 // Si ya está logueado, redirigir a la página de perfil
 if (isset($_SESSION['id_usuario'])) {
-    header("Location: perfil-logueado.php"); 
+    header("Location: perfil-logueado.php");
     exit();
 }
 
 include 'controllers/conexion.php'; // Conexión a la BD
 
 $error_login = '';
-// comenzamos  comprobando si hay usuario y contraseña
+
+// Comenzamos por Verificar cookie "Recuérdame"
+if (!isset($_SESSION['id_usuario']) && isset($_COOKIE['remember_token'])) {
+    $token = $_COOKIE['remember_token'];
+
+    include 'controllers/conexion.php';
+    $stmt = $conexion->prepare("SELECT * FROM usuarios WHERE remember_token = ? AND token_expiry > NOW()");
+    $stmt->bind_param("s", $token);
+    $stmt->execute();
+    $resultado = $stmt->get_result();
+
+    if ($resultado->num_rows === 1) {
+        $usuario = $resultado->fetch_assoc();
+        $_SESSION['id_usuario'] = $usuario['id_usuario'];
+        $_SESSION['nombre_completo'] = $usuario['nombre_completo'];
+        $_SESSION['email'] = $usuario['email'];
+        $_SESSION['nick'] = $usuario['nick'];
+        $_SESSION['es_premium'] = $usuario['es_premium'];
+
+        header("Location: perfil-logueado.php");
+        exit();
+    }
+}
+
+
+// continuamos  comprobando si hay usuario y contraseña
 if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['login_submit'])) {
     // DEBUG
     echo '<pre>';
@@ -45,6 +70,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['login_submit'])) {
                 echo '<pre>';
                 print_r($usuario_db);
                 echo '</pre>';
+
                 // con este if comprobamos si la contraseña es correcta
                 if (password_verify($contrasena_input, $usuario_db['contrasena_hash'])) {
                     // Contraseña correcta, iniciar sesión
@@ -54,8 +80,22 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['login_submit'])) {
                     $_SESSION['nick'] = $usuario_db['nick']; // Guardar nick si existe y se usa
                     $_SESSION['es_premium'] = $usuario_db['es_premium'];
 
+                    // Manejar la opción "Recuérdame"
+                    if (isset($_POST['recordar']) && $_POST['recordar'] == 'on') {
+                        $token = bin2hex(random_bytes(32)); // Genera token seguro
+                        $expiry = time() + (30 * 24 * 60 * 60); // 30 días
+
+                        // Guardar token en la base de datos
+                        $stmt = $conexion->prepare("UPDATE usuarios SET remember_token = ?, token_expiry = ? WHERE id_usuario = ?");
+                        $stmt->bind_param("ssi", $token, date('Y-m-d H:i:s', $expiry), $usuario_db['id_usuario']);
+                        $stmt->execute();
+
+                        // Crear cookie segura
+                        setcookie('remember_token', $token, $expiry, '/', '', true, true);
+                    }
+
                     // Redirigir a la página de inicio o perfil
-                    header("Location: perfil-logueado.php"); 
+                    header("Location: perfil-logueado.php");
                     exit();
                 } else {
                     echo "Hash en BD: " . $usuario_db['contrasena_hash'] . "<br>";
