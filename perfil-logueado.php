@@ -9,10 +9,13 @@ if (!isset($_SESSION['id_usuario'])) {
     header("Location: login.php");
     exit();
 }
-
+// guardamos el usuario que ha entrado a la página de perfil
 $id_usuario = $_SESSION['id_usuario'];
+// recuperamos todos los datos de la tabla usuarios y de perfiles
 $sql = "SELECT * FROM usuarios WHERE id_usuario = ?";
-// preparamos la consulta
+$sql2= "SELECT * FROM perfiles WHERE id_usuario = ?";
+
+// preparamos la consulta para prevenir inyecciones SQL
 $stmt = $conexion->prepare($sql);
 // le pasamos los parametros a la consulta
 $stmt->bind_param("i", $id_usuario);
@@ -73,8 +76,13 @@ $css_extra .= '<link rel="stylesheet" href="styles/perfil-ajustes.css?v=' . file
             </div>
 
             <div class="form-group">
-              <label for="nick">Nick: <span class="required">*</span></label>
-              <input type="text" id="nick" name="nick" value="<?php echo htmlspecialchars($usuario['nick']); ?>" required>
+              <label for="nick">Nick 1: <span class="required">*</span></label>
+              <input type="text" id="nick1" name="nick1" value="<?php echo htmlspecialchars($usuario['nick']); ?>" required>
+            </div>
+
+            <div class="form-group">
+              <label for="nick">Nick 2: <span class="required">*</span></label>
+              <input type="text" id="nick2" name="nick2" value="<?php echo htmlspecialchars($usuario['nick']); ?>" required>
             </div>
 
             <div class="form-group">
@@ -177,9 +185,9 @@ $css_extra .= '<link rel="stylesheet" href="styles/perfil-ajustes.css?v=' . file
           </div>
 
 
-          <div class="form-actions" style="margin-top:30px;">
+          <!-- <div class="form-actions" style="margin-top:30px;">
             <button type="submit" class="action-btn-verde">Guardar cambios</button>
-          </div>
+          </div> -->
         </form>
       </div>
     </div>
