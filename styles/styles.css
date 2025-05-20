@@ -182,13 +182,14 @@ img {
 
 .search-box form {
     display: flex;
-    max-width: 400px;
+    
+    max-width: 500px;
     margin: 0 auto;
 }
 
-#email  .search-box input {
-    /* flex-grow: 1; */
-    width: 250px;
+.search-box input {
+     flex-grow: 1;
+    width: 350px;
     height: 50px;
     padding: 2px 18px;
     border: 1px solid var(--border-color);
@@ -211,6 +212,7 @@ img {
     background-color: var(--secondary-color);
     font-family: 'Nunito', 'Segoe UI', sans-serif;
     color: black;
+    min-width: 100px;
     padding: 10px 20px !important;
     border-radius: 4px;
     font-weight: bold;

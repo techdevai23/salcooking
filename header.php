@@ -3,7 +3,7 @@
 ?>
 
 <?php
-// Comprobamos si la sesión está iniciada
+// Comprobamos si la sesión está iniciada para no iniciarla de nuevo
 if (session_status() === PHP_SESSION_NONE) {
     session_start();
 }
@@ -79,6 +79,10 @@ if (session_status() === PHP_SESSION_NONE) {
                     <li><a href="planes.php">Planes</a></li>
                     <li><a href="ayuda.php">Ayuda</a></li>
                     <li><a href="contacto.php">Contáctanos</a></li>
+                    <!-- Pulsando el enlace llevará a un lugar u otro, según si el usuario está logueado o no -->
+                    <li> <a href="<?php echo isset($_SESSION['id_usuario']) ? 'perfil-logueado.php' : 'login.php'; ?>">
+                            Perfil-Ajustes</a></li>
+
                 </ul>
             </div>
             <!-- Contenedor principal - Elementos comunes -->
@@ -102,11 +106,22 @@ if (session_status() === PHP_SESSION_NONE) {
                     <!-- icono de usuario con enlace a web de usuario -->
                     <div class="header-actions">
                         <div class="user-icon">
-                        <a href="<?php echo isset($_SESSION['id_usuario']) ? 'perfil-logueado.php' : 'login.php'; ?>"><img src="sources/iconos/Single-Neutral-Circle--Streamline-Ultimate.svg" alt="User Icon" width="34px "></a>
-                            <!-- inserción para cerrar sesión -->
+                            <!-- Mostraremos el icono o el nick de usuario, según si el usuario está logueado o no -->
+                            <!-- si se muestra el icono llevará a una página u otra, dependiendo de si está logueado o no -->
+                            <?php if (!isset($_SESSION['id_usuario'])): ?>
+                                <a href="<?php echo isset($_SESSION['id_usuario']) ? 'perfil-logueado.php' : 'login.php'; ?>">
+                                    <img src="sources/iconos/Single-Neutral-Circle--Streamline-Ultimate.svg" alt="User Icon" width="34px">
+                                </a>
+                            <?php else: ?>
+                                <p style="color:var(--text-color);">Acceso con Nick: <?php echo htmlspecialchars($_SESSION['nick']); ?></p>
+                            <?php endif; ?>
+
+
+                            <!-- inserción para cerrar sesión si está iniciada -->
                             <?php if (isset($_SESSION['id_usuario'])): ?>
                                 <a href="logout.php" class="btn-cerrar-sesion" style="margin-left:10px;">Cerrar sesión</a>
                             <?php endif; ?>
+
                         </div>
                     </div>
                 </div>
