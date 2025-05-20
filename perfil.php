@@ -9,95 +9,142 @@ $nombre_pagina = "Crear Perfil"; // Para el título y migas cuando es nuevo
 $mensaje_feedback = '';
 $tipo_mensaje = ''; // 'mensaje-exito' o 'mensaje-error'
 
-// Si el usuario ya está logueado, podría ser una página de "Ajustes de Perfil"
-// Por ahora, este script se enfoca en el registro de un nuevo usuario.
-// Si es un usuario logueado viendo su perfil, necesitarías otra lógica para cargar sus datos.
 
+//Aqui se gestiona el registro de un nuevo usuario, con todos los campos que se muestran en el formulario
 if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['accion']) && $_POST['accion'] == 'guardar_cambios') {
-    // Recoger datos del formulario
-    $nombre_completo = trim($_POST['nombre_completo']);
-    $nick = trim($_POST['nick']); // Asumiendo que se añade a la BD
-    $email = trim($_POST['email']);
-    $direccion = trim($_POST['direccion']) ?: NULL; // Permitir NULL si está vacío
-    $edad_input = trim($_POST['edad']); // Asumimos que se envía 'edad' (INT)
-    $ciudad = trim($_POST['ciudad']) ?: NULL;
-    $pais = trim($_POST['pais']) ?: NULL;
-    $sexo = $_POST['sexo'] ?: NULL; // Asumir que se envía un valor válido del ENUM o NULL
-    $peso_kg_input = trim($_POST['peso_kg_display']); // El campo se llama peso_kg_display
-    
-    // Para la contraseña, solo necesitamos nueva y confirmar para registro
-    $nueva_contrasena = $_POST['nueva_contrasena'];
-    $confirmar_contrasena = $_POST['confirmar_contrasena'];
+  // Recoger datos del formulario
+  $nombre_completo = trim($_POST['nombre_completo']);
+  $nick1 = trim($_POST['nick1']);
+  $nick2 = trim($_POST['nick2']);
+  $email = trim($_POST['email']);
+  $direccion = trim($_POST['direccion']) ?: NULL; // Permitir NULL si está vacío
+  $edad_input = trim($_POST['edad']); // Asumimos que se envía 'edad' (INT)
+  $ciudad = trim($_POST['ciudad']) ?: NULL;
+  $pais = trim($_POST['pais']) ?: NULL;
+  $sexo = $_POST['sexo'] ?: NULL; // Asumir que se envía un valor válido del ENUM o NULL
+  $peso_kg_input = trim($_POST['peso_kg_display']); // El campo se llama peso_kg_display
 
-    // Validaciones
-    $errores = [];
-    if (empty($nombre_completo)) $errores[] = "El nombre completo es obligatorio.";
-    if (empty($nick)) $errores[] = "El nick es obligatorio.";
-    if (empty($email) || !filter_var($email, FILTER_VALIDATE_EMAIL)) $errores[] = "El email no es válido o está vacío.";
-    if (empty($nueva_contrasena)) $errores[] = "La contraseña es obligatoria.";
-    if ($nueva_contrasena !== $confirmar_contrasena) $errores[] = "Las contraseñas no coinciden.";
-    if (!empty($edad_input) && !filter_var($edad_input, FILTER_VALIDATE_INT)) $errores[] = "La edad debe ser un número.";
-    else $edad = !empty($edad_input) ? intval($edad_input) : NULL;
+  // Para la contraseña, solo necesitamos nueva y confirmar para registro
+  $nueva_contrasena = $_POST['nueva_contrasena'];
+  $confirmar_contrasena = $_POST['confirmar_contrasena'];
 
-    if (!empty($peso_kg_input)) {
-        // Convertir comas a puntos para DECIMAL y validar
-        $peso_kg_input_numeric = str_replace(',', '.', $peso_kg_input);
-        if (!is_numeric($peso_kg_input_numeric)) {
-            $errores[] = "El peso debe ser un número válido (ej: 65.5).";
-            $peso_kg = NULL;
-        } else {
-            $peso_kg = floatval($peso_kg_input_numeric);
-        }
+  // Validaciones
+  $errores = [];
+  if (empty($nombre_completo)) $errores[] = "El nombre completo es obligatorio.";
+  if (empty(($nick1) || ($nick2))) $errores[] = "Un nick es obligatorio.";
+  if (empty($email) || !filter_var($email, FILTER_VALIDATE_EMAIL)) $errores[] = "El email no es válido o está vacío.";
+  if (empty($nueva_contrasena)) $errores[] = "La contraseña es obligatoria.";
+  if ($nueva_contrasena !== $confirmar_contrasena) $errores[] = "Las contraseñas no coinciden.";
+  if (!empty($edad_input) && !filter_var($edad_input, FILTER_VALIDATE_INT)) $errores[] = "La edad debe ser un número.";
+  else $edad = !empty($edad_input) ? intval($edad_input) : NULL;
+
+  if (!empty($peso_kg_input)) {
+    // Convertir comas a puntos para DECIMAL y validar
+    $peso_kg_input_numeric = str_replace(',', '.', $peso_kg_input);
+    if (!is_numeric($peso_kg_input_numeric)) {
+      $errores[] = "El peso debe ser un número válido (ej: 65.5).";
+      $peso_kg = NULL;
     } else {
-        $peso_kg = NULL;
+      $peso_kg = floatval($peso_kg_input_numeric);
     }
+  } else {
+    $peso_kg = NULL;
+  }
 
 
-    // Verificar si el email o nick ya existen (si 'nick' es UNIQUE)
-    if (empty($errores)) {
-        $sql_check = "SELECT id_usuario FROM usuarios WHERE email = ? OR nick = ?";
-        $stmt_check = $conexion->prepare($sql_check);
-        $stmt_check->bind_param("ss", $email, $nick);
-        $stmt_check->execute();
-        $resultado_check = $stmt_check->get_result();
-        if ($resultado_check->num_rows > 0) {
-            $existing_user = $resultado_check->fetch_assoc();
-            // Podrías ser más específico sobre si es el email o el nick
-            $errores[] = "El email o nick introducido ya está registrado.";
-        }
-        $stmt_check->close();
+  // Verificar si el email de la tabla usuarios ya existe
+  if (empty($errores)) {
+    $sql_check = "SELECT id_usuario FROM usuarios WHERE email = ?";
+    $stmt_check = $conexion->prepare($sql_check);
+    $stmt_check->bind_param("s", $email);
+    $stmt_check->execute();
+    $resultado_check = $stmt_check->get_result();
+    if ($resultado_check->num_rows > 0) {
+      $existing_user = $resultado_check->fetch_assoc();
+
+      $errores[] = "El email introducido ya está registrado.";
     }
+    $stmt_check->close();
+  }
+  //verificar si el nick1 de la tabla perfiles ya existe
+  if (empty($errores) && !empty($nick1)) {
+    $sql_check = "SELECT id_perfil FROM perfiles WHERE nick = ?";
+    $stmt_check = $conexion->prepare($sql_check);
+    $stmt_check->bind_param("s", $nick1);
+    $stmt_check->execute();
+    $resultado_check = $stmt_check->get_result();
+    if ($resultado_check->num_rows > 0) {
 
-    if (empty($errores)) {
-        // Hashear contraseña
-        $contrasena_hash = password_hash($nueva_contrasena, PASSWORD_DEFAULT);
+      $errores[] = "El nick introducido ya está registrado.";
+    }
+    $stmt_check->close();
+  }
+  //verificar si el nick2 de la tabla perfiles ya existe
+  if (empty($errores) && !empty($nick2)) {
+    $sql_check = "SELECT id_perfil FROM perfiles WHERE nick = ?";
+    $stmt_check = $conexion->prepare($sql_check);
+    $stmt_check->bind_param("s", $nick2);
+    $stmt_check->execute();
+    $resultado_check = $stmt_check->get_result();
+    if ($resultado_check->num_rows > 0) {
+      $errores[] = "El nick introducido ya está registrado.";
+    }
+    $stmt_check->close();
+  }
 
-        // Insertar en la BD
-        // Asegúrate de que tu tabla 'usuarios' tiene el campo 'nick'
-        // y que los campos opcionales como direccion, ciudad, etc., permiten NULL.
-        $sql_insert = "INSERT INTO usuarios (nombre_completo, nick, email, direccion, ciudad, pais, sexo, peso_kg, edad, contrasena_hash, es_premium, fecha_registro) 
+  if (empty($errores)) {
+    // Hashear contraseña
+    $contrasena_hash = password_hash($nueva_contrasena, PASSWORD_DEFAULT);
+
+    // Insertar en la BD Salcooking®
+
+    $sql_insert = "INSERT INTO usuarios (nombre_completo, nick, email, direccion, ciudad, pais, sexo, peso_kg, edad, contrasena_hash, es_premium, fecha_registro) 
                        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, '0', NOW())";
-        $stmt_insert = $conexion->prepare($sql_insert);
-        // Tipos: s: string, i: integer, d: double/decimal
-        $stmt_insert->bind_param("sssssssdis", 
-            $nombre_completo, $nick, $email, $direccion, $ciudad, $pais, $sexo, $peso_kg, $edad, $contrasena_hash
-        );
+    $stmt_insert = $conexion->prepare($sql_insert);
+    // Tipos: s: string, i: integer, d: double/decimal
+    $stmt_insert->bind_param(
+      "sssssssdis",
+      $nombre_completo,
+      $nick1,
+      $email,
+      $direccion,
+      $ciudad,
+      $pais,
+      $sexo,
+      $peso_kg,
+      $edad,
+      $contrasena_hash
+    );
 
-        if ($stmt_insert->execute()) {
-            $mensaje_feedback = "¡Usuario registrado con éxito! Ahora puedes iniciar sesión.";
-            $tipo_mensaje = 'mensaje-exito';
-            // Podrías redirigir a login.php o incluso auto-loguear al usuario
-            // header("Location: login.php");
-            // exit();
-        } else {
-            $mensaje_feedback = "Error al registrar el usuario: " . $stmt_insert->error;
-            $tipo_mensaje = 'mensaje-error';
-        }
-        $stmt_insert->close();
+    if ($stmt_insert->execute()) {
+      //obtener el id_usuario recien insertado
+      $id_usuario = $conexion->insert_id;
+
+      //insertar nick1 en la tabla perfiles
+      $sql_insert_nick1 = "INSERT INTO perfiles (id_usuario, nick) VALUES (?, ?)";
+      $stmt_insert_nick1 = $conexion->prepare($sql_insert_nick1);
+      $stmt_insert_nick1->bind_param("is", $id_usuario, $nick1);
+      $stmt_insert_nick1->execute();
+      $stmt_insert_nick1->close();
+
+      //insertar nick2 en la tabla perfiles
+      $sql_insert_nick2 = "INSERT INTO perfiles (id_usuario, nick) VALUES (?, ?)";
+      $stmt_insert_nick2 = $conexion->prepare($sql_insert_nick2);
+      $stmt_insert_nick2->bind_param("is", $id_usuario, $nick2);
+      $stmt_insert_nick2->execute();
+      $stmt_insert_nick2->close();
+
+      $mensaje_feedback = "¡Usuario registrado con éxito! Ahora puedes iniciar sesión.";
+      $tipo_mensaje = 'mensaje-exito';
     } else {
-        $mensaje_feedback = "Por favor, corrige los siguientes errores:<br>" . implode("<br>", $errores);
-        $tipo_mensaje = 'mensaje-error';
+      $mensaje_feedback = "Error al registrar el usuario: " . $stmt_insert->error;
+      $tipo_mensaje = 'mensaje-error';
     }
+    $stmt_insert->close();
+  } else {
+    $mensaje_feedback = "Por favor, corrige los siguientes errores:<br>" . implode("<br>", $errores);
+    $tipo_mensaje = 'mensaje-error';
+  }
 }
 $conexion->close();
 
@@ -146,10 +193,15 @@ $css_extra .= '<link rel="stylesheet" href="styles/perfil-ajustes.css?v=' . file
             </div>
 
             <div class="form-group">
-              <label for="nick">Nick: <span class="required">*</span></label>
-              <input type="text" id="nick" name="nick" value="<?php echo isset($_POST['nick']) ? htmlspecialchars($_POST['nick']) : ''; ?>" required>
-              <!-- <a href="#" class="form-link">cambiar usuario</a> Quitar para registro nuevo -->
+              <label for="nick">Nick 1: <span class="required">*</span></label>
+              <input type="text" id="nick1" name="nick1" value="<?php echo isset($_POST[($perfiles[0]['nick'])]) ? htmlspecialchars($_POST[($perfiles[0]['nick'])]) : ''; ?>" required>
             </div>
+
+            <div class="form-group">
+              <label for="nick">Nick 2: <span class="required">*</span></label>
+              <input type="text" id="nick2" name="nick2" value="<?php echo isset($_POST[($perfiles[1]['nick'])]) ? htmlspecialchars($_POST[($perfiles[1]['nick'])]) : ''; ?>" required>
+            </div>
+
 
             <div class="form-group">
               <label for="email">Email: <span class="required">*</span></label>
@@ -171,7 +223,7 @@ $css_extra .= '<link rel="stylesheet" href="styles/perfil-ajustes.css?v=' . file
               <label for="ciudad">Ciudad:</label>
               <input type="text" id="ciudad" name="ciudad" value="<?php echo isset($_POST['ciudad']) ? htmlspecialchars($_POST['ciudad']) : ''; ?>">
             </div>
-           
+
             <div class="form-group">
               <label for="pais">País:</label>
               <input type="text" id="pais" name="pais" value="<?php echo isset($_POST['pais']) ? htmlspecialchars($_POST['pais']) : ''; ?>">
@@ -202,7 +254,7 @@ $css_extra .= '<link rel="stylesheet" href="styles/perfil-ajustes.css?v=' . file
               <input type="password" id="confirmar_contrasena" name="confirmar_contrasena" placeholder="Confirmar nueva contraseña" required>
             </div>
             <!-- Fin Sección de Contraseña para NUEVO REGISTRO -->
-            
+
             <!-- El campo de contraseña actual y el enlace 'Cambio contraseña' son para usuarios logueados modificando su perfil -->
             <!-- <div class="form-group">
               <label for="contrasena_display">Contraseña:</label>
@@ -221,10 +273,10 @@ $css_extra .= '<link rel="stylesheet" href="styles/perfil-ajustes.css?v=' . file
 
           <!-- SECCIÓN PREMIUM (como en la imagen) - Esto es para usuarios ya registrados y logueados -->
           <!-- Por ahora, para el registro, la ocultamos o la manejamos después del registro -->
-          <div class="form-group registro-codigo-group" style="max-width: 400px; <?php echo isset($_SESSION['id_usuario']) ? '' : 'display:none;';?>">
+          <div class="form-group registro-codigo-group" style="max-width: 400px; <?php echo isset($_SESSION['id_usuario']) ? '' : 'display:none;'; ?>">
             <!-- ... (resto de la sección premium como la tienes) ... -->
           </div>
-          <div class="premium-section" style="margin-top:30px; <?php echo isset($_SESSION['id_usuario']) && $_SESSION['es_premium'] ? '' : 'display:none;';?>">
+          <div class="premium-section" style="margin-top:30px; <?php echo isset($_SESSION['id_usuario']) && $_SESSION['es_premium'] ? '' : 'display:none;'; ?>">
             <!-- ... (resto de la sección premium como la tienes) ... -->
           </div>
 

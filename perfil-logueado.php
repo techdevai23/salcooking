@@ -11,23 +11,53 @@ if (!isset($_SESSION['id_usuario'])) {
 }
 // guardamos el usuario que ha entrado a la página de perfil
 $id_usuario = $_SESSION['id_usuario'];
+//DEPURACION
+echo "<!-- id_usuario de sesión: " . $_SESSION['id_usuario'] . " -->";
+
 // recuperamos todos los datos de la tabla usuarios y de perfiles
 $sql = "SELECT * FROM usuarios WHERE id_usuario = ?";
 $sql2= "SELECT * FROM perfiles WHERE id_usuario = ?";
 
-// preparamos la consulta para prevenir inyecciones SQL
+// preparamos la consulta para prevenir inyecciones SQL, gracias a stmt
+// donde sustituimos los ? por los i, que es el tipo de dato que vamos a usar
+//preparamos la 1ª consulta
 $stmt = $conexion->prepare($sql);
-// le pasamos los parametros a la consulta
+$stmt2 = $conexion->prepare($sql2);
+if (!$stmt2) {
+  die("Error al preparar la consulta: " . $conexion->error);
+}
+// le pasamos los parametros a la consulta con bind_param
 $stmt->bind_param("i", $id_usuario);
-// ejecutamos la consulta
 $stmt->execute();
-// obtenemos el resultado de la consulta
 $resultado = $stmt->get_result();
-// obtenemos el resultado de la consulta en forma de array asociativo
 $usuario = $resultado->fetch_assoc();
-// cerramos la consulta
-$stmt->close();
+$stmt->close(); // <-- Cerramos el primer statement ANTES de la segunda consulta
+
+// Ahora ejecutamos la segunda consulta
+$stmt2 = $conexion->prepare($sql2);
+$stmt2->bind_param("i", $id_usuario);
+$stmt2->execute();
+$stmt2->store_result();
+$stmt2->bind_result($id_perfil, $id_usuario, $nick, $enfermedades, $alergias);
+
+// obtenemos el resultado de la consulta en forma de array asociativo
+
+//Como aqui podemos tener mas de un perfil, lo almacenamos en un array
+$perfiles = [];
+while ($stmt2->fetch()) {
+    $perfiles[] = [
+        'id_perfil' => $id_perfil,
+        'id_usuario' => $id_usuario,
+        'nick' => $nick,
+        'enfermedades' => $enfermedades,
+        'alergias' => $alergias
+    ];
+}
+$stmt2->close();
 $conexion->close();
+
+// Para depuración, puedes ver cuántos perfiles hay:
+echo "<!-- Perfiles encontrados: " . count($perfiles) . " -->";
 
 $nombre_pagina = "Mi Perfil";
 $mensaje_feedback = '';
@@ -77,12 +107,12 @@ $css_extra .= '<link rel="stylesheet" href="styles/perfil-ajustes.css?v=' . file
 
             <div class="form-group">
               <label for="nick">Nick 1: <span class="required">*</span></label>
-              <input type="text" id="nick1" name="nick1" value="<?php echo htmlspecialchars($usuario['nick']); ?>" required>
+              <input type="text" id="nick1" name="nick1" value="<?php echo isset(($perfiles[0]['nick']))? htmlspecialchars($perfiles[0]['nick']):'' ; ?>" required>
             </div>
 
             <div class="form-group">
               <label for="nick">Nick 2: <span class="required">*</span></label>
-              <input type="text" id="nick2" name="nick2" value="<?php echo htmlspecialchars($usuario['nick']); ?>" required>
+              <input type="text" id="nick2" name="nick2" value="<?php echo isset(($perfiles[1]['nick']))? htmlspecialchars($perfiles[1]['nick']):'' ; ?>" required>
             </div>
 
             <div class="form-group">
