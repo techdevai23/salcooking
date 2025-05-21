@@ -74,7 +74,8 @@ $css_extra .= '<link rel="stylesheet" href="styles/resultado-recetas.css?v=' . f
                         <div class="premium-filters">
                             <div class="premium-header">
                                 <h4>Opciones Premium</h4>
-                                <a href="contacto.php" class="btn-premium">Hazte Prémium</a>
+                                <img src="sources/iconos/Vip-Circle--Streamline-Ultimate.png" alt="info" class="info-icon" title="Funcionalidades exclusivas para usuarios Prémium" style="width:40px; height:40px;">
+                                <a href="contacto.php" title="Solo puedes ganar: Hazte Prémium" title="Solo puedes ganar: Hazte Prémium" class="btn-premium">Hazte Prémium</a>
                             </div>
                             <div class="premium-options">
                                 <div class="premium-option">

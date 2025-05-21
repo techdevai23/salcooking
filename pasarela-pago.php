@@ -62,7 +62,7 @@ $css_extra .= '<link rel="stylesheet" href="styles/pasarela-pago.css?v=' . filem
               </label>
 
               <div id="detalles-paypal">
-                <label for="card_number">Dirección email de su cuenta PayPal <span class="required">*</span></label>
+                <label for="card_number">Dirección email de tu cuenta PayPal <span class="required">*</span></label>
                 <input type="text" id="email_paypal" class="form-control" required>
               </div>
             </div>

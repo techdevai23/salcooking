@@ -59,7 +59,7 @@
                             </div>
                         </div>
                         
-                        <a href="contacto.php" class="btn-premium">Hazte Prémium</a>
+                        <a href="contacto.php" title="Solo puedes ganar: Hazte Prémium" class="btn-premium">Hazte Prémium</a>
                     </div>
                 </form>
             </aside>

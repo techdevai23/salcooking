@@ -126,7 +126,7 @@ $enfermedades = $conexion->query($sql_enf);
         <section class="faldon">
           <h2>¿Quieres más recetas exclusivas?</h2>
           <br>
-          <a href="contacto.php" class="btn-premium">Hazte Prémium</a>
+          <a href="contacto.php" title="Solo puedes ganar: Hazte Prémium" class="btn-premium">Hazte Prémium</a>
         </section>
 
       </div>
