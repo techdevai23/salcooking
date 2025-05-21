@@ -501,6 +501,17 @@ ul.migas {
 
 }
 
+.slide-menu .cabeceraP {
+   background-color: var(--secondary-color);
+   color: black;
+
+}
+
+.slide-menu .cabeceraPF {
+    background-color: rgba(var(--naranja-corp-rgb), 0.5);;
+}
+
+
 .slide-menu ul li {
     border-bottom: 1px solid #ddd;
 }
@@ -515,6 +526,9 @@ ul.migas {
 
 .slide-menu ul li a:hover {
     background-color: #f4f4f4;
+}
+.slide-menu .cabeceraPF a:hover {
+    background-color: var(--naranja-corp);
 }
 
 .close-slide-menu {

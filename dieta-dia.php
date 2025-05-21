@@ -35,7 +35,7 @@ $css_extra .= '<link rel="stylesheet" href="styles/dieta-semana.css?v=' . filemt
             </div>
 
             <div class="filter-section">
-                <a href="perfil.php" class="action-btn-verde">Editar perfil-salud</a>
+                <a href="perfil-logueado.php" class="action-btn-verde">Editar perfil-salud</a>
             </div>
         </div>
 

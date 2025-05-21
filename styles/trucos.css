@@ -67,11 +67,11 @@
     background-color: transparent;
     /* Asegúrate de que no haya fondo opaco */
     display: grid;
-    grid-template-columns: auto 1fr;
+    /* grid-template-columns: auto 1fr 1fr; */
     grid-gap: 20px;
     align-items: center;
-    margin-left: 200px;
-    margin-right: 200px;
+    /* margin-left: 200px;
+    margin-right: 200px; */
     margin-bottom: 20px;
     padding: 15px;
     /* background-color: #fff; */
@@ -80,6 +80,10 @@
     transition: transform 0.3s ease;
 }
 
+.tarjeta-receta img{
+  margin: 0 auto;
+    object-fit: cover;
+}
 
 
 .foto-truco {
@@ -118,6 +122,12 @@ h5 {
 .tip-content {
     line-height: 1.6;
     color: var(--text-color);
+}
+
+.tip-content p{
+   min-width: 450px;
+    color: var(--color-text);
+    width: 100%;
 }
 
 html,

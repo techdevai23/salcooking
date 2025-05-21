@@ -113,17 +113,17 @@ if (session_status() === PHP_SESSION_NONE) {
                                     <img src="sources/iconos/Single-Neutral-Circle--Streamline-Ultimate.svg" alt="User Icon" width="34px">
                                 </a>
                             <?php else: ?>
-                                <p style="color:var(--text-color);">Acceso con Nick: <?php echo htmlspecialchars($_SESSION['nick']); ?></p>
+                                <p style="color:var(--text-color);">Usuario: <?php echo htmlspecialchars($_SESSION['nick']); ?></p>
                             <?php endif; ?>
 
 
                             <!-- inserción para cerrar sesión si está iniciada -->
                             <div class="cerrar-sesion">
-                            <?php if (isset($_SESSION['id_usuario'])): ?>
-                                <a href="logout.php" class="btn-cerrar-sesion" style="margin-left:10px;">Cerrar sesión </a>
-                                    <img src="sources/iconos/Login-1--Streamline-Ultimate.svg" alt="User Icon" style=" width:14px !important;" >
-                            <?php endif; ?>
-                                </div>
+                                <?php if (isset($_SESSION['id_usuario'])): ?>
+                                    <a href="logout.php" class="btn-cerrar-sesion" style="margin-left:10px;">Cerrar sesión </a>
+                                    <img src="sources/iconos/Login-1--Streamline-Ultimate.svg" alt="User Icon" style=" width:14px !important;">
+                                <?php endif; ?>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -166,27 +166,28 @@ if (session_status() === PHP_SESSION_NONE) {
             <li><a href="detalle-receta.php?id=23">La receta del día</a></li>
             <li><a href="trucos.php">Trucos de cocina</a></li>
             <hr style="border: 0.5px solid #ccc; margin: 0;">
-            <li class="cabecera">ZONA PRÉMIUM</li>
-            <!-- solo boton de selecccion no redirección -->
-            <li class="cabecera">PERFIL</li>
-            <li><a href="perfil-logueado.php">Mi Perfil</a></li>
-            <li class="cabecera">DIETAS</li>
-            <li><a href="dieta-semana-por-dias.php">Dieta semanal</a></li>
-            <li><a href="dieta-dia.php">Dieta del día</a></li>
-            <li><a href="lista-semana.php">Lista de la compra semanal</a></li>
-            <li><a href="lista-dia.php">Lista de la compra del día</a></li>
-            <hr style="border: 0.5px solid #ccc; margin: 0;">
             <li class="cabecera">INFORMACIÓN</li>
             <li><a href="filosofia.php">Nuestra filosofía</a></li>
             <li><a href="contacto.php">Contáctanos</a></li>
             <li><a href="ayuda.php">Ayuda</a></li>
             <li><a href="planes.php">Planes</a></li>
             <hr style="border: 0.5px solid #ccc; margin: 0;">
+     
+            <!-- solo boton de selecccion no redirección -->
+            <!-- <li class="cabecera">PERFIL</li>
+            <li><a href="perfil-logueado.php">Mi Perfil</a></li> -->
+            <li class="cabeceraP">ZONA PRÉMIUM- DIETAS</li>
+            <li class="cabeceraPF"><a href="dieta-semana-por-dias.php">Dieta semanal</a></li>
+            <li class="cabeceraPF"><a href="dieta-dia.php">Dieta del día</a></li>
+            <li class="cabeceraPF"><a href="lista-semana.php">Lista compra semanal</a></li>
+            <li class="cabeceraPF"><a href="lista-dia.php">Lista compra del día</a></li>
+            <hr style="border: 0.5px solid #ccc; margin: 0;">
+
             <li class="cabecera">GESTIÓN DE CUENTA</li>
             <li><a href="login.php">Login</a></li>
-            <li><a href="perfil.php">Perfil-Ajustes</a></li>
+            <li><a href="perfil-logueado.php">Perfil-Ajustes</a></li>
             <li><a href="cambio-pass.php">Cambio de contraseña</a></li>
-            <li><a href="accion-completada.php">Cerrar sesión</a></li>
+            <li><a href="logout.php">Cerrar sesión</a></li>
 
 
         </ul>

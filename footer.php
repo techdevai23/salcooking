@@ -9,7 +9,7 @@
             <div class="footer-column">
                 <h4>Compañia</h4>
                 <ul>
-                    <li><a href="about.php">¿Quienes somos?</a></li>
+                    <li><a href="filosofia.php">¿Quienes somos?</a></li>
                 </ul>
             </div>
             <!-- columna 2 -->
@@ -17,7 +17,7 @@
                 <h4>Enlaces rápidos</h4>
                 <ul class="footer-links">
                     <li><a href="planes.php">Planes de suscripción</a></li>
-                    <li><a href="perfil.php">Hazte Prémium</a></li>
+                    <li><a href="contacto.php">Hazte Prémium</a></li>
                     <li><a href="ayuda.php">Ayuda</a></li>
                     <li><a href="sitemap.php">Sitemap</a></li>
                 </ul>

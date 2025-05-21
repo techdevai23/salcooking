@@ -43,7 +43,7 @@ $css_extra .= '<link rel="stylesheet" href="styles/dieta-semana-dias.css?v=' . f
                 <a href="lista-semana.php" class="action-btn-rosa">Lista compra semanal</a>
             </div>
             <div class="filter-section">
-                <a href="perfil.php" class="action-btn-verde">Editar perfil-salud</a>
+                <a href="perfil-logueado.php" class="action-btn-verde">Editar perfil-salud</a>
             </div>
         </div>
 
