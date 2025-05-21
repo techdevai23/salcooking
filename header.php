@@ -118,10 +118,12 @@ if (session_status() === PHP_SESSION_NONE) {
 
 
                             <!-- inserción para cerrar sesión si está iniciada -->
+                            <div class="cerrar-sesion">
                             <?php if (isset($_SESSION['id_usuario'])): ?>
-                                <a href="logout.php" class="btn-cerrar-sesion" style="margin-left:10px;">Cerrar sesión</a>
+                                <a href="logout.php" class="btn-cerrar-sesion" style="margin-left:10px;">Cerrar sesión </a>
+                                    <img src="sources/iconos/Login-1--Streamline-Ultimate.svg" alt="User Icon" style=" width:14px !important;" >
                             <?php endif; ?>
-
+                                </div>
                         </div>
                     </div>
                 </div>

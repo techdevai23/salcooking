@@ -63,8 +63,11 @@ $css_extra .= '<link rel="stylesheet" href="styles/perfil-ajustes.css?v=' . file
       <div class="titulo">
         <img src="sources/iconos/Book-Star--Streamline-Ultimate.svg" alt="Icono Perfil">
         <h1><?php echo htmlspecialchars($nombre_pagina); ?></h1>
-      </div>
-
+        </div>
+      
+        <h6>Estos son tus datos actuales. Modifica lo que necesites y guarda los cambios con el botón "Actualizar datos"</h6>
+      
+<br>
       <div class="contenido-Perfil-Ajustes">
         <?php if (!empty($mensaje_feedback)): ?>
           <div class="mensaje-feedback <?php echo $tipo_mensaje; ?>"><?php echo $mensaje_feedback; ?></div>
@@ -161,7 +164,7 @@ $css_extra .= '<link rel="stylesheet" href="styles/perfil-ajustes.css?v=' . file
           <div class="premium-section" style="margin-top:30px;">
             <h3>
               Opciones Prémium
-              <img src="sources/iconos/info_icon.svg" alt="info" class="info-icon" title="Funcionalidades exclusivas para usuarios Prémium" style="width:20px; height:20px;">
+              <img src="sources/iconos/Vip-Circle--Streamline-Ultimate.png" alt="info" class="info-icon" title="Funcionalidades exclusivas para usuarios Prémium" style="width:40px; height:40px;">
               <!-- Reemplaza 'info_icon.svg' con un icono real -->
             </h3>
             <div class="premium-options-grid">

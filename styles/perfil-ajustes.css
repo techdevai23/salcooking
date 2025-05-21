@@ -1,14 +1,14 @@
 
-/* Contenedor principal para ?????? */
+/* Contenedor principal para css/perfil-ajustes.css */
 
 .contenedor-Perfil-Ajustes {
      position: relative;
     width: 100%;
     max-width: 1200px;
     margin: 0 auto;
-    padding: 0 15px;
+    padding: 0 45px;
     background-color: transparent;
-    padding: 30px;
+    /* padding: 30px; */
     margin: 0 auto;
      /* z-index: 1;  */
     min-height: 800px; 
@@ -47,9 +47,14 @@ input[name="fecha_registro"] {
     width: 100%;
 }
  
-/* css/perfil-ajustes.css */
+h6{
+    font-size: 1 rem;
+    text-align: center;
+    color: var(--color-text);
+    
+}
 
-/* Hereda el fondo de plantilla.css, no es necesario redefinirlo aquí si .contenedor-nombre-landing ya lo tiene */
+
 
 .perfil-ajustes .titulo img { /* Ajusta si el icono es diferente al de la plantilla */
     width: 36px; /* Ejemplo */

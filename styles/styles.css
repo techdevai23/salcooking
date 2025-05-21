@@ -564,9 +564,17 @@ ul.migas {
 }
 
 .user-icon {
+    max-width: auto;
     color: var(--primary-dark);
     margin-left: 15px;
     margin-right: 20px;
+}
+
+.cerrar-sesion{
+    color: var(--primary-dark);
+    text-decoration: underline;
+    gap: 10px;
+    display: inline-flex;
 }
 
 /* Hero Section */
