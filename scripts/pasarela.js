@@ -102,34 +102,61 @@
         }
 
         // Si todo está validado, mostrar el modal de SweetAlert, se crea un código prémium aleatorio
-        Swal.fire({
-            title: '¡Pago Procesado Correctamente!',
-            html: `
-          <p>Su pedido ha sido procesado y confirmado. Introduzca éste código en su área de perfil.</p>
+        const codigoPremium = Math.floor(1000000 + Math.random() * 9000000).toString();
         
-          <p>Código Prémium: <strong>${Math.floor(1000000 + Math.random() * 9000000)}</strong></p>
-        `,
-            icon: 'success',
-            showCancelButton: true,
-            confirmButtonText: 'Volver al inicio',
-            cancelButtonText: 'Cerrar',
-            customClass: {
-                container: 'my-swal-container',
-                popup: 'my-swal-popup',
-                header: 'my-swal-header',
-                title: 'my-swal-title',
-                content: 'my-swal-content',
-                confirmButton: 'my-swal-confirm-button',
-                cancelButton: 'my-swal-cancel-button',
+        // Guardar el código en la base de datos
+        fetch('controllers/guardar-codigo-premium.php', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded',
             },
-        }).then((result) => {
-            if (result.isConfirmed) {
-                // Aquí es donde realmente enviarías el formulario al servidor si todo está OK
-                // Por ejemplo: paymentForm.submit(); (si quitas el e.preventDefault() o lo manejas diferente)
-                // O usando AJAX para enviar los datos.
-                // Por ahora, solo redirigimos:
-                window.location.href = 'index.php';
+            body: 'codigo=' + codigoPremium
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                Swal.fire({
+                    title: '¡Pago Procesado Correctamente!',
+                    html: `
+                    <p>Su pedido ha sido procesado y confirmado. Se envió un correo electrónico con el código Prémium.</p>
+                    <p>Introduzca éste código en su área de perfil para activar su cuenta Prémium.</p>
+                    <p>Código Prémium: <strong>${codigoPremium}</strong></p>
+                    `,
+                    icon: 'success',
+                    showCancelButton: true,
+                    confirmButtonText: 'Volver al inicio',
+                    cancelButtonText: 'Cerrar',
+                    customClass: {
+                        container: 'my-swal-container',
+                        popup: 'my-swal-popup',
+                        header: 'my-swal-header',
+                        title: 'my-swal-title',
+                        content: 'my-swal-content',
+                        confirmButton: 'my-swal-confirm-button',
+                        cancelButton: 'my-swal-cancel-button',
+                    },
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        window.location.href = 'index.php';
+                    }
+                });
+            } else {
+                Swal.fire({
+                    title: 'Error',
+                    text: 'Hubo un error al procesar el código premium. Por favor, contacte con soporte.',
+                    icon: 'error',
+                    confirmButtonText: 'Aceptar'
+                });
             }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            Swal.fire({
+                title: 'Error',
+                text: 'Hubo un error al procesar el pago. Por favor, inténtelo de nuevo.',
+                icon: 'error',
+                confirmButtonText: 'Aceptar'
+            });
         });
     });
 

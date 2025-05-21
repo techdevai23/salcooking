@@ -26,21 +26,21 @@ $css_extra .= '<link rel="stylesheet" href="styles/pasarela-pago.css?v=' . filem
 
 
 <!-- Contenido principal-->
-<section class="nombre-landing">
-  <div class="contenedor-nombre-landing">
+<section class="pasarela-pago">
+  <div class="contenedor-pasarela-pago">
 
     <div class="titulo">
       <img src="sources/iconos/Lock-Shield--Streamline-Ultimate.svg" alt="Book Star - Libro destacado">
       <h1>Pasarela de pago</h1>
     </div>
 
-    <div class="contenido-nombre-landing">
+    <div class="contenido-pasarela-pago">
 
 
       <form id="payment-form">
         <div class="payment-options">
 
-
+<!-- LOGOS DE PAGOS -->
           <div class="payment-method">
             <label>
               <input type="radio" name="payment_method" value="credit_card" checked>
@@ -53,6 +53,7 @@ $css_extra .= '<link rel="stylesheet" href="styles/pasarela-pago.css?v=' . filem
               </div>
             </label>
 
+            <!-- PAYPAL -->
             <div>
               <label>
                 <input type="radio" name="payment_method" value="paypal">
@@ -61,11 +62,12 @@ $css_extra .= '<link rel="stylesheet" href="styles/pasarela-pago.css?v=' . filem
               </label>
 
               <div id="detalles-paypal">
-                <label for="card_number">Dirección email<span class="required">*</span></label>
+                <label for="card_number">Dirección email de su cuenta PayPal <span class="required">*</span></label>
                 <input type="text" id="email_paypal" class="form-control" required>
               </div>
             </div>
 
+            <!-- TARJETA DE CRÉDITO -->
             <div class="payment-details" id="credit-card-details">
               <p>Pago seguro mediante tarjetas de crédito</p>
 
