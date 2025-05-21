@@ -27,7 +27,7 @@
                         y crearte un <strong>plan de dietas semanal</strong>, podrás <strong> descargar recetas</strong>... ¡Y muchas funciones más! ¿A qué estas esperando? 
                     </p>
                     <div>
-                        <a href="perfil.php" class="btn-premium">Hazte Prémium</a>
+                        <a href="contacto.php" class="btn-premium">Hazte Prémium</a>
                     </div>
                 </div>
 

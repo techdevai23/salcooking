@@ -59,7 +59,7 @@
                             </div>
                         </div>
                         
-                        <a href="premium.php" class="btn-premium">Hazte Prémium</a>
+                        <a href="contacto.php" class="btn-premium">Hazte Prémium</a>
                     </div>
                 </form>
             </aside>

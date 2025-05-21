@@ -148,12 +148,13 @@ $css_extra .= '<link rel="stylesheet" href="styles/perfil-ajustes.css?v=' . file
 
           <div class="form-group registro-codigo-group" style="max-width: 800px;">
             <div style="margin-top: 30px; margin-bottom: 20px;">
-              <button type="button" class="action-btn-rosa" style="padding: 10px 20px !important;">Hazte Prémium</button>
-            </div>
+             <a href="contacto.php"><button type="button" class="premium-button" style="padding: 10px 20px !important; color: var(--color-text);">Hazte Prémium</button>
+             </a> </div>
 
             <label for="codigo_registro" style="white-space: nowrap; margin-bottom:0; margin-right: 10px;">Código de registro:</label>
             <input type="text" id="codigo_registro" name="codigo_registro" placeholder="">
-            <button type="button" title="Aplicar Código" style="background: #ccc; border:1px solid #999; color: #333; padding: 8px 12px; font-size: 1.2rem; cursor:pointer;">➤</button>
+            <button type="button" id="validarCodigoBtn" title="Aplicar Código" style="background: #ccc; border:1px solid #999; color: #333; padding: 8px 12px; font-size: 1.2rem; cursor:pointer;">➤</button>
+            <div id="mensajeCodigo" style="margin-top: 10px;"></div>
           </div>
 
 
@@ -201,4 +202,52 @@ $css_extra .= '<link rel="stylesheet" href="styles/perfil-ajustes.css?v=' . file
   </section>
 
   <?php include 'footer.php'; ?>
+  
+  <script>
+  document.addEventListener('DOMContentLoaded', function() {
+    const validarCodigoBtn = document.getElementById('validarCodigoBtn');
+    const codigoInput = document.getElementById('codigo_registro');
+    const mensajeCodigo = document.getElementById('mensajeCodigo');
+
+    validarCodigoBtn.addEventListener('click', function() {
+      const codigo = codigoInput.value.trim();
+      
+      if (!codigo) {
+        mostrarMensaje('Por favor, introduce un código', 'error');
+        return;
+      }
+
+      // Crear FormData para enviar los datos
+      const formData = new FormData();
+      formData.append('codigo', codigo);
+
+      // Enviar la petición al servidor
+      fetch('controllers/validar-codigo-premium.php', {
+        method: 'POST',
+        body: formData
+      })
+      .then(response => response.json())
+      .then(data => {
+        if (data.success) {
+          mostrarMensaje(data.message, 'success');
+          // Recargar la página después de 2 segundos para mostrar los cambios
+          setTimeout(() => {
+            window.location.reload();
+          }, 2000);
+        } else {
+          mostrarMensaje(data.message, 'error');
+        }
+      })
+      .catch(error => {
+        mostrarMensaje('Error al procesar la solicitud', 'error');
+        console.error('Error:', error);
+      });
+    });
+
+    function mostrarMensaje(mensaje, tipo) {
+      mensajeCodigo.textContent = mensaje;
+      mensajeCodigo.className = tipo === 'success' ? 'mensaje-exito' : 'mensaje-error';
+    }
+  });
+  </script>
 </body>

@@ -101,7 +101,7 @@ if (session_status() === PHP_SESSION_NONE) {
                     </div>
                     <!-- boton premium -->
                     <div class="premium-button">
-                        <a href="perfil.php" class="btn-premium">Hazte Prémium</a>
+                        <a href="contacto.php" class="btn-premium">Hazte Prémium</a>
                     </div>
                     <!-- icono de usuario con enlace a web de usuario -->
                     <div class="header-actions">

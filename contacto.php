@@ -130,7 +130,7 @@ $css_extra .= '<link rel="stylesheet" href="styles/contacto.css?v=' . filemtime(
               <input type="checkbox" class="form-check-input" id="privacidad" name="privacidad" required>
               <label class="form-check-label" for="privacidad">
                 He leído y acepto la <a href="#" data-bs-toggle="modal"
-                  data-bs-target="#privacidadModal">política de privacidad</a><b><span style="color:crimson">*</span></b>
+                  data-bs-target="#privacidadModal" style="text-decoration: underline;">política de privacidad</a><b><span style="color:crimson">*</span></b>
               </label>
               <div class="invalid-feedback">
                 Debes aceptar la política de privacidad.
@@ -153,11 +153,6 @@ $css_extra .= '<link rel="stylesheet" href="styles/contacto.css?v=' . filemtime(
               <source src="https://raw.githubusercontent.com/techdevai23/salcooking/main/sources/videos/letras-brillan-y-desaparecen-comprimido-2.mp4" type="video/mp4">
               Tu navegador no soporta el video.
             </video>
-
-            <!-- <video autoplay loop muted playsinline class="vertical-video" style="width: 100%;">
-              <source src="sources/videos/letras-brillan-y-desaparecen-comprimido-2.mp4" type="video/mp4">
-              Tu navegador no soporta videos.
-            </video> -->
 
 
           </div>
@@ -229,6 +224,9 @@ $css_extra .= '<link rel="stylesheet" href="styles/contacto.css?v=' . filemtime(
       </div>
     </div>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+
+    <!-- script incrustado para el formulario de contacto, he reciclado el que tenía en la web de robots
+     de ahí el nombre de las clases-->
     <script>
       document.addEventListener('DOMContentLoaded', function() {
 
@@ -258,7 +256,7 @@ $css_extra .= '<link rel="stylesheet" href="styles/contacto.css?v=' . filemtime(
             return; // Salir si el formulario no es válido
           }
 
-          // Si el formulario es válido, Sweet Alert personalizado para confirmación de pago
+          // Si el formulario es válido, Sweet Alert personalizado para confirmación de seguimiento de mensaje
           Swal.fire({
             title: '¡Formulario Procesado Correctamente!',
             html: `
