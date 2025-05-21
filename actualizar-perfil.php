@@ -14,7 +14,7 @@ $nombre_completo = trim($_POST['nombre_completo']);
 $nick = trim($_POST['nick']);
 $email = trim($_POST['email']);
 $direccion = trim($_POST['direccion']) ?: NULL;
-$edad = isset($_POST['edad']) ? intval($_POST['edad']) : NULL;
+$fecha_nacimiento = !empty($_POST['fecha_nacimiento']) ? $_POST['fecha_nacimiento'] : NULL;
 $ciudad = trim($_POST['ciudad']) ?: NULL;
 $pais = trim($_POST['pais']) ?: NULL;
 $sexo = $_POST['sexo'] ?: NULL;
@@ -30,6 +30,7 @@ if (empty($nick)) $errores[] = "El nick es obligatorio.";
 if (empty($email) || !filter_var($email, FILTER_VALIDATE_EMAIL)) $errores[] = "El email no es válido o está vacío.";
 if (!empty($nueva_contrasena) && $nueva_contrasena !== $confirmar_contrasena) $errores[] = "Las contraseñas no coinciden.";
 if (!empty($peso_kg) && !is_numeric($peso_kg)) $errores[] = "El peso debe ser un número válido (ej: 65.5).";
+if (!empty($fecha_nacimiento) && !strtotime($fecha_nacimiento)) $errores[] = "La fecha de nacimiento no es válida.";
 
 if (empty($errores)) {
     // Comprobar si el nick o email ya existen para otro usuario
@@ -46,8 +47,8 @@ if (empty($errores)) {
 
 if (empty($errores)) {
     // Construir la consulta de actualización
-    $campos = "nombre_completo=?, nick=?, email=?, direccion=?, ciudad=?, pais=?, sexo=?, peso_kg=?, edad=?";
-    $valores = [$nombre_completo, $nick, $email, $direccion, $ciudad, $pais, $sexo, $peso_kg, $edad];
+    $campos = "nombre_completo=?, nick=?, email=?, direccion=?, ciudad=?, pais=?, sexo=?, peso_kg=?, fecha_nacimiento=?";
+    $valores = [$nombre_completo, $nick, $email, $direccion, $ciudad, $pais, $sexo, $peso_kg, $fecha_nacimiento];
 
     // Si se quiere cambiar la contraseña
     if (!empty($nueva_contrasena)) {
@@ -62,7 +63,7 @@ if (empty($errores)) {
     $stmt_update = $conexion->prepare($sql_update);
 
     // Crear los tipos para bind_param
-    $tipos = "sssssssdi";
+    $tipos = "sssssssss";
     if (!empty($nueva_contrasena)) $tipos .= "s";
     $tipos .= "i";
 

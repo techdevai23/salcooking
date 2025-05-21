@@ -40,6 +40,12 @@
     margin-right: 30px;
     
 }
+
+input[name="fecha_registro"] {
+    width: 200px !important;
+    padding: 10px;
+    width: 100%;
+}
  
 /* css/perfil-ajustes.css */
 
@@ -158,6 +164,7 @@
 
 .registro-codigo-group {
     display: flex;
+    flex-direction: row;
     gap: 10px;
     align-items: center;
     margin-top: 15px;

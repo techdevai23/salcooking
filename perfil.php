@@ -14,15 +14,14 @@ $tipo_mensaje = ''; // 'mensaje-exito' o 'mensaje-error'
 if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['accion']) && $_POST['accion'] == 'guardar_cambios') {
   // Recoger datos del formulario
   $nombre_completo = trim($_POST['nombre_completo']);
-  $nick1 = trim($_POST['nick1']);
-  $nick2 = trim($_POST['nick2']);
+  $nick = trim($_POST['nick']);
   $email = trim($_POST['email']);
-  $direccion = trim($_POST['direccion']) ?: NULL; // Permitir NULL si está vacío
-  $edad_input = trim($_POST['edad']); // Asumimos que se envía 'edad' (INT)
+  $direccion = trim($_POST['direccion']) ?: NULL;
+  $fecha_nacimiento = !empty($_POST['fecha_nacimiento']) ? $_POST['fecha_nacimiento'] : NULL;
   $ciudad = trim($_POST['ciudad']) ?: NULL;
   $pais = trim($_POST['pais']) ?: NULL;
-  $sexo = $_POST['sexo'] ?: NULL; // Asumir que se envía un valor válido del ENUM o NULL
-  $peso_kg_input = trim($_POST['peso_kg_display']); // El campo se llama peso_kg_display
+  $sexo = $_POST['sexo'] ?: NULL;
+  $peso_kg_input = trim($_POST['peso_kg_display']);
 
   // Para la contraseña, solo necesitamos nueva y confirmar para registro
   $nueva_contrasena = $_POST['nueva_contrasena'];
@@ -31,12 +30,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['accion']) && $_POST['a
   // Validaciones
   $errores = [];
   if (empty($nombre_completo)) $errores[] = "El nombre completo es obligatorio.";
-  if (empty(($nick1) || ($nick2))) $errores[] = "Un nick es obligatorio.";
+  if (empty($nick)) $errores[] = "El nick es obligatorio.";
   if (empty($email) || !filter_var($email, FILTER_VALIDATE_EMAIL)) $errores[] = "El email no es válido o está vacío.";
   if (empty($nueva_contrasena)) $errores[] = "La contraseña es obligatoria.";
   if ($nueva_contrasena !== $confirmar_contrasena) $errores[] = "Las contraseñas no coinciden.";
-  if (!empty($edad_input) && !filter_var($edad_input, FILTER_VALIDATE_INT)) $errores[] = "La edad debe ser un número.";
-  else $edad = !empty($edad_input) ? intval($edad_input) : NULL;
+  if (!empty($fecha_nacimiento) && !strtotime($fecha_nacimiento)) $errores[] = "La fecha de nacimiento no es válida.";
 
   if (!empty($peso_kg_input)) {
     // Convertir comas a puntos para DECIMAL y validar
@@ -51,7 +49,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['accion']) && $_POST['a
     $peso_kg = NULL;
   }
 
-
   // Verificar si el email de la tabla usuarios ya existe
   if (empty($errores)) {
     $sql_check = "SELECT id_usuario FROM usuarios WHERE email = ?";
@@ -61,29 +58,16 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['accion']) && $_POST['a
     $resultado_check = $stmt_check->get_result();
     if ($resultado_check->num_rows > 0) {
       $existing_user = $resultado_check->fetch_assoc();
-
       $errores[] = "El email introducido ya está registrado.";
     }
     $stmt_check->close();
   }
-  //verificar si el nick1 de la tabla perfiles ya existe
-  if (empty($errores) && !empty($nick1)) {
-    $sql_check = "SELECT id_perfil FROM perfiles WHERE nick = ?";
-    $stmt_check = $conexion->prepare($sql_check);
-    $stmt_check->bind_param("s", $nick1);
-    $stmt_check->execute();
-    $resultado_check = $stmt_check->get_result();
-    if ($resultado_check->num_rows > 0) {
 
-      $errores[] = "El nick introducido ya está registrado.";
-    }
-    $stmt_check->close();
-  }
-  //verificar si el nick2 de la tabla perfiles ya existe
-  if (empty($errores) && !empty($nick2)) {
-    $sql_check = "SELECT id_perfil FROM perfiles WHERE nick = ?";
+  //verificar si el nick ya existe
+  if (empty($errores)) {
+    $sql_check = "SELECT id_usuario FROM usuarios WHERE nick = ?";
     $stmt_check = $conexion->prepare($sql_check);
-    $stmt_check->bind_param("s", $nick2);
+    $stmt_check->bind_param("s", $nick);
     $stmt_check->execute();
     $resultado_check = $stmt_check->get_result();
     if ($resultado_check->num_rows > 0) {
@@ -97,43 +81,25 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['accion']) && $_POST['a
     $contrasena_hash = password_hash($nueva_contrasena, PASSWORD_DEFAULT);
 
     // Insertar en la BD Salcooking®
-
-    $sql_insert = "INSERT INTO usuarios (nombre_completo, nick, email, direccion, ciudad, pais, sexo, peso_kg, edad, contrasena_hash, es_premium, fecha_registro) 
-                       VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, '0', NOW())";
+    $sql_insert = "INSERT INTO usuarios (nombre_completo, nick, email, direccion, ciudad, pais, sexo, peso_kg, fecha_nacimiento, contrasena_hash, es_premium, fecha_registro) 
+                   VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, '0', NOW())";
     $stmt_insert = $conexion->prepare($sql_insert);
     // Tipos: s: string, i: integer, d: double/decimal
     $stmt_insert->bind_param(
-      "sssssssdis",
+      "sssssssss",
       $nombre_completo,
-      $nick1,
+      $nick,
       $email,
       $direccion,
       $ciudad,
       $pais,
       $sexo,
       $peso_kg,
-      $edad,
+      $fecha_nacimiento,
       $contrasena_hash
     );
 
     if ($stmt_insert->execute()) {
-      //obtener el id_usuario recien insertado
-      $id_usuario = $conexion->insert_id;
-
-      //insertar nick1 en la tabla perfiles
-      $sql_insert_nick1 = "INSERT INTO perfiles (id_usuario, nick) VALUES (?, ?)";
-      $stmt_insert_nick1 = $conexion->prepare($sql_insert_nick1);
-      $stmt_insert_nick1->bind_param("is", $id_usuario, $nick1);
-      $stmt_insert_nick1->execute();
-      $stmt_insert_nick1->close();
-
-      //insertar nick2 en la tabla perfiles
-      $sql_insert_nick2 = "INSERT INTO perfiles (id_usuario, nick) VALUES (?, ?)";
-      $stmt_insert_nick2 = $conexion->prepare($sql_insert_nick2);
-      $stmt_insert_nick2->bind_param("is", $id_usuario, $nick2);
-      $stmt_insert_nick2->execute();
-      $stmt_insert_nick2->close();
-
       $mensaje_feedback = "¡Usuario registrado con éxito! Ahora puedes iniciar sesión.";
       $tipo_mensaje = 'mensaje-exito';
     } else {
@@ -193,15 +159,9 @@ $css_extra .= '<link rel="stylesheet" href="styles/perfil-ajustes.css?v=' . file
             </div>
 
             <div class="form-group">
-              <label for="nick">Nick 1: <span class="required">*</span></label>
-              <input type="text" id="nick1" name="nick1" value="<?php echo isset($_POST[($perfiles[0]['nick'])]) ? htmlspecialchars($_POST[($perfiles[0]['nick'])]) : ''; ?>" required>
+              <label for="nick">Nick: <span class="required">*</span></label>
+              <input type="text" id="nick" name="nick" value="<?php echo isset($_POST['nick']) ? htmlspecialchars($_POST['nick']) : ''; ?>" required>
             </div>
-
-            <div class="form-group">
-              <label for="nick">Nick 2: <span class="required">*</span></label>
-              <input type="text" id="nick2" name="nick2" value="<?php echo isset($_POST[($perfiles[1]['nick'])]) ? htmlspecialchars($_POST[($perfiles[1]['nick'])]) : ''; ?>" required>
-            </div>
-
 
             <div class="form-group">
               <label for="email">Email: <span class="required">*</span></label>
@@ -214,9 +174,10 @@ $css_extra .= '<link rel="stylesheet" href="styles/perfil-ajustes.css?v=' . file
             </div>
 
             <div class="form-group edad-group">
-              <label for="edad">Edad:</label> <!-- Cambiado a 'edad' para coincidir con BD -->
-              <input type="number" id="edad" name="edad" value="<?php echo isset($_POST['edad']) ? htmlspecialchars($_POST['edad']) : ''; ?>" style="width: 80px; text-align: center;" min="0">
-              <!-- El input de fecha_nacimiento_display y el icono de calendario son para UX, necesitarías JS para poblar el campo 'edad' o manejar la fecha -->
+              <label for="fecha_nacimiento">Fecha de nacimiento:</label>
+              <input type="date" id="fecha_nacimiento" name="fecha_nacimiento" 
+                     value="<?php echo isset($_POST['fecha_nacimiento']) ? htmlspecialchars($_POST['fecha_nacimiento']) : ''; ?>" 
+                     class="form-control" style="width: 200px;">
             </div>
 
             <div class="form-group">

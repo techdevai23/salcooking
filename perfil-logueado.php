@@ -6,58 +6,30 @@ if (session_status() === PHP_SESSION_NONE) {
 include 'controllers/conexion.php';
 
 if (!isset($_SESSION['id_usuario'])) {
-    header("Location: login.php");
-    exit();
+  header("Location: login.php");
+  exit();
 }
 // guardamos el usuario que ha entrado a la página de perfil
 $id_usuario = $_SESSION['id_usuario'];
 //DEPURACION
 echo "<!-- id_usuario de sesión: " . $_SESSION['id_usuario'] . " -->";
 
-// recuperamos todos los datos de la tabla usuarios y de perfiles
+// recuperamos todos los datos de la tabla usuarios
 $sql = "SELECT * FROM usuarios WHERE id_usuario = ?";
-$sql2= "SELECT * FROM perfiles WHERE id_usuario = ?";
 
-// preparamos la consulta para prevenir inyecciones SQL, gracias a stmt
-// donde sustituimos los ? por los i, que es el tipo de dato que vamos a usar
-//preparamos la 1ª consulta
+// preparamos la consulta para prevenir inyecciones SQL
 $stmt = $conexion->prepare($sql);
-$stmt2 = $conexion->prepare($sql2);
-if (!$stmt2) {
+if (!$stmt) {
   die("Error al preparar la consulta: " . $conexion->error);
 }
+
 // le pasamos los parametros a la consulta con bind_param
 $stmt->bind_param("i", $id_usuario);
 $stmt->execute();
 $resultado = $stmt->get_result();
 $usuario = $resultado->fetch_assoc();
-$stmt->close(); // <-- Cerramos el primer statement ANTES de la segunda consulta
-
-// Ahora ejecutamos la segunda consulta
-$stmt2 = $conexion->prepare($sql2);
-$stmt2->bind_param("i", $id_usuario);
-$stmt2->execute();
-$stmt2->store_result();
-$stmt2->bind_result($id_perfil, $id_usuario, $nick, $enfermedades, $alergias);
-
-// obtenemos el resultado de la consulta en forma de array asociativo
-
-//Como aqui podemos tener mas de un perfil, lo almacenamos en un array
-$perfiles = [];
-while ($stmt2->fetch()) {
-    $perfiles[] = [
-        'id_perfil' => $id_perfil,
-        'id_usuario' => $id_usuario,
-        'nick' => $nick,
-        'enfermedades' => $enfermedades,
-        'alergias' => $alergias
-    ];
-}
-$stmt2->close();
+$stmt->close();
 $conexion->close();
-
-// Para depuración, puedes ver cuántos perfiles hay:
-echo "<!-- Perfiles encontrados: " . count($perfiles) . " -->";
 
 $nombre_pagina = "Mi Perfil";
 $mensaje_feedback = '';
@@ -106,13 +78,8 @@ $css_extra .= '<link rel="stylesheet" href="styles/perfil-ajustes.css?v=' . file
             </div>
 
             <div class="form-group">
-              <label for="nick">Nick 1: <span class="required">*</span></label>
-              <input type="text" id="nick1" name="nick1" value="<?php echo isset(($perfiles[0]['nick']))? htmlspecialchars($perfiles[0]['nick']):'' ; ?>" required>
-            </div>
-
-            <div class="form-group">
-              <label for="nick">Nick 2: <span class="required">*</span></label>
-              <input type="text" id="nick2" name="nick2" value="<?php echo isset(($perfiles[1]['nick']))? htmlspecialchars($perfiles[1]['nick']):'' ; ?>" required>
+              <label for="nick">Nick: <span class="required">*</span></label>
+              <input type="text" id="nick" name="nick" value="<?php echo htmlspecialchars($usuario['nick']); ?>" required>
             </div>
 
             <div class="form-group">
@@ -125,19 +92,22 @@ $css_extra .= '<link rel="stylesheet" href="styles/perfil-ajustes.css?v=' . file
               <input type="text" id="direccion" name="direccion" value="<?php echo htmlspecialchars($usuario['direccion']); ?>">
             </div>
 
-            <div class="form-group edad-group">
-              <label for="edad">Edad:</label>
-              <input type="number" id="edad" name="edad" value="<?php echo htmlspecialchars($usuario['edad']); ?>" style="width: 80px; text-align: center;" min="0">
-            </div>
-
             <div class="form-group">
               <label for="ciudad">Ciudad:</label>
               <input type="text" id="ciudad" name="ciudad" value="<?php echo htmlspecialchars($usuario['ciudad']); ?>">
             </div>
-           
+
+
             <div class="form-group">
               <label for="pais">País:</label>
               <input type="text" id="pais" name="pais" value="<?php echo htmlspecialchars($usuario['pais']); ?>">
+            </div>
+
+            <div class="form-group edad-group">
+              <label for="fecha_nacimiento">Fecha de nacimiento:</label>
+              <input type="date" id="fecha_nacimiento" name="fecha_nacimiento"
+                value="<?php echo htmlspecialchars($usuario['fecha_nacimiento'] ?? ''); ?>"
+                class="form-control" style="width: 200px;">
             </div>
 
             <div class="form-group">
@@ -155,6 +125,11 @@ $css_extra .= '<link rel="stylesheet" href="styles/perfil-ajustes.css?v=' . file
               <input type="text" id="peso_kg_display" name="peso_kg_display" value="<?php echo htmlspecialchars($usuario['peso_kg']); ?>" style="width: 80px;">
             </div>
 
+            <div class="form-group">
+              <label for="fecha_registro">Fecha y hora de registro:</label>
+              <input type="text" id="fecha_registro" name="fecha_registro" value="<?php echo htmlspecialchars($usuario['fecha_registro']); ?>" style="width: 80px;">
+            </div>
+
             <!-- Sección de cambio de contraseña -->
             <div class="form-group">
               <label for="nueva_contrasena">Nueva contraseña:</label>
@@ -167,14 +142,14 @@ $css_extra .= '<link rel="stylesheet" href="styles/perfil-ajustes.css?v=' . file
             <!-- Fin sección de cambio de contraseña -->
           </div>
 
-          <!-- Aquí puedes añadir la sección premium si el usuario es premium -->
+        
 
-           <!-- SECCIÓN PREMIUM (como en la imagen) -->
-          
-           <div class="form-group registro-codigo-group" style="max-width: 400px;">
-          <div style="margin-top: 30px; margin-bottom: 20px;">
-            <button type="button" class="action-btn-rosa" style="padding: 10px 20px !important;">Hazte Prémium</button>
-          </div>
+          <!-- SECCIÓN PREMIUM (como en la imagen) -->
+
+          <div class="form-group registro-codigo-group" style="max-width: 800px;">
+            <div style="margin-top: 30px; margin-bottom: 20px;">
+              <button type="button" class="action-btn-rosa" style="padding: 10px 20px !important;">Hazte Prémium</button>
+            </div>
 
             <label for="codigo_registro" style="white-space: nowrap; margin-bottom:0; margin-right: 10px;">Código de registro:</label>
             <input type="text" id="codigo_registro" name="codigo_registro" placeholder="">
@@ -195,7 +170,7 @@ $css_extra .= '<link rel="stylesheet" href="styles/perfil-ajustes.css?v=' . file
                   <option selected>Gluten</option>
                   <option>Frutos secos</option>
                   <option selected>Pescados</option>
-                  
+
                 </select>
               </div>
               <div class="form-group">
@@ -203,7 +178,7 @@ $css_extra .= '<link rel="stylesheet" href="styles/perfil-ajustes.css?v=' . file
                 <select id="enfermedades" name="enfermedades[]" multiple style="min-height: 100px;">
                   <option>Colesterol</option>
                   <option selected>Diabetes</option>
-                 
+
                 </select>
               </div>
             </div>
@@ -211,7 +186,9 @@ $css_extra .= '<link rel="stylesheet" href="styles/perfil-ajustes.css?v=' . file
           </div>
 
           <div class="form-actions" style="margin-top:30px;">
-            <button type="submit" name="accion" value="guardar_cambios" class="action-btn-verde" style="background-color: #2D3E2E; color: white; padding: 12px 30px !important; font-size: 1.1rem;">Guardar cambios</button>
+            <button type="submit" name="accion" value="guardar_cambios" class="action-btn-verde" style="background-color: #2D3E2E; color: white; padding: 12px 30px !important; font-size: 1.1rem;">
+              Actualizar datos
+            </button>
           </div>
 
 

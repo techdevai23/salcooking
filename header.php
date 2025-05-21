@@ -166,19 +166,8 @@ if (session_status() === PHP_SESSION_NONE) {
             <hr style="border: 0.5px solid #ccc; margin: 0;">
             <li class="cabecera">ZONA PRÉMIUM</li>
             <!-- solo boton de selecccion no redirección -->
-            <li class="cabecera">PERFILES</li>
-            <li>
-                <label>
-                    <input type="radio" name="perfil" id="input-menu" value="principal" checked>
-                    Perfil principal
-                </label>
-            </li>
-            <li>
-                <label>
-                    <input type="radio" name="perfil" value="secundario">
-                    Perfil secundario
-                </label>
-            </li>
+            <li class="cabecera">PERFIL</li>
+            <li><a href="perfil-logueado.php">Mi Perfil</a></li>
             <li class="cabecera">DIETAS</li>
             <li><a href="dieta-semana-por-dias.php">Dieta semanal</a></li>
             <li><a href="dieta-dia.php">Dieta del día</a></li>

@@ -14,7 +14,8 @@ $css_extra .= '<link rel="stylesheet" href="styles/pasarela-pago.css?v=' . filem
   <div class="container migas-flex">
     <ul class="migas">
       <li><a href="index.php">Inicio</a></li>
-      <li class="current">nombre-landing</li>
+      <li><a href="contacto.php">Contáctanos</a></li>
+      <li class="current">Pasarela de pago</li>
     </ul>
     <div class="volver-atras-contenedor">
       <a href="javascript:history.back()" class="volver-atras"><img src="sources/iconos/Arrow-Thick-Left-3--Streamline-Ultimate.svg" width="32px" alt="icono atrás" title="Pantalla anterior"></a>
@@ -92,6 +93,7 @@ $css_extra .= '<link rel="stylesheet" href="styles/pasarela-pago.css?v=' . filem
 
         <div class="text-right">
           <button type="submit" class="btn-opciones">Realizar el pago</button>
+          <!-- procesamos en el JS de pasarela -->
         </div>
       </form>
 

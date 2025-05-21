@@ -101,11 +101,12 @@
             return; // Detener si hay errores de validación
         }
 
-        // Si todo está validado, mostrar el modal de SweetAlert
+        // Si todo está validado, mostrar el modal de SweetAlert, se crea un código prémium aleatorio
         Swal.fire({
             title: '¡Pago Procesado Correctamente!',
             html: `
           <p>Su pedido ha sido procesado y confirmado. Introduzca éste código en su área de perfil.</p>
+        
           <p>Código Prémium: <strong>${Math.floor(1000000 + Math.random() * 9000000)}</strong></p>
         `,
             icon: 'success',
