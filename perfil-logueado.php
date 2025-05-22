@@ -14,22 +14,10 @@ $id_usuario = $_SESSION['id_usuario'];
 //DEPURACION
 echo "<!-- id_usuario de sesión: " . $_SESSION['id_usuario'] . " -->";
 
-// recuperamos todos los datos de la tabla usuarios
-$sql = "SELECT * FROM usuarios WHERE id_usuario = ?";
+require_once 'models/usuario.php';
+$usuario_model = new Usuario();
+$usuario = $usuario_model->obtenerPorId($id_usuario);
 
-// preparamos la consulta para prevenir inyecciones SQL
-$stmt = $conexion->prepare($sql);
-if (!$stmt) {
-  die("Error al preparar la consulta: " . $conexion->error);
-}
-
-// le pasamos los parametros a la consulta con bind_param
-$stmt->bind_param("i", $id_usuario);
-$stmt->execute();
-$resultado = $stmt->get_result();
-$usuario = $resultado->fetch_assoc();
-$stmt->close();
-$conexion->close();
 
 $nombre_pagina = "Mi Perfil";
 $mensaje_feedback = '';

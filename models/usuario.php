@@ -1,5 +1,17 @@
 <?php
 class Usuario {
+    // Obtener usuario por ID, por ejemplo lo usamos en el perfil de usuario
+    public function obtenerPorId($id_usuario) {
+    global $conexion;
+    $sql = "SELECT * FROM usuarios WHERE id_usuario = ?";
+    $stmt = $conexion->prepare($sql);
+    $stmt->bind_param("i", $id_usuario);
+    $stmt->execute();
+    $resultado = $stmt->get_result();
+    return $resultado->fetch_assoc();
+}
+
+    // Obtener usuario por email, por ejemplo lo usamos en el login
     public function obtenerPorEmail($email) {
         global $conexion;
         $email = $conexion->real_escape_string($email);
@@ -8,6 +20,7 @@ class Usuario {
         return $resultado->fetch_assoc();
     }
 
+    // Registrar un nuevo usuario, por ejemplo lo usamos en el registro de usuario
     public function registrar($datos) {
         global $conexion;
         $nick = $conexion->real_escape_string($datos['nick']);
@@ -19,6 +32,7 @@ class Usuario {
         return $conexion->query($sql);
     }
 
+    // Actualizar el perfil de un usuario, por ejemplo lo usamos en el perfil de usuario
     public function actualizarPerfil($id, $datos) {
         global $conexion;
         $nombre = $conexion->real_escape_string($datos['nombre_completo']);
@@ -30,6 +44,7 @@ class Usuario {
         return $conexion->query($sql);
     }
 
+    // Activar el premium de un usuario, por ejemplo lo usamos en el perfil de usuario
     public function activarPremium($id, $codigo) {
         global $conexion;
         $codigo = $conexion->real_escape_string($codigo);
