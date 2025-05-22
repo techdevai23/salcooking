@@ -1,45 +1,16 @@
 <?php
 $css_extra = '';
 include 'controllers/conexion.php';
-
-$css_extra .= '<link rel="stylesheet" href="styles/filosofia.css?v=' . filemtime('styles/filosofia.css') . '">'; // Usamos el mismo estilo que filosofía
+// página detalle-receta, ficha final de la receta
+$css_extra .= '<link rel="stylesheet" href="styles/filosofia.css?v=' . filemtime('styles/filosofia.css') . '">'; 
 include 'header.php';
 
-$id = isset($_GET['id']) ? intval($_GET['id']) : 0;
-
-// Consulta principal de la receta
-$sql = "SELECT * FROM recetas WHERE id = $id";
-$resultado = $conexion->query($sql);
-
-if (!$resultado || $resultado->num_rows === 0) {
+// En esta versión definitiva, los datos ya han sido obtenidos por el controlador
+if (!isset($receta)) {
   echo "<div class='container mt-5'><h2>Receta no encontrada.</h2></div>";
   include 'footer.php';
   exit;
 }
-
-$receta = $resultado->fetch_assoc();
-
-// Ingredientes
-$sql_ing = "SELECT i.nombre, ri.cantidad, ri.fraccion, u.nombre AS unidad
-            FROM receta_ingrediente ri
-            JOIN ingredientes i ON ri.id_ingrediente = i.id
-            JOIN unidades u ON ri.id_unidad = u.id
-            WHERE ri.id_receta = $id";
-$ingredientes = $conexion->query($sql_ing);
-
-// Alergias
-$sql_ale = "SELECT a.nombre, ra.observaciones
-            FROM receta_alergia ra
-            JOIN alergias a ON ra.id_alergia = a.id
-            WHERE ra.id_receta = $id";
-$alergias = $conexion->query($sql_ale);
-
-// Enfermedades
-$sql_enf = "SELECT e.nombre, re.indicaciones
-            FROM receta_enfermedad re
-            JOIN enfermedades e ON re.id_enfermedad = e.id
-            WHERE re.id_receta = $id";
-$enfermedades = $conexion->query($sql_enf);
 ?>
 
 <!-- Migas de pan -->
@@ -64,73 +35,64 @@ $enfermedades = $conexion->query($sql_enf);
       <!-- Columna de imagen -->
       <div class="foto">
         <?php
-        // Comprobamos si la imagen existe y la mostramos
-        $imagePath = "sources/platos/id{$id}.png";
+        $imagePath = "sources/platos/id{$receta['id']}.png";
         if (file_exists($imagePath)) {
           echo "<img src='{$imagePath}' alt='Imagen representativa receta' width='300px'>";
         } else {
           echo "<img src='sources/platos/default.png' alt='Imagen no disponible' width='300px'>";
         }
         ?>
-         <!-- boton descargar -->
         <button class="descargar-lista-btn" onclick="descargarListaPDF('lista-para-descargar.pdf', 'Receta <?php echo htmlspecialchars($receta['nombre']); ?>')">
-          <img src="sources/iconos/Arrow-Double-Down-1--Streamline-Ultimate.svg" alt="Descargar" width="30px"> <!-- Icono ejemplo, ajusta la ruta -->
+          <img src="sources/iconos/Arrow-Double-Down-1--Streamline-Ultimate.svg" alt="Descargar" width="30px">
           Descargar receta
         </button>
-        <!-- información datos básicos -->
-        <p><strong>⏱️ Tiempo de preparación:</strong> <?php echo $receta['tiempo_preparacion']; ?> min</p>
-        <p><strong>🍽️ Porciones:</strong> <?php echo $receta['porciones']; ?></p>
-
+        <p>
+          Tiempo: <?= $receta['tiempo_preparacion'] ?> minutos<br>
+          Porciones: <?= $receta['porciones'] ?>
+        </p>
       </div>
 
-      <!-- Columna de texto -->
-      <div class="texto-filosofia">
-        <h1><?php echo htmlspecialchars($receta['nombre']); ?></h1>
+      <!-- Columna de contenido -->
+      <div class="texto">
+        <h1><?= htmlspecialchars($receta['nombre']) ?></h1>
 
-
-        <!-- Datos principales -->
-        <h4>🛒 Ingredientes:</h4>
+        <h3>Ingredientes</h3>
         <ul>
-          <?php while ($ing = $ingredientes->fetch_assoc()): ?>
-            <li>
-              <?php echo "{$ing['cantidad']} {$ing['fraccion']} {$ing['unidad']} de {$ing['nombre']}"; ?>
-            </li>
+          <?php while ($fila = $ingredientes->fetch_assoc()): ?>
+            <li><?= "{$fila['cantidad']} {$fila['fraccion']} {$fila['unidad']} de {$fila['nombre']}" ?></li>
           <?php endwhile; ?>
         </ul>
 
-        <h4>👨‍🍳 Instrucciones:</h4>
-        <p><?php echo nl2br(htmlspecialchars($receta['instrucciones'])); ?></p>
+        <h3>Instrucciones</h3>
+        <p><?= nl2br(htmlspecialchars($receta['instrucciones'])) ?></p>
 
-        <?php if (!empty($receta['sustitutos'])): ?>
-          <h4>♻️ Sustitutos:</h4>
-          <p><?php echo nl2br(htmlspecialchars($receta['sustitutos'])); ?></p>
+        <?php if ($alergias->num_rows): ?>
+          <h3>Alergias</h3>
+          <ul>
+            <?php while ($fila = $alergias->fetch_assoc()): ?>
+              <li><?= "{$fila['nombre']}" ?><?= $fila['observaciones'] ? " ({$fila['observaciones']})" : "" ?></li>
+            <?php endwhile; ?>
+          </ul>
         <?php endif; ?>
 
-        <h4>⚠️ Alergias asociadas:</h4>
-        <ul>
-          <?php while ($al = $alergias->fetch_assoc()): ?>
-            <li><?php echo "{$al['nombre']} ({$al['observaciones']})"; ?></li>
-          <?php endwhile; ?>
-        </ul>
+        <?php if ($enfermedades->num_rows): ?>
+          <h3>Apto para:</h3>
+          <ul>
+            <?php while ($fila = $enfermedades->fetch_assoc()): ?>
+              <li><?= "{$fila['nombre']}" ?><?= $fila['indicaciones'] ? " ({$fila['indicaciones']})" : "" ?></li>
+            <?php endwhile; ?>
+          </ul>
+        <?php endif; ?>
 
-        <h4>💊 Indicaciones para enfermedades:</h4>
-        <ul>
-          <?php while ($enf = $enfermedades->fetch_assoc()): ?>
-            <li><?php echo "{$enf['nombre']} ({$enf['indicaciones']})"; ?></li>
-          <?php endwhile; ?>
-        </ul>
-
-
-
-        <!-- Faldón final -->
-        <section class="faldon">
-          <h2>¿Quieres más recetas exclusivas?</h2>
-          <br>
-          <a href="contacto.php" title="Solo puedes ganar: Hazte Prémium" class="btn-premium">Hazte Prémium</a>
-        </section>
-
+        <?php if ($receta['sustitutos']): ?>
+          <h3>Sustitutos usados</h3>
+          <p><?= nl2br(htmlspecialchars($receta['sustitutos'])) ?></p>
+        <?php endif; ?>
+        
+        <p class="ver-fuente">
+          <a href="<?= htmlspecialchars($receta['enlace_receta']) ?>" target="_blank">Ver fuente original</a>
+        </p>
       </div>
-
     </div>
   </div>
 </section>

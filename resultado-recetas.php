@@ -1,4 +1,3 @@
-
 <?php
 $css_extra = '';
 $css_extra .= '<link rel="stylesheet" href="styles/resultado-recetas.css?v=' . filemtime('styles/resultado-recetas.css') . '">';
@@ -28,7 +27,8 @@ $css_extra .= '<link rel="stylesheet" href="styles/resultado-recetas.css?v=' . f
             <div class="content-wrapper">
                 <div class="results-container">
 
-                    <!-- Barra de filtros superior -->
+                    <!-- Tu barra de filtros normal + prémium -->
+                     <!-- Barra de filtros superior -->
                     <div class="top-filters-bar">
                         <div class="filter-section">
                             <label for="ordenar">Ordenar:</label>
@@ -46,6 +46,7 @@ $css_extra .= '<link rel="stylesheet" href="styles/resultado-recetas.css?v=' . f
                             <label for="tipo-plato">Filtros:</label>
                             <select name="tipo-plato" id="tipo-plato">
                                 <option value="">Tipo de plato</option>
+                                  <option value="desayuno">Desayuno</option>
                                 <option value="entrante">Entrante</option>
                                 <option value="principal">Principal</option>
                                 <option value="postre">Postre</option>
@@ -111,88 +112,50 @@ $css_extra .= '<link rel="stylesheet" href="styles/resultado-recetas.css?v=' . f
                         </div>
                     </div>
 
-                    <!-- Carrusel de recetas -->
-                    <div class="recipiente-carrusel-container">
-                        <button class="carrusel-nav prev-btn">&lt;</button>
-                        
-                        <div class="recipiente-carrusel">
-                            <!-- Las recetas que aparecen a la izquierda de la principal -->
-                            <div class="recipiente-card side-card left-card">
-                                <img src="sources/platos/entrante1.png" alt="Ensalada César">
-                                <div class="recipiente-info">
-                                    <h4>Ensalada César Clásica</h4>
-                                    <p class="recipiente-tags">
-                                        <span class="tag-plato">ENTRANTE</span>
-                                        <span class="tag gluten">Contiene Gluten</span>
-                                    </p>
-                                    <a href="" class="btn-view-recipiente">Ver receta</a>
+                    <!-- Carrusel dinámico -->
+                    <div class="recipiente-carrusel">
+                        <?php if (!empty($resultados)): ?>
+                            <?php foreach ($resultados as $receta): ?>
+                                <div class="recipiente-card">
+                                    <a href="index.php?page=detalle-receta&id=<?= $receta['id'] ?>">
+                                        <img src="sources/platos/default.png" alt="<?= htmlspecialchars($receta['nombre']) ?>">
+                                        <h4><?= htmlspecialchars($receta['nombre']) ?></h4>
+                                        <div class="recipiente-tags">
+                                            <?php if (!empty($receta['tipo_plato'])): ?>
+                                                <span class="tag tag-plato"><?= strtoupper($receta['tipo_plato']) ?></span>
+                                            <?php endif; ?>
+                                            <?php if (stripos($receta['nombre'], 'pescado') !== false): ?>
+                                                <span class="tag pescado">Contiene Pescado</span>
+                                            <?php endif; ?>
+                                        </div>
+                                    </a>
                                 </div>
-                            </div>
-                            
-                            <div class="recipiente-card side-card left-card">
-                                <img src="sources/platos/entrante1.png" alt="Pollo asado con patatas">
-                                <div class="recipiente-info">
-                                    <h4>Pescado con verduras</h4>
-                                    <p class="recipiente-tags">
-                                    <span class="tag-plato">PRINCIPAL</span>
-                                        <span class="tag pescado">Contiene Pescado</span>
-                                    </p>
-                                    <a href="" class="btn-view-recipiente">Ver receta</a>                                </div>
-                            </div>
-                            
-                            <!-- Receta central destacada -->
-                            <div class="recipiente-card featured-card">
-                                <img src="sources/platos/postre1.png" alt="Tarta con frutos rojos">
-                                <div class="recipiente-info">
-                                    <h4>Tarta con frutos rojos y nueces (con edulcorante)</h4>
-                                    <p class="recipiente-tags">
-                                    <span class="tag-plato">POSTRE</span>
-                                        <span class="tag secos">Frutos secos</span>
-                                    </p>
-                                    <a href="" class="btn-view-recipiente">Ver receta</a>
-                                </div>
-                            </div>
-                            
-                            <!-- Las recetas que aparecen a la derecha de la principal -->
-                            <div class="recipiente-card side-card right-card">
-                                <img src="sources/platos/principal1.png" alt="Albóndigas en salsa">
-                                <div class="recipiente-info">
-                                    <h4>Albóndigas en salsa de tomate</h4>
-                                    <p class="recipiente-tags">
-                                    <span class="tag-plato">PRINCIPAL</span>
-                                    </p>
-                                    <a href="" class="btn-view-recipiente">Ver receta</a>
-                                </div>
-                            </div>
-                            
-                            <div class="recipiente-card side-card right-card">
-                                <img src="sources/platos/entrante2.png" alt="Pasta al pesto">
-                                <div class="recipiente-info">
-                                    <h4>Pasta con gambas y piñones</h4>
-                                    <p class="recipiente-tags">
-                                    <span class="tag-plato">ENTRANTE</span>
-                                        <span class="tag secos">Frutos secos</span>
-                                        <span class="tag marisco">Contiene Marisco</span>
-                                    </p>
-                                    <a href="" class="btn-view-recipiente">Ver receta</a>
-                                </div>
-                            </div>
-                        </div>
-                        
-                        <button class="carrusel-nav next-btn">&gt;</button>
+                            <?php endforeach; ?>
+                        <?php else: ?>
+                            <p class="no-resultados">No se han encontrado recetas para esta búsqueda.</p>
+                        <?php endif; ?>
                     </div>
-                    
-                    <!-- Indicadores del carrusel -->
-                    <div class="carrusel-indicators">
-                        <span class="indicator active"></span>
-                        <span class="indicator"></span>
-                        <span class="indicator"></span>
+
+                    <!-- Controles del carrusel -->
+                    <div class="carrusel-controles">
+                        <button class="prev-btn">◀</button>
+                        <button class="next-btn">▶</button>
                     </div>
-                    
+
+                    <!-- Indicadores dinámicos -->
+                    <div class="carrusel-indicadores">
+                        <?php
+                        $numIndicadores = ceil(count($resultados) / 2);
+                        for ($i = 0; $i < $numIndicadores; $i++) {
+                            echo '<span class="indicator"></span>';
+                        }
+                        ?>
+                    </div>
+
                 </div>
             </div>
         </div>
     </div>
 </section>
-<script src="scripts/carrusel-script.js"></script>
+
 <?php include('footer.php'); ?>

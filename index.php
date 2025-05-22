@@ -1,3 +1,23 @@
+<?php
+session_start();
+require_once 'conexion.php'; // Asegúrate de que esté aquí si no lo tienes incluido aún
+
+$page = $_GET['page'] ?? 'inicio';
+
+if ($page === 'buscar' || $page === 'detalle-receta') {
+    require_once 'controllers/receta-controller.php';
+    $controller = new RecetaController();
+
+    if ($page === 'buscar') {
+        $controller->buscar();
+    } elseif ($page === 'detalle-receta') {
+        $controller->verDetalle();
+    }
+
+    exit; // Muy importante: evita que el resto del index.php se siga ejecutando
+}
+?>
+
 <?php include 'header.php'; ?>
 <section class="hero">
     <div class="container">
