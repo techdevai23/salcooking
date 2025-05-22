@@ -1,6 +1,6 @@
 <?php
 session_start();
-include 'conexion.php';
+include 'controllers/conexion.php';
 
 header('Content-Type: application/json');
 

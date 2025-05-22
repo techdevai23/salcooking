@@ -94,9 +94,11 @@ if (session_status() === PHP_SESSION_NONE) {
                     </div>
                     <!-- barra de búsqueda -->
                     <div class="search-box">
-                        <form action="resultado-recetas.php" method="get">
-                            <input type="text" placeholder="Busca recetas" name="query">
-                            <button type="submit"><img src="sources/iconos/Search-Circle--Streamline-Ultimate.svg" width="28px" alt="búsqueda Icon"></button>
+                        <form action="index.php" method="get">
+                             <input type="hidden" name="page" value="buscar">
+                            <input type="text" placeholder="Busca recetas" name="q">
+                            <button type="submit">
+                                <img src="sources/iconos/Search-Circle--Streamline-Ultimate.svg" width="28px" alt="búsqueda Icon"></button>
                         </form>
                     </div>
                     <!-- boton premium -->

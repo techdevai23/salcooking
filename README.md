@@ -47,7 +47,7 @@
 salcooking/
 ├── controllers/        → Lógica de control por módulos
 ├── models/             → Acceso a la base de datos
-├── views/              → Vistas HTML con integración PHP
+├──               → Vistas HTML con integración PHP
 ├── styles/             → Hojas de estilo CSS
 ├── scripts/            → Scripts JavaScript (por añadir)
 ├── img/, pdf/, logos/  → Recursos estáticos

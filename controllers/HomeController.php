@@ -1,15 +1,15 @@
 <?php
 class HomeController {
     public function inicio() {
-        include 'views/header.php';
-        include 'views/inicio.php';
-        include 'views/footer.php';
+        include 'header.php';
+        include 'inicio.php';
+        include 'footer.php';
     }
 
     public function recetas() {
-        include 'views/header.php';
-        include 'views/recetas.php';
-        include 'views/footer.php';
+        include 'header.php';
+        include 'recetas.php';
+        include 'footer.php';
     }
 }
 ?>

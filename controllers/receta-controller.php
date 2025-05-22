@@ -15,7 +15,7 @@ class RecetaController {
         $modelo = new Receta();
         $resultados = $modelo->buscarRecetas($termino, $tipoPlato, $alergeno, $porciones, $ingrediente, $enfermedad, $tiempoPrep, $esPremium);
 
-        require 'views/resultado-recetas.php';
+        require 'resultado-recetas.php';
     }
 
     public function verDetalle() {

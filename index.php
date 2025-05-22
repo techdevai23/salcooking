@@ -1,6 +1,6 @@
 <?php
 session_start();
-require_once 'conexion.php'; // Asegúrate de que esté aquí si no lo tienes incluido aún
+require_once 'controllers/conexion.php'; 
 
 $page = $_GET['page'] ?? 'inicio';
 
