@@ -113,39 +113,57 @@ $css_extra .= '<link rel="stylesheet" href="styles/resultado-recetas.css?v=' . f
                     </div>
 
                     <!-- Carrusel dinámico -->
-                    <div class="recipiente-carrusel">
-                        <?php if (!empty($resultados)): ?>
-                            <?php foreach ($resultados as $receta): ?>
-                                <div class="recipiente-card">
-                                    <a href="index.php?page=detalle-receta&id=<?= $receta['id'] ?>">
-                                        <img src="sources/platos/default.png" alt="<?= htmlspecialchars($receta['nombre']) ?>">
-                                        <h4><?= htmlspecialchars($receta['nombre']) ?></h4>
-                                        <div class="recipiente-tags">
-                                            <?php if (!empty($receta['tipo_plato'])): ?>
-                                                <span class="tag tag-plato"><?= strtoupper($receta['tipo_plato']) ?></span>
-                                            <?php endif; ?>
-                                            <?php if (stripos($receta['nombre'], 'pescado') !== false): ?>
-                                                <span class="tag pescado">Contiene Pescado</span>
-                                            <?php endif; ?>
-                                        </div>
-                                    </a>
-                                </div>
-                            <?php endforeach; ?>
-                        <?php else: ?>
-                            <p class="no-resultados">No se han encontrado recetas para esta búsqueda.</p>
-                        <?php endif; ?>
-                    </div>
 
-                    <!-- Controles del carrusel -->
-                    <div class="carrusel-controles">
-                        <button class="prev-btn">◀</button>
-                        <button class="next-btn">▶</button>
+                    <div class="recipiente-carrusel-container">
+                        <button class="carrusel-nav prev-btn">&lt;</button>
+                        <div class="recipiente-carrusel">
+                            <?php if (!empty($resultados)): ?>
+                                <?php 
+                                $totalRecetas = count($resultados);
+                                // Mostramos siempre 5 tarjetas
+                                for ($i = 0; $i < 5; $i++): 
+                                    $index = $i % $totalRecetas;
+                                    $receta = $resultados[$index];
+                                    $cardClass = 'side-card';
+                                    
+                                    // Primera receta en el centro
+                                    if ($i === 0) {
+                                        $cardClass = 'featured-card';
+                                    }
+                                    // Ocultar las tarjetas de la izquierda inicialmente
+                                    if ($i > 2) {
+                                        $cardClass .= ' hidden';
+                                    }
+                                ?>
+                                    <div class="recipiente-card <?php echo $cardClass; ?>" data-index="<?php echo $index; ?>">
+                                        <a href="index.php?page=detalle-receta&id=<?= $receta['id'] ?>" class="btn-view-recipiente">Ver receta</a>
+                                        <img src="sources/platos/id<?= $receta['id'] ?>.png" alt="<?= htmlspecialchars($receta['nombre']) ?>">
+                                        <div class="recipiente-info">
+                                            <h4><?= htmlspecialchars($receta['nombre']) ?></h4>
+                                            <div class="recipiente-tags">
+                                                <?php if (!empty($receta['tipo_plato'])): ?>
+                                                    <span class="tag tag-plato"><?= strtoupper($receta['tipo_plato']) ?></span>
+                                                <?php endif; ?>
+                                                <?php if (stripos($receta['nombre'], 'pescado') !== false): ?>
+                                                    <span class="tag pescado">Contiene Pescado</span>
+                                                <?php endif; ?>
+                                            </div>
+                                        </div>
+                                    </div>
+                                <?php endfor; ?>
+                            <?php else: ?>
+                                <p class="no-resultados">No se han encontrado recetas para esta búsqueda.</p>
+                            <?php endif; ?>
+                        </div>
+                        <button class="carrusel-nav next-btn">&gt;</button>
+
                     </div>
 
                     <!-- Indicadores dinámicos -->
                     <div class="carrusel-indicadores">
                         <?php
-                        $numIndicadores = ceil(count($resultados) / 2);
+                        $numIndicadores = ceil($totalRecetas / 2);
+
                         for ($i = 0; $i < $numIndicadores; $i++) {
                             echo '<span class="indicator"></span>';
                         }

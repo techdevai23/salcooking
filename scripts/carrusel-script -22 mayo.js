@@ -37,14 +37,12 @@ document.addEventListener('DOMContentLoaded', function () {
         const activeIndicator = Math.floor(currentIndex / 2);
         indicators.forEach((indicator, index) => {
             if (index === activeIndicator) {
-
                 indicator.classList.add('active');
             } else {
                 indicator.classList.remove('active');
             }
         });
     }
-
 
     // Eventos para los botones de navegación
     nextBtn.addEventListener('click', function () {
@@ -55,28 +53,23 @@ document.addEventListener('DOMContentLoaded', function () {
     prevBtn.addEventListener('click', function () {
         currentIndex = (currentIndex - 1 + totalCards) % totalCards;
         updateCarrusel();
-
     });
 
     // Eventos para los indicadores
     indicators.forEach((indicator, index) => {
         indicator.addEventListener('click', function () {
-
             currentIndex = index * 2;
             updateCarrusel();
-
         });
     });
 
     // Inicializar carrusel
-
     updateCarrusel();
 
     // Opcional: Añadir funcionalidad de autoplay
     // let autoplayInterval = setInterval(() => {
     //     currentIndex = (currentIndex + 1) % totalCards;
     //     updateCarrusel();
-
     // }, 5000);
 
     // Opcional: Pausar autoplay cuando el mouse está sobre el carrusel
@@ -85,7 +78,6 @@ document.addEventListener('DOMContentLoaded', function () {
     //     autoplayInterval = setInterval(() => {
     //         currentIndex = (currentIndex + 1) % totalCards;
     //         updateCarrusel();
-
     //     }, 5000);
     // });
 });
