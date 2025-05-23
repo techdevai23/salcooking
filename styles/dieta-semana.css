@@ -1,0 +1,523 @@
+.dieta-semana *{
+    
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+   
+  
+}
+
+.main-content {
+   /* box-sizing: border-box; */
+    position: relative;
+    width: 100%;
+    max-width: 1200px;
+    margin: 0px auto;
+    padding: 0 15px;
+    background-color: transparent;
+    padding: 10px;
+    z-index: 1;  
+    min-height: 800px; 
+    overflow: hidden; 
+}
+
+.main-content::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    
+    background-image: url('../sources/fondo-nuevo.png');
+    background-size: 102% 100%; /* Fuerza la imagen a adaptarse al tamaño del contenedor */
+    background-position: center;
+    background-repeat: no-repeat;
+    z-index: -1; /* Asegúrate de que el pseudo-elemento esté detrás del contenido */
+    opacity: 0.5; /* Ajusta este valor entre 0 y 1 según la transparencia deseada */
+  }
+
+.dieta-semana {
+    
+    padding: 40px;
+}
+.dieta-semana header{
+    background-color: #ffffff;
+    padding: 15px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+.dieta-semana .logo a{
+    font-size: 24px;
+    font-weight: bold;
+    color: #333;
+    text-decoration: none;
+}
+.dieta-semana .search-bar{
+    display: flex;
+    align-items: center;
+    border: 1px solid #ddd;
+    border-radius: 20px;
+    padding: 8px 15px;
+    background-color: #f9f9f9;
+    width: 300px;
+}
+.dieta-semana .search-bar input{
+    border: none;
+    background: transparent;
+    width: 100%;
+    outline: none;
+    padding-left: 8px;
+}
+.dieta-semana .search-bar::before{
+    content: "🔍";
+}
+.dieta-semana nav ul{
+    display: flex;
+    list-style: none;
+}
+.dieta-semana nav ul li{
+    margin-left: 20px;
+}
+.dieta-semana nav ul li a{
+    color: #333;
+    text-decoration: none;
+    font-weight: 500;
+    transition: color 0.3s;
+}
+.dieta-semana nav ul li a:hover{
+    color: #ff6b6b;
+}
+/* .dieta-semana .main-content{
+    max-width: 1200px;
+    margin: 30px auto;
+    padding: 0 20px;
+  
+
+} */
+.dieta-semana .page-heading{
+    margin-bottom: 30px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+/* .dieta-semana .premium-message{
+    background-color: #fff3cd;
+    padding: 15px;
+    border-radius: 10px;
+    text-align: center;
+    margin-bottom: 30px;
+    font-weight: bold;
+} */
+.dieta-semana .action-buttons{
+    display: flex;
+    gap: 15px;
+    margin-bottom: 30px;
+}
+.dieta-semana .action-btn{
+    padding: 10px 15px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    text-decoration: none;
+    font-weight: 500;
+    transition: background-color 0.3s;
+    background-color: #f0f0f0;
+    color: #333;
+}
+.dieta-semana .action-btn.primary{
+    background-color: #ff6b6b;
+    color: white;
+}
+.dieta-semana .action-btn:hover{
+    background-color: #e0e0e0;
+}
+.dieta-semana .action-btn.primary:hover{
+    background-color: #ff5252;
+}
+.dieta-semana .meal-schedule{
+    display: flex;
+    gap: 20px;
+    margin-bottom: 30px;
+}
+.dieta-semana .meal-section{
+    flex: 1;
+    /* background-color: #fff; */
+    border-radius: 10px;
+    padding: 15px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.dieta-semana .meal-section#izq{
+    margin-left: 20px;
+}
+.dieta-semana .meal-section#der{
+    margin-right: 20px;
+}
+.dieta-semana .meal-section h2{
+    font-size: 20px;
+    color: var(--primary-dark);
+    margin-bottom: 15px;
+    text-align: center;
+}
+.dieta-semana .meal-container{
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    gap: 15px;
+}
+.dieta-semana .meal-item{
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    padding: 15px;
+    text-align: center;
+}
+.dieta-semana .meal-item img{
+    width: 100%;
+    height: 100px;
+    object-fit: cover;
+    border-radius: 5px;
+    margin-bottom: 10px;
+}
+.dieta-semana .meal-item h3{
+    font-size: 16px;
+    margin-bottom: 5px;
+}
+.dieta-semana .meal-item p{
+    font-size: 14px;
+    color: #666;
+}
+
+
+/* Barra de filtros superior - NUEVO */
+.top-filters-bar {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    padding: 20px;
+    margin-left: 60px;
+    margin-right: 60px;
+    margin-bottom: 35px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+    align-items: center;
+    justify-content: space-between;
+  }
+  
+  .filter-section {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  
+  .filter-section label {
+    font-weight: 500;
+    color: var(--text-color);
+  }
+  
+  .filter-section select, 
+  .premium-option select,
+  .premium-option input[type="text"] {
+    padding: 8px 12px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    background-color: #ffffff;
+    color: var(--text-color);
+  }
+
+/** REGLAS ESPECIFICAS BOTONES ****/
+.dieta-semana .top-filters-bar .action-btn-naranja,
+.top-filters-bar .action-btn-rosa,
+.top-filters-bar .action-btn-verde {
+    padding: 10px 20px; 
+    display: inline-block; /* Asegura que el padding funcione */
+}
+
+/****** dieta en vista por dias ****** /
+/* Estilos adicionales para la nueva disposición por días */
+
+.meal-schedule {
+    width: 100%;
+    overflow-x: auto; /* Permite scroll horizontal si no cabe la tabla */
+}
+
+/* Cabecera con los días de la semana */
+.week-header {
+    display: flex;
+    align-items: center;
+    border-bottom: 1px solid #e0e0e0;
+}
+
+.week-header h2 {
+    flex: 1;
+    text-align: center;
+    padding: 10px;
+    margin: 0;
+    font-size: 18px;
+}
+
+.time-label {
+    width: 80px;
+    text-align: center;
+    padding: 10px;
+    font-weight: bold;
+}
+
+/* Filas de tiempo (mañana, tarde, noche) */
+.meal-time-row {
+    display: flex;
+    margin-bottom: 20px;
+    align-items: flex-start;
+}
+
+.meal-time-row .time-label {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 250px; /* Altura mínima para alinear con los platos */
+}
+
+.meal-time-row .time-label span {
+    writing-mode: vertical-rl;
+    transform: rotate(180deg);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: #4CAF50;
+    font-weight: bold;
+}
+
+/* Contenedor de comidas en horizontal */
+.meal-time-row .meal-container {
+    display: flex;
+    flex: 1;
+    justify-content: space-between;
+    gap: 10px;
+}
+
+/* Cada ítem de comida */
+.meal-item {
+    flex: 1;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    transition: transform 0.3s ease;
+    min-height: 250px; /* Altura fija para todas las tarjetas */
+    display: flex;
+    flex-direction: column;
+}
+
+.meal-item:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.15);
+}
+
+.meal-item img {
+    width: 100%;
+    height: 150px;
+    object-fit: cover;
+}
+
+.meal-item p {
+    padding: 10px;
+    margin: 0;
+    text-align: center;
+    font-size: 14px;
+    flex-grow: 1; /* Hace que el texto ocupe el espacio disponible */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Botón de ingredientes */
+
+
+.dieta-semana .ingredients-btn{
+    display: block;
+    margin: 30px auto;
+    padding: 12px 25px;
+    background-color: var(--primary-color);
+    color: var(--text-color);
+    border: none;
+    border-radius: 5px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    text-align: center;
+    text-decoration: none;
+    width: fit-content;
+}
+.dieta-semana .ingredients-btn:hover{
+    
+    background-color: var(--primary-dark);
+}
+
+/* Mensaje premium */
+.premium-message {
+    margin-top: 30px;
+    margin-bottom: 40px;
+    padding: 15px;
+    width: 50%;
+    margin: 0 auto;
+    background-color: #FF9800;
+    border-radius: 8px;
+    text-align: center;
+    font-weight: bold;
+    color: black;
+}
+
+/* Estilos responsivos */
+
+
+@media (max-width: 768px) {
+    /* --- Ajustes generales para el contenedor principal --- */
+    section.dieta-semana .main-content { /* section.dieta-semana es el contenedor en dieta-dia.php */
+        padding: 15px; 
+    }
+    section.dieta-semana {
+        padding: 15px 0;
+    }
+
+    /* --- Primera Barra de Filtros (Acciones) --- */
+    section.dieta-semana .main-content > .top-filters-bar:first-of-type {
+        flex-direction: column;
+        align-items: stretch;
+        margin-left: 0;
+        margin-right: 0;
+        padding: 15px;
+    }
+    section.dieta-semana .main-content > .top-filters-bar:first-of-type .filter-section {
+        width: 100%;
+        margin-bottom: 10px;
+    }
+    section.dieta-semana .main-content > .top-filters-bar:first-of-type .filter-section:last-child {
+        margin-bottom: 0;
+    }
+    section.dieta-semana .main-content > .top-filters-bar:first-of-type .action-btn-naranja,
+    section.dieta-semana .main-content > .top-filters-bar:first-of-type .action-btn-rosa,
+    section.dieta-semana .main-content > .top-filters-bar:first-of-type .action-btn-verde {
+        width: 100%;
+        display: block;
+        text-align: center;
+        padding: 12px 15px;
+        box-sizing: border-box;
+    }
+
+    /* --- Segunda Barra de Filtros (Navegación de Días) --- */
+    section.dieta-semana .main-content > .top-filters-bar:nth-of-type(2) {
+        flex-direction: row;
+        flex-wrap: nowrap;
+        overflow-x: auto;
+        justify-content: flex-start;
+        margin-left: 0;
+        margin-right: 0;
+        padding: 10px 5px;
+        position: sticky;
+        top: 0; /* Ajustar si hay cabecera global fija */
+        z-index: 990;
+        background-color: var(--white); /* Para que no se vea contenido detrás */
+        box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        -webkit-overflow-scrolling: touch;
+        scrollbar-width: thin;
+        scrollbar-color: var(--primary-color) var(--beig-corp);
+    }
+    section.dieta-semana .main-content > .top-filters-bar:nth-of-type(2)::-webkit-scrollbar {
+        height: 6px;
+    }
+    section.dieta-semana .main-content > .top-filters-bar:nth-of-type(2)::-webkit-scrollbar-track {
+        background: var(--beig-corp);
+        border-radius: 3px;
+    }
+    section.dieta-semana .main-content > .top-filters-bar:nth-of-type(2)::-webkit-scrollbar-thumb {
+        background: var(--primary-color);
+        border-radius: 3px;
+    }
+    section.dieta-semana .main-content > .top-filters-bar:nth-of-type(2) .filter-section {
+        flex-shrink: 0;
+        margin-bottom: 0;
+    }
+    section.dieta-semana .main-content > .top-filters-bar:nth-of-type(2) .action-btn {
+        padding: 8px 10px; /* Más compactos */
+        font-size: 0.9em;
+        white-space: nowrap;
+    }
+
+    /* --- Estructura de Comidas del Día --- */
+    section.dieta-semana .meal-schedule { /* Contenedor de .meal-section */
+        flex-direction: column;
+        gap: 25px; /* Más espacio entre Desayuno, Comida, Cena */
+        margin-top: 15px; /* Espacio después de la barra de días sticky */
+    }
+    section.dieta-semana .meal-section {
+        width: 100%;
+        margin-left: 0 !important;
+        margin-right: 0 !important;
+        padding: 15px;
+        box-sizing: border-box;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.08); /* Sombra más sutil */
+    }
+    section.dieta-semana .meal-section h2 {
+        font-size: 1.5rem;
+        margin-bottom: 15px;
+    }
+    section.dieta-semana .meal-section .meal-container {
+        grid-template-columns: 1fr; /* Apilar platos si hay varios (ej. en "Comida") */
+        gap: 15px;
+    }
+    section.dieta-semana .meal-item {
+        padding: 15px;
+    }
+    section.dieta-semana .meal-item img {
+        height: 180px;
+    }
+    section.dieta-semana .meal-item h3 { /* Lunes, Martes... en tarjeta. Podría ser redundante */
+        font-size: 1.1rem;            /* Si la página ya indica el día claramente. */
+        margin-bottom: 8px;
+    }
+    section.dieta-semana .meal-item p {
+        font-size: 1rem;
+    }
+
+    /* --- Botón y Mensaje Premium --- */
+     section.dieta-semana .btn-opciones { /* "Ver lista de ingredientes" */
+        width: calc(100% - 30px);
+        margin-left: auto;
+        margin-right: auto;
+        padding: 15px;
+        box-sizing: border-box;
+    }
+    section.dieta-semana .premium-message {
+        width: calc(100% - 30px);
+        margin-left: auto;
+        margin-right: auto;
+        margin-top: 20px;
+        margin-bottom: 20px;
+        padding: 15px;
+        box-sizing: border-box;
+    }
+}
+
+@media (max-width: 576px) {
+    .results-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .recipe-title {
+        font-size: 1.5rem;
+    }
+    
+    .tarjeta-truco {
+        padding: 15px;
+    }
+
+     .contenedor-Contacto::before {
+        background-image: url('../sources/fono-nuevo-movil.png');
+     background-position: left;
+        background-size: auto 70%;
+        background-repeat: repeat-y;
+       
+    }
+}

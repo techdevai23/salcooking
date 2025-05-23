@@ -1,0 +1,295 @@
+/* Contenedor principal para ?????? */
+
+.contenedor-pasarela-pago {
+    position: relative;
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 15px;
+    background-color: transparent;
+    padding: 30px;
+    margin: 0 auto;
+    /* z-index: 1;  */
+    min-height: 800px;
+    overflow: hidden;
+    /* Asegura que el pseudo-elemento no se salga del contenedor */
+}
+
+.contenedor-pasarela-pago::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+
+    background-image: url('../sources/fondo-nuevo.png');
+    background-size: 102% 100%;
+    /* Fuerza la imagen a adaptarse al tamaño del contenedor */
+    background-position: center;
+    background-repeat: no-repeat;
+    z-index: -1;
+    /* Asegúrate de que el pseudo-elemento esté detrás del contenido */
+    opacity: 0.5;
+    /* Ajusta este valor entre 0 y 1 según la transparencia deseada */
+}
+
+.contenido-pasarela-pago {
+    position: relative;
+    display: grid;
+    /* grid-template-columns: 1fr; cuantas columnas queremos */
+    gap: 25px;
+    min-width: 550px;
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
+    overflow-x: visible;
+
+}
+
+.pasarela-pago {
+    overflow-x: auto;
+    min-width: 550px;
+    padding-bottom: 15px;
+}
+
+
+
+
+h1 {
+    color: #333;
+    font-size: 24px;
+    margin-bottom: 20px;
+}
+
+/* Estilos para la pasarela de pago */
+.payment-options {
+    background-color: #f0f0f0;
+    padding: 20px;
+    border-radius: 5px;
+    margin-bottom: 20px;
+}
+
+.payment-method {
+    margin-bottom: 15px;
+    padding: 10px;
+    background-color: #f9f9f9;
+    border-radius: 5px;
+}
+
+.payment-method label {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    margin-bottom: 15px;
+}
+
+.payment-method img {
+    margin-left: 10px;
+    height: 25px;
+}
+
+input[type="radio"] {
+    margin-right: 10px;
+}
+
+.payment-details {
+    padding: 15px;
+    background-color: #f9f9f9;
+    border-radius: 4px;
+    margin-top: 10px;
+}
+
+#detalles-paypal {
+    display: none;
+}
+
+.form-group {
+    margin-bottom: 15px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+.form-row {
+    display: flex;
+    justify-content: space-between;
+}
+
+.form-row .form-group {
+    width: 48%;
+}
+
+.form-control {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 16px;
+    box-sizing: border-box;
+}
+
+.text-right {
+    text-align: right;
+}
+
+.btn {
+    padding: 12px 25px;
+    background-color: #09f;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.btn:hover {
+    background-color: #007ad9;
+}
+
+.paypal-info {
+    color: #09f;
+    text-decoration: none;
+    font-size: 14px;
+    margin-left: 20px;
+}
+
+.card-icons {
+    display: inline-block;
+}
+
+/* Estilos para el modal */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    align-items: center;
+    justify-content: center;
+}
+
+.modal-content {
+    background-color: #fff;
+    padding: 30px;
+    border-radius: 5px;
+    width: 80%;
+    max-width: 500px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+    text-align: center;
+    position: relative;
+}
+
+.modal-content h2 {
+    margin-top: 0;
+    color: #2a7e5f;
+}
+
+.modal-buttons {
+    margin-top: 25px;
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+}
+
+.btn-secondary {
+    background-color: #6c757d;
+}
+
+.btn-secondary:hover {
+    background-color: #5a6268;
+}
+
+.btn-primary {
+    background-color: #2a7e5f;
+}
+
+.btn-primary:hover {
+    background-color: #1d5c40;
+}
+
+.required {
+    color: red;
+}
+
+
+
+html,
+body {
+    overflow-x: hidden;
+    width: 100%;
+}
+
+/* Responsive  Styles */
+@media (max-width: 992px) {
+    .results-container {
+        grid-template-columns: 1fr;
+    }
+
+    .filters-sidebar {
+        order: 2;
+    }
+
+    .results-grid {
+        order: 1;
+    }
+}
+
+@media (max-width: 768px) {
+    .results-grid {
+        grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    }
+
+    .recipe-info-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 576px) {
+    .contenedor-pasarela-pago::before {
+
+        background-image: url('../sources/fono-nuevo-movil.png');
+        background-position: left;
+        background-size: auto 70%;
+        background-repeat: repeat-y;
+
+
+    }
+
+
+    .contenido-pasarela-pago .container,
+    #payment-form {
+        min-width: 100%;
+
+        width: 100%;
+
+        padding: 10px;
+    }
+
+
+    .form-row {
+        gap: 15px;
+    }
+
+
+    .form-group {
+        flex: 1;
+        /* Cambia el ancho de los elementos a 100% */
+    }
+
+
+    .card-icons img {
+        height: 24px;
+
+        width: auto;
+    }
+
+
+}

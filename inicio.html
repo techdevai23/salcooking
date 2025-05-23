@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SalCooking - Menús personalizados e inteligentes</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- CSS personalizado -->
+    <link rel="stylesheet" href=" styles/styles.css">
+</head>
+
+<body>
+    <!-- Encabezado con navegación y barra de búsqueda -->
+    <header class="main-header">
+        <div class="logo-cabecera">
+            <a href="index.html">
+                <img src="sources//logos/cabecera.png" alt="SalCooking cabecera Logo">
+            </a>
+        </div>
+
+        <!-- Pestañas de Navegación Superior -->
+        <nav class="top-nav mb-2">
+            <div class="container">
+                <ul class="nav-tabs">
+                    <li class="active"><a href="index.html">Inicio</a></li>
+                    <li><a href="filosofia.html">Nuestra Filosofía</a></li>
+                    <li><a href="recetas.html">Recetas</a></li>
+                    <li><a href="dieta.html">Dieta</a></li>
+                    <li><a href="trucos.html">Trucos</a></li>
+                    <li><a href="planes.html">Planes</a></li>
+                    <li><a href="ayuda.html">Ayuda</a></li>
+                    <li><a href="contacto.html">Contacto</a></li>
+                </ul>
+            </div>
+              <!-- Franja inferior con Logo, Búsqueda y Botón Premium  -->
+            <div class="container mb-3">
+                <div class="header-content">
+
+                    <div class="logo">
+                        <a href="index.html">
+                            <img src="sources//logos/logo.png" class="d-none d-md-block" alt="SalCooking Logo">
+                        </a>
+                    </div>
+                    <div class="search-box">
+                        <form action="search.html" method="get">
+                            <input type="text" placeholder="Busca recetas" name="query">
+                            <button type="submit"><i class="fas fa-search"></i></button>
+                        </form>
+                    </div>
+                    <div class="premium-button">
+                        <a href="premium.html" title="Solo puedes ganar: Hazte Prémium" class="btn-premium">Hazte Prémium</a>
+                    </div>
+                    <div class="mobile-menu-toggle">
+                        <i class="fas fa-bars"></i>
+                    </div>
+                </div>
+            </div>
+
+        </nav>
+
+
+    </header>
+
+    <!-- Navegación móvil (oculta en escritorio) -->
+    <nav class="mobile-nav">
+        <ul>
+            <li class="active"><a href="index.html">Inicio</a></li>
+            <li><a href="filosofia.html">Nuestra Filosofía</a></li>
+            <li><a href="recetas.html">Recetas</a></li>
+            <li><a href="dieta.html">Dieta</a></li>
+            <li><a href="trucos.html">Trucos</a></li>
+            <li><a href="planes.html">Planes</a></li>
+            <li><a href="ayuda.html">Ayuda</a></li>
+            <li><a href="contacto.html">Contacto</a></li>
+            <li><a href="profile.html">Editar Perfil</a></li>
+        </ul>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <h1>Te damos la bienvenida!</h1>
+
+
+                <div class="contenedor-tarjeta row align-items-center">
+                    <!-- Columna 1: platos -->
+                    <div class="platos col-md-3 d-flex flex-column align-items-center">
+                        <img src="sources/platos/entrante1.png" class="img-fluid mb-2" alt="Plato 1">
+                        <img src="sources/platos/principal2.png" class="img-fluid mb-2" alt="Plato 2">
+                        <img src="sources/platos/postre3.png" class="img-fluid" alt="Plato 3">
+                    </div>
+
+                    <!-- Columna 2: logo tarjeta -->
+                    <div class="col-md-6 text-center fondo-tarjeta">
+                        <img src="sources//logos/composicion-tarjeta-completa.png" class="img-fluid" alt="Tarjeta Logo">
+                        <p>SalCooking permite planificar la alimentación de forma inteligente con menús semanales,
+                            equilibrados, totalmente personalizados, teniendo en cuenta tanto los gustos personales como
+                            las intolerancias, alergias y enfermedades del usuario.</p>
+
+                    </div>
+
+                    <!-- Columna 3: texto -->
+                    <div class="col-md-3 fondo-tarjeta p-3">
+                        <p>
+                            Puedes <strong>consultar y descargar</strong> todas las recetas de manera
+                            <strong>gratuita</strong>,
+                            incluyendo los alérgenos que tiene, pero si te haces <span class="premium">Prémium</span>,
+                            podrás además <strong>confeccionar dietas</strong>, encontrar recetas <strong>aptas para
+                                distintas enfermedades</strong>,
+                            guardar <strong>recetas en favoritos</strong> ¡y muchas opciones más!
+                        </p>
+                    </div>
+                </div>
+
+
+
+
+
+
+
+
+                <p>SalCooking permite planificar la alimentación de forma inteligente con menús semanales, equilibrados,
+                    totalmente personalizados, teniendo en cuenta tanto los gustos personales como las intolerancias,
+                    alergias y enfermedades del usuario.</p>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="main-footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-column">
+                    <h4>Compañia</h4>
+                    <ul>
+                        <li><a href="about.html">¿Quienes somos?</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h4>Enlaces rápidos</h4>
+                    <ul class="footer-links">
+                        <li><a href="planes.html">Planes de suscripción</a></li>
+                        <li><a href="ayuda.html">Ayuda</a></li>
+                        <li><a href="profile.html">Editar Perfil</a></li>
+                        <li><a href="sitemap.html">Sitemap</a></li>
+                    </ul>
+
+                </div>
+
+                <!-- <div class="footer-column">
+                   
+                </div> -->
+
+                <div class="footer-column">
+                    <h4>Suscríbete a Novedades</h4>
+                    <form class="subscribe-form">
+                        <input type="email" placeholder="Tu email">
+                        <div class="btn-suscribir">
+                            <button type="submit">Suscribir</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="copyright">
+                <p>Copyright © 2025 TeachDevAi Design. All Rights Reserved</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/scripts/bootstrap.bundle.min.js"></script>
+    <script src="scripts/scripts.js"></script>
+</body>
+
+</html>

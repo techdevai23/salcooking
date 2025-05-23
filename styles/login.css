@@ -1,0 +1,231 @@
+/* Contenedor principal */
+.contenedor-nombre-landing {
+  position: relative;
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 30px;
+  background-color: transparent;
+  min-height: 600px; 
+  overflow: hidden;
+}
+
+.contenedor-nombre-landing::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-image: url('../sources/fondo-nuevo.png');
+  background-size: 102% 100%;
+  background-position: center;
+  background-repeat: no-repeat;
+  z-index: -1;
+  opacity: 0.5;
+}
+
+.contenido-landing {
+  position: relative; 
+  display: grid;
+  gap: 25px;
+}
+
+
+
+/* Login específico */
+.login-section {
+  margin: 20px 0 50px;
+}
+
+.login-container {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 20px;
+  border-radius: 20px;
+  position: relative;
+}
+
+.login-form {
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.form-group {
+  margin-bottom: 20px;
+  display: flex;
+  align-items: center;
+}
+
+.form-group label {
+  min-width: 100px;
+  font-weight: 500;
+  color: #333;
+  margin-right: 15px;
+}
+
+.form-control {
+  flex: 1;
+  padding: 10px 15px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 16px;
+  outline: none;
+}
+
+.form-control::placeholder {
+  color: #999;
+}
+
+.form-options {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 25px;
+  margin: 15px 0 25px;
+  padding-left: 100px;
+}
+
+.remember-option {
+  display: flex;
+  align-items: center;
+}
+
+.remember-option input[type="checkbox"] {
+  margin-right: 5px;
+}
+
+.help-links {
+  text-align: right;
+}
+
+.forgot-link {
+  color: #1a73e8;
+  text-decoration: none;
+  font-size: 14px;
+}
+
+.forgot-link:hover {
+  text-decoration: underline;
+}
+
+.form-buttons {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+.btn-entrar {
+  background-color: var(--border-color);
+  color:var(-- text-color);
+  border: none;
+  padding: 10px 25px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+  font-weight: 500;
+}
+
+.btn-entrar:hover {
+  background-color: #807f7f;
+}
+
+.create-account {
+  text-align: center;
+  margin-top: 25px;
+}
+
+.btn-crear-usuario {
+  background-color: #125c52;
+  color: white;
+  text-decoration: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  display: inline-block;
+  font-size: 14px;
+}
+
+.btn-crear-usuario:hover {
+  background-color: #0d443d;
+}
+
+.login-logo {
+  text-align: center;
+  margin-top: 40px;
+}
+
+.login-logo img {
+  max-width: 200px;
+}
+
+/* Estilos para las migas de pan */
+
+
+.volver-atras-contenedor {
+  margin-left: auto;
+}
+
+.volver-atras {
+  display: flex;
+  align-items: center;
+}
+
+html, body {
+  overflow-x: hidden;
+  width: 100%;
+}
+  /* Responsive  Styles */
+@media (max-width: 992px) {
+  .results-container {
+      grid-template-columns: 1fr;
+  }
+  
+  .filters-sidebar {
+      order: 2;
+  }
+  
+  .results-grid {
+      order: 1;
+  }
+}
+
+@media (max-width: 768px) {
+  .results-grid {
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  }
+  
+  .recipe-info-grid {
+      grid-template-columns: 1fr;
+  }
+  
+  .form-group {
+      flex-direction: column;
+      align-items: flex-start;
+  }
+  
+  .form-group label {
+      margin-bottom: 5px;
+  }
+  
+  .form-options {
+      flex-direction: column;
+      align-items: flex-start;
+      padding-left: 0;
+  }
+  
+  .help-links {
+      margin-top: 10px;
+  }
+}
+
+@media (max-width: 576px) {
+    
+   
+     .contenedor-Contacto::before {
+        background-image: url('../sources/fono-nuevo-movil.png');
+     background-position: left;
+        background-size: auto 70%;
+        background-repeat: repeat-y;
+       
+    }
+}

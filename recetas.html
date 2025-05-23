@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Recetas - SalCooking</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href=" styles/styles.css">
+</head>
+<body>
+    <!-- Top Navigation Tabs -->
+    <nav class="top-nav">
+        <div class="container">
+            <ul class="nav-tabs">
+                <li><a href="index.html">Inicio</a></li>
+                <li><a href="filosofia.html">Nuestra Filosofía</a></li>
+                <li class="active"><a href="recetas.html">Recetas</a></li>
+                <li><a href="dieta.html">Dieta</a></li>
+                <li><a href="trucos.html">Trucos</a></li>
+                <li><a href="planes.html">Planes</a></li>
+                <li><a href="ayuda.html">Ayuda</a></li>
+                <li><a href="contacto.html">Contacto</a></li>
+            </ul>
+        </div>
+    </nav>
+    
+    <!-- Header with Logo, Search and Premium Button -->
+    <header class="main-header">
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">
+                    <a href="index.html">
+                        <img src="sources//logos/logo.png" alt="SalCooking Logo">
+                    </a>
+                </div>
+                <div class="search-box">
+                    <form action="search.html" method="get">
+                        <input type="text" placeholder="Busca recetas" name="query">
+                        <button type="submit"><i class="fas fa-search"></i></button>
+                    </form>
+                </div>
+                <div class="premium-button">
+                    <a href="premium.html" title="Solo puedes ganar: Hazte Prémium" class="btn-premium">Hazte Prémium</a>
+                </div>
+                <div class="mobile-menu-toggle">
+                    <i class="fas fa-bars"></i>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Mobile Navigation (hidden on desktop) -->
+    <nav class="mobile-nav">
+        <ul>
+            <li><a href="index.html">Inicio</a></li>
+            <li><a href="filosofia.html">Nuestra Filosofía</a></li>
+            <li class="active"><a href="recetas.html">Recetas</a></li>
+            <li><a href="dieta.html">Dieta</a></li>
+            <li><a href="trucos.html">Trucos</a></li>
+            <li><a href="planes.html">Planes</a></li>
+            <li><a href="ayuda.html">Ayuda</a></li>
+            <li><a href="contacto.html">Contacto</a></li>
+            <li><a href="profile.html">Editar Perfil</a></li>
+        </ul>
+    </nav>
+
+    <!-- Recipe Categories Navigation -->
+    <section class="recipe-categories">
+        <div class="container">
+            <h2>Recetas</h2>
+            <div class="category-tabs">
+                <a href="#entrantes" class="category-tab active" data-target="entrantes">Entrante</a>
+                <a href="#platos-principales" class="category-tab" data-target="platos-principales">Plato principal</a>
+                <a href="#postres" class="category-tab" data-target="postres">Postre</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Recipe Content Sections -->
+    <section class="recipe-content">
+        <div class="container">
+            <!-- Entrantes Section -->
+            <div id="entrantes" class="recipe-section active">
+                <h3>Entrante</h3>
+                <p>Empieza tu menú con frescura y sabor. Descubre nuestros entrantes saludables y llenos de color, como la ensalada César clásica con crujientes picatostes o deliciosas combinaciones mediterráneas. Perfectos para abrir el apetito sin complicaciones. ¡Elige cómo empezar tu experiencia!</p>
+                
+                <div class="recipe-grid">
+                    <div class="recipe-card">
+                        <img src="sources/recipes/ensalada-cesar.jpg" alt="Ensalada César">
+                        <div class="recipe-info">
+                            <h4>Ensalada César Clásica</h4>
+                            <p class="recipe-tags">
+                                <span class="tag vegetarian">Vegetariano</span>
+                                <span class="tag gluten">Contiene Gluten</span>
+                            </p>
+                            <a href="recipe-detail.html" class="btn-view-recipe">Ver receta</a>
+                        </div>
+                    </div>
+                    
+                    <div class="recipe-card">
+                        <img src="sources/recipes/gazpacho.jpg" alt="Gazpacho">
+                        <div class="recipe-info">
+                            <h4>Gazpacho Andaluz</h4>
+                            <p class="recipe-tags">
+                                <span class="tag vegetarian">Vegetariano</span>
+                                <span class="tag vegan">Vegano</span>
+                            </p>
+                            <a href="recipe-detail.html" class="btn-view-recipe">Ver receta</a>
+                        </div>
+                    </div>
+                    
+                    <div class="recipe-card">
+                        <img src="sources/recipes/croquetas.jpg" alt="Croquetas">
+                        <div class="recipe-info">
+                            <h4>Croquetas de Jamón</h4>
+                            <p class="recipe-tags">
+                                <span class="tag gluten">Contiene Gluten</span>
+                                <span class="tag dairy">Contiene Lácteos</span>
+                            </p>
+                            <a href="recipe-detail.html" class="btn-view-recipe">Ver receta</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Platos Principales Section -->
+            <div id="platos-principales" class="recipe-section">
+                <h3>Plato principal</h3>
+                <p>Sorprende a tu paladar con platos principales variados y equilibrados. Desde una lubina al horno con escalibada y limón, hasta un jugoso pollo con patatas panaderas o boniato con pimientos asados. Encuentra opciones con carne, pescado o vegetarianas para todos los gustos.</p>
+                
+                <div class="recipe-grid">
+                    <div class="recipe-card">
+                        <img src="sources/recipes/lubina.jpg" alt="Lubina al horno">
+                        <div class="recipe-info">
+                            <h4>Lubina al Horno con Escalibada</h4>
+                            <p class="recipe-tags">
+                                <span class="tag pescado">Pescado</span>
+                                <span class="tag healthy">Saludable</span>
+                            </p>
+                            <a href="recipe-detail.html" class="btn-view-recipe">Ver receta</a>
+                        </div>
+                    </div>
+                    
+                    <div class="recipe-card">
+                        <img src="sources/recipes/pollo.jpg" alt="Pollo con patatas">
+                        <div class="recipe-info">
+                            <h4>Pollo con Patatas Panaderas</h4>
+                            <p class="recipe-tags">
+                                <span class="tag meat">Carne</span>
+                                <span class="tag traditional">Tradicional</span>
+                            </p>
+                            <a href="recipe-detail.html" class="btn-view-recipe">Ver receta</a>
+                        </div>
+                    </div>
+                    
+                    <div class="recipe-card">
+                        <img src="sources/recipes/boniato.jpg" alt="Boniato con pimientos">
+                        <div class="recipe-info">
+                            <h4>Boniato con Pimientos Asados</h4>
+                            <p class="recipe-tags">
+                                <span class="tag vegetarian">Vegetariano</span>
+                                <span class="tag vegan">Vegano</span>
+                                <span class="tag healthy">Saludable</span>
+                            </p>
+                            <a href="recipe-detail.html" class="btn-view-recipe">Ver receta</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Postres Section -->
+            <div id="postres" class="recipe-section">
+                <h3>Postre</h3>
+                <p>Termina con un toque dulce y delicioso. Explora postres como nuestra cheesecake con frutos rojos, sin frutos secos, o la versión completa con nueces, chocolate y frambuesas. También puedes optar por helado de vainilla con fresas y chocolate caliente. ¡Pura tentación saludable!</p>
+                
+                <div class="recipe-grid">
+                    <div class="recipe-card">
+                        <img src="sources/recipes/cheesecake.jpg" alt="Cheesecake con frutos rojos">
+                        <div class="recipe-info">
+                            <h4>Cheesecake con Frutos Rojos</h4>
+                            <p class="recipe-tags">
+                                <span class="tag vegetarian">Vegetariano</span>
+                                <span class="tag dairy">Contiene Lácteos</span>
+                                <span class="tag no-nuts">Sin Frutos Secos</span>
+                            </p>
+                            <a href="recipe-detail.html" class="btn-view-recipe">Ver receta</a>
+                        </div>
+                    </div>
+                    
+                    <div class="recipe-card">
+                        <img src="sources/recipes/cheesecake-nuts.jpg" alt="Cheesecake con nueces">
+                        <div class="recipe-info">
+                            <h4>Cheesecake con Nueces y Chocolate</h4>
+                            <p class="recipe-tags">
+                                <span class="tag vegetarian">Vegetariano</span>
+                                <span class="tag dairy">Contiene Lácteos</span>
+                                <span class="tag nuts">Contiene Frutos Secos</span>
+                            </p>
+                            <a href="recipe-detail.html" class="btn-view-recipe">Ver receta</a>
+                        </div>
+                    </div>
+                    
+                    <div class="recipe-card">
+                        <img src="sources/recipes/ice-cream.jpg" alt="Helado de vainilla">
+                        <div class="recipe-info">
+                            <h4>Helado de Vainilla con Fresas</h4>
+                            <p class="recipe-tags">
+                                <span class="tag vegetarian">Vegetariano</span>
+                                <span class="tag dairy">Contiene Lácteos</span>
+                                <span class="tag quick">Rápido</span>
+                            </p>
+                            <a href="recipe-detail.html" class="btn-view-recipe">Ver receta</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="main-footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-column">
+                    <h4>Compañia</h4>
+                    <ul>
+                        <li><a href="about.html">¿Quienes somos?</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h4>Enlaces rápidos</h4>
+                    <ul>
+                        <li><a href="planes.html">Planes de suscripción</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h4>Suscríbete a Novedades</h4>
+                    <form class="subscribe-form">
+                        <input type="email" placeholder="Tu email">
+                        <button type="submit">Suscribir</button>
+                    </form>
+                </div>
+                <div class="footer-column">
+                    <ul class="footer-links">
+                        <li><a href="ayuda.html">Ayuda</a></li>
+                        <li><a href="profile.html">Editar Perfil</a></li>
+                        <li><a href="sitemap.html">Sitemap</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="copyright">
+                <p>Copyright © 2025 TeachDevAi Design. All Rights Reserved</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/scripts/bootstrap.bundle.min.js"></script>
+    <script src="scripts/scripts.js"></script>
+    <script>
+    $(document).ready(function() {
+        // Recipe category tabs functionality
+        $('.category-tab').click(function(e) {
+            e.preventDefault();
