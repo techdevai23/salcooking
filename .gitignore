@@ -1,3 +1,4 @@
+
 # Archivos y carpetas comunes a ignorar en entornos PHP/XAMPP
 
 # Directorios del sistema
@@ -27,8 +28,8 @@ xampp/
 htdocs/
 xamppfiles/
 
-# Bases de datos exportadas o grandes
-*.sql
+# Bases de datos grandes o comprimidas (si no las quieres subir)
+# *.sql
 *.sql.gz
 *.db
 
