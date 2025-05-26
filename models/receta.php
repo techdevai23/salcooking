@@ -1,6 +1,8 @@
 <?php
-class Receta {
-    public function buscarRecetas($termino, $tipoPlato, $alergeno, $porciones, $ingrediente, $enfermedad, $tiempoPrep, $esPremium, $orden = '', $usarPerfil = null) {
+class Receta
+{
+    public function buscarRecetas($termino, $tipoPlato, $alergeno, $porciones, $ingrediente, $enfermedad, $tiempoPrep, $esPremium, $orden = '', $usarPerfil = null)
+    {
         global $conexion;
 
         $stopwords = ['de', 'la', 'el', 'y', 'con', 'en', 'a', 'una', 'para'];
@@ -20,12 +22,12 @@ class Receta {
         if ($tipoPlato && $tipoPlato !== '') {
             // Manejar múltiples tipos de plato separados por comas
             $tipos = explode(',', $tipoPlato);
-            $tiposEscapados = array_map(function($tipo) use ($conexion) {
+            $tiposEscapados = array_map(function ($tipo) use ($conexion) {
                 return "'" . $conexion->real_escape_string(trim($tipo)) . "'";
             }, $tipos);
             $condiciones[] = "r.tipo_plato IN (" . implode(',', $tiposEscapados) . ")";
         }
-        
+
         if ($alergeno && $alergeno !== '') {
             // Manejar múltiples alérgenos separados por comas
             $alergenos = explode(',', $alergeno);
@@ -33,12 +35,12 @@ class Receta {
             $alergenosStr = implode(',', $alergenosInt);
             $condiciones[] = "r.id NOT IN (SELECT id_receta FROM receta_alergia WHERE id_alergia IN ($alergenosStr))";
         }
-        
+
         if ($porciones && $porciones !== '') {
             // Manejar múltiples opciones de porciones
             $opcionesPorciones = explode(',', $porciones);
             $condicionesPorciones = [];
-            
+
             foreach ($opcionesPorciones as $opcion) {
                 $opcion = trim($opcion);
                 if ($opcion == 'mas-4') {
@@ -48,31 +50,31 @@ class Receta {
                     $condicionesPorciones[] = "r.porciones = $opcionInt";
                 }
             }
-            
+
             if (!empty($condicionesPorciones)) {
                 $condiciones[] = "(" . implode(" OR ", $condicionesPorciones) . ")";
             }
         }
-        
+
         /************* Filtros premium (solo si el usuario está logueado) *****************/
         if ($esPremium) {
             // Filtro por perfil de salud del usuario
             if ($usarPerfil && $usarPerfil == '1' && isset($_SESSION['id_usuario'])) {
                 $idUsuario = intval($_SESSION['id_usuario']);
-                
+
                 // Obtener el perfil del usuario
                 $sqlPerfil = "SELECT enfermedades, alergias FROM perfiles WHERE id_usuario = $idUsuario";
                 $resultadoPerfil = $conexion->query($sqlPerfil);
-                
+
                 if ($resultadoPerfil && $resultadoPerfil->num_rows > 0) {
                     $perfil = $resultadoPerfil->fetch_assoc();
-                    
+
                     // Procesar alergias del perfil (formato: "1,2,3" o similar)
                     if (!empty($perfil['alergias'])) {
                         $alergiasUsuario = explode(',', $perfil['alergias']);
                         $alergiasUsuario = array_map('trim', $alergiasUsuario);
                         $alergiasUsuario = array_filter($alergiasUsuario, 'is_numeric');
-                        
+
                         if (!empty($alergiasUsuario)) {
                             $alergiasStr = implode(',', $alergiasUsuario);
                             $condiciones[] = "r.id NOT IN (
@@ -81,13 +83,13 @@ class Receta {
                             )";
                         }
                     }
-                    
+
                     // Procesar enfermedades del perfil (formato: "1,2,3" o similar)
                     if (!empty($perfil['enfermedades'])) {
                         $enfermedadesUsuario = explode(',', $perfil['enfermedades']);
                         $enfermedadesUsuario = array_map('trim', $enfermedadesUsuario);
                         $enfermedadesUsuario = array_filter($enfermedadesUsuario, 'is_numeric');
-                        
+
                         if (!empty($enfermedadesUsuario)) {
                             $enfermedadesStr = implode(',', $enfermedadesUsuario);
                             $condiciones[] = "r.id IN (
@@ -98,7 +100,7 @@ class Receta {
                     }
                 }
             }
-            
+
             if ($ingrediente && $ingrediente !== '') {
                 $ingrediente = $conexion->real_escape_string($ingrediente);
                 $condiciones[] = "r.id IN (
@@ -108,33 +110,71 @@ class Receta {
                 )";
             }
 
+            // if ($enfermedad && $enfermedad !== '') {
+            //     // Manejar múltiples enfermedades separadas por comas
+            //     $enfermedades = explode(',', $enfermedad);
+            //     $enfermedadesInt = array_map('intval', $enfermedades);
+            //     $enfermedadesStr = implode(',', $enfermedadesInt);
+            //     $condiciones[] = "r.id IN (
+            //         SELECT id_receta FROM receta_enfermedad 
+            //         WHERE id_enfermedad IN ($enfermedadesStr) AND apta = 1
+            //     )";
+            // }
+
             if ($enfermedad && $enfermedad !== '') {
                 // Manejar múltiples enfermedades separadas por comas
                 $enfermedades = explode(',', $enfermedad);
                 $enfermedadesInt = array_map('intval', $enfermedades);
                 $enfermedadesStr = implode(',', $enfermedadesInt);
-                $condiciones[] = "r.id IN (
-                    SELECT id_receta FROM receta_enfermedad 
-                    WHERE id_enfermedad IN ($enfermedadesStr) AND apta = 1
+
+                // Excluir recetas que NO son aptas (apta = 0) para las enfermedades seleccionadas
+                $condiciones[] = "r.id NOT IN (
+                    SELECT re.id_receta 
+                    FROM receta_enfermedad re 
+                    WHERE re.id_enfermedad IN ($enfermedadesStr) 
+                    AND re.apta = 0
                 )";
             }
 
+            // if ($tiempoPrep && $tiempoPrep !== '') {
+            //     // Manejar múltiples rangos de tiempo
+            //     $opcionesTiempo = explode(',', $tiempoPrep);
+            //     $condicionesTiempo = [];
+
+            //     foreach ($opcionesTiempo as $opcion) {
+            //         $opcion = trim($opcion);
+            //         if ($opcion == 'menos-30') {
+            //             $condicionesTiempo[] = "r.tiempo_preparacion < 30";
+            //         } elseif ($opcion == '31-60') {
+            //             $condicionesTiempo[] = "r.tiempo_preparacion BETWEEN 31 AND 60";
+            //         } elseif ($opcion == 'mas-60') {
+            //             $condicionesTiempo[] = "r.tiempo_preparacion > 60";
+            //         }
+            //     }
+
+            //     if (!empty($condicionesTiempo)) {
+            //         $condiciones[] = "(" . implode(" OR ", $condicionesTiempo) . ")";
+            //     }
+            // }
+            // Modificar el filtro de tiempo para que coincida con los valores del formulario
             if ($tiempoPrep && $tiempoPrep !== '') {
-                // Manejar múltiples rangos de tiempo
                 $opcionesTiempo = explode(',', $tiempoPrep);
                 $condicionesTiempo = [];
-                
+
                 foreach ($opcionesTiempo as $opcion) {
-                    $opcion = trim($opcion);
-                    if ($opcion == 'menos-30') {
-                        $condicionesTiempo[] = "r.tiempo_preparacion < 30";
-                    } elseif ($opcion == '31-60') {
-                        $condicionesTiempo[] = "r.tiempo_preparacion BETWEEN 31 AND 60";
-                    } elseif ($opcion == 'mas-60') {
-                        $condicionesTiempo[] = "r.tiempo_preparacion > 60";
+                    switch ($opcion) {
+                        case 'menos-30':
+                            $condicionesTiempo[] = "r.tiempo_preparacion <= 30";
+                            break;
+                        case '31-60':
+                            $condicionesTiempo[] = "(r.tiempo_preparacion > 30 AND r.tiempo_preparacion <= 60)";
+                            break;
+                        case 'mas-60':
+                            $condicionesTiempo[] = "r.tiempo_preparacion > 60";
+                            break;
                     }
                 }
-                
+
                 if (!empty($condicionesTiempo)) {
                     $condiciones[] = "(" . implode(" OR ", $condicionesTiempo) . ")";
                 }
@@ -142,7 +182,7 @@ class Receta {
         }
 
         $where = count($condiciones) ? "WHERE " . implode(" AND ", $condiciones) : "";
-        
+
         // Añadir ordenamiento
         $orderBy = " ORDER BY r.id DESC"; // Por defecto
         if ($orden) {
@@ -194,14 +234,14 @@ class Receta {
 
         // Consulta principal
         $sql = "SELECT DISTINCT r.* FROM recetas r $where $orderBy";
-        
+
         $resultado = $conexion->query($sql);
-        
+
         if (!$resultado) {
             echo "<!-- Error en la consulta: " . $conexion->error . " -->";
             return [];
         }
-        
+
         $recetas = $resultado->fetch_all(MYSQLI_ASSOC);
 
         // Agregar alérgenos y enfermedades para cada receta
@@ -226,7 +266,8 @@ class Receta {
         return $recetas;
     }
 
-    public function getRecetaPorId($id) {
+    public function getRecetaPorId($id)
+    {
         global $conexion;
         $id = intval($id);
         $sql = "SELECT * FROM recetas WHERE id = $id";
@@ -234,4 +275,3 @@ class Receta {
         return $resultado->fetch_assoc();
     }
 }
-?>
