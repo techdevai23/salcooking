@@ -199,8 +199,8 @@ $css_extra .= '<link rel="stylesheet" href="styles/resultado-recetas.css?v=' . f
                                 ?>
                                 <!-- Posición izquierda 2 (oculta inicialmente) -->
                                 <div class="recipiente-card side-card hidden" data-position="left-2">
-                                    <a href="#" class="btn-view-recipiente">Ver receta</a>
-                                    <img src="" alt="">
+                                    <a href="#" class="btn-view-recipiente">Ver receta
+                                    <img src="" alt=""></a>
                                     <div class="recipiente-info">
                                         <h4></h4>
                                         <div class="recipiente-tags"></div>
@@ -209,8 +209,8 @@ $css_extra .= '<link rel="stylesheet" href="styles/resultado-recetas.css?v=' . f
 
                                 <!-- Posición izquierda 1 (oculta inicialmente) -->
                                 <div class="recipiente-card side-card hidden" data-position="left-1">
-                                    <a href="#" class="btn-view-recipiente">Ver receta</a>
-                                    <img src="" alt="">
+                                    <a href="#" class="btn-view-recipiente">Ver receta
+                                    <img src="" alt=""></a>
                                     <div class="recipiente-info">
                                         <h4></h4>
                                         <div class="recipiente-tags"></div>
@@ -220,12 +220,12 @@ $css_extra .= '<link rel="stylesheet" href="styles/resultado-recetas.css?v=' . f
                                 <!-- Posición central (primera receta) -->
                                 <?php if (isset($resultados[0])): ?>
                                     <div class="recipiente-card featured-card" data-position="center" data-recipe-index="0">
-                                        <a href="index.php?page=detalle-receta&id=<?= $resultados[0]['id'] ?>" class="btn-view-recipiente">Ver receta</a>
+                                        <a href="index.php?page=detalle-receta&id=<?= $resultados[0]['id'] ?>" class="btn-view-recipiente">Ver receta
                                         <?php
                                         $imagePath = "sources/platos/id{$resultados[0]['id']}.png";
                                         $imageUrl = file_exists($imagePath) ? $imagePath : "sources/platos/default.png";
                                         ?>
-                                        <img src="<?= $imageUrl ?>" alt="<?= htmlspecialchars($resultados[0]['nombre']) ?>">
+                                        <img src="<?= $imageUrl ?>" alt="<?= htmlspecialchars($resultados[0]['nombre']) ?>"></a>
                                         <div class="recipiente-info">
                                             <h4><?= htmlspecialchars($resultados[0]['nombre']) ?></h4>
                                             <div class="recipiente-tags">
@@ -256,12 +256,12 @@ $css_extra .= '<link rel="stylesheet" href="styles/resultado-recetas.css?v=' . f
                                 <!-- Posición derecha 1 (segunda receta) -->
                                 <?php if (isset($resultados[1])): ?>
                                     <div class="recipiente-card side-card" data-position="right-1" data-recipe-index="1">
-                                        <a href="index.php?page=detalle-receta&id=<?= $resultados[1]['id'] ?>" class="btn-view-recipiente">Ver receta</a>
+                                        <a href="index.php?page=detalle-receta&id=<?= $resultados[1]['id'] ?>" class="btn-view-recipiente">Ver receta
                                         <?php
                                         $imagePath = "sources/platos/id{$resultados[1]['id']}.png";
                                         $imageUrl = file_exists($imagePath) ? $imagePath : "sources/platos/default.png";
                                         ?>
-                                        <img src="<?= $imageUrl ?>" alt="<?= htmlspecialchars($resultados[1]['nombre']) ?>">
+                                        <img src="<?= $imageUrl ?>" alt="<?= htmlspecialchars($resultados[1]['nombre']) ?>"></a>
                                         <div class="recipiente-info">
                                             <h4><?= htmlspecialchars($resultados[1]['nombre']) ?></h4>
                                             <div class="recipiente-tags">
@@ -289,8 +289,8 @@ $css_extra .= '<link rel="stylesheet" href="styles/resultado-recetas.css?v=' . f
                                     </div>
                                 <?php else: ?>
                                     <div class="recipiente-card side-card hidden" data-position="right-1">
-                                        <a href="#" class="btn-view-recipiente">Ver receta</a>
-                                        <img src="" alt="">
+                                        <a href="#" class="btn-view-recipiente">Ver receta
+                                        <img src="" alt=""></a>
                                         <div class="recipiente-info">
                                             <h4></h4>
                                             <div class="recipiente-tags"></div>
@@ -301,12 +301,12 @@ $css_extra .= '<link rel="stylesheet" href="styles/resultado-recetas.css?v=' . f
                                 <!-- Posición derecha 2 (tercera receta) -->
                                 <?php if (isset($resultados[2])): ?>
                                     <div class="recipiente-card side-card" data-position="right-2" data-recipe-index="2">
-                                        <a href="index.php?page=detalle-receta&id=<?= $resultados[2]['id'] ?>" class="btn-view-recipiente">Ver receta</a>
+                                        <a href="index.php?page=detalle-receta&id=<?= $resultados[2]['id'] ?>" class="btn-view-recipiente">Ver receta
                                         <?php
                                         $imagePath = "sources/platos/id{$resultados[2]['id']}.png";
                                         $imageUrl = file_exists($imagePath) ? $imagePath : "sources/platos/default.png";
                                         ?>
-                                        <img src="<?= $imageUrl ?>" alt="<?= htmlspecialchars($resultados[2]['nombre']) ?>">
+                                        <img src="<?= $imageUrl ?>" alt="<?= htmlspecialchars($resultados[2]['nombre']) ?>"></a>
                                         <div class="recipiente-info">
                                             <h4><?= htmlspecialchars($resultados[2]['nombre']) ?></h4>
                                             <div class="recipiente-tags">
@@ -334,8 +334,8 @@ $css_extra .= '<link rel="stylesheet" href="styles/resultado-recetas.css?v=' . f
                                     </div>
                                 <?php else: ?>
                                     <div class="recipiente-card side-card hidden" data-position="right-2">
-                                        <a href="#" class="btn-view-recipiente">Ver receta</a>
-                                        <img src="" alt="">
+                                        <a href="#" class="btn-view-recipiente">Ver receta
+                                        <img src="" alt=""></a>
                                         <div class="recipiente-info">
                                             <h4></h4>
                                             <div class="recipiente-tags"></div>
