@@ -18,6 +18,7 @@
                 <ul class="footer-links">
                     <li><a href="planes.php">Planes de suscripción</a></li>
                     <li><a href="contacto.php">Hazte Prémium</a></li>
+                    <li><a href="login.php">Registrate gratis</a></li>
                     <li><a href="ayuda.php">Ayuda</a></li>
                     <li><a href="sitemap.php">Sitemap</a></li>
                 </ul>

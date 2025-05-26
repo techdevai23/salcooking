@@ -3,6 +3,7 @@ $css_extra = '';
 
 $css_extra .= '<link rel="stylesheet" href="styles/ayuda.css?v=' . filemtime('styles/ayuda.css') . '">';
 ?>
+<?php function test 
 
 
 <?php include 'header.php'; ?>

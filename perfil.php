@@ -86,7 +86,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['accion']) && $_POST['a
     $stmt_insert = $conexion->prepare($sql_insert);
     // Tipos: s: string, i: integer, d: double/decimal
     $stmt_insert->bind_param(
-      "sssssssss",
+      "ssssssssss",
       $nombre_completo,
       $nick,
       $email,

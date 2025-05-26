@@ -3,7 +3,7 @@
 $host = "127.0.0.1";       // o 127.0.0.1
 $usuario = "admin";         // El mismo que en HeidiSQL
 $contrasena = "osso";  // La misma que en HeidiSQL
-$basedatos = "recooking";    // El nombre correcto de tu base de datos
+$basedatos = "salcooking";    // El nombre correcto de tu base de datos
 $puerto = 3306;              // Estás usando el puerto estándar
 
 // Crear conexión
