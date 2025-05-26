@@ -5,7 +5,7 @@ class RecetaController {
     public function buscar() {
         $termino = $_GET['q'] ?? '';
         
-        // Manejar filtros que pueden ser múltiples (vienen como cadenas separadas por comas)
+        // Manejar filtros que ahora pueden ser múltiples (vienen como cadenas separadas por comas)
         $tipoPlato = $_GET['tipo_plato'] ?? '';
         $alergeno = $_GET['alergeno'] ?? '';
         $porciones = $_GET['porciones'] ?? '';

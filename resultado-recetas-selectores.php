@@ -45,72 +45,35 @@ $css_extra .= '<link rel="stylesheet" href="styles/resultado-recetas.css?v=' . f
                             </select>
                         </div>
                         
-                        <div class="filter-section checkbox-group">
-                            <h4>Tipo de plato:</h4>
-                            <div class="checkbox-options">
-                                <label class="checkbox-container">
-                                    <input type="checkbox" name="tipo-plato[]" value="desayuno">
-                                    <span class="checkmark"></span>
-                                    Desayuno
-                                </label>
-                                <label class="checkbox-container">
-                                    <input type="checkbox" name="tipo-plato[]" value="entrante">
-                                    <span class="checkmark"></span>
-                                    Entrante
-                                </label>
-                                <label class="checkbox-container">
-                                    <input type="checkbox" name="tipo-plato[]" value="principal">
-                                    <span class="checkmark"></span>
-                                    Principal
-                                </label>
-                                <label class="checkbox-container">
-                                    <input type="checkbox" name="tipo-plato[]" value="postre">
-                                    <span class="checkmark"></span>
-                                    Postre
-                                </label>
-                            </div>
+                        <div class="filter-section">
+                            <label for="tipo-plato">Tipo de plato:</label>
+                            <select name="tipo-plato" id="tipo-plato">
+                                <option value="">Todos los tipos</option>
+                                <option value="desayuno">Desayuno</option>
+                                <option value="entrante">Entrante</option>
+                                <option value="principal">Principal</option>
+                                <option value="postre">Postre</option>
+                            </select>
                         </div>
                         
-                        <div class="filter-section checkbox-group">
-                            <h4>Evitar alérgenos:</h4>
-                            <div class="checkbox-options">
-                                <label class="checkbox-container">
-                                    <input type="checkbox" name="alergenos[]" value="1">
-                                    <span class="checkmark"></span>
-                                    Frutos secos
-                                </label>
-                                <label class="checkbox-container">
-                                    <input type="checkbox" name="alergenos[]" value="2">
-                                    <span class="checkmark"></span>
-                                    Gluten
-                                </label>
-                                <label class="checkbox-container">
-                                    <input type="checkbox" name="alergenos[]" value="3">
-                                    <span class="checkmark"></span>
-                                    Pescado y Marisco
-                                </label>
-                            </div>
+                        <div class="filter-section">
+                        <label for="alergenos">Evitar:</label>
+                            <select name="alergenos" id="alergenos">
+                                <option value="">Permitidos</option>
+                                <option value="1">Frutos secos</option>
+                                <option value="2">Gluten</option>
+                                <option value="3">Pescado y Marisco</option>
+                            </select>
                         </div>
                         
-                        <div class="filter-section checkbox-group">
-                            <h4>Porciones:</h4>
-                            <div class="checkbox-options">
-                                <label class="checkbox-container">
-                                    <input type="checkbox" name="porciones[]" value="2">
-                                    <span class="checkmark"></span>
-                                    2 porciones
-                                </label>
-                                <label class="checkbox-container">
-                                    <input type="checkbox" name="porciones[]" value="4">
-                                    <span class="checkmark"></span>
-                                    4 porciones
-                                </label>
-                                <label class="checkbox-container">
-                                    <input type="checkbox" name="porciones[]" value="mas-4">
-                                    <span class="checkmark"></span>
-                                    Más de 4
-                                </label>
-                            </div>
+                        <div class="filter-section">
+                        <label for="porciones">Porciones:</label>
+                            <select name="porciones" id="porciones">
+                            <option value="">Cualquiera</option>
+                                <option value="2">2 porciones</option>
+                                <option value="4">4 porciones</option>
+                                <option value="mas-4">Más de 4 porciones</option>
+                            </select>
                         </div>
                         <!-- zona de filtros y opciones premium -->
                         <div class="premium-filters">
@@ -129,20 +92,12 @@ $css_extra .= '<link rel="stylesheet" href="styles/resultado-recetas.css?v=' . f
                                 <?php endif; ?>
                             </div>
                             <div class="premium-options">
-                                <div class="premium-option checkbox-group">
-                                    <h4>Enfermedades a evitar:</h4>
-                                    <div class="checkbox-options">
-                                        <label class="checkbox-container">
-                                            <input type="checkbox" name="enfermedades[]" value="1" <?= !isset($_SESSION['id_usuario']) ? 'disabled' : '' ?>>
-                                            <span class="checkmark"></span>
-                                            Diabetes
-                                        </label>
-                                        <label class="checkbox-container">
-                                            <input type="checkbox" name="enfermedades[]" value="2" <?= !isset($_SESSION['id_usuario']) ? 'disabled' : '' ?>>
-                                            <span class="checkmark"></span>
-                                            Colesterol alto
-                                        </label>
-                                    </div>
+                                <div class="premium-option">
+                                    <select name="enfermedades" id="enfermedades" <?= !isset($_SESSION['id_usuario']) ? 'disabled' : '' ?>>
+                                        <option value="">Enfermedades</option>
+                                        <option value="1">Diabetes</option>
+                                        <option value="2">Colesterol alto</option>
+                                    </select>
                                 </div>
                                 
                                 <div class="premium-option">
@@ -154,28 +109,16 @@ $css_extra .= '<link rel="stylesheet" href="styles/resultado-recetas.css?v=' . f
                                 </div>
                                 
                                 <div class="premium-option">
-                                    <input type="text" name="ingrediente" id="ingrediente" placeholder="Filtrar por ingrediente..." <?= !isset($_SESSION['id_usuario']) ? 'disabled' : '' ?>>
+                                    <input type="text" name="ingrediente" id="ingrediente" placeholder="Ingrediente..." <?= !isset($_SESSION['id_usuario']) ? 'disabled' : '' ?>>
                                 </div>
                                 
-                                <div class="premium-option checkbox-group">
-                                    <h4>Tiempo de preparación:</h4>
-                                    <div class="checkbox-options">
-                                        <label class="checkbox-container">
-                                            <input type="checkbox" name="tiempo[]" value="menos-30" <?= !isset($_SESSION['id_usuario']) ? 'disabled' : '' ?>>
-                                            <span class="checkmark"></span>
-                                            30 min o menos
-                                        </label>
-                                        <label class="checkbox-container">
-                                            <input type="checkbox" name="tiempo[]" value="31-60" <?= !isset($_SESSION['id_usuario']) ? 'disabled' : '' ?>>
-                                            <span class="checkmark"></span>
-                                            Entre 31-60 min
-                                        </label>
-                                        <label class="checkbox-container">
-                                            <input type="checkbox" name="tiempo[]" value="mas-60" <?= !isset($_SESSION['id_usuario']) ? 'disabled' : '' ?>>
-                                            <span class="checkmark"></span>
-                                            Más de 60 min
-                                        </label>
-                                    </div>
+                                <div class="premium-option">
+                                    <select name="tiempo" id="tiempo" <?= !isset($_SESSION['id_usuario']) ? 'disabled' : '' ?>>
+                                        <option value="">Tiempo de preparación</option>
+                                        <option value="menos-30">Menos de 30 min</option>
+                                        <option value="31-60">Entre 31 y 60 min</option>
+                                        <option value="mas-60">Más de 60 min</option>
+                                    </select>
                                 </div>
                             </div>
                         </div>
@@ -369,14 +312,27 @@ $css_extra .= '<link rel="stylesheet" href="styles/resultado-recetas.css?v=' . f
 <script>
 // Script para manejar los filtros automáticamente
 document.addEventListener('DOMContentLoaded', function() {
-    console.log('Inicializando sistema de filtros con checkboxes...');
+    console.log('Inicializando sistema de filtros...');
     
-    // Función para obtener valores de checkboxes
-    function getCheckboxValues(name) {
-        const checkboxes = document.querySelectorAll(`input[name="${name}[]"]:checked`);
-        return Array.from(checkboxes).map(cb => cb.value);
-    }
-    
+    // Obtener todos los selectores de filtros con validación
+    const filtros = {
+        ordenar: document.getElementById('ordenar'),
+        tipoPlato: document.getElementById('tipo-plato'),
+        alergenos: document.getElementById('alergenos'),
+        porciones: document.getElementById('porciones'),
+        enfermedades: document.getElementById('enfermedades'),
+        tiempo: document.getElementById('tiempo'),
+        ingrediente: document.getElementById('ingrediente'),
+        perfil: document.getElementById('perfil')
+    };
+
+    // Verificar que los elementos existen
+    Object.keys(filtros).forEach(key => {
+        if (!filtros[key]) {
+            console.warn(`Elemento ${key} no encontrado`);
+        }
+    });
+
     // Función para aplicar filtros
     function aplicarFiltros() {
         console.log('Aplicando filtros...');
@@ -391,63 +347,60 @@ document.addEventListener('DOMContentLoaded', function() {
         if (termino) nuevosParams.set('q', termino);
         nuevosParams.set('page', 'buscar');
         
-        // Obtener valores de los filtros
-        const ordenar = document.getElementById('ordenar')?.value;
-        const tiposPlato = getCheckboxValues('tipo-plato');
-        const alergenos = getCheckboxValues('alergenos');
-        const porciones = getCheckboxValues('porciones');
-        const enfermedades = getCheckboxValues('enfermedades');
-        const tiempos = getCheckboxValues('tiempo');
-        const ingrediente = document.getElementById('ingrediente')?.value;
-        const perfil = document.getElementById('perfil')?.checked;
+        // Debug: mostrar qué filtros se están aplicando
+        const filtrosActivos = {
+            tipoPlato: filtros.tipoPlato?.value || '',
+            alergenos: filtros.alergenos?.value || '',
+            porciones: filtros.porciones?.value || '',
+            orden: filtros.ordenar?.value || '',
+            enfermedad: filtros.enfermedades?.value || '',
+            tiempo: filtros.tiempo?.value || '',
+            ingrediente: filtros.ingrediente?.value || '',
+            perfil: filtros.perfil?.checked || false
+        };
         
-        // Debug PARA CONTROL DE FILTROS APLICADOS
-        console.log('Filtros activos:', {
-            ordenar,
-            tiposPlato,
-            alergenos,
-            porciones,
-            enfermedades,
-            tiempos,
-            ingrediente,
-            perfil
-        });
+        console.log('Filtros activos:', filtrosActivos);
         
-        // Agregar filtros a la URL
-        if (ordenar) {
-            nuevosParams.set('orden', ordenar);
+        // Agregar filtros activos (solo si tienen valor)
+        if (filtros.tipoPlato && filtros.tipoPlato.value && filtros.tipoPlato.value !== '') {
+            nuevosParams.set('tipo_plato', filtros.tipoPlato.value);
+            console.log('Agregando tipo_plato:', filtros.tipoPlato.value);
         }
         
-        if (tiposPlato.length > 0) {
-            nuevosParams.set('tipo_plato', tiposPlato.join(','));
+        if (filtros.alergenos && filtros.alergenos.value && filtros.alergenos.value !== '') {
+            nuevosParams.set('alergeno', filtros.alergenos.value);
+            console.log('Agregando alergeno:', filtros.alergenos.value);
         }
         
-        if (alergenos.length > 0) {
-            nuevosParams.set('alergeno', alergenos.join(','));
+        if (filtros.porciones && filtros.porciones.value && filtros.porciones.value !== '') {
+            nuevosParams.set('porciones', filtros.porciones.value);
+            console.log('Agregando porciones:', filtros.porciones.value);
         }
         
-        if (porciones.length > 0) {
-            nuevosParams.set('porciones', porciones.join(','));
+        if (filtros.ordenar && filtros.ordenar.value && filtros.ordenar.value !== '') {
+            nuevosParams.set('orden', filtros.ordenar.value);
+            console.log('Agregando orden:', filtros.ordenar.value);
         }
         
         // Filtros premium (solo si están habilitados y tienen valor)
-        const ingredienteElement = document.getElementById('ingrediente');
-        const perfilElement = document.getElementById('perfil');
-        
-        if (enfermedades.length > 0 && !document.querySelector('input[name="enfermedades[]"]').disabled) {
-            nuevosParams.set('enfermedad', enfermedades.join(','));
+        if (filtros.enfermedades && filtros.enfermedades.value && filtros.enfermedades.value !== '' && !filtros.enfermedades.disabled) {
+            nuevosParams.set('enfermedad', filtros.enfermedades.value);
+            console.log('Agregando enfermedad:', filtros.enfermedades.value);
         }
         
-        if (tiempos.length > 0 && !document.querySelector('input[name="tiempo[]"]').disabled) {
-            nuevosParams.set('tiempo', tiempos.join(','));
+        if (filtros.tiempo && filtros.tiempo.value && filtros.tiempo.value !== '' && !filtros.tiempo.disabled) {
+            nuevosParams.set('tiempo', filtros.tiempo.value);
+            console.log('Agregando tiempo:', filtros.tiempo.value);
         }
         
-        if (ingredienteElement && ingredienteElement.value.trim() !== '' && !ingredienteElement.disabled) {
-            nuevosParams.set('ingrediente', ingredienteElement.value.trim());
+        if (filtros.ingrediente && filtros.ingrediente.value && filtros.ingrediente.value.trim() !== '' && !filtros.ingrediente.disabled) {
+            nuevosParams.set('ingrediente', filtros.ingrediente.value.trim());
+            console.log('Agregando ingrediente:', filtros.ingrediente.value.trim());
         }
         
-        if (perfilElement && perfilElement.checked && !perfilElement.disabled) {
+        if (filtros.perfil && filtros.perfil.checked && !filtros.perfil.disabled) {
             nuevosParams.set('perfil', '1');
+            console.log('Agregando perfil: 1');
         }
         
         const urlFinal = 'index.php?' + nuevosParams.toString();
@@ -456,101 +409,87 @@ document.addEventListener('DOMContentLoaded', function() {
         // Redirigir con los nuevos parámetros
         window.location.href = urlFinal;
     }
-    
-    // Agregar eventos a todos los filtros
-    // Selector de ordenar
-    const selectorOrdenar = document.getElementById('ordenar');
-    if (selectorOrdenar) {
-        selectorOrdenar.addEventListener('change', aplicarFiltros);
-    }
-    
-    // Checkboxes
-    const todosCheckboxes = document.querySelectorAll('input[type="checkbox"][name$="[]"]');
-    todosCheckboxes.forEach(checkbox => {
-        checkbox.addEventListener('change', aplicarFiltros);
+
+    // Agregar eventos a todos los selectores
+    Object.entries(filtros).forEach(([nombre, filtro]) => {
+        if (filtro) {
+            if (filtro.tagName === 'SELECT') {
+                filtro.addEventListener('change', function() {
+                    console.log(`Cambio en ${nombre}:`, this.value);
+                    aplicarFiltros();
+                });
+            } else if (filtro.type === 'checkbox') {
+                filtro.addEventListener('change', function() {
+                    console.log(`Cambio en ${nombre}:`, this.checked);
+                    aplicarFiltros();
+                });
+            } else if (filtro.type === 'text') {
+                // Para el campo de texto, aplicar filtro al presionar Enter
+                filtro.addEventListener('keypress', function(e) {
+                    if (e.key === 'Enter') {
+                        e.preventDefault();
+                        console.log(`Enter en ${nombre}:`, this.value);
+                        aplicarFiltros();
+                    }
+                });
+                
+                // También agregar evento blur para cuando pierde el foco
+                filtro.addEventListener('blur', function() {
+                    if (this.value.trim() !== '') {
+                        console.log(`Blur en ${nombre}:`, this.value);
+                        aplicarFiltros();
+                    }
+                });
+            }
+        }
     });
-    
-    // Checkbox de perfil
-    const checkboxPerfil = document.getElementById('perfil');
-    if (checkboxPerfil) {
-        checkboxPerfil.addEventListener('change', aplicarFiltros);
-    }
-    
-    // Campo de ingrediente
-    const campoIngrediente = document.getElementById('ingrediente');
-    if (campoIngrediente) {
-        campoIngrediente.addEventListener('keypress', function(e) {
-            if (e.key === 'Enter') {
-                e.preventDefault();
-                aplicarFiltros();
-            }
-        });
-        
-        campoIngrediente.addEventListener('blur', function() {
-            if (this.value.trim() !== '') {
-                aplicarFiltros();
-            }
-        });
-    }
-    
+
     // Restaurar valores de filtros desde la URL
     console.log('Restaurando valores desde URL...');
     const params = new URLSearchParams(window.location.search);
     
-    // Restaurar orden
-    if (params.get('orden') && selectorOrdenar) {
-        selectorOrdenar.value = params.get('orden');
+    // Mostrar todos los parámetros de la URL
+    console.log('Parámetros URL:', Object.fromEntries(params));
+    
+    if (params.get('tipo_plato') && filtros.tipoPlato) {
+        filtros.tipoPlato.value = params.get('tipo_plato');
+        console.log('Restaurado tipo_plato:', params.get('tipo_plato'));
     }
     
-    // Restaurar checkboxes
-    if (params.get('tipo_plato')) {
-        const tipos = params.get('tipo_plato').split(',');
-        tipos.forEach(tipo => {
-            const checkbox = document.querySelector(`input[name="tipo-plato[]"][value="${tipo}"]`);
-            if (checkbox) checkbox.checked = true;
-        });
+    if (params.get('alergeno') && filtros.alergenos) {
+        filtros.alergenos.value = params.get('alergeno');
+        console.log('Restaurado alergeno:', params.get('alergeno'));
     }
     
-    if (params.get('alergeno')) {
-        const alergenos = params.get('alergeno').split(',');
-        alergenos.forEach(alergeno => {
-            const checkbox = document.querySelector(`input[name="alergenos[]"][value="${alergeno}"]`);
-            if (checkbox) checkbox.checked = true;
-        });
+    if (params.get('porciones') && filtros.porciones) {
+        filtros.porciones.value = params.get('porciones');
+        console.log('Restaurado porciones:', params.get('porciones'));
     }
     
-    if (params.get('porciones')) {
-        const porciones = params.get('porciones').split(',');
-        porciones.forEach(porcion => {
-            const checkbox = document.querySelector(`input[name="porciones[]"][value="${porcion}"]`);
-            if (checkbox) checkbox.checked = true;
-        });
+    if (params.get('orden') && filtros.ordenar) {
+        filtros.ordenar.value = params.get('orden');
+        console.log('Restaurado orden:', params.get('orden'));
     }
     
-    /**********  Restaurar filtros premium *****************/
-    // Filtros de enfermedades
-    if (params.get('enfermedad')) {
-        const enfermedades = params.get('enfermedad').split(',');
-        enfermedades.forEach(enfermedad => {
-            const checkbox = document.querySelector(`input[name="enfermedades[]"][value="${enfermedad}"]`);
-            if (checkbox && !checkbox.disabled) checkbox.checked = true;
-        });
+    // Restaurar filtros premium si están disponibles
+    if (params.get('enfermedad') && filtros.enfermedades && !filtros.enfermedades.disabled) {
+        filtros.enfermedades.value = params.get('enfermedad');
+        console.log('Restaurado enfermedad:', params.get('enfermedad'));
     }
-    // Filtros de tiempo
-    if (params.get('tiempo')) {
-        const tiempos = params.get('tiempo').split(',');
-        tiempos.forEach(tiempo => {
-            const checkbox = document.querySelector(`input[name="tiempo[]"][value="${tiempo}"]`);
-            if (checkbox && !checkbox.disabled) checkbox.checked = true;
-        });
+    
+    if (params.get('tiempo') && filtros.tiempo && !filtros.tiempo.disabled) {
+        filtros.tiempo.value = params.get('tiempo');
+        console.log('Restaurado tiempo:', params.get('tiempo'));
     }
-    // Filtros de ingrediente
-    if (params.get('ingrediente') && campoIngrediente && !campoIngrediente.disabled) {
-        campoIngrediente.value = params.get('ingrediente');
+    
+    if (params.get('ingrediente') && filtros.ingrediente && !filtros.ingrediente.disabled) {
+        filtros.ingrediente.value = params.get('ingrediente');
+        console.log('Restaurado ingrediente:', params.get('ingrediente'));
     }
-    // Filtros de perfil de salud que tiene el usuario
-    if (params.get('perfil') && checkboxPerfil && !checkboxPerfil.disabled) {
-        checkboxPerfil.checked = params.get('perfil') === '1';
+    
+    if (params.get('perfil') && filtros.perfil && !filtros.perfil.disabled) {
+        filtros.perfil.checked = params.get('perfil') === '1';
+        console.log('Restaurado perfil:', params.get('perfil') === '1');
     }
     
     console.log('Sistema de filtros inicializado correctamente');

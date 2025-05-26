@@ -123,12 +123,12 @@
 .checkbox-options {
   display: flex;
   flex-direction: column;
-  gap: 2px;
+  gap: 8px;
 }
 
 .checkbox-group .checkbox-container {
   font-size: 0.85rem;
-  margin-bottom: 2px;
+  margin-bottom: 5px;
 }
 
 /* Ajuste para los grupos de checkboxes premium */

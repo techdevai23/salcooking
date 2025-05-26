@@ -54,7 +54,7 @@ class Receta {
             }
         }
         
-        /************* Filtros premium (solo si el usuario está logueado) *****************/
+        // Filtros premium (solo si el usuario está logueado)
         if ($esPremium) {
             // Filtro por perfil de salud del usuario
             if ($usarPerfil && $usarPerfil == '1' && isset($_SESSION['id_usuario'])) {
