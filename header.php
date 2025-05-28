@@ -71,17 +71,35 @@ if (session_status() === PHP_SESSION_NONE) {
         <nav class="top-nav mb-2">
             <div class="container">
                 <ul class="nav-tabs">
-                    <li class="active"><a href="index.php">Inicio</a></li>
-                    <li><a href="filosofia.php">Nuestra Filosofía</a></li>
-                    <li><a href="recetas-categoria.php">Recetas</a></li>
-                    <li><a href="dieta-semana-por-dias.php">Dieta</a></li>
-                    <li><a href="trucos.php">Trucos</a></li>
-                    <li><a href="planes.php">Planes</a></li>
-                    <li><a href="ayuda.php">Ayuda</a></li>
-                    <li><a href="contacto.php">Contáctanos</a></li>
-                    <!-- Pulsando el enlace llevará a un lugar u otro, según si el usuario está logueado o no -->
-                    <li> <a href="<?php echo isset($_SESSION['id_usuario']) ? 'perfil-logueado.php' : 'login.php'; ?>">
-                            Perfil-Ajustes</a></li>
+                    <li class="<?php echo basename($_SERVER['PHP_SELF']) == 'index.php' ? 'active' : ''; ?>">
+                        <a href="index.php">Inicio</a>
+                    </li>
+                    <li class="<?php echo basename($_SERVER['PHP_SELF']) == 'filosofia.php' ? 'active' : ''; ?>">
+                        <a href="filosofia.php">Nuestra Filosofía</a>
+                    </li>
+                    <li class="<?php echo basename($_SERVER['PHP_SELF']) == 'recetas-categoria.php' ? 'active' : ''; ?>">
+                        <a href="recetas-categoria.php">Recetas</a>
+                    </li>
+                    <li class="<?php echo in_array(basename($_SERVER['PHP_SELF']), ['dieta-semana-por-dias.php', 'primera-vez.php', 'no-premium.php']) ? 'active' : ''; ?>">
+                        <a href="dieta-semana-por-dias.php">Dieta</a>
+                    </li>
+                    <li class="<?php echo basename($_SERVER['PHP_SELF']) == 'trucos.php' ? 'active' : ''; ?>">
+                        <a href="trucos.php">Trucos</a>
+                    </li>
+                    <li class="<?php echo basename($_SERVER['PHP_SELF']) == 'planes.php' ? 'active' : ''; ?>">
+                        <a href="planes.php">Planes</a>
+                    </li>
+                    <li class="<?php echo basename($_SERVER['PHP_SELF']) == 'ayuda.php' ? 'active' : ''; ?>">
+                        <a href="ayuda.php">Ayuda</a>
+                    </li>
+                    <li class="<?php echo basename($_SERVER['PHP_SELF']) == 'contacto.php' ? 'active' : ''; ?>">
+                        <a href="contacto.php">Contáctanos</a>
+                    </li>
+                    <li class="<?php echo basename($_SERVER['PHP_SELF']) == 'perfil-logueado.php' ? 'active' : ''; ?>">
+                        <a href="<?php echo isset($_SESSION['usuario_id']) ? 'perfil-logueado.php' : 'login.php'; ?>">
+                            Perfil-Ajustes
+                        </a>
+                    </li>
 
                 </ul>
             </div>
@@ -141,16 +159,35 @@ if (session_status() === PHP_SESSION_NONE) {
     <!-- ************* menú en tamaño pequeño **************-->
     <nav class="mobile-nav">
         <ul>
-            <li class="active"><a href="index.php">Inicio</a></li>
-            <li><a href="filosofia.php">Nuestra Filosofía</a></li>
-            <li><a href="recetas-categoria.php">Categorías de Recetas</a></li>
-            <li><a href="dieta-semana-por-dias.php">Dietas</a></li>
-            <li><a href="trucos.php">Trucos de cocina</a></li>
-            <li><a href="planes.php">Planes</a></li>
-            <!-- <li><a href="ayuda.php">Ayuda</a></li> -->
-            <li><a href="contacto.php">Contáctanos</a></li>
-            <li><a href="sitemap.php">Mapa del sitio</a></li>
-
+            <li class="<?php echo basename($_SERVER['PHP_SELF']) == 'index.php' ? 'active' : ''; ?>">
+                <a href="index.php">Inicio</a>
+            </li>
+            <li class="<?php echo basename($_SERVER['PHP_SELF']) == 'filosofia.php' ? 'active' : ''; ?>">
+                <a href="filosofia.php">Nuestra Filosofía</a>
+            </li>
+            <li class="<?php echo basename($_SERVER['PHP_SELF']) == 'recetas-categoria.php' ? 'active' : ''; ?>">
+                <a href="recetas-categoria.php">Recetas</a>
+            </li>
+            <li class="<?php echo in_array(basename($_SERVER['PHP_SELF']), ['dieta-semana-por-dias.php', 'primera-vez.php', 'no-premium.php']) ? 'active' : ''; ?>">
+                <a href="dieta-semana-por-dias.php">Dieta</a>
+            </li>
+            <li class="<?php echo basename($_SERVER['PHP_SELF']) == 'trucos.php' ? 'active' : ''; ?>">
+                <a href="trucos.php">Trucos</a>
+            </li>
+            <li class="<?php echo basename($_SERVER['PHP_SELF']) == 'planes.php' ? 'active' : ''; ?>">
+                <a href="planes.php">Planes</a>
+            </li>
+            <li class="<?php echo basename($_SERVER['PHP_SELF']) == 'ayuda.php' ? 'active' : ''; ?>">
+                <a href="ayuda.php">Ayuda</a>
+            </li>
+            <li class="<?php echo basename($_SERVER['PHP_SELF']) == 'contacto.php' ? 'active' : ''; ?>">
+                <a href="contacto.php">Contáctanos</a>
+            </li>
+            <li class="<?php echo basename($_SERVER['PHP_SELF']) == 'perfil-logueado.php' ? 'active' : ''; ?>">
+                <a href="<?php echo isset($_SESSION['usuario_id']) ? 'perfil-logueado.php' : 'login.php'; ?>">
+                    <?php echo isset($_SESSION['usuario_id']) ? 'Mi Perfil' : 'Iniciar Sesión'; ?>
+                </a>
+            </li>
         </ul>
     </nav>
     <!-- menú desplegable izquierdo -->

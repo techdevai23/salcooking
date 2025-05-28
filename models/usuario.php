@@ -1,6 +1,18 @@
 <?php
 class Usuario {
-    // Obtener usuario por ID, por ejemplo lo usamos en el perfil de usuario
+    // Obtener usuario por ID (método estático para compatibilidad)
+    public static function getUsuarioById($id_usuario) {
+        global $conexion;
+        $id_usuario = intval($id_usuario);
+        $sql = "SELECT * FROM usuarios WHERE id_usuario = ?";
+        $stmt = $conexion->prepare($sql);
+        $stmt->bind_param("i", $id_usuario);
+        $stmt->execute();
+        $resultado = $stmt->get_result();
+        return $resultado->fetch_assoc();
+    }
+    
+    // Obtener usuario por ID (método de instancia)
     public function obtenerPorId($id_usuario) {
     global $conexion;
     $sql = "SELECT * FROM usuarios WHERE id_usuario = ?";

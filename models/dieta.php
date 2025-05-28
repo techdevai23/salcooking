@@ -4,6 +4,29 @@ require_once __DIR__ . '/receta.php';
 
 class Dieta
 {
+    // Obtiene la última dieta generada por el usuario
+    public static function getUltimaDietaUsuario($id_usuario) {
+        global $conexion;
+        $id_usuario = intval($id_usuario);
+        
+        $sql = "SELECT d.id_dieta, d.fecha_creacion 
+                FROM dietas d 
+                WHERE d.id_usuario = ? 
+                ORDER BY d.fecha_creacion DESC 
+                LIMIT 1";
+                
+        $stmt = $conexion->prepare($sql);
+        $stmt->bind_param("i", $id_usuario);
+        $stmt->execute();
+        $resultado = $stmt->get_result();
+        
+        if ($resultado->num_rows === 0) {
+            return null;
+        }
+        
+        return $resultado->fetch_assoc();
+    }
+
     // Obtiene los IDs de alergias del usuario
     public static function getAlergiasUsuario($id_usuario) {
         global $conexion;
