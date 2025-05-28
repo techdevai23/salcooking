@@ -16,17 +16,23 @@ $(document).ready(function() {
         }
     });
 
-    // Desplazamiento suave para enlaces de anclaje
-    $('a[href^="#"]').on('click', function(e) {
-        e.preventDefault();
-        
-        $('html, body').animate(
-            {
-                scrollTop: $($(this).attr('href')).offset().top - 70
-            },
-            500,
-            'linear'
-        );
+    // Desplazamiento suave solo para enlaces de anclaje internos
+    $('a[href^="#"]').not('.dieta-link').on('click', function(e) {
+        // Verificar si el enlace es un anclaje interno (comienza con # seguido de caracteres)
+        if ($(this).attr('href').match(/^#[^#\/]+$/)) {
+            e.preventDefault();
+            const target = $(this).attr('href');
+            if ($(target).length) {
+                $('html, body').animate(
+                    {
+                        scrollTop: $(target).offset().top - 70
+                    },
+                    500,
+                    'linear'
+                );
+            }
+        }
+        // Si no es un anclaje interno, permitir el comportamiento predeterminado
     });
 
     // Agregar clase activa a la página actual en la navegación

@@ -14,8 +14,15 @@ if (!isset($_SESSION['usuario_id'])) {
 $usuarioModel = new Usuario();
 $usuario = $usuarioModel->obtenerPorId($_SESSION['usuario_id']);
 
+// Verificar si se pudo obtener el usuario
+if (!$usuario) {
+    session_destroy();
+    header('Location: login.php');
+    exit;
+}
+
 // Verificar si el usuario es premium
-if (!$usuario || $usuario['es_premium'] != 1) {
+if (!isset($usuario['es_premium']) || $usuario['es_premium'] != 1) {
     header('Location: no-premium.php');
     exit;
 }

@@ -81,7 +81,7 @@ if (session_status() === PHP_SESSION_NONE) {
                         <a href="recetas-categoria.php">Recetas</a>
                     </li>
                     <li class="<?php echo in_array(basename($_SERVER['PHP_SELF']), ['dieta-semana-por-dias.php', 'primera-vez.php', 'no-premium.php']) ? 'active' : ''; ?>">
-                        <a href="dieta-semana-por-dias.php">Dieta</a>
+                        <a href="dieta-semana-por-dias.php" class="dieta-link">Dieta</a>
                     </li>
                     <li class="<?php echo basename($_SERVER['PHP_SELF']) == 'trucos.php' ? 'active' : ''; ?>">
                         <a href="trucos.php">Trucos</a>
