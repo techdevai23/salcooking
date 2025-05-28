@@ -287,15 +287,6 @@ $css_extra .= '<link rel="stylesheet" href="styles/resultado-recetas.css?v=' . f
                                             </div>
                                         </div>
                                     </div>
-                                <?php else: ?>
-                                    <div class="recipiente-card side-card hidden" data-position="right-1">
-                                        <a href="#" class="btn-view-recipiente">Ver receta
-                                        <img src="" alt=""></a>
-                                        <div class="recipiente-info">
-                                            <h4></h4>
-                                            <div class="recipiente-tags"></div>
-                                        </div>
-                                    </div>
                                 <?php endif; ?>
 
                                 <!-- Posición derecha 2 (tercera receta) -->
@@ -330,15 +321,6 @@ $css_extra .= '<link rel="stylesheet" href="styles/resultado-recetas.css?v=' . f
                                                 }
                                                 ?>
                                             </div>
-                                        </div>
-                                    </div>
-                                <?php else: ?>
-                                    <div class="recipiente-card side-card hidden" data-position="right-2">
-                                        <a href="#" class="btn-view-recipiente">Ver receta
-                                        <img src="" alt=""></a>
-                                        <div class="recipiente-info">
-                                            <h4></h4>
-                                            <div class="recipiente-tags"></div>
                                         </div>
                                     </div>
                                 <?php endif; ?>
