@@ -1,0 +1,128 @@
+<?php
+require_once __DIR__ . '/../controllers/conexion.php';
+require_once __DIR__ . '/receta.php';
+
+class Dieta
+{
+    // Obtiene los IDs de alergias del usuario
+    public static function getAlergiasUsuario($id_usuario) {
+        global $conexion;
+        $sql = "SELECT id_alergia FROM usuario_alergia WHERE id_usuario = $id_usuario";
+        $res = $conexion->query($sql);
+        $alergias = [];
+        while ($row = $res->fetch_assoc()) {
+            $alergias[] = $row['id_alergia'];
+        }
+        return $alergias;
+    }
+
+    // Obtiene los IDs de enfermedades del usuario
+    public static function getEnfermedadesUsuario($id_usuario) {
+        global $conexion;
+        $sql = "SELECT id_enfermedad FROM usuario_enfermedad WHERE id_usuario = $id_usuario";
+        $res = $conexion->query($sql);
+        $enfermedades = [];
+        while ($row = $res->fetch_assoc()) {
+            $enfermedades[] = $row['id_enfermedad'];
+        }
+        return $enfermedades;
+    }
+
+    // Obtiene recetas aptas para el usuario (sin alergias ni enfermedades prohibidas)
+    public static function getRecetasAptas($alergias, $enfermedades) {
+        global $conexion;
+        $condiciones = [];
+
+        if (!empty($alergias)) {
+            $alergiasStr = implode(',', array_map('intval', $alergias));
+            $condiciones[] = "r.id NOT IN (SELECT id_receta FROM receta_alergia WHERE id_alergia IN ($alergiasStr))";
+        }
+        if (!empty($enfermedades)) {
+            $enfermedadesStr = implode(',', array_map('intval', $enfermedades));
+            $condiciones[] = "r.id NOT IN (SELECT id_receta FROM receta_enfermedad WHERE id_enfermedad IN ($enfermedadesStr) AND apta = 0)";
+        }
+
+        $where = count($condiciones) ? "WHERE " . implode(' AND ', $condiciones) : "";
+        $sql = "SELECT r.id, r.nombre, r.tipo_plato, r.imagen FROM recetas r $where";
+        $res = $conexion->query($sql);
+
+        $recetas = [];
+        while ($row = $res->fetch_assoc()) {
+            $recetas[] = $row;
+        }
+        return $recetas;
+    }
+
+    // Genera el plan semanal aleatorio, sin repeticiones salvo necesidad
+    public static function generarPlanSemanal($recetasAptas) {
+        $tiposPlato = ['Desayuno', 'Entrante', 'Principal', 'Postre', 'Cena'];
+        $diasSemana = ['Lunes','Martes','Miércoles','Jueves','Viernes','Sábado','Domingo'];
+
+        // Agrupar recetas por tipo
+        $recetasPorTipo = [];
+        foreach ($tiposPlato as $tipo) {
+            $recetasPorTipo[$tipo] = array_filter($recetasAptas, fn($receta) => $receta['tipo_plato'] === $tipo);
+        }
+
+        $plan = [];
+        $usadas = [];
+
+        foreach ($diasSemana as $dia) {
+            foreach ($tiposPlato as $tipo) {
+                // Recetas no usadas aún para ese tipo
+                $disponibles = array_filter($recetasPorTipo[$tipo], fn($receta) => !in_array($receta['id'], $usadas));
+                if (empty($disponibles)) {
+                    // Si no hay más, permitimos repetición
+                    $disponibles = $recetasPorTipo[$tipo];
+                }
+                if (!empty($disponibles)) {
+                    $receta = $disponibles[array_rand($disponibles)];
+                    $plan[$dia][$tipo] = $receta;
+                    $usadas[] = $receta['id'];
+                } else {
+                    $plan[$dia][$tipo] = null;
+                }
+            }
+        }
+        return $plan;
+    }
+
+    // Guarda la dieta y las recetas asignadas
+    public static function crearYGuardarDieta($id_usuario, $plan) {
+        global $conexion;
+        // Crear dieta
+        $sql = "INSERT INTO dietas (id_usuario, nombre_dieta, tipo, fecha_creacion) VALUES ($id_usuario, 'Dieta personalizada', 'Semanal', NOW())";
+        $conexion->query($sql);
+        $id_dieta = $conexion->insert_id;
+
+        // Guardar recetas asignadas
+        foreach ($plan as $dia => $tipos) {
+            foreach ($tipos as $tipo => $receta) {
+                if ($receta !== null) {
+                    $id_receta = $receta['id'];
+                    $sql = "INSERT INTO dieta_receta (id_dieta, id_receta, comida, dia_semana) VALUES ($id_dieta, $id_receta, '$tipo', '$dia')";
+                    $conexion->query($sql);
+                }
+            }
+        }
+        return $id_dieta;
+    }
+
+    // Recupera el plan de una dieta para mostrarlo (con nombre, imagen, etc)
+    public static function getPlanDieta($id_dieta) {
+        global $conexion;
+        $sql = "SELECT dr.comida, dr.dia_semana, r.nombre, r.imagen
+                FROM dieta_receta dr
+                JOIN recetas r ON dr.id_receta = r.id
+                WHERE dr.id_dieta = $id_dieta";
+        $res = $conexion->query($sql);
+        $plan = [];
+        while ($row = $res->fetch_assoc()) {
+            $plan[$row['dia_semana']][$row['comida']] = [
+                'nombre' => $row['nombre'],
+                'imagen' => $row['imagen']
+            ];
+        }
+        return $plan;
+    }
+}
