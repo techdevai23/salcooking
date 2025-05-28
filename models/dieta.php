@@ -9,13 +9,37 @@ class Dieta
         global $conexion;
         $id_usuario = intval($id_usuario);
         
+        // Primero verificamos si el usuario tiene un perfil
+        $sql_check = "SELECT id_perfil FROM perfiles WHERE id_usuario = ?";
+        $stmt_check = $conexion->prepare($sql_check);
+        if (!$stmt_check) {
+            error_log("Error en la preparación de la consulta de verificación: " . $conexion->error);
+            return null;
+        }
+        
+        $stmt_check->bind_param("i", $id_usuario);
+        $stmt_check->execute();
+        $resultado_check = $stmt_check->get_result();
+        
+        if ($resultado_check->num_rows === 0) {
+            error_log("El usuario $id_usuario no tiene un perfil");
+            return null;
+        }
+        
+        // Si tiene perfil, buscamos su última dieta
         $sql = "SELECT d.id_dieta, d.fecha_creacion 
                 FROM dietas d 
-                WHERE d.id_usuario = ? 
+                JOIN perfiles p ON d.id_perfil = p.id_perfil
+                WHERE p.id_usuario = ? 
                 ORDER BY d.fecha_creacion DESC 
                 LIMIT 1";
                 
         $stmt = $conexion->prepare($sql);
+        if (!$stmt) {
+            error_log("Error en la preparación de la consulta de dieta: " . $conexion->error);
+            return null;
+        }
+        
         $stmt->bind_param("i", $id_usuario);
         $stmt->execute();
         $resultado = $stmt->get_result();
@@ -25,6 +49,11 @@ class Dieta
         }
         
         return $resultado->fetch_assoc();
+    }
+
+    // Alias para compatibilidad con el código existente
+    public static function obtenerDietaUsuario($id_usuario) {
+        return self::getUltimaDietaUsuario($id_usuario);
     }
 
     // Obtiene los IDs de alergias del usuario

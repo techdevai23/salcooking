@@ -1,18 +1,17 @@
-
 <?php
 session_start();
 require_once __DIR__ . '/models/usuario.php';
 require_once __DIR__ . '/models/dieta.php';
 
 // Verificar si el usuario está logueado
-if (!isset($_SESSION['usuario_id'])) {
+if (!isset($_SESSION['id_usuario'])) {
     $_SESSION['redirect_after_login'] = 'dieta-semana-por-dias.php';
     header('Location: login.php');
     exit;
 }
 
 $usuarioModel = new Usuario();
-$usuario = $usuarioModel->obtenerPorId($_SESSION['usuario_id']);
+$usuario = $usuarioModel->obtenerPorId($_SESSION['id_usuario']);
 
 // Verificar si se pudo obtener el usuario
 if (!$usuario) {
@@ -28,13 +27,16 @@ if (!isset($usuario['es_premium']) || $usuario['es_premium'] != 1) {
 }
 
 // Obtener la última dieta del usuario
-$dieta = Dieta::getUltimaDietaUsuario($_SESSION['usuario_id']);
+$dieta = Dieta::getUltimaDietaUsuario($_SESSION['id_usuario']);
 
 // Si no tiene dieta, redirigir a la página para generar una
 if (!$dieta) {
     header('Location: primera-vez.php');
     exit;
 }
+
+// Obtener el plan de dieta
+$planDieta = Dieta::getPlanDieta($dieta['id_dieta']);
 
 // Cargar los estilos CSS
 $css_extra = '';

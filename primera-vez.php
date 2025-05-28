@@ -2,7 +2,7 @@
 session_start();
 
 // Verificar si el usuario está logueado
-if (!isset($_SESSION['usuario_id'])) {
+if (!isset($_SESSION['id_usuario'])) {
     $_SESSION['redirect_after_login'] = 'primera-vez.php';
     header('Location: login.php');
     exit;
@@ -10,23 +10,37 @@ if (!isset($_SESSION['usuario_id'])) {
 
 $titulo_pagina = 'Generar tu Primera Dieta';
 $css_extra = '';
+$css_extra .= '<link rel="stylesheet" href="styles/primera-vez.css?v=' . filemtime('styles/primera-vez.css') . '">';
 include 'header.php'; 
 ?>
 
-<div class="container my-5">
-    <div class="row justify-content-center">
-        <div class="col-lg-8">
-            <div class="card border-0 shadow-lg">
-                <div class="card-header bg-primary text-white">
+<!-- migas -->
+<div class="migas-container">
+    <div class="container">
+        <ul class="migas">
+            <li><a href="index.php">Inicio</a></li>
+            <li class="current">Mi Primera Dieta</li>
+        </ul>
+    </div>
+</div>
+
+<!-- Main Content -->
+<section class="primera-vez">
+    <div class="container-primera-vez">
+        <div class="contenido-primera-vez">
+            <div class="tarjeta-primera-vez">
+                <div class="card-header">
                     <div class="d-flex align-items-center">
                         <i class="fas fa-utensils fa-2x me-3"></i>
                         <div>
-                            <h2 class="h4 mb-0">¡Bienvenido a tu Planificador de Dieta!</h2>
+                            <h1 class="h3 mb-0">¡Bienvenido a tu Planificador de Dieta!</h1>
                             <p class="mb-0">Genera tu primera dieta personalizada</p>
                         </div>
                     </div>
                 </div>
+                <div class="card-body">
                 <div class="card-body p-4">
+                <div class="container">
                     <div class="text-center mb-4">
                         <img src="sources/iconos/chef-hat.svg" alt="Chef" class="img-fluid mb-3" style="max-height: 120px;">
                         <h3 class="h4">¿Listo para comenzar?</h3>
@@ -88,11 +102,14 @@ include 'header.php';
                             <i class="fas fa-user-edit me-2"></i> Ver mi perfil
                         </a>
                     </div>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
+</section>
+
+<?php include('footer.php'); ?>
 
 <!-- Loading Overlay -->
 <div id="loadingOverlay" class="position-fixed top-0 start-0 w-100 h-100 bg-white d-flex justify-content-center align-items-center" style="display: none; z-index: 1050; background-color: rgba(255,255,255,0.9);">
@@ -114,19 +131,19 @@ document.getElementById('generarDietaBtn').addEventListener('click', function() 
     fetch('generar-dieta.php', {
         method: 'POST',
         headers: {
-            'Content-Type': 'application/x-www-form-urlencoded',
+            'Content-Type': 'application/json',
+            'Accept': 'application/json'
         },
         credentials: 'same-origin'
     })
     .then(response => {
-        if (response.redirected) {
-            window.location.href = response.url;
-        } else {
-            return response.json();
+        if (!response.ok) {
+            return response.json().then(err => { throw err; });
         }
+        return response.json();
     })
     .then(data => {
-        if (data && data.redirect) {
+        if (data.redirect) {
             window.location.href = data.redirect;
         } else {
             throw new Error('Respuesta inesperada del servidor');
@@ -135,7 +152,14 @@ document.getElementById('generarDietaBtn').addEventListener('click', function() 
     .catch(error => {
         console.error('Error:', error);
         overlay.style.display = 'none';
-        alert('Ocurrió un error al generar la dieta. Por favor, inténtalo de nuevo.');
+        
+        // Mostrar mensaje de error al usuario
+        Swal.fire({
+            icon: 'error',
+            title: 'Error',
+            text: error.message || 'Ocurrió un error al generar la dieta. Por favor, inténtalo de nuevo.',
+            confirmButtonText: 'Aceptar'
+        });
     });
 });
 </script>

@@ -95,7 +95,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['login_submit'])) {
                     }
 
                     // Redirigir a la página de inicio o perfil
-                    header("Location: perfil-logueado.php");
+                    if (isset($_SESSION['redirect_after_login'])) {
+                        $redirect = $_SESSION['redirect_after_login'];
+                        unset($_SESSION['redirect_after_login']);
+                        header("Location: " . $redirect);
+                    } else {
+                        header("Location: perfil-logueado.php");
+                    }
                     exit();
                 } else {
                     echo "Hash en BD: " . $usuario_db['contrasena_hash'] . "<br>";

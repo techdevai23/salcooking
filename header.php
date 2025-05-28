@@ -24,7 +24,7 @@ if (session_status() === PHP_SESSION_NONE) {
 
     <!-- Seguridad: Prevención XSS, Clickjacking, MIME sniffing -->
     <meta http-equiv="X-Content-Type-Options" content="nosniff">
-    <meta http-equiv="X-Frame-Options" content="SAMEORIGIN">
+    
     <meta http-equiv="X-XSS-Protection" content="1; mode=block">
     <meta http-equiv="Cross-Origin-Opener-Policy" content="same-origin">
     <meta http-equiv="Cross-Origin-Embedder-Policy" content="require-corp">
@@ -81,7 +81,7 @@ if (session_status() === PHP_SESSION_NONE) {
                         <a href="recetas-categoria.php">Recetas</a>
                     </li>
                     <li class="<?php echo in_array(basename($_SERVER['PHP_SELF']), ['dieta-semana-por-dias.php', 'primera-vez.php', 'no-premium.php']) ? 'active' : ''; ?>">
-                        <a href="dieta-semana-por-dias.php" class="dieta-link">Dieta</a>
+                        <a href="<?php echo isset($_SESSION['id_usuario']) ? 'dieta-semana-por-dias.php' : 'login.php'; ?>">Dieta</a>
                     </li>
                     <li class="<?php echo basename($_SERVER['PHP_SELF']) == 'trucos.php' ? 'active' : ''; ?>">
                         <a href="trucos.php">Trucos</a>
@@ -169,7 +169,7 @@ if (session_status() === PHP_SESSION_NONE) {
                 <a href="recetas-categoria.php">Recetas</a>
             </li>
             <li class="<?php echo in_array(basename($_SERVER['PHP_SELF']), ['dieta-semana-por-dias.php', 'primera-vez.php', 'no-premium.php']) ? 'active' : ''; ?>">
-                <a href="dieta-semana-por-dias.php">Dieta</a>
+                <a href="<?php echo isset($_SESSION['id_usuario']) ? 'dieta-semana-por-dias.php' : 'login.php'; ?>">Dieta</a>
             </li>
             <li class="<?php echo basename($_SERVER['PHP_SELF']) == 'trucos.php' ? 'active' : ''; ?>">
                 <a href="trucos.php">Trucos</a>
