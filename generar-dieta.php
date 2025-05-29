@@ -4,7 +4,7 @@ require_once __DIR__ . '/models/usuario.php';
 require_once __DIR__ . '/models/dieta.php';
 
 // Verificar si el usuario está logueado
-if (!isset($_SESSION['usuario_id'])) {
+if (!isset($_SESSION['id_usuario'])) {
     header('Content-Type: application/json');
     http_response_code(401);
     echo json_encode(['error' => 'No autorizado. Por favor, inicia sesión.']);
@@ -12,7 +12,7 @@ if (!isset($_SESSION['usuario_id'])) {
 }
 
 $usuarioModel = new Usuario();
-$usuario = $usuarioModel->obtenerPorId($_SESSION['usuario_id']);
+$usuario = $usuarioModel->obtenerPorId($_SESSION['id_usuario']);
 
 // Verificar si el usuario es premium
 if (!$usuario) {
@@ -31,7 +31,7 @@ if ($usuario['es_premium'] != 1) {
 
 try {
     // Verificar si ya existe una dieta generada
-    $dietaExistente = Dieta::getUltimaDietaUsuario($_SESSION['usuario_id']);
+    $dietaExistente = Dieta::getUltimaDietaUsuario($_SESSION['id_usuario']);
     
     if ($dietaExistente) {
         // Si ya existe una dieta, redirigir directamente
@@ -41,8 +41,8 @@ try {
     }
     
     // Obtener alergias y enfermedades del usuario
-    $alergias = Dieta::getAlergiasUsuario($_SESSION['usuario_id']);
-    $enfermedades = Dieta::getEnfermedadesUsuario($_SESSION['usuario_id']);
+    $alergias = Dieta::getAlergiasUsuario($_SESSION['id_usuario']);
+    $enfermedades = Dieta::getEnfermedadesUsuario($_SESSION['id_usuario']);
     
     // Obtener recetas aptas
     $recetasAptas = Dieta::getRecetasAptas($alergias, $enfermedades);
@@ -59,7 +59,7 @@ try {
     }
     
     // Guardar la dieta
-    $idDieta = Dieta::crearYGuardarDieta($_SESSION['usuario_id'], $planSemanal);
+    $idDieta = Dieta::crearYGuardarDieta($_SESSION['id_usuario'], $planSemanal);
     
     if (!$idDieta) {
         throw new Exception('Error al guardar la dieta. Por favor, inténtalo de nuevo.');

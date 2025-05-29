@@ -96,7 +96,7 @@ if (session_status() === PHP_SESSION_NONE) {
                         <a href="contacto.php">Contáctanos</a>
                     </li>
                     <li class="<?php echo basename($_SERVER['PHP_SELF']) == 'perfil-logueado.php' ? 'active' : ''; ?>">
-                        <a href="<?php echo isset($_SESSION['usuario_id']) ? 'perfil-logueado.php' : 'login.php'; ?>">
+                        <a href="<?php echo isset($_SESSION['id_usuario']) ? 'perfil-logueado.php' : 'login.php'; ?>">
                             Perfil-Ajustes
                         </a>
                     </li>
@@ -114,7 +114,7 @@ if (session_status() === PHP_SESSION_NONE) {
                     <div class="search-box">
                         <form action="index.php" method="get">
                              <input type="hidden" name="page" value="buscar">
-                            <input type="text" placeholder="Busca recetas" name="q">
+                            <input type="text" placeholder="Busca en el titulo de las recetas" name="q">
                             <button type="submit">
                                 <img src="sources/iconos/Search-Circle--Streamline-Ultimate.svg" width="28px" alt="búsqueda Icon"></button>
                         </form>
@@ -184,8 +184,8 @@ if (session_status() === PHP_SESSION_NONE) {
                 <a href="contacto.php">Contáctanos</a>
             </li>
             <li class="<?php echo basename($_SERVER['PHP_SELF']) == 'perfil-logueado.php' ? 'active' : ''; ?>">
-                <a href="<?php echo isset($_SESSION['usuario_id']) ? 'perfil-logueado.php' : 'login.php'; ?>">
-                    <?php echo isset($_SESSION['usuario_id']) ? 'Mi Perfil' : 'Iniciar Sesión'; ?>
+                <a href="<?php echo isset($_SESSION['id_usuario']) ? 'perfil-logueado.php' : 'login.php'; ?>">
+                    <?php echo isset($_SESSION['id_usuario']) ? 'Mi Perfil' : 'Iniciar Sesión'; ?>
                 </a>
             </li>
         </ul>

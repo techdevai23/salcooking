@@ -8,46 +8,18 @@ class Dieta
     public static function getUltimaDietaUsuario($id_usuario) {
         global $conexion;
         $id_usuario = intval($id_usuario);
-        
-        // Primero verificamos si el usuario tiene un perfil
-        $sql_check = "SELECT id_perfil FROM perfiles WHERE id_usuario = ?";
-        $stmt_check = $conexion->prepare($sql_check);
-        if (!$stmt_check) {
-            error_log("Error en la preparación de la consulta de verificación: " . $conexion->error);
-            return null;
-        }
-        
-        $stmt_check->bind_param("i", $id_usuario);
-        $stmt_check->execute();
-        $resultado_check = $stmt_check->get_result();
-        
-        if ($resultado_check->num_rows === 0) {
-            error_log("El usuario $id_usuario no tiene un perfil");
-            return null;
-        }
-        
-        // Si tiene perfil, buscamos su última dieta
-        $sql = "SELECT d.id_dieta, d.fecha_creacion 
-                FROM dietas d 
-                JOIN perfiles p ON d.id_perfil = p.id_perfil
-                WHERE p.id_usuario = ? 
-                ORDER BY d.fecha_creacion DESC 
-                LIMIT 1";
-                
+        $sql = "SELECT id_dieta, fecha_creacion FROM dietas WHERE id_usuario = ? ORDER BY fecha_creacion DESC LIMIT 1";
         $stmt = $conexion->prepare($sql);
         if (!$stmt) {
             error_log("Error en la preparación de la consulta de dieta: " . $conexion->error);
             return null;
         }
-        
         $stmt->bind_param("i", $id_usuario);
         $stmt->execute();
         $resultado = $stmt->get_result();
-        
         if ($resultado->num_rows === 0) {
             return null;
         }
-        
         return $resultado->fetch_assoc();
     }
 
@@ -97,7 +69,10 @@ class Dieta
         $where = count($condiciones) ? "WHERE " . implode(' AND ', $condiciones) : "";
         $sql = "SELECT r.id, r.nombre, r.tipo_plato, r.imagen FROM recetas r $where";
         $res = $conexion->query($sql);
-
+        if ($res === false) {
+            error_log("Error en la consulta getRecetasAptas: " . $conexion->error . " | SQL: $sql");
+            return [];
+        }
         $recetas = [];
         while ($row = $res->fetch_assoc()) {
             $recetas[] = $row;
