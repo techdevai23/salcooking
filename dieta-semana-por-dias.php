@@ -32,6 +32,12 @@ if ($es_premium) {
             $alergias = Dieta::getAlergiasUsuario($_SESSION['id_usuario']);
             $enfermedades = Dieta::getEnfermedadesUsuario($_SESSION['id_usuario']);
             $recetasAptas = Dieta::getRecetasAptas($alergias, $enfermedades);
+
+            // // debug**************
+            // echo '<pre>';
+            // var_dump($alergias, $enfermedades, $recetasAptas);
+            // echo '</pre>';
+
             if (empty($recetasAptas)) {
                 throw new Exception('No hay suficientes recetas disponibles para generar una dieta con tus preferencias actuales.');
             }
@@ -50,9 +56,10 @@ if ($es_premium) {
     }
     if (isset($dieta['id_dieta'])) {
         $planDieta = Dieta::getPlanDieta($dieta['id_dieta']);
-        echo '<pre>';
-        var_dump($dieta, $planDieta);
-        echo '</pre>';
+        // // debug**************
+        // echo '<pre>';
+        // var_dump($dieta, $planDieta);
+        // echo '</pre>';
     }
 }
 

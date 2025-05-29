@@ -67,7 +67,13 @@ class Dieta
         }
 
         $where = count($condiciones) ? "WHERE " . implode(' AND ', $condiciones) : "";
-        $sql = "SELECT r.id, r.nombre, r.tipo_plato, r.imagen FROM recetas r $where";
+        $sql = "SELECT r.id, r.nombre, r.tipo_plato FROM recetas r $where";
+
+        // // debug**************
+        // echo '<pre>';
+        // var_dump($sql);
+        // echo '</pre>';
+
         $res = $conexion->query($sql);
         if ($res === false) {
             error_log("Error en la consulta getRecetasAptas: " . $conexion->error . " | SQL: $sql");
@@ -76,6 +82,9 @@ class Dieta
         $recetas = [];
         while ($row = $res->fetch_assoc()) {
             $recetas[] = $row;
+        }
+        foreach ($recetas as $receta) {
+            echo $receta['id'] . ' - ' . $receta['nombre'] . ' - ' . $receta['tipo_plato'] . '<br>';
         }
         return $recetas;
     }
@@ -87,8 +96,19 @@ class Dieta
 
         // Agrupar recetas por tipo
         $recetasPorTipo = [];
+        $tiposFaltantes = [];
         foreach ($tiposPlato as $tipo) {
-            $recetasPorTipo[$tipo] = array_filter($recetasAptas, fn($receta) => $receta['tipo_plato'] === $tipo);
+            $recetasPorTipo[$tipo] = array_filter($recetasAptas, fn($receta) => trim($receta['tipo_plato']) === $tipo);
+            if (count($recetasPorTipo[$tipo]) === 0) {
+                $tiposFaltantes[] = $tipo;
+            }
+        }
+
+        if (!empty($tiposFaltantes)) {
+            $mensaje = "No hay recetas aptas para los siguientes tipos de plato: " . implode(', ', $tiposFaltantes);
+            error_log($mensaje);
+            // También puedes lanzar una excepción para mostrarlo en la web:
+            throw new Exception($mensaje);
         }
 
         $plan = [];
@@ -111,6 +131,13 @@ class Dieta
                 }
             }
         }
+        // // debug**************
+        // echo '<pre>';
+        // var_dump($plan);
+        // var_dump($recetasAptas);
+        // echo '</pre>';
+
+
         return $plan;
     }
 
@@ -138,7 +165,7 @@ class Dieta
     // Recupera el plan de una dieta para mostrarlo (con nombre, imagen, etc)
     public static function getPlanDieta($id_dieta) {
         global $conexion;
-        $sql = "SELECT dr.comida, dr.dia_semana, r.nombre, r.imagen
+        $sql = "SELECT dr.comida, dr.dia_semana, r.id, r.nombre
                 FROM dieta_receta dr
                 JOIN recetas r ON dr.id_receta = r.id
                 WHERE dr.id_dieta = $id_dieta";
@@ -146,8 +173,8 @@ class Dieta
         $plan = [];
         while ($row = $res->fetch_assoc()) {
             $plan[$row['dia_semana']][$row['comida']] = [
-                'nombre' => $row['nombre'],
-                'imagen' => $row['imagen']
+                'id' => $row['id'],
+                'nombre' => $row['nombre']
             ];
         }
         return $plan;
