@@ -75,9 +75,37 @@ if (isset($_GET['id_dieta'])) {
         // Consulta SQL para obtener ingredientes
         $sql_ingredientes = "SELECT 
                                 i.nombre as nombre_ingrediente,
-                                SUM(COALESCE(ri.cantidad, 0)) as cantidad_total,
-                                GROUP_CONCAT(DISTINCT ri.fraccion) as fracciones,
-                                GROUP_CONCAT(DISTINCT u.nombre) as unidades
+                                SUM(
+                                    CASE 
+                                        WHEN ri.cantidad IS NOT NULL THEN 
+                                            CASE 
+                                                -- Unidades de líquido (ml)
+                                                WHEN u.nombre IN ('ml.', 'l.', 'Centímetro cúbico', 'Decilitro', 'Centilitro', 'Taza', 'Media taza', 'Tres cuartos de taza', 'Cuarto de taza', 'Cucharada/s', 'Cucharadita/s', 'Media cucharada', 'Gota') 
+                                                THEN ri.cantidad * COALESCE(u.conversion_base, 1)
+                                                -- Unidades de sólido (gr)
+                                                WHEN u.nombre IN ('grs.', 'kg.', 'Miligramo', 'Pizca') 
+                                                THEN ri.cantidad * COALESCE(u.conversion_base, 1)
+                                                -- Unidades de conteo
+                                                WHEN u.nombre IN ('Unidad/es', 'Docena/s', 'Media docena', 'diente/s') 
+                                                THEN ri.cantidad
+                                                ELSE ri.cantidad
+                                            END
+                                        ELSE 0 
+                                    END
+                                ) as cantidad_total,
+                                CASE 
+                                    -- Unidades de líquido
+                                    WHEN u.nombre IN ('ml.', 'l.', 'Centímetro cúbico', 'Decilitro', 'Centilitro', 'Taza', 'Media taza', 'Tres cuartos de taza', 'Cuarto de taza', 'Cucharada/s', 'Cucharadita/s', 'Media cucharada', 'Gota') 
+                                    THEN 'ml'
+                                    -- Unidades de sólido
+                                    WHEN u.nombre IN ('grs.', 'kg.', 'Miligramo', 'Pizca') 
+                                    THEN 'gr'
+                                    -- Unidades de conteo
+                                    WHEN u.nombre IN ('Unidad/es', 'Docena/s', 'Media docena', 'diente/s') 
+                                    THEN u.nombre
+                                    -- Para cualquier otra unidad, tomamos la primera que encontremos
+                                    ELSE MIN(u.nombre)
+                                END as unidad_final
                             FROM receta_ingrediente ri
                             JOIN ingredientes i ON ri.id_ingrediente = i.id
                             LEFT JOIN unidades u ON ri.id_unidad = u.id
@@ -85,9 +113,10 @@ if (isset($_GET['id_dieta'])) {
                             GROUP BY i.id, i.nombre
                             ORDER BY i.nombre";
 
-        // Debug: Mostrar la consulta SQL
+        // Debug: Mostrar la consulta SQL y los IDs
         echo "Consulta SQL: " . $sql_ingredientes . "<br>";
         echo "IDs de recetas en la consulta: " . implode(', ', $ids_recetas_plan) . "<br>";
+        echo "Número de placeholders: " . count($ids_recetas_plan) . "<br>";
 
         $stmt_ingredientes = $conexion->prepare($sql_ingredientes);
         if ($stmt_ingredientes) {
@@ -96,31 +125,16 @@ if (isset($_GET['id_dieta'])) {
             if ($stmt_ingredientes->execute()) {
                 $resultado_ingredientes = $stmt_ingredientes->get_result();
                 while ($fila = $resultado_ingredientes->fetch_assoc()) {
-                    // Procesar las fracciones y unidades
-                    $fracciones = array_filter(explode(',', $fila['fracciones']));
-                    $unidades = array_filter(explode(',', $fila['unidades']));
-                    
-                    // Construir la unidad final
-                    $unidad_final = '';
-                    if (!empty($fracciones)) {
-                        $unidad_final .= implode('/', array_unique($fracciones));
-                    }
-                    if (!empty($unidades)) {
-                        if (!empty($unidad_final)) $unidad_final .= ' ';
-                        $unidad_final .= implode('/', array_unique($unidades));
-                    }
-                    
                     $ingredientes_compra[] = [
                         'nombre_ingrediente' => $fila['nombre_ingrediente'],
                         'cantidad_total' => $fila['cantidad_total'],
-                        'abreviatura_unidad' => $unidad_final
+                        'abreviatura_unidad' => $fila['unidad_final']
                     ];
                     
                     // Debug: Mostrar cada ingrediente encontrado
                     echo "Ingrediente encontrado: " . $fila['nombre_ingrediente'] . 
                          " - Cantidad: " . $fila['cantidad_total'] . 
-                         " - Fracciones: " . $fila['fracciones'] . 
-                         " - Unidades: " . $fila['unidades'] . "<br>";
+                         " - Unidad: " . $fila['unidad_final'] . "<br>";
                 }
                 // Mostrar el número de ingredientes encontrados después de obtenerlos
                 echo "Número de ingredientes encontrados: " . count($ingredientes_compra) . "<br>";
