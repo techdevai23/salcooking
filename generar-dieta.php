@@ -30,15 +30,15 @@ if ($usuario['es_premium'] != 1) {
 }
 
 try {
-    // Verificar si ya existe una dieta generada
-    $dietaExistente = Dieta::getUltimaDietaUsuario($_SESSION['id_usuario']);
+    // // Verificar si ya existe una dieta generada
+    // $dietaExistente = Dieta::getUltimaDietaUsuario($_SESSION['id_usuario']);
     
-    if ($dietaExistente) {
-        // Si ya existe una dieta, redirigir directamente
-        header('Content-Type: application/json');
-        echo json_encode(['redirect' => 'dieta-semana-por-dias.php']);
-        exit;
-    }
+    // if ($dietaExistente) {
+    //     // Si ya existe una dieta, redirigir directamente
+    //     header('Content-Type: application/json');
+    //     echo json_encode(['redirect' => 'dieta-semana-por-dias.php']);
+    //     exit;
+    // }
     
     // Obtener alergias y enfermedades del usuario
     $alergias = Dieta::getAlergiasUsuario($_SESSION['id_usuario']);
