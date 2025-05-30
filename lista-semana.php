@@ -13,62 +13,145 @@ $id_plan_semanal = null; // Aquí deberías obtener el ID del plan semanal (ej. 
 // Esto es un EJEMPLO de cómo podrías obtener los IDs de las recetas.
 // Necesitarás adaptar esto a cómo pases la información del plan semanal.
 // Por ejemplo, si pasas el ID del plan por GET:
-if (isset($_GET['plan_id'])) {
-    $id_plan_semanal = intval($_GET['plan_id']);
+if (isset($_GET['id_dieta'])) {
+    $id_plan_semanal = intval($_GET['id_dieta']);
+
+    // Código de depuración inicial
+    echo "<div style='background: #f0f0f0; padding: 10px; margin: 10px;'>";
+    echo "<h3>Depuración:</h3>";
+    
+    // Verificar si existe la dieta
+    $sql_check = "SELECT * FROM dietas WHERE id_dieta = ?";
+    $stmt_check = $conexion->prepare($sql_check);
+    $stmt_check->bind_param("i", $id_plan_semanal);
+    $stmt_check->execute();
+    $result_check = $stmt_check->get_result();
+    if ($dieta = $result_check->fetch_assoc()) {
+        echo "Dieta encontrada: " . htmlspecialchars($dieta['nombre_dieta']) . "<br>";
+    } else {
+        echo "No se encontró la dieta con ID " . $id_plan_semanal . "<br>";
+    }
+    $stmt_check->close();
+
+    // Verificar recetas asociadas
+    $sql_recetas = "SELECT COUNT(*) as total FROM dieta_receta WHERE id_dieta = ?";
+    $stmt_recetas = $conexion->prepare($sql_recetas);
+    $stmt_recetas->bind_param("i", $id_plan_semanal);
+    $stmt_recetas->execute();
+    $result_recetas = $stmt_recetas->get_result();
+    if ($count = $result_recetas->fetch_assoc()) {
+        echo "Número de recetas asociadas: " . $count['total'] . "<br>";
+    }
+    $stmt_recetas->close();
 
     // Consulta para obtener todas las recetas de un plan semanal específico
-    // ASUNCIÓN: Tienes una tabla 'plan_recetas' o similar que relaciona planes y recetas.
-    // Esta consulta es un placeholder, adáptala a tu esquema.
-    $sql_recetas_plan = "SELECT DISTINCT r.id_receta FROM recetas r 
-                         JOIN plan_semanal_recetas psr ON r.id_receta = psr.id_receta 
-                         WHERE psr.id_plan_semanal = ?"; // Asume una tabla plan_semanal_recetas
-    
-    // Si no tienes una tabla intermedia y pasas los IDs de receta directamente (ej: ?recetas_ids=1,2,3)
-    // $recetas_ids_str = isset($_GET['recetas_ids']) ? $_GET['recetas_ids'] : '';
-    // $recetas_ids_array = !empty($recetas_ids_str) ? explode(',', $recetas_ids_str) : [];
-    // $placeholders = implode(',', array_fill(0, count($recetas_ids_array), '?'));
-    // $sql_recetas_plan = "SELECT id_receta FROM recetas WHERE id_receta IN ($placeholders)";
-    // $stmt_recetas = $conexion->prepare($sql_recetas_plan);
-    // if ($stmt_recetas && count($recetas_ids_array) > 0) {
-    //    $types = str_repeat('i', count($recetas_ids_array));
-    //    $stmt_recetas->bind_param($types, ...$recetas_ids_array);
+    $sql_recetas_plan = "SELECT DISTINCT r.id 
+                         FROM recetas r 
+                         JOIN dieta_receta dr ON r.id = dr.id_receta 
+                         WHERE dr.id_dieta = ?";
 
-
+    $ids_recetas_plan = []; // Inicializamos el array fuera del if
     $stmt_recetas = $conexion->prepare($sql_recetas_plan);
-    if ($stmt_recetas && $id_plan_semanal) {
+    if ($stmt_recetas) {
         $stmt_recetas->bind_param("i", $id_plan_semanal);
-        $stmt_recetas->execute();
-        $resultado_recetas = $stmt_recetas->get_result();
-        $ids_recetas_plan = [];
-        while ($fila_receta = $resultado_recetas->fetch_assoc()) {
-            $ids_recetas_plan[] = $fila_receta['id_receta'];
+        if ($stmt_recetas->execute()) {
+            $resultado_recetas = $stmt_recetas->get_result();
+            while ($fila_receta = $resultado_recetas->fetch_assoc()) {
+                $ids_recetas_plan[] = $fila_receta['id'];
+            }
+            // Mostrar los IDs de las recetas después de obtenerlos
+            echo "IDs de recetas encontradas: " . implode(', ', $ids_recetas_plan) . "<br>";
+        } else {
+            echo "Error al ejecutar la consulta: " . $stmt_recetas->error . "<br>";
         }
         $stmt_recetas->close();
+    } else {
+        echo "Error al preparar la consulta: " . $conexion->error . "<br>";
+    }
 
-        if (!empty($ids_recetas_plan)) {
-            $placeholders = implode(',', array_fill(0, count($ids_recetas_plan), '?'));
-            $sql_ingredientes = "SELECT i.nombre_ingrediente, SUM(ri.cantidad) as cantidad_total, um.abreviatura_unidad
-                                 FROM receta_ingredientes ri
-                                 JOIN ingredientes i ON ri.id_ingrediente = i.id_ingrediente
-                                 JOIN unidades_medida um ON ri.id_unidad_medida = um.id_unidad
-                                 WHERE ri.id_receta IN ($placeholders)
-                                 GROUP BY i.id_ingrediente, i.nombre_ingrediente, um.id_unidad, um.abreviatura_unidad
-                                 ORDER BY i.nombre_ingrediente";
-            
-            $stmt_ingredientes = $conexion->prepare($sql_ingredientes);
-            if ($stmt_ingredientes) {
-                $types = str_repeat('i', count($ids_recetas_plan));
-                $stmt_ingredientes->bind_param($types, ...$ids_recetas_plan);
-                $stmt_ingredientes->execute();
+    if (!empty($ids_recetas_plan)) {
+        $placeholders = implode(',', array_fill(0, count($ids_recetas_plan), '?'));
+        
+        // Consulta SQL para obtener ingredientes
+        $sql_ingredientes = "SELECT 
+                                i.nombre as nombre_ingrediente,
+                                SUM(COALESCE(ri.cantidad, 0)) as cantidad_total,
+                                GROUP_CONCAT(DISTINCT ri.fraccion) as fracciones,
+                                GROUP_CONCAT(DISTINCT u.nombre) as unidades
+                            FROM receta_ingrediente ri
+                            JOIN ingredientes i ON ri.id_ingrediente = i.id
+                            LEFT JOIN unidades u ON ri.id_unidad = u.id
+                            WHERE ri.id_receta IN ($placeholders)
+                            GROUP BY i.id, i.nombre
+                            ORDER BY i.nombre";
+
+        // Debug: Mostrar la consulta SQL
+        echo "Consulta SQL: " . $sql_ingredientes . "<br>";
+        echo "IDs de recetas en la consulta: " . implode(', ', $ids_recetas_plan) . "<br>";
+
+        $stmt_ingredientes = $conexion->prepare($sql_ingredientes);
+        if ($stmt_ingredientes) {
+            $types = str_repeat('i', count($ids_recetas_plan));
+            $stmt_ingredientes->bind_param($types, ...$ids_recetas_plan);
+            if ($stmt_ingredientes->execute()) {
                 $resultado_ingredientes = $stmt_ingredientes->get_result();
                 while ($fila = $resultado_ingredientes->fetch_assoc()) {
-                    $ingredientes_compra[] = $fila;
+                    // Procesar las fracciones y unidades
+                    $fracciones = array_filter(explode(',', $fila['fracciones']));
+                    $unidades = array_filter(explode(',', $fila['unidades']));
+                    
+                    // Construir la unidad final
+                    $unidad_final = '';
+                    if (!empty($fracciones)) {
+                        $unidad_final .= implode('/', array_unique($fracciones));
+                    }
+                    if (!empty($unidades)) {
+                        if (!empty($unidad_final)) $unidad_final .= ' ';
+                        $unidad_final .= implode('/', array_unique($unidades));
+                    }
+                    
+                    $ingredientes_compra[] = [
+                        'nombre_ingrediente' => $fila['nombre_ingrediente'],
+                        'cantidad_total' => $fila['cantidad_total'],
+                        'abreviatura_unidad' => $unidad_final
+                    ];
+                    
+                    // Debug: Mostrar cada ingrediente encontrado
+                    echo "Ingrediente encontrado: " . $fila['nombre_ingrediente'] . 
+                         " - Cantidad: " . $fila['cantidad_total'] . 
+                         " - Fracciones: " . $fila['fracciones'] . 
+                         " - Unidades: " . $fila['unidades'] . "<br>";
                 }
-                $stmt_ingredientes->close();
+                // Mostrar el número de ingredientes encontrados después de obtenerlos
+                echo "Número de ingredientes encontrados: " . count($ingredientes_compra) . "<br>";
+            } else {
+                echo "Error al ejecutar la consulta de ingredientes: " . $stmt_ingredientes->error . "<br>";
             }
+            $stmt_ingredientes->close();
+        } else {
+            echo "Error al preparar la consulta de ingredientes: " . $conexion->error . "<br>";
         }
     }
+
+    // Mostrar el número de ingredientes agrupados después de procesarlos
+    if (!empty($ingredientes_compra)) {
+        $ingredientes_agrupados = [];
+        foreach ($ingredientes_compra as $ingrediente) {
+            $nombre = $ingrediente['nombre_ingrediente'];
+            if (!isset($ingredientes_agrupados[$nombre])) {
+                $ingredientes_agrupados[$nombre] = [
+                    'cantidad_total' => 0,
+                    'unidad' => $ingrediente['abreviatura_unidad']
+                ];
+            }
+            $ingredientes_agrupados[$nombre]['cantidad_total'] += $ingrediente['cantidad_total'];
+        }
+        echo "Número de ingredientes únicos: " . count($ingredientes_agrupados) . "<br>";
+    }
+
+    echo "</div>";
 }
+
 // --- FIN LÓGICA PARA OBTENER INGREDIENTES ---
 $conexion->close();
 ?>
@@ -95,19 +178,23 @@ $conexion->close();
     <div class="contenedor-lista-semana">
 
         <div class="titulo">
-            <img src="sources/iconos/Cart-Shopping--Streamline-Ultimate.png" width="48px" alt="Carrito de la compra"> <!-- Cambié el icono -->
+            <img src="sources/iconos/Shopping-Basket-3--Streamline-Ultimate.svg" width="48px" alt="Carrito de la compra"> 
             <h1>Lista de la compra de la Semana</h1>
         </div>
        
         <div class="contenido-lista-semana">
             <?php if (!empty($ingredientes_compra)): ?>
                 <div class="lista-ingredientes-compra" id="lista-para-descargar">
-                    <?php foreach ($ingredientes_compra as $ingrediente): ?>
+                   
+                   <?php 
+
+                    // Mostrar los ingredientes agrupados
+                    foreach ($ingredientes_agrupados as $nombre => $datos): ?>
                         <div class="ingrediente-item">
-                            <span class="ingrediente-nombre"><?php echo htmlspecialchars($ingrediente['nombre_ingrediente']); ?></span>
+                            <span class="ingrediente-nombre"><?php echo htmlspecialchars($nombre); ?></span>
                             <span class="ingrediente-cantidad">
-                                <?php echo htmlspecialchars(rtrim(rtrim(sprintf('%.2f', $ingrediente['cantidad_total']), '0'), '.')); ?>
-                                <?php echo htmlspecialchars($ingrediente['abreviatura_unidad']); ?>
+                                <?php echo htmlspecialchars(rtrim(rtrim(sprintf('%.2f', $datos['cantidad_total']), '0'), '.')); ?>
+                                <?php echo htmlspecialchars($datos['unidad']); ?>
                             </span>
                         </div>
                     <?php endforeach; ?>
@@ -116,16 +203,17 @@ $conexion->close();
                 <p class="mensaje-lista-vacia">No hay ingredientes para mostrar. Por favor, selecciona un plan semanal o recetas.</p>
             <?php endif; ?>
 
+            <!-- Descargar lista de ingredientes -->
             <div class="acciones-lista">
-            <button class="descargar-lista-btn" onclick="descargarListaPDF('lista-compra-semana.pdf', 'Lista de la Compra de la Semana')">
-                    <img src="sources/iconos/Business-Cart-Add--Streamline-Ultimate.svg" alt="Descargar"> <!-- Icono ejemplo, ajusta la ruta -->
+                <button class="descargar-lista-btn" onclick="descargarListaPDF('lista-compra-semana.pdf', 'Lista de la Compra de la Semana')">
+                    <img src="sources/iconos/Arrow-Double-Down-1--Streamline-Ultimate.svg" alt="Descargar">
                     Descargar lista ingredientes
                 </button>
             </div>
 
-            <p class="mensaje-apoyo-premium">
-                ¡Gracias por seguir apoyándonos siendo un usuario <strong>Prémium</strong>!
-            </p>
+            <div class="premium-message">
+                ¡Gracias por seguir apoyándonos siendo un usuario Prémium!
+            </div>
         </div>
     </div>
 </section>
@@ -164,3 +252,5 @@ function descargarListaTexto(nombreArchivo) {
     URL.revokeObjectURL(link.href);
 }
 </script>
+</body>
+</html>

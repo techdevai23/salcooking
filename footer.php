@@ -71,10 +71,15 @@
 <!-- Tu función personalizada -->
 <?php
 
-echo '<script src="scripts/descargarListaPDF.js"></script>'; // Para la lista de compra
-echo '<script src="scripts/descargarFichaReceta.js"></script>'; // Para la ficha de receta
+// echo '<script src="scripts/descargarListaPDF.js"></script>'; // Para la lista de compra
 ?>
 
+<!-- Scripts específicos de la página -->
+<?php
+if (isset($scripts_extra)) {
+    echo $scripts_extra;
+}
+?>
 
 </body>
 
