@@ -230,26 +230,34 @@ $css_extra .= '<link rel="stylesheet" href="styles/perfil-ajustes.css?v=' . file
               </div>
               <div class="premium-options-grid">
                 <div class="form-group">
-                  <label for="intolerancias">Alérgenos</label>
-                  <select id="intolerancias" name="intolerancias[]" multiple size="6">
-                    <?php foreach ($todas_alergias as $alergia): ?>
-                      <option value="<?php echo $alergia['id']; ?>"
-                        <?php echo in_array($alergia['id'], array_column($alergias_usuario, 'id')) ? 'selected' : ''; ?>>
-                        <?php echo htmlspecialchars($alergia['nombre']); ?>
-                      </option>
-                    <?php endforeach; ?>
-                  </select>
+                    <label>Alérgenos</label>
+                    <div class="checkbox-list">
+                        <?php foreach ($todas_alergias as $alergia): ?>
+                            <label class="checkbox-option">
+                                <input type="checkbox" 
+                                       name="intolerancias[]" 
+                                       value="<?php echo $alergia['id']; ?>"
+                                       <?php echo in_array($alergia['id'], array_column($alergias_usuario, 'id')) ? 'checked' : ''; ?>>
+                                <span class="checkmark"></span>
+                                <?php echo htmlspecialchars($alergia['nombre']); ?>
+                            </label>
+                        <?php endforeach; ?>
+                    </div>
                 </div>
                 <div class="form-group">
-                  <label for="enfermedades">Enfermedades</label>
-                  <select id="enfermedades" name="enfermedades[]" multiple size="6">
-                    <?php foreach ($todas_enfermedades as $enfermedad): ?>
-                      <option value="<?php echo $enfermedad['id']; ?>"
-                        <?php echo in_array($enfermedad['id'], array_column($enfermedades_usuario, 'id')) ? 'selected' : ''; ?>>
-                        <?php echo htmlspecialchars($enfermedad['nombre']); ?>
-                      </option>
-                    <?php endforeach; ?>
-                  </select>
+                    <label>Enfermedades</label>
+                    <div class="checkbox-list">
+                        <?php foreach ($todas_enfermedades as $enfermedad): ?>
+                            <label class="checkbox-option">
+                                <input type="checkbox" 
+                                       name="enfermedades[]" 
+                                       value="<?php echo $enfermedad['id']; ?>"
+                                       <?php echo in_array($enfermedad['id'], array_column($enfermedades_usuario, 'id')) ? 'checked' : ''; ?>>
+                                <span class="checkmark"></span>
+                                <?php echo htmlspecialchars($enfermedad['nombre']); ?>
+                            </label>
+                        <?php endforeach; ?>
+                    </div>
                 </div>
               </div>
               <button type="button" class="action-btn-naranja">Generar dieta semanal</button>
