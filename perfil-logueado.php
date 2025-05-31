@@ -50,7 +50,7 @@ while ($enfermedad = $result_enfermedades->fetch_assoc()) {
 }
 $stmt_enfermedades->close();
 
-// Obtener todas las alergias y enfermedades disponibles
+// Obtener todas las alergias y enfermedades disponibles para poder seleccionar en el perfil
 $sql_todas_alergias = "SELECT id, nombre FROM alergias ORDER BY nombre";
 $sql_todas_enfermedades = "SELECT id, nombre FROM enfermedades ORDER BY nombre";
 
@@ -218,7 +218,7 @@ $css_extra .= '<link rel="stylesheet" href="styles/perfil-ajustes.css?v=' . file
             </div>
           <?php endif; ?>
 
-            <!-- selección de opciones premium filtros -->
+            <!-- selección de opciones premium filtros que se muestran una vez registrado y logueado -->
             <?php if ($usuario['es_premium']): ?>
               <!-- filtros para usuarios premium -->
           <div class="premium-section" style="margin-top:30px;">
@@ -229,7 +229,7 @@ $css_extra .= '<link rel="stylesheet" href="styles/perfil-ajustes.css?v=' . file
             </h3>
             <div class="premium-options-grid">
               <div class="form-group">
-                <label for="intolerancias">Intolerancias</label>
+                <label for="intolerancias">Alérgenos</label>
                 <select id="intolerancias" name="intolerancias[]" multiple style="min-height: 100px;">
                   <?php foreach ($todas_alergias as $alergia): ?>
                     <option value="<?php echo $alergia['id']; ?>" 
@@ -279,6 +279,7 @@ $css_extra .= '<link rel="stylesheet" href="styles/perfil-ajustes.css?v=' . file
   <?php include 'footer.php'; ?>
   
   <script>
+    //pequeño  script para validar el código de registro que se muestra en el perfil una vez registrado y logueado
   document.addEventListener('DOMContentLoaded', function() {
     const validarCodigoBtn = document.getElementById('validarCodigoBtn');
     const codigoInput = document.getElementById('codigo_registro');
