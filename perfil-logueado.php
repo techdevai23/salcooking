@@ -18,6 +18,54 @@ require_once 'models/usuario.php';
 $usuario_model = new Usuario();
 $usuario = $usuario_model->obtenerPorId($id_usuario);
 
+// Obtener alergias y enfermedades del usuario
+$alergias_usuario = [];
+$enfermedades_usuario = [];
+
+// Obtener alergias del usuario
+$sql_alergias = "SELECT a.id, a.nombre 
+                 FROM alergias a 
+                 JOIN usuario_alergia ua ON a.id = ua.id_alergia 
+                 WHERE ua.id_usuario = ?";
+$stmt_alergias = $conexion->prepare($sql_alergias);
+$stmt_alergias->bind_param("i", $id_usuario);
+$stmt_alergias->execute();
+$result_alergias = $stmt_alergias->get_result();
+while ($alergia = $result_alergias->fetch_assoc()) {
+    $alergias_usuario[] = $alergia;
+}
+$stmt_alergias->close();
+
+// Obtener enfermedades del usuario
+$sql_enfermedades = "SELECT e.id, e.nombre 
+                     FROM enfermedades e 
+                     JOIN usuario_enfermedad ue ON e.id = ue.id_enfermedad 
+                     WHERE ue.id_usuario = ?";
+$stmt_enfermedades = $conexion->prepare($sql_enfermedades);
+$stmt_enfermedades->bind_param("i", $id_usuario);
+$stmt_enfermedades->execute();
+$result_enfermedades = $stmt_enfermedades->get_result();
+while ($enfermedad = $result_enfermedades->fetch_assoc()) {
+    $enfermedades_usuario[] = $enfermedad;
+}
+$stmt_enfermedades->close();
+
+// Obtener todas las alergias y enfermedades disponibles
+$sql_todas_alergias = "SELECT id, nombre FROM alergias ORDER BY nombre";
+$sql_todas_enfermedades = "SELECT id, nombre FROM enfermedades ORDER BY nombre";
+
+$result_todas_alergias = $conexion->query($sql_todas_alergias);
+$result_todas_enfermedades = $conexion->query($sql_todas_enfermedades);
+
+$todas_alergias = [];
+$todas_enfermedades = [];
+
+while ($alergia = $result_todas_alergias->fetch_assoc()) {
+    $todas_alergias[] = $alergia;
+}
+while ($enfermedad = $result_todas_enfermedades->fetch_assoc()) {
+    $todas_enfermedades[] = $enfermedad;
+}
 
 $nombre_pagina = "Mi Perfil";
 $mensaje_feedback = '';
@@ -136,19 +184,43 @@ $css_extra .= '<link rel="stylesheet" href="styles/perfil-ajustes.css?v=' . file
         
 
           <!-- SECCIÓN PREMIUM (como en la imagen) -->
+          <?php if ($usuario['es_premium']): ?>
+            <!-- Contenido para usuarios premium -->
+            <div class="form-group registro-codigo-group" style="max-width: 800px;">
+              <div style="margin-top: 30px; margin-bottom: 20px; display: flex; align-items: center; gap: 20px;">
+                <span style="color: var(--naranja-corp); font-weight: bold; font-size: 1.2rem;">
+                  Eres usuario Premium
+                  <img src="sources/iconos/Vip-Circle--Streamline-Ultimate.png" alt="Premium" style="width: 24px; vertical-align: middle; margin-right: 8px;">
+                  
+                </span>
+                <a href="pasarela-pago.php">
+                  <button type="button" class="premium-button" title="Comprar un nuevo código de registro	" style="padding: 10px 20px !important; color: var(--color-text);">
+                    Renovar plan premium
+                  </button>
+                </a>
+              </div>
+            </div>
+          <?php else: ?>
+            <!-- Contenido para usuarios no premium -->
+            <div class="form-group registro-codigo-group" style="max-width: 800px;">
+              <div style="margin-top: 30px; margin-bottom: 20px;">
+                <a href="contacto.php">
+                  <button type="button" class="premium-button" style="padding: 10px 20px !important; color: var(--color-text);">
+                    Hazte Prémium
+                  </button>
+                </a>
+              </div>
 
-          <div class="form-group registro-codigo-group" style="max-width: 800px;">
-            <div style="margin-top: 30px; margin-bottom: 20px;">
-             <a href="contacto.php"><button type="button" class="premium-button" style="padding: 10px 20px !important; color: var(--color-text);">Hazte Prémium</button>
-             </a> </div>
+              <label for="codigo_registro" style="white-space: nowrap; margin-bottom:0; margin-right: 10px;">Código de registro:</label>
+              <input type="text" id="codigo_registro" name="codigo_registro" placeholder="">
+              <button type="button" id="validarCodigoBtn" title="Aplicar Código" style="background: #ccc; border:1px solid #999; color: #333; padding: 8px 12px; font-size: 1.2rem; cursor:pointer;">➤</button>
+              <div id="mensajeCodigo" style="margin-top: 10px;"></div>
+            </div>
+          <?php endif; ?>
 
-            <label for="codigo_registro" style="white-space: nowrap; margin-bottom:0; margin-right: 10px;">Código de registro:</label>
-            <input type="text" id="codigo_registro" name="codigo_registro" placeholder="">
-            <button type="button" id="validarCodigoBtn" title="Aplicar Código" style="background: #ccc; border:1px solid #999; color: #333; padding: 8px 12px; font-size: 1.2rem; cursor:pointer;">➤</button>
-            <div id="mensajeCodigo" style="margin-top: 10px;"></div>
-          </div>
-
-
+            <!-- selección de opciones premium filtros -->
+            <?php if ($usuario['es_premium']): ?>
+              <!-- filtros para usuarios premium -->
           <div class="premium-section" style="margin-top:30px;">
             <h3>
               Opciones Prémium
@@ -159,24 +231,36 @@ $css_extra .= '<link rel="stylesheet" href="styles/perfil-ajustes.css?v=' . file
               <div class="form-group">
                 <label for="intolerancias">Intolerancias</label>
                 <select id="intolerancias" name="intolerancias[]" multiple style="min-height: 100px;">
-                  <option selected>Gluten</option>
-                  <option>Frutos secos</option>
-                  <option selected>Pescados</option>
-
+                  <?php foreach ($todas_alergias as $alergia): ?>
+                    <option value="<?php echo $alergia['id']; ?>" 
+                            <?php echo in_array($alergia['id'], array_column($alergias_usuario, 'id')) ? 'selected' : ''; ?>>
+                      <?php echo htmlspecialchars($alergia['nombre']); ?>
+                    </option>
+                  <?php endforeach; ?>
                 </select>
               </div>
               <div class="form-group">
                 <label for="enfermedades">Enfermedades</label>
                 <select id="enfermedades" name="enfermedades[]" multiple style="min-height: 100px;">
-                  <option>Colesterol</option>
-                  <option selected>Diabetes</option>
-
+                  <?php foreach ($todas_enfermedades as $enfermedad): ?>
+                    <option value="<?php echo $enfermedad['id']; ?>"
+                            <?php echo in_array($enfermedad['id'], array_column($enfermedades_usuario, 'id')) ? 'selected' : ''; ?>>
+                      <?php echo htmlspecialchars($enfermedad['nombre']); ?>
+                    </option>
+                  <?php endforeach; ?>
                 </select>
               </div>
             </div>
             <button type="button" class="action-btn-naranja" style="margin-top:20px; padding: 10px 20px !important;">Generar dieta semanal</button>
           </div>
-
+          <?php else: ?>
+            <!-- Contenido para usuarios no premium -->
+             <h5>
+             Posibilidad de opciones Prémium disponibles una vez completado el registro
+              </h5> 
+              <p>Filtros para especificar alergias, intolerancias, enfermedades y generar dieta semanal.</p>
+          <?php endif; ?>
+          
           <div class="form-actions" style="margin-top:30px;">
             <button type="submit" name="accion" value="guardar_cambios" class="action-btn-verde" style="background-color: #2D3E2E; color: white; padding: 12px 30px !important; font-size: 1.1rem;">
               Actualizar datos

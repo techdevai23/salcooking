@@ -1,7 +1,7 @@
 <?php
 
 // Definir el modo de desarrollo
-define('MODO_DESARROLLO', true); // Cambiar a true para ver mensajes de depuración
+define('MODO_DESARROLLO', false); // Cambiar a true para ver mensajes de depuración
 
 // Definir $css_extra ANTES de incluir header.php
 $css_extra = '';

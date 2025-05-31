@@ -232,13 +232,34 @@ $css_extra .= '<link rel="stylesheet" href="styles/perfil-ajustes.css?v=' . file
 
           </div>
 
-          <!-- SECCIÓN PREMIUM (como en la imagen) - Esto es para usuarios ya registrados y logueados -->
-          <!-- Por ahora, para el registro, la ocultamos o la manejamos después del registro -->
-          <div class="form-group registro-codigo-group" style="max-width: 400px; <?php echo isset($_SESSION['id_usuario']) ? '' : 'display:none;'; ?>">
-            <!-- ... (resto de la sección premium como la tienes) ... -->
-          </div>
-          <div class="premium-section" style="margin-top:30px; <?php echo isset($_SESSION['id_usuario']) && $_SESSION['es_premium'] ? '' : 'display:none;'; ?>">
-            <!-- ... (resto de la sección premium como la tienes) ... -->
+          <!-- SECCIÓN PREMIUM - Esto es para usuarios no registrados y logueados -->
+          <div class="premium-section" style="margin-top:30px;">
+            <h3>
+              Opciones Prémium
+              <img src="sources/iconos/Vip-Circle--Streamline-Ultimate.png" alt="info" class="info-icon" title="Funcionalidades exclusivas para usuarios Prémium" style="width:40px; height:40px;">
+            </h3>
+            <div style="text-align: center; margin-top: 20px;">
+              <h5>Posibilidad de opciones Prémium disponibles una vez completado el registro</h5>
+              <p>Filtros para especificar alergias, intolerancias, enfermedades y generar dieta semanal.</p>
+            </div>
+            <div class="premium-options-grid">
+              <div class="form-group">
+                <label for="intolerancias">Intolerancias</label>
+                <select id="intolerancias" name="intolerancias[]" multiple style="min-height: 100px;" disabled>
+                  <option>Gluten</option>
+                  <option>Frutos secos</option>
+                  <option>Pescados</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label for="enfermedades">Enfermedades</label>
+                <select id="enfermedades" name="enfermedades[]" multiple style="min-height: 100px;" disabled>
+                  <option>Colesterol</option>
+                  <option>Diabetes</option>
+                </select>
+              </div>
+            </div>
+            
           </div>
 
           <div class="form-actions" style="margin-top:30px;">
