@@ -73,6 +73,8 @@ $tipo_mensaje = '';
 
 $css_extra = '';
 $css_extra .= '<link rel="stylesheet" href="styles/perfil-ajustes.css?v=' . filemtime('styles/perfil-ajustes.css') . '">';
+$css_extra .= '<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>';
+$css_extra .= '<script src="scripts/validacion-password.js"></script>';
 ?>
 
 <?php include 'header.php'; ?>
@@ -173,6 +175,7 @@ $css_extra .= '<link rel="stylesheet" href="styles/perfil-ajustes.css?v=' . file
             <div class="form-group">
               <label for="nueva_contrasena">Nueva contraseña:</label>
               <input type="password" id="nueva_contrasena" name="nueva_contrasena" placeholder="Nueva contraseña">
+              <a href="#" class="show-password">Muestrame la contraseña</a>
             </div>
             <div class="form-group">
               <label for="confirmar_contrasena">Confirmar nueva contraseña:</label>

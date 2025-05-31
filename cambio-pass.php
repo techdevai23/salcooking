@@ -2,6 +2,8 @@
 $css_extra = '';
 
 $css_extra .= '<link rel="stylesheet" href="styles/cambio.css?v=' . filemtime('styles/cambio.css') . '">';
+$css_extra .= '<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>';
+$css_extra .= '<script src="scripts/validacion-password.js"></script>';
 ?>
 
 
@@ -34,7 +36,26 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $stmt_update = $conexion->prepare("UPDATE usuarios SET contrasena_hash = ? WHERE id_usuario = ?");
         $stmt_update->bind_param("si", $contrasena_hash, $usuario['id_usuario']);
         if ($stmt_update->execute()) {
-            header("Location: accion-completada.php?mensaje=contrasena_actualizada");
+            echo "<script>
+                Swal.fire({
+                    title: '¡Contraseña Actualizada!',
+                    text: 'Tu contraseña ha sido actualizada correctamente.',
+                    icon: 'success',
+                    confirmButtonText: 'Aceptar',
+                    customClass: {
+                        container: 'my-swal-container',
+                        popup: 'my-swal-popup',
+                        header: 'my-swal-header',
+                        title: 'my-swal-title',
+                        content: 'my-swal-content',
+                        confirmButton: 'my-swal-confirm-button'
+                    }
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        window.location.href = 'login.php';
+                    }
+                });
+            </script>";
             exit();
         } else {
             $mensaje = "Error al actualizar la contraseña.";
@@ -75,22 +96,22 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             <div class="password-requirements">
                 <div class="requirements-header">
                     <i class="info-icon">i</i>
-                    <span>La contrraseña deberá contener</span>
+                    <span>La contraseña deberá contener</span>
                 </div>
                 <ul class="requirements-list">
-                    <li class="requirement-met">
+                    <li class="requirement">
                         <span class="check-icon">✓</span>
                         Ser de al menos 8 carácteres
                     </li>
-                    <li class="requirement-met">
+                    <li class="requirement">
                         <span class="check-icon">✓</span>
                         Tener al menos 1 letra mayúscula
                     </li>
-                    <li class="requirement-met">
+                    <li class="requirement">
                         <span class="check-icon">✓</span>
                         Tener al menos 1 número
                     </li>
-                    <li class="requirement-met">
+                    <li class="requirement">
                         <span class="check-icon">✓</span>
                         Tener al menos un caracter especial
                     </li>
