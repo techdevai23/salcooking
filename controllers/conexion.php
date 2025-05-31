@@ -1,28 +1,43 @@
 <?php
-$host = "127.0.0.1";      // o 127.0.0.1
-$usuario = "admin";       
-$contrasena = "osso";         
-$basedatos = "salcooking"; 
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
+
+$host = "127.0.0.1";
+$usuario = "root";
+$contrasena = "";
 $puerto = 3306;
 
-// Intentar conexión con opciones adicionales
-$conexion = new mysqli($host, $usuario, $contrasena, $basedatos, $puerto);
-
-// Si falla, intentar con el método de autenticación antiguo
-if ($conexion->connect_error) {
-    mysqli_report(MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT);
-    $conexion = new mysqli($host, $usuario, $contrasena, $basedatos, $puerto);
+try {
+    $conexion = new mysqli($host, $usuario, $contrasena);
     
-    // Configurar el método de autenticación
-    $conexion->query("SET SESSION sql_mode = ''");
-    $conexion->query("SET SESSION authentication_plugin = 'mysql_native_password'");
+    if ($conexion->connect_error) {
+        throw new Exception("Error de conexión: " . $conexion->connect_error);
+    }
+    
+    // Verificar información del sistema
+    $queries = [
+        "SHOW VARIABLES LIKE 'datadir'",
+        "SHOW VARIABLES LIKE 'innodb_force_recovery'",
+        "SHOW DATABASES",
+        "SELECT SCHEMA_NAME, DEFAULT_CHARACTER_SET_NAME, DEFAULT_COLLATION_NAME 
+         FROM information_schema.SCHEMATA"
+    ];
+    
+    foreach ($queries as $query) {
+        $result = $conexion->query($query);
+        if ($result) {
+            error_log("Resultados de '$query':");
+            while ($row = $result->fetch_array(MYSQLI_ASSOC)) {
+                error_log(print_r($row, true));
+            }
+        }
+    }
+    
+    return $conexion;
+    
+} catch (Exception $e) {
+    error_log("Error detallado: " . $e->getMessage());
+    die("<div style='color: #721c24; background-color: #f8d7da; border: 1px solid #f5c6cb; padding: 15px;'>
+         Error de conexión. Detalles en el log.</div>");
 }
-
-// Verificamos la conexión
-if ($conexion->connect_error) {
-    die("Conexión fallida: " . $conexion->connect_error);
-}
-
-// Fuerza el charset para resultados correctos. Muy importante: forzamos UTF-8 para evitar caracteres raros como o Ã©
-$conexion->set_charset("utf8mb4");
-?>

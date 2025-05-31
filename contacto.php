@@ -4,6 +4,42 @@ $css_extra = '';
 $css_extra .= '<link rel="stylesheet" href="styles/contacto.css?v=' . filemtime('styles/contacto.css') . '">
 <link rel="stylesheet" href="styles/modal.css?v=' . filemtime('styles/modal.css') . '">
 ';
+
+// Iniciar sesión si no está iniciada
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
+
+// Determinar el tipo de usuario
+$es_usuario_logueado = isset($_SESSION['id_usuario']);
+$es_usuario_premium = isset($_SESSION['es_premium']) && $_SESSION['es_premium'] == 1;
+
+// Si es usuario premium, mostrar mensaje y opción de cerrar sesión
+if ($es_usuario_premium) {
+    echo '<script>
+        Swal.fire({
+            title: "¡Ya eres usuario Premium!",
+            text: "¿Deseas cerrar sesión para registrar a otra persona?",
+            icon: "info",
+            showCancelButton: true,
+            confirmButtonText: "Cerrar sesión",
+            cancelButtonText: "Cancelar",
+            customClass: {
+                container: "my-swal-container",
+                popup: "my-swal-popup",
+                header: "my-swal-header",
+                title: "my-swal-title",
+                content: "my-swal-content",
+                confirmButton: "my-swal-confirm-button",
+                cancelButton: "my-swal-cancel-button"
+            }
+        }).then((result) => {
+            if (result.isConfirmed) {
+                window.location.href = "logout.php";
+            }
+        });
+    </script>';
+}
 ?>
 
 
@@ -68,13 +104,13 @@ $css_extra .= '<link rel="stylesheet" href="styles/contacto.css?v=' . filemtime(
           <form id="contactForm" class="needs-validation" action="controllers/procesar-contacto.php" method="POST" novalidate>
             <?php
             // Generar token CSRF
-            if (session_status() === PHP_SESSION_NONE) {
-                session_start();
-            }
             $csrf_token = bin2hex(random_bytes(32));
             $_SESSION['csrf_token'] = $csrf_token;
             ?>
             <input type="hidden" name="csrf_token" value="<?php echo $csrf_token; ?>">
+            
+            <?php if (!$es_usuario_logueado): ?>
+            <!-- Campos solo para visitantes no registrados -->
             <div class="form-group">
               <label for="nombre"><i class="bi bi-person"></i> Nombre<b><span style="color:crimson">*</span></b>:</label>
               <input type="text" class="form-control" id="nombre" name="nombre" required
@@ -104,11 +140,13 @@ $css_extra .= '<link rel="stylesheet" href="styles/contacto.css?v=' . filemtime(
                 Por favor, introduce un número de teléfono válido.
               </div>
             </div>
+            <?php endif; ?>
+
             <p>Es obligatorio que elijas una opción de uno de los selectores <b><span style="color:crimson">*</span></b></p>
             <div class="form-group" id="contacto-premium">
               <label for="modeloRobot"><i class="bi bi-robot"></i> Relacionado con cuenta prémium:</label>
               <select class="form-select" id="modeloRobot" name="modeloRobot" data-bs-toggle="tooltip"
-                data-bs-placement="top" title="Opcional si elegiste una opcion general" required>
+                data-bs-placement="top" title="Opcional si elegiste una opcion general">
                 <option value="">Seleccione una opción</option>
                 <option value="problemas">Quiero una cuenta prémium. Estoy registrado.</option>
                 <option value="factura">He tenido un problema con el pago.</option>
@@ -117,11 +155,10 @@ $css_extra .= '<link rel="stylesheet" href="styles/contacto.css?v=' . filemtime(
               </select>
             </div>
 
-
             <div class="form-group">
               <label for="tipoConsulta"><i class="bi bi-question-circle"></i> Solicitar información general:</label>
               <select class="form-select" id="tipoConsulta" name="tipoConsulta" data-bs-toggle="tooltip"
-                data-bs-placement="top" title="Opcional si elegiste una opción Prémium" required>
+                data-bs-placement="top" title="Opcional si elegiste una opción Prémium">
                 <option id="opcion" class="opcion" value="">Selecciona una opción</option>
                 <option value="dudas">Quiero registrarme</option>
                 <option value="compra">He tenido un problema en el momento de registro.</option>
@@ -129,11 +166,6 @@ $css_extra .= '<link rel="stylesheet" href="styles/contacto.css?v=' . filemtime(
                 <option value="otros">Otros.</option>
               </select>
             </div>
-
-
-
-            <p>Es obligatorio que elijas una opción de uno de los selectores</p>
-
 
             <div class="form-check mb-3">
               <input type="checkbox" class="form-check-input" id="privacidad" name="privacidad" required>
@@ -255,40 +287,116 @@ $css_extra .= '<link rel="stylesheet" href="styles/contacto.css?v=' . filemtime(
      de ahí el nombre de las clases-->
     <script>
       document.addEventListener('DOMContentLoaded', function() {
+        const contactForm = document.getElementById('contactForm');
+        const modeloRobot = document.getElementById('modeloRobot');
+        const tipoConsulta = document.getElementById('tipoConsulta');
+        const esUsuarioLogueado = <?php echo $es_usuario_logueado ? 'true' : 'false'; ?>;
+        const esUsuarioPremium = <?php echo $es_usuario_premium ? 'true' : 'false'; ?>;
 
-
-        // Configuración del formulario
-        const paymentForm = document.getElementById('contactForm');
-
-        paymentForm.addEventListener('submit', function(e) {
-          e.preventDefault(); // Previene que el formulario se envíe
-
+        contactForm.addEventListener('submit', function(e) {
+          e.preventDefault();
 
           // Validar que al menos uno de los dos select tenga un valor seleccionado
           if (!modeloRobot.value && !tipoConsulta.value) {
-            e.stopPropagation(); // Detener la propagación si no es válido
+            e.stopPropagation();
             modeloRobot.classList.add('is-invalid');
             tipoConsulta.classList.add('is-invalid');
-            return; // Salir si ninguno de los dos tiene un valor
+            return;
           } else {
             modeloRobot.classList.remove('is-invalid');
             tipoConsulta.classList.remove('is-invalid');
           }
 
           // Validar el formulario
-          if (paymentForm.checkValidity() === false) {
-            e.stopPropagation(); // Detener la propagación si no es válido
-            paymentForm.classList.add('was-validated'); // Agregar clase de validación
-            return; // Salir si el formulario no es válido
+          if (contactForm.checkValidity() === false) {
+            e.stopPropagation();
+            contactForm.classList.add('was-validated');
+            return;
           }
 
-          // Si el formulario es válido, Sweet Alert personalizado para confirmación de seguimiento de mensaje
+          // Validaciones específicas según el tipo de usuario
+          if (esUsuarioLogueado) {
+            if (modeloRobot.value === 'problemas') {
+              if (!esUsuarioPremium) {
+                Swal.fire({
+                  title: 'Redirigiendo a pasarela de pago',
+                  text: 'Serás redirigido a la pasarela de pago para hacerte premium.',
+                  icon: 'info',
+                  confirmButtonText: 'Continuar',
+                  customClass: {
+                    container: 'my-swal-container',
+                    popup: 'my-swal-popup',
+                    header: 'my-swal-header',
+                    title: 'my-swal-title',
+                    content: 'my-swal-content',
+                    confirmButton: 'my-swal-confirm-button'
+                  }
+                }).then((result) => {
+                  if (result.isConfirmed) {
+                    window.location.href = 'pasarela-pago.php';
+                  }
+                });
+                return;
+              }
+            } else if (tipoConsulta.value === 'dudas') {
+              Swal.fire({
+                title: 'Ya estás registrado',
+                text: 'Ya tienes una cuenta registrada. ¿Deseas modificar tu perfil?',
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonText: 'Ir a mi perfil',
+                cancelButtonText: 'Cancelar',
+                customClass: {
+                  container: 'my-swal-container',
+                  popup: 'my-swal-popup',
+                  header: 'my-swal-header',
+                  title: 'my-swal-title',
+                  content: 'my-swal-content',
+                  confirmButton: 'my-swal-confirm-button',
+                  cancelButton: 'my-swal-cancel-button'
+                }
+              }).then((result) => {
+                if (result.isConfirmed) {
+                  window.location.href = 'perfil-logueado.php';
+                }
+              });
+              return;
+            }
+          } else {
+            // Para visitantes no registrados
+            if (modeloRobot.value === 'problemas') {
+              Swal.fire({
+                title: 'No estás registrado',
+                text: 'Para hacerte premium primero debes registrarte.',
+                icon: 'warning',
+                confirmButtonText: 'Registrarme',
+                customClass: {
+                  container: 'my-swal-container',
+                  popup: 'my-swal-popup',
+                  header: 'my-swal-header',
+                  title: 'my-swal-title',
+                  content: 'my-swal-content',
+                  confirmButton: 'my-swal-confirm-button'
+                }
+              }).then((result) => {
+                if (result.isConfirmed) {
+                  window.location.href = 'perfil.php';
+                }
+              });
+              return;
+            } else if (tipoConsulta.value === 'dudas') {
+              window.location.href = 'perfil.php';
+              return;
+            }
+          }
+
+          // Si todo está bien, mostrar confirmación y enviar formulario
           Swal.fire({
             title: '¡Formulario Procesado Correctamente!',
             html: `
-                        <p>Pronto tendrás noticas nuestras. Guarde este número de seguimiento</p>
-                        <p>Nº: <strong>${Math.floor(1000000 + Math.random() * 9000000)}</strong></p>
-                    `,
+              <p>Pronto tendrás noticas nuestras. Guarde este número de seguimiento</p>
+              <p>Nº: <strong>${Math.floor(1000000 + Math.random() * 9000000)}</strong></p>
+            `,
             icon: 'success',
             showCancelButton: true,
             confirmButtonText: 'Volver al inicio',
@@ -304,12 +412,13 @@ $css_extra .= '<link rel="stylesheet" href="styles/contacto.css?v=' . filemtime(
             }
           }).then((result) => {
             if (result.isConfirmed) {
-              window.location.href = 'index.php'; // Redirigir al inicio
+              window.location.href = 'index.php';
+            } else {
+              contactForm.submit();
             }
           });
         });
       });
-      // Fin Validación del formulario
     </script>
 
 

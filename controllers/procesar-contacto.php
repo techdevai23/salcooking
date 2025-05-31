@@ -15,19 +15,26 @@ function sanitize_input($data) {
     return $data;
 }
 
-// Verificar que se recibieron los datos requeridos
-$required_fields = ['nombre', 'email'];
+// Determinar el tipo de usuario
+$es_usuario_logueado = isset($_SESSION['id_usuario']);
+$es_usuario_premium = isset($_SESSION['es_premium']) && $_SESSION['es_premium'] == 1;
+
 $errors = [];
 
-foreach ($required_fields as $field) {
-    if (!isset($_POST[$field]) || empty($_POST[$field])) {
-        $errors[] = "El campo $field es obligatorio.";
+// Validar campos según el tipo de usuario
+if (!$es_usuario_logueado) {
+    // Para visitantes no registrados, validar campos obligatorios
+    $required_fields = ['nombre', 'email'];
+    foreach ($required_fields as $field) {
+        if (!isset($_POST[$field]) || empty($_POST[$field])) {
+            $errors[] = "El campo $field es obligatorio.";
+        }
     }
-}
 
-// Validar email
-if (isset($_POST['email']) && !filter_var($_POST['email'], FILTER_VALIDATE_EMAIL)) {
-    $errors[] = "El email proporcionado no es válido.";
+    // Validar email
+    if (isset($_POST['email']) && !filter_var($_POST['email'], FILTER_VALIDATE_EMAIL)) {
+        $errors[] = "El email proporcionado no es válido.";
+    }
 }
 
 // Validar que al menos un selector tenga valor
@@ -43,21 +50,23 @@ if (!empty($errors)) {
 }
 
 // Sanitizar todos los datos
-$nombre = sanitize_input($_POST['nombre']);
-$email = sanitize_input($_POST['email']);
+$nombre = $es_usuario_logueado ? $_SESSION['nombre_completo'] : sanitize_input($_POST['nombre']);
+$email = $es_usuario_logueado ? $_SESSION['email'] : sanitize_input($_POST['email']);
 $telefono = isset($_POST['telefono']) ? sanitize_input($_POST['telefono']) : '';
 $modeloRobot = isset($_POST['modeloRobot']) ? sanitize_input($_POST['modeloRobot']) : '';
 $tipoConsulta = isset($_POST['tipoConsulta']) ? sanitize_input($_POST['tipoConsulta']) : '';
 
-// Aquí puedes agregar el código para enviar el email o guardar en base de datos
-// Por ejemplo, usando mail():
+// Preparar el mensaje según el tipo de usuario y la selección
 $to = "info@salcooking.es";
 $subject = "Nuevo mensaje de contacto de $nombre";
-$message = "Nombre: $nombre\n";
+
+$message = "Tipo de usuario: " . ($es_usuario_logueado ? "Registrado" : "Visitante") . "\n";
+$message .= "Estado Premium: " . ($es_usuario_premium ? "Sí" : "No") . "\n";
+$message .= "Nombre: $nombre\n";
 $message .= "Email: $email\n";
-$message .= "Teléfono: $telefono\n";
-$message .= "Consulta Premium: $modeloRobot\n";
-$message .= "Consulta General: $tipoConsulta\n";
+if ($telefono) $message .= "Teléfono: $telefono\n";
+if ($modeloRobot) $message .= "Consulta Premium: $modeloRobot\n";
+if ($tipoConsulta) $message .= "Consulta General: $tipoConsulta\n";
 
 $headers = "From: $email\r\n";
 $headers .= "Reply-To: $email\r\n";
