@@ -244,8 +244,8 @@
 }
 
 .btn-opciones {
-  background-color: var(--naranja-corp);
-  color: white;
+  background-color: var(--secondary-color);
+  color: black;
   padding: 12px 30px;
   border: none;
   border-radius: 4px;
@@ -256,7 +256,7 @@
 }
 
 .btn-opciones:hover {
-  background-color: var(--naranja-corp-hover);
+  background-color: var(--naranja-corp);
 }
 
 /* Mensajes de error */
@@ -418,8 +418,8 @@ html, body {
 }
 
 .my-swal-confirm-button {
-    background-color: var(--naranja-corp) !important;
-    color: white !important;
+    background-color: var(--secondary-color) !important;
+    color: black !important;
     padding: 10px 20px !important;
     border-radius: 4px !important;
     font-size: 1rem !important;
@@ -429,7 +429,8 @@ html, body {
 }
 
 .my-swal-confirm-button:hover {
-    background-color: var(--naranja-corp-hover) !important;
+    background-color: var(--naranja-corp) !important;
+    color: white !important;
 }
 
 /* Estilos para el formulario */
@@ -469,9 +470,9 @@ html, body {
     text-decoration: underline;
 }
 
-.btn-opciones {
-    background-color: var(--naranja-corp);
-    color: white;
+.btn-submit {
+    background-color: var(--secondary-color);
+    color: black;
     padding: 12px 30px;
     border: none;
     border-radius: 4px;
@@ -481,16 +482,7 @@ html, body {
     transition: background-color 0.3s ease;
 }
 
-.btn-opciones:hover {
-    background-color: var(--naranja-corp-hover);
-}
-
-/* Mensajes de error */
-.mensaje-error {
-    background-color: #f8d7da;
-    color: #721c24;
-    padding: 10px;
-    border-radius: 4px;
-    margin-bottom: 20px;
-    border: 1px solid #f5c6cb;
+.btn-submit:hover {
+    background-color: var(--naranja-corp);
+    color: white;
 }

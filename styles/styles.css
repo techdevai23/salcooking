@@ -8,7 +8,7 @@
     --verde-corp: #80A665;
     --negro-verdoso: #2D3E2E;
     --naranja-corp: #d98b2b;
-    --naranja-corp-rgb: 217, 139, 43; /* Solo valores RGB para difuminados*/
+     --naranja-corp-rgb: 217, 139, 43; /* Solo valores RGB para difuminados*/
     --text-color: #080808;
     --beig-corp: #F2EADF;
     --white: #ffffff;
@@ -217,7 +217,7 @@ img {
     border-radius: 4px;
     font-weight: bold;
     cursor: pointer;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
     transition: background-color 0.3s ease;
 }
 
@@ -231,23 +231,24 @@ img {
     font-family: 'Nunito', 'Segoe UI', sans-serif;
     margin: 30px auto;
     padding: 12px 25px !important;
-    background-color: var(--primary-color);
-    color: var(--text-color);
+    background-color: var(--secondary-color);
+    color: black;
     border: none;
     border-radius: 5px;
     font-weight: bold;
     cursor: pointer;
     transition: background-color 0.3s;
     cursor: pointer;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
     text-align: center;
     text-decoration: none;
     width: fit-content;
 }
 
 .btn-opciones:hover {
-transform: translateY(-3px);
-    background-color: var(--primary-dark);
+    transform: translateY(-3px);
+    background-color: var(--naranja-corp);
+    color: white;
 }
 
 .action-btn-verde {
@@ -262,11 +263,12 @@ transform: translateY(-3px);
     background-color: var(--verde-corp);
     color: #333;
     cursor: pointer;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
 .action-btn-verde:hover {
     background-color: var(--primary-dark);
+    color: white;
     transform: translateY(-3px);
 }
 
@@ -280,13 +282,14 @@ transform: translateY(-3px);
     font-weight: 500;
     transition: background-color 0.3s;
     background-color: var(--secondary-color);
-    color: #333;
+    color: black;
     cursor: pointer;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
 .action-btn-naranja:hover {
     background-color: var(--naranja-corp);
+    color: white;
     transform: translateY(-3px);
 }
 
@@ -316,6 +319,7 @@ transform: translateY(-3px);
 
  .btn-submit {
   background: linear-gradient(135deg, var(--secondary-color)  0%, var(--primary-color) 100%) !important;
+  color: black;
   border: none;
   padding: 12px 25px;
   font-size: 1.1rem;
@@ -324,12 +328,12 @@ transform: translateY(-3px);
   transition: transform 0.3s ease, box-shadow 0.3s ease;
   display: block;
   width: 100%;
-  /* margin-top: 30px; */
 }
 
 .btn-submit:hover {
   transform: translateY(-3px);
   background: linear-gradient(135deg, var(--naranja-corp)  0%, var(--primary-dark) 100%);
+  color: white;
   box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
 }
 

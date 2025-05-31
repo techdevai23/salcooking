@@ -3,10 +3,8 @@
 ?>
 
 <?php
-// Comprobamos si la sesión está iniciada para no iniciarla de nuevo
-if (session_status() === PHP_SESSION_NONE) {
-    session_start();
-}
+require_once 'controllers/session.php';
+startSession();
 ?>
 
 <!DOCTYPE html>
@@ -81,7 +79,7 @@ if (session_status() === PHP_SESSION_NONE) {
                         <a href="recetas-categoria.php">Recetas</a>
                     </li>
                     <li class="<?php echo in_array(basename($_SERVER['PHP_SELF']), ['dieta-semana-por-dias.php', 'primera-vez.php', 'no-premium.php']) ? 'active' : ''; ?>">
-                        <a href="<?php echo isset($_SESSION['id_usuario']) ? 'dieta-semana-por-dias.php' : 'login.php'; ?>">Dieta</a>
+                        <a href="<?php echo isLoggedIn() ? 'dieta-semana-por-dias.php' : 'login.php'; ?>">Dieta</a>
                     </li>
                     <li class="<?php echo basename($_SERVER['PHP_SELF']) == 'trucos.php' ? 'active' : ''; ?>">
                         <a href="trucos.php">Trucos</a>
@@ -96,7 +94,7 @@ if (session_status() === PHP_SESSION_NONE) {
                         <a href="contacto.php">Contáctanos</a>
                     </li>
                     <li class="<?php echo basename($_SERVER['PHP_SELF']) == 'perfil-logueado.php' ? 'active' : ''; ?>">
-                        <a href="<?php echo isset($_SESSION['id_usuario']) ? 'perfil-logueado.php' : 'login.php'; ?>">
+                        <a href="<?php echo isLoggedIn() ? 'perfil-logueado.php' : 'login.php'; ?>">
                             Perfil-Ajustes
                         </a>
                     </li>
@@ -128,18 +126,18 @@ if (session_status() === PHP_SESSION_NONE) {
                         <div class="user-icon">
                             <!-- Mostraremos el icono o el nick de usuario, según si el usuario está logueado o no -->
                             <!-- si se muestra el icono llevará a una página u otra, dependiendo de si está logueado o no -->
-                            <?php if (!isset($_SESSION['id_usuario'])): ?>
-                                <a href="<?php echo isset($_SESSION['id_usuario']) ? 'perfil-logueado.php' : 'login.php'; ?>">
+                            <?php if (!isLoggedIn()): ?>
+                                <a href="<?php echo isLoggedIn() ? 'perfil-logueado.php' : 'login.php'; ?>">
                                     <img src="sources/iconos/Single-Neutral-Circle--Streamline-Ultimate.svg" alt="User Icon" width="34px">
                                 </a>
                             <?php else: ?>
-                                <p style="color:var(--text-color);">Usuario: <?php echo htmlspecialchars($_SESSION['nick']); ?></p>
+                                <p style="color:var(--text-color);">Usuario: <?php echo htmlspecialchars(getUserNick()); ?></p>
                             <?php endif; ?>
 
 
                             <!-- inserción para cerrar sesión si está iniciada -->
                             <div class="cerrar-sesion">
-                                <?php if (isset($_SESSION['id_usuario'])): ?>
+                                <?php if (isLoggedIn()): ?>
                                     <a href="logout.php" class="btn-cerrar-sesion" style="margin-left:10px;">Cerrar sesión </a>
                                     <img src="sources/iconos/Login-1--Streamline-Ultimate.svg" alt="User Icon" style=" width:14px !important;">
                                 <?php endif; ?>
@@ -169,7 +167,7 @@ if (session_status() === PHP_SESSION_NONE) {
                 <a href="recetas-categoria.php">Recetas</a>
             </li>
             <li class="<?php echo in_array(basename($_SERVER['PHP_SELF']), ['dieta-semana-por-dias.php', 'primera-vez.php', 'no-premium.php']) ? 'active' : ''; ?>">
-                <a href="<?php echo isset($_SESSION['id_usuario']) ? 'dieta-semana-por-dias.php' : 'login.php'; ?>">Dieta</a>
+                <a href="<?php echo isLoggedIn() ? 'dieta-semana-por-dias.php' : 'login.php'; ?>">Dieta</a>
             </li>
             <li class="<?php echo basename($_SERVER['PHP_SELF']) == 'trucos.php' ? 'active' : ''; ?>">
                 <a href="trucos.php">Trucos</a>
@@ -184,8 +182,8 @@ if (session_status() === PHP_SESSION_NONE) {
                 <a href="contacto.php">Contáctanos</a>
             </li>
             <li class="<?php echo basename($_SERVER['PHP_SELF']) == 'perfil-logueado.php' ? 'active' : ''; ?>">
-                <a href="<?php echo isset($_SESSION['id_usuario']) ? 'perfil-logueado.php' : 'login.php'; ?>">
-                    <?php echo isset($_SESSION['id_usuario']) ? 'Mi Perfil' : 'Iniciar Sesión'; ?>
+                <a href="<?php echo isLoggedIn() ? 'perfil-logueado.php' : 'login.php'; ?>">
+                    <?php echo isLoggedIn() ? 'Mi Perfil' : 'Iniciar Sesión'; ?>
                 </a>
             </li>
         </ul>

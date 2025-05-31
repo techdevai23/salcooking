@@ -1,121 +1,112 @@
 document.addEventListener('DOMContentLoaded', function() {
-    const passwordInput = document.getElementById('nueva_contrasena') || document.getElementById('nueva-contrasena');
-    const confirmPasswordInput = document.getElementById('confirmar_contrasena') || document.getElementById('confirmar-contrasena');
-    
-    // Elementos para la versión completa (cambio-pass.php)
-    const requirements = {
-        length: document.querySelector('.requirement-met:nth-child(1)'),
-        uppercase: document.querySelector('.requirement-met:nth-child(2)'),
-        number: document.querySelector('.requirement-met:nth-child(3)'),
-        special: document.querySelector('.requirement-met:nth-child(4)')
-    };
+    // Elementos del DOM
+    const passwordInput = document.getElementById('nueva-contrasena') || document.getElementById('nueva_contrasena');
+    const confirmPasswordInput = document.getElementById('confirmar-contrasena') || document.getElementById('confirmar_contrasena');
+    const showPasswordLink = document.querySelector('.show-password');
+    const requirementsList = document.querySelector('.requirements-list');
+    const form = document.querySelector('form');
 
-    // Función común para validar la contraseña
+    // Función para validar la contraseña
     function validatePassword(password) {
-        const hasLength = password.length >= 8;
-        const hasUppercase = /[A-Z]/.test(password);
-        const hasNumber = /[0-9]/.test(password);
-        const hasSpecial = /[!@#$%^&*(),.?":{}|<>]/.test(password);
+        const requirements = {
+            length: password.length >= 8,
+            uppercase: /[A-Z]/.test(password),
+            number: /[0-9]/.test(password),
+            special: /[!@#$%^&*(),.?":{}|<>]/.test(password)
+        };
 
         return {
-            isValid: hasLength && hasUppercase && hasNumber && hasSpecial,
-            requirements: {
-                length: hasLength,
-                uppercase: hasUppercase,
-                number: hasNumber,
-                special: hasSpecial
-            }
+            isValid: Object.values(requirements).every(req => req),
+            requirements
         };
     }
 
-    // Función común para validar que las contraseñas coinciden
-    function validatePasswordMatch() {
-        const password = passwordInput.value;
-        const confirmPassword = confirmPasswordInput.value;
-        return password === confirmPassword;
-    }
-
-    /******************** Código específico para cambio-pass.php ********************/
-    // Actualizar visualmente los requisitos en la página
-    function updateRequirementsDisplay(requirements) {
-        if (requirements.length) {
-            requirements.length.classList.toggle('requirement-met', requirements.length);
-            requirements.uppercase.classList.toggle('requirement-met', requirements.uppercase);
-            requirements.number.classList.toggle('requirement-met', requirements.number);
-            requirements.special.classList.toggle('requirement-met', requirements.special);
-        }
-    }
-
-    // Evento para validar la contraseña mientras se escribe (versión completa)
-    if (requirements.length && passwordInput) {
-        passwordInput.addEventListener('input', function() {
-            const validation = validatePassword(this.value);
-            updateRequirementsDisplay(validation.requirements);
-        });
-    }
-    /*****************************************************************************/
-
-    /******************** Código específico para perfil-logueado.php ********************/
-    // Función para mostrar los requisitos en un alert
+    // Función para mostrar alerta con requisitos faltantes
     function showRequirementsAlert(requirements) {
         const missingRequirements = [];
-        if (!requirements.length) missingRequirements.push('• Al menos 8 caracteres');
-        if (!requirements.uppercase) missingRequirements.push('• Al menos una letra mayúscula');
-        if (!requirements.number) missingRequirements.push('• Al menos un número');
-        if (!requirements.special) missingRequirements.push('• Al menos un carácter especial');
+        if (!requirements.length) missingRequirements.push('Ser de al menos 8 carácteres');
+        if (!requirements.uppercase) missingRequirements.push('Tener al menos 1 letra mayúscula');
+        if (!requirements.number) missingRequirements.push('Tener al menos 1 número');
+        if (!requirements.special) missingRequirements.push('Tener al menos un caracter especial');
 
         Swal.fire({
-            title: 'Requisitos de Contraseña',
-            html: `
-                <div style="text-align: left;">
-                    <p>La contraseña debe cumplir los siguientes requisitos:</p>
-                    <ul style="list-style: none; padding-left: 0;">
-                        ${missingRequirements.map(req => `<li>${req}</li>`).join('')}
-                    </ul>
-                </div>
-            `,
-            icon: 'info',
+            title: 'Requisitos de contraseña',
+            html: `La contraseña debe cumplir los siguientes requisitos:<br><br>
+                  ${missingRequirements.join('<br>')}`,
+            icon: 'warning',
             confirmButtonText: 'Entendido',
             customClass: {
                 container: 'my-swal-container',
                 popup: 'my-swal-popup',
-                header: 'my-swal-header',
                 title: 'my-swal-title',
-                content: 'my-swal-content',
                 confirmButton: 'my-swal-confirm-button'
             }
         });
     }
 
-    // Evento para validar la contraseña mientras se escribe (versión simplificada)
-    if (!requirements.length && passwordInput) {
-        passwordInput.addEventListener('input', function() {
+    // Función para validar contraseñas coincidentes
+    function validateMatchingPasswords() {
+        if (passwordInput.value !== confirmPasswordInput.value) {
+            Swal.fire({
+                title: 'Error',
+                text: 'Las contraseñas no coinciden',
+                icon: 'error',
+                confirmButtonText: 'Entendido',
+                customClass: {
+                    container: 'my-swal-container',
+                    popup: 'my-swal-popup',
+                    title: 'my-swal-title',
+                    confirmButton: 'my-swal-confirm-button'
+                }
+            });
+            return false;
+        }
+        return true;
+    }
+
+    // Función para mostrar/ocultar contraseña
+    function togglePasswordVisibility() {
+        const type = passwordInput.type === 'password' ? 'text' : 'password';
+        passwordInput.type = type;
+        if (confirmPasswordInput) {
+            confirmPasswordInput.type = type;
+        }
+        showPasswordLink.textContent = type === 'password' ? 'Muestrame la contraseña' : 'Ocultar contraseña';
+    }
+
+    // Event listeners
+    if (showPasswordLink) {
+        showPasswordLink.addEventListener('click', function(e) {
+            e.preventDefault();
+            togglePasswordVisibility();
+        });
+    }
+
+    // Validación al perder el foco del campo de contraseña
+    if (passwordInput) {
+        passwordInput.addEventListener('blur', function() {
             if (this.value) {
-                const validation = validatePassword(this.value);
-                if (!validation.isValid) {
-                    showRequirementsAlert(validation.requirements);
+                const { isValid, requirements } = validatePassword(this.value);
+                if (!isValid) {
+                    showRequirementsAlert(requirements);
                 }
             }
         });
     }
-    /*********************************************************************************/
 
-    // Código común para ambas versiones
-    // Evento para validar que las contraseñas coinciden
+    // Validación al perder el foco del campo de confirmación
     if (confirmPasswordInput) {
-        confirmPasswordInput.addEventListener('input', function() {
-            if (this.value && !validatePasswordMatch()) {
+        confirmPasswordInput.addEventListener('blur', function() {
+            if (this.value && passwordInput.value !== this.value) {
                 Swal.fire({
-                    title: 'Error de Validación',
-                    text: 'Las contraseñas no coinciden.',
+                    title: 'Error',
+                    text: 'Las contraseñas no coinciden',
                     icon: 'error',
-                    confirmButtonText: 'Aceptar',
+                    confirmButtonText: 'Entendido',
                     customClass: {
                         container: 'my-swal-container',
                         popup: 'my-swal-popup',
-                        header: 'my-swal-header',
                         title: 'my-swal-title',
-                        content: 'my-swal-content',
                         confirmButton: 'my-swal-confirm-button'
                     }
                 });
@@ -123,57 +114,20 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
-    // Función para mostrar/ocultar contraseña
-    const showPasswordLink = document.querySelector('.show-password');
-    if (showPasswordLink) {
-        showPasswordLink.addEventListener('click', function(e) {
-            e.preventDefault();
-            const type = passwordInput.type === 'password' ? 'text' : 'password';
-            passwordInput.type = type;
-            confirmPasswordInput.type = type;
-            this.textContent = type === 'password' ? 'Muestrame la contraseña' : 'Ocultar contraseña';
-        });
-    }
-
-    // Validación del formulario
-    const form = document.querySelector('form');
+    // Validación al enviar el formulario
     if (form) {
         form.addEventListener('submit', function(e) {
-            if (passwordInput.value || confirmPasswordInput.value) {
+            if (passwordInput && passwordInput.value) {
+                const { isValid, requirements } = validatePassword(passwordInput.value);
+                if (!isValid) {
+                    e.preventDefault();
+                    showRequirementsAlert(requirements);
+                    return;
+                }
+            }
+
+            if (confirmPasswordInput && !validateMatchingPasswords()) {
                 e.preventDefault();
-                const password = passwordInput.value;
-                const confirmPassword = confirmPasswordInput.value;
-
-                const validation = validatePassword(password);
-                if (!validation.isValid) {
-                    if (requirements.length) {
-                        updateRequirementsDisplay(validation.requirements);
-                    } else {
-                        showRequirementsAlert(validation.requirements);
-                    }
-                    return;
-                }
-
-                if (!validatePasswordMatch()) {
-                    Swal.fire({
-                        title: 'Error de Validación',
-                        text: 'Las contraseñas no coinciden.',
-                        icon: 'error',
-                        confirmButtonText: 'Aceptar',
-                        customClass: {
-                            container: 'my-swal-container',
-                            popup: 'my-swal-popup',
-                            header: 'my-swal-header',
-                            title: 'my-swal-title',
-                            content: 'my-swal-content',
-                            confirmButton: 'my-swal-confirm-button'
-                        }
-                    });
-                    return;
-                }
-
-                // Si todo está correcto, enviar el formulario
-                this.submit();
             }
         });
     }

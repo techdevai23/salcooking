@@ -1,10 +1,10 @@
 <?php
 session_start();
-require_once 'controllers/conexion.php'; 
 
 $page = $_GET['page'] ?? 'inicio';
 
 if ($page === 'buscar' || $page === 'detalle-receta') {
+    require_once 'controllers/conexion.php'; 
     require_once 'controllers/receta-controller.php';
     $controller = new RecetaController();
 

@@ -65,7 +65,16 @@ $css_extra .= '<link rel="stylesheet" href="styles/contacto.css?v=' . filemtime(
 
         <h2>Formulario de Contacto</h2>
         <div class="contact-form-container">
-          <form id="contactForm" class="needs-validation" novalidate>
+          <form id="contactForm" class="needs-validation" action="controllers/procesar-contacto.php" method="POST" novalidate>
+            <?php
+            // Generar token CSRF
+            if (session_status() === PHP_SESSION_NONE) {
+                session_start();
+            }
+            $csrf_token = bin2hex(random_bytes(32));
+            $_SESSION['csrf_token'] = $csrf_token;
+            ?>
+            <input type="hidden" name="csrf_token" value="<?php echo $csrf_token; ?>">
             <div class="form-group">
               <label for="nombre"><i class="bi bi-person"></i> Nombre<b><span style="color:crimson">*</span></b>:</label>
               <input type="text" class="form-control" id="nombre" name="nombre" required
@@ -141,6 +150,23 @@ $css_extra .= '<link rel="stylesheet" href="styles/contacto.css?v=' . filemtime(
               <i class="bi bi-send"></i> Enviar mensaje
             </button>
           </form>
+          <?php
+          if (isset($_SESSION['contact_errors'])) {
+              echo '<div class="alert alert-danger mt-3">';
+              foreach ($_SESSION['contact_errors'] as $error) {
+                  echo '<p>' . htmlspecialchars($error) . '</p>';
+              }
+              echo '</div>';
+              unset($_SESSION['contact_errors']);
+          }
+          
+          if (isset($_SESSION['contact_success'])) {
+              echo '<div class="alert alert-success mt-3">';
+              echo '<p>' . htmlspecialchars($_SESSION['contact_success']) . '</p>';
+              echo '</div>';
+              unset($_SESSION['contact_success']);
+          }
+          ?>
         </div>
       </div>
 

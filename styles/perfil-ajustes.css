@@ -201,7 +201,7 @@ h6{
 }
 
 .premium-button:hover {
-    background-color: var(--naranja-corp-hover);
+    background-color: var(--naranja-corp);
 }
 
 .action-btn-verde {
@@ -321,7 +321,8 @@ h6{
 }
 
 .action-btn-naranja:hover {
-    background-color: var(--naranja-corp-hover);
+    background-color: var(--naranja-corp);
+    transform: translateY(-3px);
 }
 
 /* Mensajes de feedback */
@@ -495,5 +496,5 @@ html, body {
 }
 
 .checkbox-list::-webkit-scrollbar-thumb:hover {
-    background: var(--naranja-corp-hover);
+    background: var(--naranja-corp);
 }

@@ -123,7 +123,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     <div class="mensaje-error"><?php echo $mensaje; ?></div>
                 <?php endif; ?>
 
-                <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>">
+                <form method="post" action="accion-completada.php" onsubmit="return validarFormularioContrasena();">
                     <div class="form-group">
                         <label for="email">Email:</label>
                         <input type="email" id="email" name="email" placeholder="Introduce tu email" class="form-control" required>
@@ -137,7 +137,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     <div class="form-group">
                         <label for="confirmar-contrasena">Confirma contraseña:</label>
                         <input type="password" id="confirmar-contrasena" name="confirmar-contrasena" class="form-control" required>
-                        <a href="#" class="show-password">Muestrame la contraseña</a>
+                        <a href="#" class="show-password">Muestrame las contraseñas</a>
                     </div>
 
                     <div class="form-buttons">
