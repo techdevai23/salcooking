@@ -1,5 +1,8 @@
 <?php
 
+// Definir el modo de desarrollo
+define('MODO_DESARROLLO', true); // Cambiar a true para ver mensajes de depuración
+
 // Definir $css_extra ANTES de incluir header.php
 $css_extra = '';
 $css_extra .= '<link rel="stylesheet" href="styles/lista-semana.css?v=' . filemtime('styles/lista-semana.css') . '">';
@@ -16,22 +19,73 @@ $id_plan_semanal = null; // Aquí deberías obtener el ID del plan semanal (ej. 
 if (isset($_GET['id_dieta'])) {
     $id_plan_semanal = intval($_GET['id_dieta']);
 
-    // Código de depuración inicial
-    echo "<div style='background: #f0f0f0; padding: 10px; margin: 10px;'>";
-    echo "<h3>Depuración:</h3>";
-    
-    // Verificar si existe la dieta
-    $sql_check = "SELECT * FROM dietas WHERE id_dieta = ?";
-    $stmt_check = $conexion->prepare($sql_check);
-    $stmt_check->bind_param("i", $id_plan_semanal);
-    $stmt_check->execute();
-    $result_check = $stmt_check->get_result();
-    if ($dieta = $result_check->fetch_assoc()) {
-        echo "Dieta encontrada: " . htmlspecialchars($dieta['nombre_dieta']) . "<br>";
-    } else {
-        echo "No se encontró la dieta con ID " . $id_plan_semanal . "<br>";
+    // Código de depuración solo en modo desarrollo
+    if (defined('MODO_DESARROLLO') && MODO_DESARROLLO === true) {
+        echo "<div style='background: #f0f0f0; padding: 10px; margin: 10px;'>";
+        echo "<h3>Información de Depuración:</h3>";
+        
+        // Verificar si existe la dieta
+        $sql_check = "SELECT * FROM dietas WHERE id_dieta = ?";
+        $stmt_check = $conexion->prepare($sql_check);
+        $stmt_check->bind_param("i", $id_plan_semanal);
+        $stmt_check->execute();
+        $result_check = $stmt_check->get_result();
+        if ($dieta = $result_check->fetch_assoc()) {
+            echo "<div style='margin-bottom: 15px;'>";
+            echo "<strong>Información de la Dieta:</strong><br>";
+            echo "ID: " . htmlspecialchars($dieta['id_dieta']) . "<br>";
+            echo "Nombre: " . htmlspecialchars($dieta['nombre_dieta']) . "<br>";
+            echo "Fecha de creación: " . htmlspecialchars($dieta['fecha_creacion']) . "<br>";
+            echo "</div>";
+        } else {
+            echo "<div style='color: red;'>No se encontró la dieta con ID " . $id_plan_semanal . "</div>";
+        }
+        $stmt_check->close();
+
+        // Verificar recetas asociadas con más detalles
+        $sql_recetas = "SELECT COUNT(*) as total, 
+                       GROUP_CONCAT(r.nombre SEPARATOR ', ') as nombres_recetas
+                       FROM dieta_receta dr 
+                       JOIN recetas r ON dr.id_receta = r.id 
+                       WHERE dr.id_dieta = ?";
+        $stmt_recetas = $conexion->prepare($sql_recetas);
+        $stmt_recetas->bind_param("i", $id_plan_semanal);
+        $stmt_recetas->execute();
+        $result_recetas = $stmt_recetas->get_result();
+        $count = $result_recetas->fetch_assoc();
+        $stmt_recetas->close();
+
+        echo "<div style='margin-bottom: 15px;'>";
+        echo "<strong>Recetas en la Dieta:</strong><br>";
+        echo "Total de recetas: " . $count['total'] . "<br>";
+        if ($count['total'] > 0) {
+            echo "Lista de recetas: " . htmlspecialchars($count['nombres_recetas']) . "<br>";
+        }
+        echo "</div>";
+
+        // Mostrar información de ingredientes
+        if (!empty($ingredientes_compra)) {
+            echo "<div style='margin-bottom: 15px;'>";
+            echo "<strong>Resumen de Ingredientes:</strong><br>";
+            echo "Total de ingredientes únicos: " . count($ingredientes_compra) . "<br>";
+            
+            // Agrupar ingredientes por tipo de unidad
+            $ingredientes_por_unidad = [];
+            foreach ($ingredientes_compra as $ing) {
+                $unidad = $ing['abreviatura_unidad'];
+                if (!isset($ingredientes_por_unidad[$unidad])) {
+                    $ingredientes_por_unidad[$unidad] = 0;
+                }
+                $ingredientes_por_unidad[$unidad]++;
+            }
+            
+            echo "<br>Distribución por unidades:<br>";
+            foreach ($ingredientes_por_unidad as $unidad => $cantidad) {
+                echo "- " . htmlspecialchars($unidad) . ": " . $cantidad . " ingredientes<br>";
+            }
+            echo "</div>";
+        }
     }
-    $stmt_check->close();
 
     // Verificar recetas asociadas
     $sql_recetas = "SELECT COUNT(*) as total FROM dieta_receta WHERE id_dieta = ?";
@@ -39,53 +93,50 @@ if (isset($_GET['id_dieta'])) {
     $stmt_recetas->bind_param("i", $id_plan_semanal);
     $stmt_recetas->execute();
     $result_recetas = $stmt_recetas->get_result();
-    if ($count = $result_recetas->fetch_assoc()) {
-        echo "Número de recetas asociadas: " . $count['total'] . "<br>";
-    }
+    $count = $result_recetas->fetch_assoc();
     $stmt_recetas->close();
 
-    // Consulta para obtener todas las recetas de un plan semanal específico
-    $sql_recetas_plan = "SELECT DISTINCT r.id 
-                         FROM recetas r 
-                         JOIN dieta_receta dr ON r.id = dr.id_receta 
-                         WHERE dr.id_dieta = ?";
-
-    $ids_recetas_plan = []; // Inicializamos el array fuera del if
-    $stmt_recetas = $conexion->prepare($sql_recetas_plan);
-    if ($stmt_recetas) {
-        $stmt_recetas->bind_param("i", $id_plan_semanal);
-        if ($stmt_recetas->execute()) {
-            $resultado_recetas = $stmt_recetas->get_result();
-            while ($fila_receta = $resultado_recetas->fetch_assoc()) {
-                $ids_recetas_plan[] = $fila_receta['id'];
-            }
-            // Mostrar los IDs de las recetas después de obtenerlos
-            echo "IDs de recetas encontradas: " . implode(', ', $ids_recetas_plan) . "<br>";
-        } else {
-            echo "Error al ejecutar la consulta: " . $stmt_recetas->error . "<br>";
-        }
-        $stmt_recetas->close();
+    if ($count['total'] === 0) {
+        $error = "No se encontraron recetas asociadas a esta dieta.";
     } else {
-        echo "Error al preparar la consulta: " . $conexion->error . "<br>";
+        // Consulta para obtener todas las recetas de un plan semanal específico
+        $sql_recetas_plan = "SELECT DISTINCT r.id 
+                            FROM recetas r 
+                            JOIN dieta_receta dr ON r.id = dr.id_receta 
+                            WHERE dr.id_dieta = ?";
+
+        $ids_recetas_plan = [];
+        $stmt_recetas = $conexion->prepare($sql_recetas_plan);
+        if ($stmt_recetas) {
+            $stmt_recetas->bind_param("i", $id_plan_semanal);
+            if ($stmt_recetas->execute()) {
+                $resultado_recetas = $stmt_recetas->get_result();
+                while ($fila_receta = $resultado_recetas->fetch_assoc()) {
+                    $ids_recetas_plan[] = $fila_receta['id'];
+                }
+            } else {
+                $error = "Error al obtener las recetas: " . $stmt_recetas->error;
+            }
+            $stmt_recetas->close();
+        } else {
+            $error = "Error al preparar la consulta de recetas: " . $conexion->error;
+        }
     }
 
-    if (!empty($ids_recetas_plan)) {
+    if (!empty($ids_recetas_plan) && !isset($error)) {
         $placeholders = implode(',', array_fill(0, count($ids_recetas_plan), '?'));
         
-        // Consulta SQL para obtener ingredientes
+        // Consulta SQL optimizada para obtener ingredientes
         $sql_ingredientes = "SELECT 
                                 i.nombre as nombre_ingrediente,
                                 SUM(
                                     CASE 
                                         WHEN ri.cantidad IS NOT NULL THEN 
                                             CASE 
-                                                -- Unidades de líquido (ml)
                                                 WHEN u.nombre IN ('ml.', 'l.', 'Centímetro cúbico', 'Decilitro', 'Centilitro', 'Taza', 'Media taza', 'Tres cuartos de taza', 'Cuarto de taza', 'Cucharada/s', 'Cucharadita/s', 'Media cucharada', 'Gota') 
                                                 THEN ri.cantidad * COALESCE(u.conversion_base, 1)
-                                                -- Unidades de sólido (gr)
                                                 WHEN u.nombre IN ('grs.', 'kg.', 'Miligramo', 'Pizca') 
                                                 THEN ri.cantidad * COALESCE(u.conversion_base, 1)
-                                                -- Unidades de conteo
                                                 WHEN u.nombre IN ('Unidad/es', 'Docena/s', 'Media docena', 'diente/s') 
                                                 THEN ri.cantidad
                                                 ELSE ri.cantidad
@@ -94,16 +145,12 @@ if (isset($_GET['id_dieta'])) {
                                     END
                                 ) as cantidad_total,
                                 CASE 
-                                    -- Unidades de líquido
                                     WHEN u.nombre IN ('ml.', 'l.', 'Centímetro cúbico', 'Decilitro', 'Centilitro', 'Taza', 'Media taza', 'Tres cuartos de taza', 'Cuarto de taza', 'Cucharada/s', 'Cucharadita/s', 'Media cucharada', 'Gota') 
                                     THEN 'ml'
-                                    -- Unidades de sólido
                                     WHEN u.nombre IN ('grs.', 'kg.', 'Miligramo', 'Pizca') 
                                     THEN 'gr'
-                                    -- Unidades de conteo
                                     WHEN u.nombre IN ('Unidad/es', 'Docena/s', 'Media docena', 'diente/s') 
                                     THEN u.nombre
-                                    -- Para cualquier otra unidad, tomamos la primera que encontremos
                                     ELSE MIN(u.nombre)
                                 END as unidad_final
                             FROM receta_ingrediente ri
@@ -112,11 +159,6 @@ if (isset($_GET['id_dieta'])) {
                             WHERE ri.id_receta IN ($placeholders)
                             GROUP BY i.id, i.nombre
                             ORDER BY i.nombre";
-
-        // Debug: Mostrar la consulta SQL y los IDs
-        echo "Consulta SQL: " . $sql_ingredientes . "<br>";
-        echo "IDs de recetas en la consulta: " . implode(', ', $ids_recetas_plan) . "<br>";
-        echo "Número de placeholders: " . count($ids_recetas_plan) . "<br>";
 
         $stmt_ingredientes = $conexion->prepare($sql_ingredientes);
         if ($stmt_ingredientes) {
@@ -130,40 +172,19 @@ if (isset($_GET['id_dieta'])) {
                         'cantidad_total' => $fila['cantidad_total'],
                         'abreviatura_unidad' => $fila['unidad_final']
                     ];
-                    
-                    // Debug: Mostrar cada ingrediente encontrado
-                    echo "Ingrediente encontrado: " . $fila['nombre_ingrediente'] . 
-                         " - Cantidad: " . $fila['cantidad_total'] . 
-                         " - Unidad: " . $fila['unidad_final'] . "<br>";
                 }
-                // Mostrar el número de ingredientes encontrados después de obtenerlos
-                echo "Número de ingredientes encontrados: " . count($ingredientes_compra) . "<br>";
             } else {
-                echo "Error al ejecutar la consulta de ingredientes: " . $stmt_ingredientes->error . "<br>";
+                $error = "Error al obtener los ingredientes: " . $stmt_ingredientes->error;
             }
             $stmt_ingredientes->close();
         } else {
-            echo "Error al preparar la consulta de ingredientes: " . $conexion->error . "<br>";
+            $error = "Error al preparar la consulta de ingredientes: " . $conexion->error;
         }
     }
 
-    // Mostrar el número de ingredientes agrupados después de procesarlos
-    if (!empty($ingredientes_compra)) {
-        $ingredientes_agrupados = [];
-        foreach ($ingredientes_compra as $ingrediente) {
-            $nombre = $ingrediente['nombre_ingrediente'];
-            if (!isset($ingredientes_agrupados[$nombre])) {
-                $ingredientes_agrupados[$nombre] = [
-                    'cantidad_total' => 0,
-                    'unidad' => $ingrediente['abreviatura_unidad']
-                ];
-            }
-            $ingredientes_agrupados[$nombre]['cantidad_total'] += $ingrediente['cantidad_total'];
-        }
-        echo "Número de ingredientes únicos: " . count($ingredientes_agrupados) . "<br>";
+    if (defined('MODO_DESARROLLO') && MODO_DESARROLLO === true) {
+        echo "</div>";
     }
-
-    echo "</div>";
 }
 
 // --- FIN LÓGICA PARA OBTENER INGREDIENTES ---
@@ -203,15 +224,19 @@ $conexion->close();
                    <?php 
 
                     // Mostrar los ingredientes agrupados
-                    foreach ($ingredientes_agrupados as $nombre => $datos): ?>
+                    foreach ($ingredientes_compra as $ingrediente) {
+                        $nombre = $ingrediente['nombre_ingrediente'];
+                        $cantidad = $ingrediente['cantidad_total'];
+                        $unidad = $ingrediente['abreviatura_unidad'];
+                        ?>
                         <div class="ingrediente-item">
                             <span class="ingrediente-nombre"><?php echo htmlspecialchars($nombre); ?></span>
                             <span class="ingrediente-cantidad">
-                                <?php echo htmlspecialchars(rtrim(rtrim(sprintf('%.2f', $datos['cantidad_total']), '0'), '.')); ?>
-                                <?php echo htmlspecialchars($datos['unidad']); ?>
+                                <?php echo htmlspecialchars(rtrim(rtrim(sprintf('%.2f', $cantidad), '0'), '.')); ?>
+                                <?php echo htmlspecialchars($unidad); ?>
                             </span>
                         </div>
-                    <?php endforeach; ?>
+                    <?php } ?>
                 </div>
             <?php else: ?>
                 <p class="mensaje-lista-vacia">No hay ingredientes para mostrar. Por favor, selecciona un plan semanal o recetas.</p>
