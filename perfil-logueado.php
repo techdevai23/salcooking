@@ -32,7 +32,7 @@ $stmt_alergias->bind_param("i", $id_usuario);
 $stmt_alergias->execute();
 $result_alergias = $stmt_alergias->get_result();
 while ($alergia = $result_alergias->fetch_assoc()) {
-    $alergias_usuario[] = $alergia;
+  $alergias_usuario[] = $alergia;
 }
 $stmt_alergias->close();
 
@@ -46,7 +46,7 @@ $stmt_enfermedades->bind_param("i", $id_usuario);
 $stmt_enfermedades->execute();
 $result_enfermedades = $stmt_enfermedades->get_result();
 while ($enfermedad = $result_enfermedades->fetch_assoc()) {
-    $enfermedades_usuario[] = $enfermedad;
+  $enfermedades_usuario[] = $enfermedad;
 }
 $stmt_enfermedades->close();
 
@@ -61,10 +61,10 @@ $todas_alergias = [];
 $todas_enfermedades = [];
 
 while ($alergia = $result_todas_alergias->fetch_assoc()) {
-    $todas_alergias[] = $alergia;
+  $todas_alergias[] = $alergia;
 }
 while ($enfermedad = $result_todas_enfermedades->fetch_assoc()) {
-    $todas_enfermedades[] = $enfermedad;
+  $todas_enfermedades[] = $enfermedad;
 }
 
 $nombre_pagina = "Mi Perfil";
@@ -99,11 +99,11 @@ $css_extra .= '<link rel="stylesheet" href="styles/perfil-ajustes.css?v=' . file
       <div class="titulo">
         <img src="sources/iconos/Book-Star--Streamline-Ultimate.svg" alt="Icono Perfil">
         <h1><?php echo htmlspecialchars($nombre_pagina); ?></h1>
-        </div>
-      
-        <h6>Estos son tus datos actuales. Modifica lo que necesites y guarda los cambios con el botón "Actualizar datos"</h6>
-      
-<br>
+      </div>
+
+      <h6>Estos son tus datos actuales. Modifica lo que necesites y guarda los cambios con el botón "Actualizar datos"</h6>
+
+      <br>
       <div class="contenido-Perfil-Ajustes">
         <?php if (!empty($mensaje_feedback)): ?>
           <div class="mensaje-feedback <?php echo $tipo_mensaje; ?>"><?php echo $mensaje_feedback; ?></div>
@@ -181,86 +181,87 @@ $css_extra .= '<link rel="stylesheet" href="styles/perfil-ajustes.css?v=' . file
             <!-- Fin sección de cambio de contraseña -->
           </div>
 
-        
+
 
           <!-- SECCIÓN PREMIUM (como en la imagen) -->
           <?php if ($usuario['es_premium']): ?>
             <!-- Contenido para usuarios premium -->
-            <div class="form-group registro-codigo-group" style="max-width: 800px;">
-              <div style="margin-top: 30px; margin-bottom: 20px; display: flex; align-items: center; gap: 20px;">
-                <span style="color: var(--naranja-corp); font-weight: bold; font-size: 1.2rem;">
-                  Eres usuario Premium
-                  <img src="sources/iconos/Vip-Circle--Streamline-Ultimate.png" alt="Premium" style="width: 24px; vertical-align: middle; margin-right: 8px;">
-                  
-                </span>
-                <a href="pasarela-pago.php">
-                  <button type="button" class="premium-button" title="Comprar un nuevo código de registro	" style="padding: 10px 20px !important; color: var(--color-text);">
-                    Renovar plan premium
-                  </button>
-                </a>
+            <div class="premium-container">
+              <div class="premium-status">
+                <img src="sources/iconos/Vip-Circle--Streamline-Ultimate.png" alt="Premium">
+                <span>Eres usuario Premium</span>
               </div>
+              <a href="pasarela-pago.php">
+                <button type="button" class="premium-button" title="Comprar un nuevo código de registro">
+                  Renovar plan premium
+                </button>
+              </a>
+              <button type="submit" name="accion" value="guardar_cambios" class="action-btn-verde">
+                Actualizar datos
+              </button>
             </div>
           <?php else: ?>
             <!-- Contenido para usuarios no premium -->
-            <div class="form-group registro-codigo-group" style="max-width: 800px;">
-              <div style="margin-top: 30px; margin-bottom: 20px;">
-                <a href="contacto.php">
-                  <button type="button" class="premium-button" style="padding: 10px 20px !important; color: var(--color-text);">
-                    Hazte Prémium
-                  </button>
-                </a>
+            <div class="premium-container">
+              <a href="contacto.php">
+                <button type="button" class="premium-button">
+                  Hazte Prémium
+                </button>
+              </a>
+              <div class="premium-status">
+                <label for="codigo_registro">Código de registro:</label>
+                <input type="text" id="codigo_registro" name="codigo_registro" placeholder="">
+                <button type="button" id="validarCodigoBtn" title="Aplicar Código" class="premium-button">➤</button>
               </div>
-
-              <label for="codigo_registro" style="white-space: nowrap; margin-bottom:0; margin-right: 10px;">Código de registro:</label>
-              <input type="text" id="codigo_registro" name="codigo_registro" placeholder="">
-              <button type="button" id="validarCodigoBtn" title="Aplicar Código" style="background: #ccc; border:1px solid #999; color: #333; padding: 8px 12px; font-size: 1.2rem; cursor:pointer;">➤</button>
-              <div id="mensajeCodigo" style="margin-top: 10px;"></div>
+              <div id="mensajeCodigo"></div>
             </div>
           <?php endif; ?>
 
-            <!-- selección de opciones premium filtros que se muestran una vez registrado y logueado -->
-            <?php if ($usuario['es_premium']): ?>
-              <!-- filtros para usuarios premium -->
-          <div class="premium-section" style="margin-top:30px;">
-            <h3>
-              Opciones Prémium
-              <img src="sources/iconos/Vip-Circle--Streamline-Ultimate.png" alt="info" class="info-icon" title="Funcionalidades exclusivas para usuarios Prémium" style="width:40px; height:40px;">
-              <!-- Reemplaza 'info_icon.svg' con un icono real -->
-            </h3>
-            <div class="premium-options-grid">
-              <div class="form-group">
-                <label for="intolerancias">Alérgenos</label>
-                <select id="intolerancias" name="intolerancias[]" multiple style="min-height: 100px;">
-                  <?php foreach ($todas_alergias as $alergia): ?>
-                    <option value="<?php echo $alergia['id']; ?>" 
-                            <?php echo in_array($alergia['id'], array_column($alergias_usuario, 'id')) ? 'selected' : ''; ?>>
-                      <?php echo htmlspecialchars($alergia['nombre']); ?>
-                    </option>
-                  <?php endforeach; ?>
-                </select>
+          <!-- selección de opciones premium filtros -->
+          <?php if ($usuario['es_premium']): ?>
+            <!-- filtros para usuarios premium -->
+            <div class="premium-section" style="margin-top:30px;">
+              <h3>
+                Opciones Prémium
+                <img src="sources/iconos/Vip-Circle--Streamline-Ultimate.png" alt="info" class="info-icon" title="Funcionalidades exclusivas para usuarios Prémium" style="width:40px; height:40px;">
+              </h3>
+              <div class="premium-instructions">
+                Selecciona todas las opciones que necesites. Haz clic nuevamente para deseleccionar.
               </div>
-              <div class="form-group">
-                <label for="enfermedades">Enfermedades</label>
-                <select id="enfermedades" name="enfermedades[]" multiple style="min-height: 100px;">
-                  <?php foreach ($todas_enfermedades as $enfermedad): ?>
-                    <option value="<?php echo $enfermedad['id']; ?>"
-                            <?php echo in_array($enfermedad['id'], array_column($enfermedades_usuario, 'id')) ? 'selected' : ''; ?>>
-                      <?php echo htmlspecialchars($enfermedad['nombre']); ?>
-                    </option>
-                  <?php endforeach; ?>
-                </select>
+              <div class="premium-options-grid">
+                <div class="form-group">
+                  <label for="intolerancias">Alérgenos</label>
+                  <select id="intolerancias" name="intolerancias[]" multiple size="6">
+                    <?php foreach ($todas_alergias as $alergia): ?>
+                      <option value="<?php echo $alergia['id']; ?>"
+                        <?php echo in_array($alergia['id'], array_column($alergias_usuario, 'id')) ? 'selected' : ''; ?>>
+                        <?php echo htmlspecialchars($alergia['nombre']); ?>
+                      </option>
+                    <?php endforeach; ?>
+                  </select>
+                </div>
+                <div class="form-group">
+                  <label for="enfermedades">Enfermedades</label>
+                  <select id="enfermedades" name="enfermedades[]" multiple size="6">
+                    <?php foreach ($todas_enfermedades as $enfermedad): ?>
+                      <option value="<?php echo $enfermedad['id']; ?>"
+                        <?php echo in_array($enfermedad['id'], array_column($enfermedades_usuario, 'id')) ? 'selected' : ''; ?>>
+                        <?php echo htmlspecialchars($enfermedad['nombre']); ?>
+                      </option>
+                    <?php endforeach; ?>
+                  </select>
+                </div>
               </div>
+              <button type="button" class="action-btn-naranja">Generar dieta semanal</button>
             </div>
-            <button type="button" class="action-btn-naranja" style="margin-top:20px; padding: 10px 20px !important;">Generar dieta semanal</button>
-          </div>
           <?php else: ?>
             <!-- Contenido para usuarios no premium -->
-             <h5>
-             Posibilidad de opciones Prémium disponibles una vez completado el registro
-              </h5> 
-              <p>Filtros para especificar alergias, intolerancias, enfermedades y generar dieta semanal.</p>
+            <h5>
+              Posibilidad de opciones Prémium disponibles una vez completado el registro
+            </h5>
+            <p>Filtros para especificar alergias, intolerancias, enfermedades y generar dieta semanal.</p>
           <?php endif; ?>
-          
+
           <div class="form-actions" style="margin-top:30px;">
             <button type="submit" name="accion" value="guardar_cambios" class="action-btn-verde" style="background-color: #2D3E2E; color: white; padding: 12px 30px !important; font-size: 1.1rem;">
               Actualizar datos
@@ -277,53 +278,52 @@ $css_extra .= '<link rel="stylesheet" href="styles/perfil-ajustes.css?v=' . file
   </section>
 
   <?php include 'footer.php'; ?>
-  
-  <script>
-    //pequeño  script para validar el código de registro que se muestra en el perfil una vez registrado y logueado
-  document.addEventListener('DOMContentLoaded', function() {
-    const validarCodigoBtn = document.getElementById('validarCodigoBtn');
-    const codigoInput = document.getElementById('codigo_registro');
-    const mensajeCodigo = document.getElementById('mensajeCodigo');
 
-    validarCodigoBtn.addEventListener('click', function() {
-      const codigo = codigoInput.value.trim();
-      
-      if (!codigo) {
-        mostrarMensaje('Por favor, introduce un código', 'error');
-        return;
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      // Script para validar código premium
+      const validarCodigoBtn = document.getElementById('validarCodigoBtn');
+      const codigoInput = document.getElementById('codigo_registro');
+      const mensajeCodigo = document.getElementById('mensajeCodigo');
+
+      if (validarCodigoBtn) {
+        validarCodigoBtn.addEventListener('click', function() {
+          const codigo = codigoInput.value.trim();
+          
+          if (!codigo) {
+            mostrarMensaje('Por favor, introduce un código', 'error');
+            return;
+          }
+
+          const formData = new FormData();
+          formData.append('codigo', codigo);
+
+          fetch('controllers/validar-codigo-premium.php', {
+            method: 'POST',
+            body: formData
+          })
+          .then(response => response.json())
+          .then(data => {
+            if (data.success) {
+              mostrarMensaje(data.message, 'success');
+              setTimeout(() => {
+                window.location.reload();
+              }, 2000);
+            } else {
+              mostrarMensaje(data.message, 'error');
+            }
+          })
+          .catch(error => {
+            mostrarMensaje('Error al procesar la solicitud', 'error');
+            console.error('Error:', error);
+          });
+        });
       }
 
-      // Crear FormData para enviar los datos
-      const formData = new FormData();
-      formData.append('codigo', codigo);
-
-      // Enviar la petición al servidor
-      fetch('controllers/validar-codigo-premium.php', {
-        method: 'POST',
-        body: formData
-      })
-      .then(response => response.json())
-      .then(data => {
-        if (data.success) {
-          mostrarMensaje(data.message, 'success');
-          // Recargar la página después de 2 segundos para mostrar los cambios
-          setTimeout(() => {
-            window.location.reload();
-          }, 2000);
-        } else {
-          mostrarMensaje(data.message, 'error');
-        }
-      })
-      .catch(error => {
-        mostrarMensaje('Error al procesar la solicitud', 'error');
-        console.error('Error:', error);
-      });
+      function mostrarMensaje(mensaje, tipo) {
+        mensajeCodigo.textContent = mensaje;
+        mensajeCodigo.className = tipo === 'success' ? 'mensaje-exito' : 'mensaje-error';
+      }
     });
-
-    function mostrarMensaje(mensaje, tipo) {
-      mensajeCodigo.textContent = mensaje;
-      mensajeCodigo.className = tipo === 'success' ? 'mensaje-exito' : 'mensaje-error';
-    }
-  });
   </script>
 </body>
