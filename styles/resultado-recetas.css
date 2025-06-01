@@ -30,7 +30,7 @@
   background-color: transparent;
   padding: 30px;
   margin: 0 auto;
-  min-height: 800px; 
+  min-height: 900px; 
 }
 
 .container-resultados::before {
@@ -152,7 +152,7 @@
   background-color: #f7f9fc;
   border: 1px dashed #ccc;
   border-radius: 6px;
-  max-width: 700px;
+  max-width: 750px;
 }
 
 .premium-header {
@@ -498,6 +498,127 @@
   }
 }
 
+/* Estilos para el tooltip de perfil de salud */
+.perfil-salud-container {
+    position: relative;
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.info-icon-container {
+    display: inline-block;
+    margin-left: 8px;
+    position: relative;
+    cursor: help;
+    vertical-align: middle;
+}
+
+.info-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 18px;
+    height: 18px;
+    background-color: var(--primary-color);
+    color: white;
+    border-radius: 50%;
+    font-size: 12px;
+    font-weight: bold;
+    cursor: help;
+    transition: background-color 0.3s;
+}
+
+.info-icon:hover {
+    background-color: var(--primary-dark);
+}
+
+.tooltip {
+    visibility: hidden;
+    width: 250px;
+    background-color: white;
+    color: var(--text-color);
+    text-align: left;
+    border-radius: 6px;
+    padding: 12px;
+    position: absolute;
+    z-index: 1000;
+    bottom: 125%;
+    left: 50%;
+    transform: translateX(-50%);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    opacity: 0;
+    transition: opacity 0.3s;
+    border: 1px solid var(--border-color);
+}
+
+.tooltip::after {
+    content: "";
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    margin-left: -5px;
+    border-width: 5px;
+    border-style: solid;
+    border-color: white transparent transparent transparent;
+}
+
+.tooltip h5 {
+    margin: 0 0 8px 0;
+    color: var(--primary-dark);
+    font-size: 14px;
+}
+
+.tooltip p {
+    margin: 8px 0;
+    font-size: 13px;
+    line-height: 1.4;
+}
+
+.info-icon-container:hover .tooltip {
+    visibility: visible;
+    opacity: 1;
+}
+
+/* Estilos para el botón de limpiar filtros */
+.filtros-acciones {
+    text-align: center;
+    margin: 20px 0;
+    width: 100%;
+}
+
+.boton-limpiar {
+    background-color: transparent;
+    color: var(--primary-color);
+    border: 2px solid var(--primary-color);
+    border-radius: 20px;
+    padding: 8px 20px;
+    font-size: 14px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+}
+
+.boton-limpiar:hover {
+    background-color: var(--primary-color);
+    color: white;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.boton-limpiar:active {
+    transform: translateY(0);
+    box-shadow: none;
+}
+
+.icono-limpiar {
+    font-size: 18px;
+    line-height: 1;
+}
+
+/* Ajustes para móviles */
 @media (max-width: 900px) {
   .recipiente-carrusel {
     height: auto;

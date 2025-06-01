@@ -207,6 +207,19 @@
         console.log('Sistema de filtros inicializado correctamente');
     });
     // Script para mostrar y ocultar los filtros premium
+    // Función para limpiar todos los filtros
+    document.getElementById('limpiar-filtros')?.addEventListener('click', function(e) {
+        e.preventDefault();
+        
+        // Obtener el término de búsqueda si existe
+        const params = new URLSearchParams(window.location.search);
+        const termino = params.get('q') || '';
+        
+        // Redirigir a la página sin filtros
+        window.location.href = termino ? `index.php?page=buscar&q=${encodeURIComponent(termino)}` : 'index.php?page=buscar&q=';
+    });
+
+    // Mostrar/ocultar opciones premium
     document.addEventListener('DOMContentLoaded', function() {
         const premiumHeader = document.querySelector('.premium-header');
         const premiumOptions = document.querySelector('.premium-options');

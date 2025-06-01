@@ -28,26 +28,38 @@ class Dieta
         return self::getUltimaDietaUsuario($id_usuario);
     }
 
-    // Obtiene los IDs de alergias del usuario
+    // Obtiene las alergias del usuario con sus nombres
     public static function getAlergiasUsuario($id_usuario) {
         global $conexion;
-        $sql = "SELECT id_alergia FROM usuario_alergia WHERE id_usuario = $id_usuario";
+        $sql = "SELECT a.id, a.nombre 
+                FROM alergias a 
+                JOIN usuario_alergia ua ON a.id = ua.id_alergia 
+                WHERE ua.id_usuario = $id_usuario";
         $res = $conexion->query($sql);
         $alergias = [];
         while ($row = $res->fetch_assoc()) {
-            $alergias[] = $row['id_alergia'];
+            $alergias[] = [
+                'id' => $row['id'],
+                'nombre' => $row['nombre']
+            ];
         }
         return $alergias;
     }
 
-    // Obtiene los IDs de enfermedades del usuario
+    // Obtiene las enfermedades del usuario con sus nombres
     public static function getEnfermedadesUsuario($id_usuario) {
         global $conexion;
-        $sql = "SELECT id_enfermedad FROM usuario_enfermedad WHERE id_usuario = $id_usuario";
+        $sql = "SELECT e.id, e.nombre 
+                FROM enfermedades e 
+                JOIN usuario_enfermedad ue ON e.id = ue.id_enfermedad 
+                WHERE ue.id_usuario = $id_usuario";
         $res = $conexion->query($sql);
         $enfermedades = [];
         while ($row = $res->fetch_assoc()) {
-            $enfermedades[] = $row['id_enfermedad'];
+            $enfermedades[] = [
+                'id' => $row['id'],
+                'nombre' => $row['nombre']
+            ];
         }
         return $enfermedades;
     }

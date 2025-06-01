@@ -1,4 +1,5 @@
 <?php
+require_once 'models/dieta.php';
 $css_extra = '';
 $css_extra .= '<link rel="stylesheet" href="styles/resultado-recetas.css?v=' . filemtime('styles/resultado-recetas.css') . '">';
 ?>
@@ -149,11 +150,42 @@ $css_extra .= '<link rel="stylesheet" href="styles/resultado-recetas.css?v=' . f
                                             Colesterol alto
                                         </label>
                                     <div class="premium-option">
-                                        <label class="checkbox-container" title="No mostrar recetas que me puedan perjudicar">
-                                            <input type="checkbox" name="aplicar_perfil_salud" id="aplicar_perfil_salud" value="1" <?= !isset($_SESSION['id_usuario']) ? 'disabled' : '' ?> <?= isset($_GET['aplicar_perfil_salud']) && $_GET['aplicar_perfil_salud'] == '1' ? 'checked' : '' ?>>
-                                            <span class="checkmark"></span>
-                                            Aplicar mi perfil de salud
-                                        </label>
+                                        <div class="perfil-salud-container">
+                                            <label class="checkbox-container" title="No mostrar recetas que me puedan perjudicar">
+                                                <input type="checkbox" name="aplicar_perfil_salud" id="aplicar_perfil_salud" value="1" <?= !isset($_SESSION['id_usuario']) ? 'disabled' : '' ?> <?= isset($_GET['aplicar_perfil_salud']) && $_GET['aplicar_perfil_salud'] == '1' ? 'checked' : '' ?>>
+                                                <span class="checkmark"></span>
+                                                Aplicar mi perfil de salud
+                                            </label>
+                                          
+                                        </div>
+                                        <?php if (isset($_SESSION['id_usuario']) && isset($_GET['aplicar_perfil_salud']) && $_GET['aplicar_perfil_salud'] == '1'): ?>
+                                            <div class="info-icon-container">
+                                                <span class="info-icon">i</span>
+                                                <div class="tooltip">
+                                                    <h5>Filtros aplicados:</h5>
+                                                    <?php 
+                                                    $usuarioAlergias = Dieta::getAlergiasUsuario($_SESSION['id_usuario']);
+                                                    $usuarioEnfermedades = Dieta::getEnfermedadesUsuario($_SESSION['id_usuario']);
+                                                    
+                                                    if (!empty($usuarioAlergias)) {
+                                                        echo "<p><strong>Evitando alérgenos:</strong><br>";
+                                                        foreach ($usuarioAlergias as $alergia) {
+                                                            echo "- " . htmlspecialchars($alergia['nombre']) . "<br>";
+                                                        }
+                                                        echo "</p>";
+                                                    }
+                                                    
+                                                    if (!empty($usuarioEnfermedades)) {
+                                                        echo "<p><strong>Considerando enfermedades:</strong><br>";
+                                                        foreach ($usuarioEnfermedades as $enfermedad) {
+                                                            echo "- " . htmlspecialchars($enfermedad['nombre']) . "<br>";
+                                                        }
+                                                        echo "</p>";
+                                                    }
+                                                    ?>
+                                                </div>
+                                            </div>
+                                            <?php endif; ?>
                                     </div>
                                     </div>
                                 </div>
@@ -192,6 +224,13 @@ $css_extra .= '<link rel="stylesheet" href="styles/resultado-recetas.css?v=' . f
 
                             </div>
                         </div>
+                    </div>
+
+                    <!-- Botón Limpiar Filtros -->
+                    <div class="filtros-acciones">
+                        <button id="limpiar-filtros" class="boton-limpiar">
+                            <span class="icono-limpiar">×</span> Limpiar todos los filtros
+                        </button>
                     </div>
 
                     <!-- Carrusel dinámico -->
