@@ -120,7 +120,43 @@ $css_extra .= '<link rel="stylesheet" href="styles/dieta-semana-dias.css?v=' . f
             <div class="meal-schedule">
                 <div class="instrucciones banner-redondeado">
                     <h2>Indicaciones</h2>
-                    <p>Esta es una dieta semanal personalizada <b>exclusivamente para ti.</b></p>
+                    <p>Esta es una dieta semanal personalizada <b>exclusivamente para ti <?php 
+                    $userNick = htmlspecialchars(getUserNick());
+                    echo $userNick . '</b>.';
+                    
+                    if (isset($_SESSION['id_usuario'])): 
+                        // Función auxiliar para formatear listas
+                        function formatearLista($items) {
+                            if (count($items) === 1) {
+                                return $items[0];
+                            }
+                            $ultimo = array_pop($items);
+                            return implode(', ', $items) . ' y ' . $ultimo;
+                        }
+
+                        $usuarioAlergias = Dieta::getAlergiasUsuario($_SESSION['id_usuario']);
+                        $usuarioEnfermedades = Dieta::getEnfermedadesUsuario($_SESSION['id_usuario']);
+                        $mensaje = [];
+                        
+                        if (!empty($usuarioAlergias)) {
+                            $nombresAlergias = array_map(function($a) { 
+                                return htmlspecialchars($a['nombre']); 
+                            }, $usuarioAlergias);
+                            $mensaje[] = 'tenemos en cuenta tu/s alergia/s a <u>' . formatearLista($nombresAlergias) . '</u>';
+                        }
+
+                        if (!empty($usuarioEnfermedades)) {
+                            $nombresEnfermedades = array_map(function($e) { 
+                                return htmlspecialchars($e['nombre']); 
+                            }, $usuarioEnfermedades);
+                            $mensaje[] = 'consideramos tus enfermedades <u>' . formatearLista($nombresEnfermedades) . '</u>';
+                        }
+                        
+                        if (!empty($mensaje)) {
+                            echo ' ' . ucfirst(implode(' y ', $mensaje)) . '.';
+                        }
+                    endif; 
+                    ?></p>
                     <p>Puedes ver los platos de cada día de la semana por franja del día. Puedes cambiar con el selector entre: <i>desayuno, comida, cena o la dieta completa.</i>
                         Si <b>haces clic</b> en una <b>la imagen de una receta</b> podrás ver la <b>ficha completa.</b></p>
                     <p>Puedes <b>seleccionar en el día</b> de la semana para ver la <b> dieta completa</b> de ese día.</p>
@@ -240,6 +276,48 @@ document.getElementById('generarNuevaDietaBtn').addEventListener('click', functi
         overlay.style.display = 'none';
         alert('Ocurrió un error al generar la dieta. Por favor, inténtalo de nuevo.');
     });
+
+    // Verificar el parámetro aplicar_perfil_salud en la URL
+    const urlParams = new URLSearchParams(window.location.search);
+    const aplicarPerfilSalud = urlParams.get('aplicar_perfil_salud');
+    
+    // Si el parámetro está presente y es '1', mostrar el tooltip
+    if (aplicarPerfilSalud === '1') {
+        const tooltipContainer = document.getElementById('perfil-salud-tooltip');
+        if (tooltipContainer) {
+            // Mostrar el contenedor del tooltip
+            tooltipContainer.style.display = 'inline-flex';
+            tooltipContainer.style.alignItems = 'center';
+            tooltipContainer.style.marginLeft = '5px';
+            
+            // Asegurarse de que el tooltip tenga el estilo correcto
+            const tooltip = tooltipContainer.querySelector('.tooltip');
+            if (tooltip) {
+                tooltip.style.display = 'none'; // Inicialmente oculto
+                tooltip.style.position = 'absolute';
+                tooltip.style.zIndex = '1000';
+                tooltip.style.background = '#fff';
+                tooltip.style.padding = '10px';
+                tooltip.style.borderRadius = '5px';
+                tooltip.style.boxShadow = '0 2px 10px rgba(0,0,0,0.1)';
+                tooltip.style.minWidth = '200px';
+                tooltip.style.maxWidth = '300px';
+                
+                // Mostrar/ocultar tooltip al pasar el ratón
+                tooltipContainer.addEventListener('mouseenter', function(e) {
+                    tooltip.style.display = 'block';
+                    // Posicionar el tooltip debajo del ícono
+                    const rect = tooltipContainer.getBoundingClientRect();
+                    tooltip.style.top = (rect.bottom + window.scrollY) + 'px';
+                    tooltip.style.left = (rect.left + window.scrollX) + 'px';
+                });
+                
+                tooltipContainer.addEventListener('mouseleave', function() {
+                    tooltip.style.display = 'none';
+                });
+            }
+        }
+    }
 });
 </script>
 <?php include 'footer.php'; ?>

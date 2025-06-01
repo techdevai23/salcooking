@@ -131,11 +131,11 @@ $css_extra .= '<link rel="stylesheet" href="styles/resultado-recetas.css?v=' . f
                             </div>
                             <div class="premium-options">
                                 <!-- Aqui van el filtro de ingredientes, enfermedades y tiempo de preparación -->
-                                 <!-- ingredientes -->
+                                <!-- ingredientes -->
                                 <div class="premium-option">
                                     <input type="text" name="ingrediente" id="ingrediente" placeholder="Filtrar por ingrediente..." <?= !isset($_SESSION['id_usuario']) ? 'disabled' : '' ?>>
                                 </div>
-                                    <!-- enfermedades -->
+                                <!-- enfermedades -->
                                 <div class="premium-option checkbox-group">
                                     <h6>Enfermedades a evitar:</h6>
                                     <div class="checkbox-options">
@@ -149,48 +149,48 @@ $css_extra .= '<link rel="stylesheet" href="styles/resultado-recetas.css?v=' . f
                                             <span class="checkmark"></span>
                                             Colesterol alto
                                         </label>
-                                    <div class="premium-option">
-                                        <div class="perfil-salud-container">
-                                            <label class="checkbox-container" title="No mostrar recetas que me puedan perjudicar">
-                                                <input type="checkbox" name="aplicar_perfil_salud" id="aplicar_perfil_salud" value="1" <?= !isset($_SESSION['id_usuario']) ? 'disabled' : '' ?> <?= isset($_GET['aplicar_perfil_salud']) && $_GET['aplicar_perfil_salud'] == '1' ? 'checked' : '' ?>>
-                                                <span class="checkmark"></span>
-                                                Aplicar mi perfil de salud
-                                            </label>
-                                          
-                                        </div>
-                                        <?php if (isset($_SESSION['id_usuario']) && isset($_GET['aplicar_perfil_salud']) && $_GET['aplicar_perfil_salud'] == '1'): ?>
-                                            <div class="info-icon-container">
-                                                <span class="info-icon">i</span>
-                                                <div class="tooltip">
-                                                    <h5>Filtros aplicados:</h5>
-                                                    <?php 
-                                                    $usuarioAlergias = Dieta::getAlergiasUsuario($_SESSION['id_usuario']);
-                                                    $usuarioEnfermedades = Dieta::getEnfermedadesUsuario($_SESSION['id_usuario']);
-                                                    
-                                                    if (!empty($usuarioAlergias)) {
-                                                        echo "<p><strong>Evitando alérgenos:</strong><br>";
-                                                        foreach ($usuarioAlergias as $alergia) {
-                                                            echo "- " . htmlspecialchars($alergia['nombre']) . "<br>";
-                                                        }
-                                                        echo "</p>";
-                                                    }
-                                                    
-                                                    if (!empty($usuarioEnfermedades)) {
-                                                        echo "<p><strong>Considerando enfermedades:</strong><br>";
-                                                        foreach ($usuarioEnfermedades as $enfermedad) {
-                                                            echo "- " . htmlspecialchars($enfermedad['nombre']) . "<br>";
-                                                        }
-                                                        echo "</p>";
-                                                    }
-                                                    ?>
-                                                </div>
+                                        <div class="premium-option">
+                                            <div class="perfil-salud-container">
+                                                <label class="checkbox-container" title="No mostrar recetas que me puedan perjudicar">
+                                                    <input type="checkbox" name="aplicar_perfil_salud" id="aplicar_perfil_salud" value="1" <?= !isset($_SESSION['id_usuario']) ? 'disabled' : '' ?> <?= isset($_GET['aplicar_perfil_salud']) && $_GET['aplicar_perfil_salud'] == '1' ? 'checked' : '' ?>>
+                                                    <span class="checkmark"></span>
+                                                    Aplicar mi perfil de salud
+                                                </label>
+
                                             </div>
+                                            <?php if (isset($_SESSION['id_usuario']) && isset($_GET['aplicar_perfil_salud']) && $_GET['aplicar_perfil_salud'] == '1'): ?>
+                                                <div class="info-icon-container">
+                                                    <span class="info-icon">i</span>
+                                                    <div class="tooltip">
+                                                        <h5>Filtros aplicados:</h5>
+                                                        <?php
+                                                        $usuarioAlergias = Dieta::getAlergiasUsuario($_SESSION['id_usuario']);
+                                                        $usuarioEnfermedades = Dieta::getEnfermedadesUsuario($_SESSION['id_usuario']);
+
+                                                        if (!empty($usuarioAlergias)) {
+                                                            echo "<p><strong>Evitando alérgenos:</strong><br>";
+                                                            foreach ($usuarioAlergias as $alergia) {
+                                                                echo "- " . htmlspecialchars($alergia['nombre']) . "<br>";
+                                                            }
+                                                            echo "</p>";
+                                                        }
+
+                                                        if (!empty($usuarioEnfermedades)) {
+                                                            echo "<p><strong>Considerando enfermedades:</strong><br>";
+                                                            foreach ($usuarioEnfermedades as $enfermedad) {
+                                                                echo "- " . htmlspecialchars($enfermedad['nombre']) . "<br>";
+                                                            }
+                                                            echo "</p>";
+                                                        }
+                                                        ?>
+                                                    </div>
+                                                </div>
                                             <?php endif; ?>
-                                    </div>
+                                        </div>
                                     </div>
                                 </div>
 
-                                                                    <!-- Tiempo de preparación -->
+                                <!-- Tiempo de preparación -->
                                 <div class="premium-option checkbox-group">
                                     <h6>Tiempo de preparación:</h6>
                                     <div class="checkbox-options">
@@ -220,7 +220,7 @@ $css_extra .= '<link rel="stylesheet" href="styles/resultado-recetas.css?v=' . f
                                     </label>
                                 </div> -->
 
-                             
+
 
                             </div>
                         </div>
@@ -246,7 +246,7 @@ $css_extra .= '<link rel="stylesheet" href="styles/resultado-recetas.css?v=' . f
                                 <!-- Posición izquierda 2 (oculta inicialmente) -->
                                 <div class="recipiente-card side-card hidden" data-position="left-2">
                                     <a href="#" class="btn-view-recipiente">Ver receta
-                                    <img src="" alt=""></a>
+                                        <img src="" alt=""></a>
                                     <div class="recipiente-info">
                                         <h4></h4>
                                         <div class="recipiente-tags"></div>
@@ -256,7 +256,7 @@ $css_extra .= '<link rel="stylesheet" href="styles/resultado-recetas.css?v=' . f
                                 <!-- Posición izquierda 1 (oculta inicialmente) -->
                                 <div class="recipiente-card side-card hidden" data-position="left-1">
                                     <a href="#" class="btn-view-recipiente">Ver receta
-                                    <img src="" alt=""></a>
+                                        <img src="" alt=""></a>
                                     <div class="recipiente-info">
                                         <h4></h4>
                                         <div class="recipiente-tags"></div>
@@ -267,11 +267,11 @@ $css_extra .= '<link rel="stylesheet" href="styles/resultado-recetas.css?v=' . f
                                 <?php if (isset($resultados[0])): ?>
                                     <div class="recipiente-card featured-card" data-position="center" data-recipe-index="0">
                                         <a href="index.php?page=detalle-receta&id=<?= $resultados[0]['id'] ?>" class="btn-view-recipiente">Ver receta
-                                        <?php
-                                        $imagePath = "sources/platos/id{$resultados[0]['id']}.png";
-                                        $imageUrl = file_exists($imagePath) ? $imagePath : "sources/platos/default.png";
-                                        ?>
-                                        <img src="<?= $imageUrl ?>" alt="<?= htmlspecialchars($resultados[0]['nombre']) ?>"></a>
+                                            <?php
+                                            $imagePath = "sources/platos/id{$resultados[0]['id']}.png";
+                                            $imageUrl = file_exists($imagePath) ? $imagePath : "sources/platos/default.png";
+                                            ?>
+                                            <img src="<?= $imageUrl ?>" alt="<?= htmlspecialchars($resultados[0]['nombre']) ?>"></a>
                                         <div class="recipiente-info">
                                             <h4><?= htmlspecialchars($resultados[0]['nombre']) ?></h4>
                                             <div class="recipiente-tags">
@@ -303,11 +303,11 @@ $css_extra .= '<link rel="stylesheet" href="styles/resultado-recetas.css?v=' . f
                                 <?php if (isset($resultados[1])): ?>
                                     <div class="recipiente-card side-card" data-position="right-1" data-recipe-index="1">
                                         <a href="index.php?page=detalle-receta&id=<?= $resultados[1]['id'] ?>" class="btn-view-recipiente">Ver receta
-                                        <?php
-                                        $imagePath = "sources/platos/id{$resultados[1]['id']}.png";
-                                        $imageUrl = file_exists($imagePath) ? $imagePath : "sources/platos/default.png";
-                                        ?>
-                                        <img src="<?= $imageUrl ?>" alt="<?= htmlspecialchars($resultados[1]['nombre']) ?>"></a>
+                                            <?php
+                                            $imagePath = "sources/platos/id{$resultados[1]['id']}.png";
+                                            $imageUrl = file_exists($imagePath) ? $imagePath : "sources/platos/default.png";
+                                            ?>
+                                            <img src="<?= $imageUrl ?>" alt="<?= htmlspecialchars($resultados[1]['nombre']) ?>"></a>
                                         <div class="recipiente-info">
                                             <h4><?= htmlspecialchars($resultados[1]['nombre']) ?></h4>
                                             <div class="recipiente-tags">
@@ -339,11 +339,11 @@ $css_extra .= '<link rel="stylesheet" href="styles/resultado-recetas.css?v=' . f
                                 <?php if (isset($resultados[2])): ?>
                                     <div class="recipiente-card side-card" data-position="right-2" data-recipe-index="2">
                                         <a href="index.php?page=detalle-receta&id=<?= $resultados[2]['id'] ?>" class="btn-view-recipiente">Ver receta
-                                        <?php
-                                        $imagePath = "sources/platos/id{$resultados[2]['id']}.png";
-                                        $imageUrl = file_exists($imagePath) ? $imagePath : "sources/platos/default.png";
-                                        ?>
-                                        <img src="<?= $imageUrl ?>" alt="<?= htmlspecialchars($resultados[2]['nombre']) ?>"></a>
+                                            <?php
+                                            $imagePath = "sources/platos/id{$resultados[2]['id']}.png";
+                                            $imageUrl = file_exists($imagePath) ? $imagePath : "sources/platos/default.png";
+                                            ?>
+                                            <img src="<?= $imageUrl ?>" alt="<?= htmlspecialchars($resultados[2]['nombre']) ?>"></a>
                                         <div class="recipiente-info">
                                             <h4><?= htmlspecialchars($resultados[2]['nombre']) ?></h4>
                                             <div class="recipiente-tags">

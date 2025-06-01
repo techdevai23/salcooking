@@ -28,7 +28,12 @@ class DietaController
         $dieta_actual = Dieta::getUltimaDietaUsuario($id_usuario);
         
         if ($dieta_actual) {
-            // Mostrar la dieta existente
+            // Mostrar la dieta existente con el perfil de salud aplicado
+            if (!isset($_GET['aplicar_perfil_salud'])) {
+                // Si no está presente el parámetro, redirigir para incluirlo
+                header('Location: dieta-semana-por-dias.php?aplicar_perfil_salud=1');
+                exit;
+            }
             $this->mostrarDieta($dieta_actual['id_dieta']);
         } else {
             // Mostrar pantalla de bienvenida para generar la primera dieta
@@ -77,7 +82,7 @@ class DietaController
         if ($id_dieta) {
             echo json_encode([
                 'success' => true,
-                'redirect' => 'dieta-semana-por-dias.php?generada=1'
+                'redirect' => 'dieta-semana-por-dias.php?generada=1&aplicar_perfil_salud=1'
             ]);
         } else {
             header('HTTP/1.1 500 Internal Server Error');
@@ -94,6 +99,8 @@ class DietaController
             return;
         }
         
+        // Pasar el parámetro aplicar_perfil_salud a la vista
+        $aplicar_perfil_salud = isset($_GET['aplicar_perfil_salud']) && $_GET['aplicar_perfil_salud'] == '1';
         include __DIR__ . '/../dieta-semana-por-dias.php';
     }
     
@@ -110,6 +117,8 @@ class DietaController
     // Muestra una dieta específica
     private function mostrarDieta($id_dieta) {
         $planDieta = Dieta::getPlanDieta($id_dieta);
+        // Pasar el parámetro aplicar_perfil_salud a la vista
+        $aplicar_perfil_salud = isset($_GET['aplicar_perfil_salud']) && $_GET['aplicar_perfil_salud'] == '1';
         include __DIR__ . '/../dieta-semana-por-dias.php';
     }
     
