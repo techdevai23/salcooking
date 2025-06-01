@@ -815,3 +815,18 @@
        
     }
 }
+
+/* Fila de selectores en la barra superior */
+.top-filters-row-selectores {
+  display: flex;
+  gap: 20px;
+  align-items: center;
+}
+
+/* Fila de botones en la barra superior */
+.top-filters-row-botones {
+  display: flex;
+  gap: 20px;
+  align-items: center;
+  margin-top: 10px;
+}

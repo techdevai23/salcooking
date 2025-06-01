@@ -42,46 +42,6 @@ if ($id_dieta_seleccionada) {
     $planDieta = Dieta::getPlanDieta($id_dieta_seleccionada);
 }
 
-// Obtener la última dieta del usuario solo si es premium
-if ($es_premium) {
-    $dieta = Dieta::getUltimaDietaUsuario($_SESSION['id_usuario']);
-    if (!$dieta) {
-        // Generar dieta automáticamente en el backend
-        try {
-            $alergias = Dieta::getAlergiasUsuario($_SESSION['id_usuario']);
-            $enfermedades = Dieta::getEnfermedadesUsuario($_SESSION['id_usuario']);
-            $recetasAptas = Dieta::getRecetasAptas($alergias, $enfermedades);
-
-            // // debug**************
-            // echo '<pre>';
-            // var_dump($alergias, $enfermedades, $recetasAptas);
-            // echo '</pre>';
-
-            if (empty($recetasAptas)) {
-                throw new Exception('No hay suficientes recetas disponibles para generar una dieta con tus preferencias actuales.');
-            }
-            $planSemanal = Dieta::generarPlanSemanal($recetasAptas);
-            if (empty($planSemanal)) {
-                throw new Exception('No se pudo generar el plan semanal. Por favor, inténtalo de nuevo.');
-            }
-            $idDieta = Dieta::crearYGuardarDieta($_SESSION['id_usuario'], $planSemanal);
-            if (!$idDieta) {
-                throw new Exception('Error al guardar la dieta. Por favor, inténtalo de nuevo.');
-            }
-            $dieta = ['id_dieta' => $idDieta];
-        } catch (Exception $e) {
-            $error_generacion = $e->getMessage();
-        }
-    }
-    if (isset($dieta['id_dieta'])) {
-        $planDieta = Dieta::getPlanDieta($dieta['id_dieta']);
-        // // debug**************
-        // echo '<pre>';
-        // var_dump($dieta, $planDieta);
-        // echo '</pre>';
-    }
-}
-
 // Cargar los estilos CSS
 $css_extra = '';
 $css_extra .= '<link rel="stylesheet" href="styles/dieta-semana-dias.css?v=' . filemtime('styles/dieta-semana-dias.css') . '">';
@@ -110,37 +70,41 @@ $css_extra .= '<link rel="stylesheet" href="styles/dieta-semana-dias.css?v=' . f
             </div>
             <!-- barra de navegación de opciones -->
             <div class="top-filters-bar">
-                <div class="filter-section">
-                    <label for="ordenar">Vista por:</label>
-                    <select name="ordenar" id="ordenar">
-                        <option value="des">Desayuno</option>
-                        <option value="comida">Comida</option>
-                        <option value="cena">Cena</option>
-                        <option value="todo">Dieta completa</option>
-                    </select>
+                <div class="top-filters-row-selectores">
+                    <div class="filter-section">
+                        <label for="ordenar">Vista por:</label>
+                        <select name="ordenar" id="ordenar">
+                            <option value="des">Desayuno</option>
+                            <option value="comida">Comida</option>
+                            <option value="cena">Cena</option>
+                            <option value="todo">Dieta completa</option>
+                        </select>
+                    </div>
+                    <!-- Selector de dieta -->
+                    <div class="filter-section">
+                        <label for="selector-dieta">Nº dieta:</label>
+                        <select id="selector-dieta" name="selector-dieta">
+                            <?php foreach ($lista_dietas as $idx => $dieta_item): ?>
+                                <?php 
+                                $num = $idx + 1;
+                                $fecha = date('d-m-Y', strtotime($dieta_item['fecha_creacion']));
+                                $selected = ($dieta_item['id_dieta'] == $id_dieta_seleccionada) ? 'selected' : '';
+                                ?>
+                                <option value="<?= $dieta_item['id_dieta'] ?>" <?= $selected ?>>Dieta <?= $num ?> - <?= $fecha ?></option>
+                            <?php endforeach; ?>
+                        </select>
+                    </div>
                 </div>
-                <!-- Selector de dieta -->
-                <div class="filter-section">
-                    <label for="selector-dieta">Nº dieta:</label>
-                    <select id="selector-dieta" name="selector-dieta">
-                        <?php foreach ($lista_dietas as $idx => $dieta_item): ?>
-                            <?php 
-                            $num = $idx + 1;
-                            $fecha = date('d-m-Y', strtotime($dieta_item['fecha_creacion']));
-                            $selected = ($dieta_item['id_dieta'] == $id_dieta_seleccionada) ? 'selected' : '';
-                            ?>
-                            <option value="<?= $dieta_item['id_dieta'] ?>" <?= $selected ?>>Dieta <?= $num ?> - <?= $fecha ?></option>
-                        <?php endforeach; ?>
-                    </select>
-                </div>
-                <div class="filter-section">
-                    <a href="#" id="generarNuevaDietaBtn" class="action-btn-naranja">Generar nueva dieta</a>
-                </div>
-                <div class="filter-section">
-                    <a href="lista-semana.php?id_dieta=<?= $id_dieta_seleccionada ?>" class="action-btn-rosa">Lista compra semanal</a>
-                </div>
-                <div class="filter-section">
-                    <a href="perfil-logueado.php" class="action-btn-verde">Editar perfil-salud</a>
+                <div class="top-filters-row-botones">
+                    <div class="filter-section">
+                        <a href="#" id="generarNuevaDietaBtn" class="action-btn-naranja">Generar nueva dieta</a>
+                    </div>
+                    <div class="filter-section">
+                        <a href="lista-semana.php?id_dieta=<?= $id_dieta_seleccionada ?>" class="action-btn-rosa">Lista compra semanal</a>
+                    </div>
+                    <div class="filter-section">
+                        <a href="perfil-logueado.php" class="action-btn-verde">Editar perfil-salud</a>
+                    </div>
                 </div>
             </div>
 
@@ -221,6 +185,7 @@ $css_extra .= '<link rel="stylesheet" href="styles/dieta-semana-dias.css?v=' . f
                         'Cena' => 'CENAS'
                     ];
                 ?>
+                <!-- Bucle dinámico para cada tipo de comida -->
                 <?php foreach ($tipos as $tipo => $tipoLabel): ?>
                 <div class="meal-time-row" data-tipo="<?= strtolower($tipo) ?>">
                     <div class="time-label">
@@ -228,6 +193,7 @@ $css_extra .= '<link rel="stylesheet" href="styles/dieta-semana-dias.css?v=' . f
                     </div>
                     <div class="meal-container">
                         <?php foreach ($dias as $dia): 
+                            // Obtener la receta para el día y tipo de comida
                             $receta = $planDieta[$dia][$tipo] ?? null;
                         ?>
                             <div class="meal-item" data-day="<?= strtolower($dia) ?>">
@@ -235,6 +201,7 @@ $css_extra .= '<link rel="stylesheet" href="styles/dieta-semana-dias.css?v=' . f
                                     <h3><?= $dia ?></h3>
                                 </a>
                                 <br>
+                                <!-- Mostrar la receta si existe -->
                                 <?php if ($receta && is_array($receta)): ?>
                                     <a href="detalle-receta.php?id=<?= htmlspecialchars($receta['id'] ?? '') ?>" title="Ver receta de <?= htmlspecialchars($receta['nombre']) ?>">
                                         <img src="sources/platos/id<?= htmlspecialchars($receta['id'] ?? '') ?>.png" alt="<?= htmlspecialchars($receta['nombre']) ?>">
@@ -266,7 +233,7 @@ $css_extra .= '<link rel="stylesheet" href="styles/dieta-semana-dias.css?v=' . f
                 <div class="mensaje-no-premium banner-redondeado" style="text-align:center; margin: 60px auto; max-width: 600px;">
                     <h2>¡Hazte Premium para ver tu dieta semanal!</h2>
                     <p>Esta sección es exclusiva para usuarios premium. Si quieres acceder a tu dieta personalizada, hazte premium.</p>
-                    <a href="premium.php" class="btn btn-primary" style="margin: 10px;">Hazte Premium</a>
+                    <a href="contacto.php" class="btn btn-primary" style="margin: 10px;">Hazte Premium</a>
                     <a href="index.php" class="btn btn-secondary" style="margin: 10px;">Volver al inicio</a>
                 </div>
             </div>
