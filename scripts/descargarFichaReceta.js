@@ -50,36 +50,48 @@ function descargarFichaRecetaPDF(nombreArchivo, tituloReceta) {
   doc.setFont(undefined, 'normal');
 
   // --- Tiempo de Preparación y Porciones ---
-  const tiempoPrepElement = document.getElementById('receta-tiempo');
-  const porcionesElement = document.getElementById('receta-porciones');
+  // Buscar el texto de tiempo y porciones en el primer <div class="foto"> > <p>
+  let tiempoPrep = '';
+  let porciones = '';
+  const fotoDiv = document.querySelector('.foto p');
+  if (fotoDiv) {
+      const texto = fotoDiv.innerText;
+      // Buscar "Tiempo: XX minutos" y "Porciones: YY"
+      const tiempoMatch = texto.match(/Tiempo:\s*([^\n]+)/);
+      const porcionesMatch = texto.match(/Porciones:\s*([^\n]+)/);
+      if (tiempoMatch) tiempoPrep = tiempoMatch[1].trim();
+      if (porcionesMatch) porciones = porcionesMatch[1].trim();
+  }
 
   doc.setFontSize(10);
-  if (tiempoPrepElement) {
+  if (tiempoPrep) {
       yPos = checkAndAddPage(yPos, lineHeightDefault);
-      doc.text(limpiarEmojis(tiempoPrepElement.innerText), marginLeft, yPos); // CORREGIDO
+      doc.text(limpiarEmojis('Tiempo: ' + tiempoPrep), marginLeft, yPos);
       yPos += lineHeightDefault;
   }
-  if (porcionesElement) {
+  if (porciones) {
       yPos = checkAndAddPage(yPos, lineHeightDefault);
-      doc.text(limpiarEmojis(porcionesElement.innerText), marginLeft, yPos); // CORREGIDO
+      doc.text(limpiarEmojis('Porciones: ' + porciones), marginLeft, yPos);
       yPos += sectionSpacing;
   }
 
   // --- Ingredientes ---
-  yPos = checkAndAddPage(yPos, lineHeightDefault + sectionSpacing);
-  doc.setFontSize(12);
-  doc.setFont(undefined, 'bold');
-  doc.text("Ingredientes:", marginLeft, yPos); // Título sin emoji
-  yPos += 7;
-  doc.setFont(undefined, 'normal');
-  doc.setFontSize(9);
-
-  const ingredientesLista = document.getElementById('lista-ingredientes-receta');
+  // Buscar el primer <h3>Ingredientes</h3> seguido de <ul>
+  let ingredientesLista = null;
+  const h3s = document.querySelectorAll('.texto h3');
+  h3s.forEach(h3 => {
+      if (h3.textContent.trim().toLowerCase().includes('ingredientes')) {
+          const nextUl = h3.nextElementSibling;
+          if (nextUl && nextUl.tagName === 'UL') {
+              ingredientesLista = nextUl;
+          }
+      }
+  });
   const tableRowsIng = [];
   if (ingredientesLista) {
       const items = ingredientesLista.getElementsByTagName('li');
       for (let i = 0; i < items.length; i++) {
-          tableRowsIng.push([limpiarEmojis(items[i].innerText.trim())]); // CORREGIDO
+          tableRowsIng.push([limpiarEmojis(items[i].innerText.trim())]);
       }
   }
 
@@ -100,19 +112,19 @@ function descargarFichaRecetaPDF(nombreArchivo, tituloReceta) {
   }
 
   // --- Instrucciones ---
-  yPos = checkAndAddPage(yPos, lineHeightDefault + sectionSpacing);
-  doc.setFontSize(12);
-  doc.setFont(undefined, 'bold');
-  doc.text("Instrucciones:", marginLeft, yPos); // Título sin emoji
-  yPos += 7;
-  doc.setFont(undefined, 'normal');
-  doc.setFontSize(9);
-
-  const instruccionesElement = document.getElementById('receta-instrucciones');
+  // Buscar el primer <h3>Instrucciones</h3> seguido de <p>
+  let instruccionesElement = null;
+  h3s.forEach(h3 => {
+      if (h3.textContent.trim().toLowerCase().includes('instrucciones')) {
+          const nextP = h3.nextElementSibling;
+          if (nextP && nextP.tagName === 'P') {
+              instruccionesElement = nextP;
+          }
+      }
+  });
   if (instruccionesElement) {
-      let instruccionesTexto = limpiarEmojis(instruccionesElement.innerText.trim()); // CORREGIDO
+      let instruccionesTexto = limpiarEmojis(instruccionesElement.innerText.trim());
       const splitText = doc.splitTextToSize(instruccionesTexto, contentWidth);
-
       for (let i = 0; i < splitText.length; i++) {
           yPos = checkAndAddPage(yPos, lineHeightSmall);
           doc.text(splitText[i], marginLeft, yPos);
@@ -127,23 +139,20 @@ function descargarFichaRecetaPDF(nombreArchivo, tituloReceta) {
   yPos += sectionSpacing;
 
   // --- Función auxiliar para añadir una sección con título y lista de items de texto ---
-  function addSectionWithTextList(title, listElementId, currentYPos) {
+  function addSectionWithTextList(title, listElement, currentYPos) {
       let newYPos = currentYPos;
-      const listElement = document.getElementById(listElementId);
-
       newYPos = checkAndAddPage(newYPos, lineHeightDefault + sectionSpacing);
       doc.setFontSize(12);
       doc.setFont(undefined, 'bold');
-      doc.text(title, marginLeft, newYPos); // El título ya se pasa limpio
+      doc.text(title, marginLeft, newYPos);
       newYPos += 7;
       doc.setFont(undefined, 'normal');
       doc.setFontSize(9);
-
       if (listElement) {
           const items = listElement.getElementsByTagName('li');
           if (items.length > 0 && !(items.length === 1 && limpiarEmojis(items[0].innerText.trim()).toLowerCase().includes("ninguna"))) {
               for (let i = 0; i < items.length; i++) {
-                  const itemText = "• " + limpiarEmojis(items[i].innerText.trim()); // CORREGIDO
+                  const itemText = "• " + limpiarEmojis(items[i].innerText.trim());
                   const splitItemText = doc.splitTextToSize(itemText, contentWidth - 2);
                   for (let j = 0; j < splitItemText.length; j++) {
                       newYPos = checkAndAddPage(newYPos, lineHeightSmall);
@@ -165,8 +174,18 @@ function descargarFichaRecetaPDF(nombreArchivo, tituloReceta) {
   }
 
   // --- Sustitutos ---
-  const sustitutosTitleElement = document.getElementById('titulo-sustitutos');
-  const sustitutosContentElement = document.getElementById('lista-sustitutos');
+  // Buscar <h3>Sustitutos usados</h3> seguido de <p>
+  let sustitutosTitleElement = null;
+  let sustitutosContentElement = null;
+  h3s.forEach(h3 => {
+      if (h3.textContent.trim().toLowerCase().includes('sustitutos')) {
+          sustitutosTitleElement = h3;
+          const nextP = h3.nextElementSibling;
+          if (nextP && nextP.tagName === 'P') {
+              sustitutosContentElement = nextP;
+          }
+      }
+  });
 
   if (sustitutosTitleElement && sustitutosContentElement) {
       yPos = checkAndAddPage(yPos, lineHeightDefault + sectionSpacing);
@@ -194,10 +213,30 @@ function descargarFichaRecetaPDF(nombreArchivo, tituloReceta) {
   }
 
   // --- Alergias ---
-  yPos = addSectionWithTextList("Alergias Asociadas:", "lista-alergias", yPos); // Título sin emoji
+  // Buscar <h3>Alergias</h3> seguido de <ul>
+  let alergiasLista = null;
+  h3s.forEach(h3 => {
+      if (h3.textContent.trim().toLowerCase().includes('alergias')) {
+          const nextUl = h3.nextElementSibling;
+          if (nextUl && nextUl.tagName === 'UL') {
+              alergiasLista = nextUl;
+          }
+      }
+  });
+  // --- Enfermedades ---
+  // Buscar <h3>Información sobre enfermedades:</h3> seguido de <ul>
+  let enfermedadesLista = null;
+  h3s.forEach(h3 => {
+      if (h3.textContent.trim().toLowerCase().includes('enfermedades')) {
+          const nextUl = h3.nextElementSibling;
+          if (nextUl && nextUl.tagName === 'UL') {
+              enfermedadesLista = nextUl;
+          }
+      }
+  });
 
-  // --- Indicaciones para Enfermedades ---
-  yPos = addSectionWithTextList("Indicaciones para Enfermedades:", "lista-enfermedades", yPos); // Título sin emoji
+  yPos = addSectionWithTextList("Alergias Asociadas:", alergiasLista, yPos);
+  yPos = addSectionWithTextList("Indicaciones para Enfermedades:", enfermedadesLista, yPos);
 
   // --- Guardar el PDF ---
   doc.save(nombreArchivo);
