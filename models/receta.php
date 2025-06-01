@@ -61,43 +61,39 @@ class Receta
             // Filtro por perfil de salud del usuario
             if ($usarPerfil && $usarPerfil == '1' && isset($_SESSION['id_usuario'])) {
                 $idUsuario = intval($_SESSION['id_usuario']);
-
-                // Obtener el perfil del usuario
-                $sqlPerfil = "SELECT enfermedades, alergias FROM perfiles WHERE id_usuario = $idUsuario";
-                $resultadoPerfil = $conexion->query($sqlPerfil);
-
-                if ($resultadoPerfil && $resultadoPerfil->num_rows > 0) {
-                    $perfil = $resultadoPerfil->fetch_assoc();
-
-                    // Procesar alergias del perfil (formato: "1,2,3" o similar)
-                    if (!empty($perfil['alergias'])) {
-                        $alergiasUsuario = explode(',', $perfil['alergias']);
-                        $alergiasUsuario = array_map('trim', $alergiasUsuario);
-                        $alergiasUsuario = array_filter($alergiasUsuario, 'is_numeric');
-
-                        if (!empty($alergiasUsuario)) {
-                            $alergiasStr = implode(',', $alergiasUsuario);
-                            $condiciones[] = "r.id NOT IN (
-                                SELECT id_receta FROM receta_alergia 
-                                WHERE id_alergia IN ($alergiasStr)
-                            )";
-                        }
-                    }
-
-                    // Procesar enfermedades del perfil (formato: "1,2,3" o similar)
-                    if (!empty($perfil['enfermedades'])) {
-                        $enfermedadesUsuario = explode(',', $perfil['enfermedades']);
-                        $enfermedadesUsuario = array_map('trim', $enfermedadesUsuario);
-                        $enfermedadesUsuario = array_filter($enfermedadesUsuario, 'is_numeric');
-
-                        if (!empty($enfermedadesUsuario)) {
-                            $enfermedadesStr = implode(',', $enfermedadesUsuario);
-                            $condiciones[] = "r.id IN (
-                                SELECT id_receta FROM receta_enfermedad 
-                                WHERE id_enfermedad IN ($enfermedadesStr) AND apta = 1
-                            )";
-                        }
-                    }
+                
+                // Obtener alergias del usuario
+                $sqlAlergias = "SELECT id_alergia FROM usuario_alergia WHERE id_usuario = $idUsuario";
+                $resultadoAlergias = $conexion->query($sqlAlergias);
+                $alergiasUsuario = [];
+                while ($row = $resultadoAlergias->fetch_assoc()) {
+                    $alergiasUsuario[] = $row['id_alergia'];
+                }
+                
+                // Obtener enfermedades del usuario
+                $sqlEnfermedades = "SELECT id_enfermedad FROM usuario_enfermedad WHERE id_usuario = $idUsuario";
+                $resultadoEnfermedades = $conexion->query($sqlEnfermedades);
+                $enfermedadesUsuario = [];
+                while ($row = $resultadoEnfermedades->fetch_assoc()) {
+                    $enfermedadesUsuario[] = $row['id_enfermedad'];
+                }
+                
+                // Aplicar filtros de alergias
+                if (!empty($alergiasUsuario)) {
+                    $alergiasStr = implode(',', $alergiasUsuario);
+                    $condiciones[] = "r.id NOT IN (
+                        SELECT id_receta FROM receta_alergia 
+                        WHERE id_alergia IN ($alergiasStr)
+                    )";
+                }
+                
+                // Aplicar filtros de enfermedades
+                if (!empty($enfermedadesUsuario)) {
+                    $enfermedadesStr = implode(',', $enfermedadesUsuario);
+                    $condiciones[] = "r.id IN (
+                        SELECT id_receta FROM receta_enfermedad 
+                        WHERE id_enfermedad IN ($enfermedadesStr) AND apta = 1
+                    )";
                 }
             }
 

@@ -125,7 +125,7 @@ $css_extra .= '<link rel="stylesheet" href="styles/resultado-recetas.css?v=' . f
                                 <?php if (!isset($_SESSION['id_usuario'])): ?>
                                     <a href="contacto.php" title="Solo puedes ganar: Hazte Prémium" class="btn-premium">Hazte Prémium</a>
                                 <?php else: ?>
-                                    <span class="usuario-premium">¡Funciones Premium Activas!</span>
+                                    <span class="usuario-premium">¡Funciones Premium Activas <?php echo htmlspecialchars(getUserNick()); ?>!</span>
                                 <?php endif; ?>
                             </div>
                             <div class="premium-options">
@@ -148,6 +148,13 @@ $css_extra .= '<link rel="stylesheet" href="styles/resultado-recetas.css?v=' . f
                                             <span class="checkmark"></span>
                                             Colesterol alto
                                         </label>
+                                    <div class="premium-option">
+                                        <label class="checkbox-container" title="No mostrar recetas que me puedan perjudicar">
+                                            <input type="checkbox" name="aplicar_perfil_salud" id="aplicar_perfil_salud" value="1" <?= !isset($_SESSION['id_usuario']) ? 'disabled' : '' ?>>
+                                            <span class="checkmark"></span>
+                                            Aplicar mi perfil de salud
+                                        </label>
+                                    </div>
                                     </div>
                                 </div>
 

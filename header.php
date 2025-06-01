@@ -112,7 +112,7 @@ startSession();
                     <div class="search-box">
                         <form action="index.php" method="get">
                              <input type="hidden" name="page" value="buscar">
-                            <input type="text" placeholder="Busca en el titulo de las recetas" name="q">
+                            <input type="text" placeholder="Busca titulo de receta, deja en blanco para ver todas" name="q">
                             <button type="submit">
                                 <img src="sources/iconos/Search-Circle--Streamline-Ultimate.svg" width="28px" alt="búsqueda Icon"></button>
                         </form>

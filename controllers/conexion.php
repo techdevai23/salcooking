@@ -1,43 +1,50 @@
 <?php
-ini_set('display_errors', 1);
-ini_set('display_startup_errors', 1);
-error_reporting(E_ALL);
-
-$host = "127.0.0.1";
-$usuario = "root";
-$contrasena = "";
+// Configuración de la conexión
+$host = "127.0.0.1";      // o localhost
+$usuario = "admin";       // Usuario correcto que funciona en HeidiSQL
+$contrasena = "osso";     // Contraseña correcta que funciona en HeidiSQL
+$basedatos = "salcooking"; 
 $puerto = 3306;
 
+// Configurar el reporte de errores de MySQL
+mysqli_report(MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT);
+
 try {
-    $conexion = new mysqli($host, $usuario, $contrasena);
+    // Intentar conexión con timeout
+    $conexion = new mysqli($host, $usuario, $contrasena, $basedatos, $puerto);
     
+    // Configurar timeout de conexión
+    $conexion->options(MYSQLI_OPT_CONNECT_TIMEOUT, 5);
+    
+    // Configurar el charset
+    $conexion->set_charset("utf8mb4");
+    
+    // Verificar la conexión
     if ($conexion->connect_error) {
         throw new Exception("Error de conexión: " . $conexion->connect_error);
     }
     
-    // Verificar información del sistema
-    $queries = [
-        "SHOW VARIABLES LIKE 'datadir'",
-        "SHOW VARIABLES LIKE 'innodb_force_recovery'",
-        "SHOW DATABASES",
-        "SELECT SCHEMA_NAME, DEFAULT_CHARACTER_SET_NAME, DEFAULT_COLLATION_NAME 
-         FROM information_schema.SCHEMATA"
-    ];
-    
-    foreach ($queries as $query) {
-        $result = $conexion->query($query);
-        if ($result) {
-            error_log("Resultados de '$query':");
-            while ($row = $result->fetch_array(MYSQLI_ASSOC)) {
-                error_log(print_r($row, true));
-            }
-        }
+    // Verificar que la base de datos existe
+    $result = $conexion->query("SELECT DATABASE()");
+    if (!$result) {
+        throw new Exception("Error al verificar la base de datos");
     }
     
-    return $conexion;
-    
 } catch (Exception $e) {
-    error_log("Error detallado: " . $e->getMessage());
-    die("<div style='color: #721c24; background-color: #f8d7da; border: 1px solid #f5c6cb; padding: 15px;'>
-         Error de conexión. Detalles en el log.</div>");
+    // Log del error
+    error_log("Error de conexión a la base de datos: " . $e->getMessage());
+    
+    // Intentar reconexión con credenciales alternativas
+    try {
+        $conexion = new mysqli($host, "root", "", $basedatos, $puerto);
+        $conexion->set_charset("utf8mb4");
+        
+        if ($conexion->connect_error) {
+            throw new Exception("Error en reconexión: " . $conexion->connect_error);
+        }
+    } catch (Exception $e2) {
+        // Si falla la reconexión, mostrar mensaje amigable
+        die("Lo sentimos, estamos experimentando problemas técnicos. Por favor, inténtalo de nuevo en unos minutos.");
+    }
 }
+?>
