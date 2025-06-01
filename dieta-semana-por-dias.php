@@ -23,6 +23,25 @@ if (!$usuario) {
 $es_premium = isset($usuario['es_premium']) && $usuario['es_premium'] == 1;
 $error_generacion = '';
 
+// Obtener todas las dietas del usuario (ordenadas por fecha DESC)
+$lista_dietas = [];
+if ($es_premium) {
+    $sql = "SELECT id_dieta, fecha_creacion FROM dietas WHERE id_usuario = ? ORDER BY fecha_creacion DESC";
+    $stmt = $conexion->prepare($sql);
+    $stmt->bind_param("i", $_SESSION['id_usuario']);
+    $stmt->execute();
+    $result = $stmt->get_result();
+    while ($row = $result->fetch_assoc()) {
+        $lista_dietas[] = $row;
+    }
+    $stmt->close();
+}
+// Determinar la dieta seleccionada
+$id_dieta_seleccionada = isset($_GET['id_dieta']) ? intval($_GET['id_dieta']) : ($lista_dietas[0]['id_dieta'] ?? null);
+if ($id_dieta_seleccionada) {
+    $planDieta = Dieta::getPlanDieta($id_dieta_seleccionada);
+}
+
 // Obtener la última dieta del usuario solo si es premium
 if ($es_premium) {
     $dieta = Dieta::getUltimaDietaUsuario($_SESSION['id_usuario']);
@@ -100,11 +119,25 @@ $css_extra .= '<link rel="stylesheet" href="styles/dieta-semana-dias.css?v=' . f
                         <option value="todo">Dieta completa</option>
                     </select>
                 </div>
+                <!-- Selector de dieta -->
+                <div class="filter-section">
+                    <label for="selector-dieta">Nº dieta:</label>
+                    <select id="selector-dieta" name="selector-dieta">
+                        <?php foreach ($lista_dietas as $idx => $dieta_item): ?>
+                            <?php 
+                            $num = $idx + 1;
+                            $fecha = date('d-m-Y', strtotime($dieta_item['fecha_creacion']));
+                            $selected = ($dieta_item['id_dieta'] == $id_dieta_seleccionada) ? 'selected' : '';
+                            ?>
+                            <option value="<?= $dieta_item['id_dieta'] ?>" <?= $selected ?>>Dieta <?= $num ?> - <?= $fecha ?></option>
+                        <?php endforeach; ?>
+                    </select>
+                </div>
                 <div class="filter-section">
                     <a href="#" id="generarNuevaDietaBtn" class="action-btn-naranja">Generar nueva dieta</a>
                 </div>
                 <div class="filter-section">
-                    <a href="lista-semana.php" class="action-btn-rosa">Lista compra semanal</a>
+                    <a href="lista-semana.php?id_dieta=<?= $id_dieta_seleccionada ?>" class="action-btn-rosa">Lista compra semanal</a>
                 </div>
                 <div class="filter-section">
                     <a href="perfil-logueado.php" class="action-btn-verde">Editar perfil-salud</a>
@@ -218,7 +251,7 @@ $css_extra .= '<link rel="stylesheet" href="styles/dieta-semana-dias.css?v=' . f
                 <?php } ?>
             </div>
 
-            <a href="lista-semana.php" class="btn-opciones">Ver lista de la compra de la semana</a>
+            <a href="lista-semana.php?id_dieta=<?= $id_dieta_seleccionada ?>" class="btn-opciones">Ver lista de la compra de la semana</a>
             <a href="index.php" class="btn-opciones">Volver al Inicio</a>
         </div>
     </div>
@@ -251,8 +284,29 @@ $css_extra .= '<link rel="stylesheet" href="styles/dieta-semana-dias.css?v=' . f
   </div>
 </div>
 <script>
+document.getElementById('selector-dieta').addEventListener('change', function() {
+    const idDieta = this.value;
+    window.location.href = 'dieta-semana-por-dias.php?id_dieta=' + idDieta;
+});
+
 document.getElementById('generarNuevaDietaBtn').addEventListener('click', function(e) {
     e.preventDefault();
+    const numDietas = <?= count($lista_dietas) ?>;
+    if (numDietas >= 4) {
+        Swal.fire({
+            title: 'Límite alcanzado',
+            text: 'No puedes generar más de 4 dietas. Elimina alguna para crear una nueva.',
+            icon: 'warning',
+            confirmButtonText: 'Entendido',
+            customClass: {
+                container: 'my-swal-container',
+                popup: 'my-swal-popup',
+                title: 'my-swal-title',
+                confirmButton: 'my-swal-confirm-button'
+            }
+        });
+        return;
+    }
     const overlay = document.getElementById('loadingOverlay');
     overlay.style.display = 'flex';
     fetch('generar-dieta.php', {

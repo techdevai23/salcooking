@@ -13,9 +13,7 @@ $ingredientes_compra = [];
 $id_plan_semanal = null; // Aquí deberías obtener el ID del plan semanal (ej. desde $_GET['plan_id'])
 
 // --- LÓGICA PARA OBTENER INGREDIENTES DE LA SEMANA ---
-// Esto es un EJEMPLO de cómo podrías obtener los IDs de las recetas.
-// Necesitarás adaptar esto a cómo pases la información del plan semanal.
-// Por ejemplo, si pasas el ID del plan por GET:
+
 if (isset($_GET['id_dieta'])) {
     $id_plan_semanal = intval($_GET['id_dieta']);
 
