@@ -15,7 +15,7 @@ class RecetaController {
         // Filtros individuales
         $ingrediente = $_GET['ingrediente'] ?? null;
         $orden = $_GET['orden'] ?? '';
-        $usarPerfil = $_GET['perfil'] ?? null;
+        $usarPerfil = $_GET['aplicar_perfil_salud'] ?? null;
         
         // Verificar si el usuario está logueado para funciones premium
         $esPremium = isset($_SESSION['id_usuario']);
@@ -28,8 +28,25 @@ class RecetaController {
             $usarPerfil = null;
         }
 
+        // Debug: Mostrar parámetros recibidos*****************
+        echo "<!-- DEBUG - Parámetros de búsqueda: 
+        Término: " . htmlspecialchars($termino) . "
+        Tipo Plato: " . htmlspecialchars($tipoPlato) . "
+        Alérgeno: " . htmlspecialchars($alergeno) . "
+        Porciones: " . htmlspecialchars($porciones) . "
+        Ingrediente: " . htmlspecialchars($ingrediente) . "
+        Enfermedad: " . htmlspecialchars($enfermedad) . "
+        Tiempo Prep: " . htmlspecialchars($tiempoPrep) . "
+        Es Premium: " . ($esPremium ? 'Sí' : 'No') . "
+        Orden: " . htmlspecialchars($orden) . "
+        Usar Perfil: " . ($usarPerfil ? 'Sí' : 'No') . "
+        -->";
+
         $modelo = new Receta();
         $resultados = $modelo->buscarRecetas($termino, $tipoPlato, $alergeno, $porciones, $ingrediente, $enfermedad, $tiempoPrep, $esPremium, $orden, $usarPerfil);
+
+        // Debug: Mostrar número de resultados*****************
+        echo "<!-- DEBUG - Número de resultados: " . count($resultados) . " -->";
 
         require 'resultado-recetas.php';
     }

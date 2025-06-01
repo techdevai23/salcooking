@@ -150,7 +150,7 @@ $css_extra .= '<link rel="stylesheet" href="styles/resultado-recetas.css?v=' . f
                                         </label>
                                     <div class="premium-option">
                                         <label class="checkbox-container" title="No mostrar recetas que me puedan perjudicar">
-                                            <input type="checkbox" name="aplicar_perfil_salud" id="aplicar_perfil_salud" value="1" <?= !isset($_SESSION['id_usuario']) ? 'disabled' : '' ?>>
+                                            <input type="checkbox" name="aplicar_perfil_salud" id="aplicar_perfil_salud" value="1" <?= !isset($_SESSION['id_usuario']) ? 'disabled' : '' ?> <?= isset($_GET['aplicar_perfil_salud']) && $_GET['aplicar_perfil_salud'] == '1' ? 'checked' : '' ?>>
                                             <span class="checkmark"></span>
                                             Aplicar mi perfil de salud
                                         </label>

@@ -4,6 +4,11 @@ class Receta
     public function buscarRecetas($termino, $tipoPlato, $alergeno, $porciones, $ingrediente, $enfermedad, $tiempoPrep, $esPremium, $orden = '', $usarPerfil = null)
     {
         global $conexion;
+        
+        // Debug: Mensaje de inicio muy visible
+        echo "\n<!-- ===== INICIO DEBUG ===== -->";
+        echo "\n<!-- MÉTODO buscarRecetas EJECUTÁNDOSE -->";
+        echo "\n<!-- ====================== -->\n";
 
         $stopwords = ['de', 'la', 'el', 'y', 'con', 'en', 'a', 'una', 'para'];
         $palabras = array_filter(explode(' ', strtolower($termino)), fn($w) => !in_array($w, $stopwords));
@@ -90,10 +95,13 @@ class Receta
                 // Aplicar filtros de enfermedades
                 if (!empty($enfermedadesUsuario)) {
                     $enfermedadesStr = implode(',', $enfermedadesUsuario);
-                    $condiciones[] = "r.id IN (
+                    $condiciones[] = "r.id NOT IN (
                         SELECT id_receta FROM receta_enfermedad 
-                        WHERE id_enfermedad IN ($enfermedadesStr) AND apta = 1
+                        WHERE id_enfermedad IN ($enfermedadesStr) AND apta = 0
                     )";
+                    
+                    // Debug: Mostrar las enfermedades del usuario
+                    echo "<!-- DEBUG - Enfermedades del usuario: " . print_r($enfermedadesUsuario, true) . " -->";
                 }
             }
 
@@ -177,9 +185,27 @@ class Receta
             }
         }
 
-        $where = count($condiciones) ? "WHERE " . implode(" AND ", $condiciones) : "";
+        // Debug: Mostrar condiciones de filtrado*****************
+        echo "<!-- DEBUG - Condiciones de filtrado: " . print_r($condiciones, true) . " -->";
+        
+        // Construir la consulta SQL
+        $sql = "SELECT DISTINCT r.* FROM recetas r";
 
-        // Añadir ordenamiento
+        // Añadir joins necesarios para los filtros
+        if ($ingrediente) {
+            $sql .= " INNER JOIN receta_ingrediente ri ON r.id = ri.id_receta";
+            $sql .= " INNER JOIN ingredientes i ON ri.id_ingrediente = i.id";
+        }
+
+        $where = '';
+        if (!empty($condiciones)) {
+            $where = " WHERE " . implode(' AND ', $condiciones);
+        }
+
+        // Debug: Mostrar consulta SQL antes de la ordenación*****************
+        $sqlDebug = $sql . $where;
+
+        // Añadir ordenación
         $orderBy = " ORDER BY r.id DESC"; // Por defecto
         if ($orden) {
             switch ($orden) {
@@ -228,8 +254,11 @@ class Receta
             }
         }
 
-        // Consulta principal
-        $sql = "SELECT DISTINCT r.* FROM recetas r $where $orderBy";
+        // Construir consulta final
+        $sql = $sql . $where . $orderBy;
+        
+        // Debug: Mostrar consulta SQL final
+        echo "<!-- DEBUG - Consulta SQL final: " . htmlspecialchars($sql) . " -->";
 
         $resultado = $conexion->query($sql);
 

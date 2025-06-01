@@ -1,5 +1,4 @@
-
-    // Script para manejar los filtros automáticamente
+// Script para manejar los filtros automáticamente
     document.addEventListener('DOMContentLoaded', function() {
         console.log('Inicializando sistema de filtros con checkboxes...');
 
@@ -31,7 +30,7 @@
             const enfermedades = getCheckboxValues('enfermedades');
             const tiempos = getCheckboxValues('tiempo');
             const ingrediente = document.getElementById('ingrediente')?.value;
-            const perfil = document.getElementById('perfil')?.checked;
+            const aplicarPerfilSalud = document.getElementById('aplicar_perfil_salud')?.checked;
 
             // Debug PARA CONTROL DE FILTROS APLICADOS
             console.log('Filtros activos:', {
@@ -42,7 +41,7 @@
                 enfermedades,
                 tiempos,
                 ingrediente,
-                perfil
+                aplicarPerfilSalud
             });
 
             // Agregar filtros a la URL
@@ -80,6 +79,16 @@
 
             if (perfilElement && perfilElement.checked && !perfilElement.disabled) {
                 nuevosParams.set('perfil', '1');
+            }
+
+            // Agregar el filtro de perfil de salud usando nuevosParams
+            const perfilSalud = document.getElementById('aplicar_perfil_salud');
+            if (perfilSalud && perfilSalud.checked && !perfilSalud.disabled) {
+                nuevosParams.set('aplicar_perfil_salud', '1');
+                console.log('Aplicando filtro de perfil de salud');
+            } else {
+                // Asegurarse de eliminar el parámetro si no está marcado
+                nuevosParams.delete('aplicar_perfil_salud');
             }
 
             const urlFinal = 'index.php?' + nuevosParams.toString();
@@ -183,6 +192,16 @@
         // Filtros de perfil de salud que tiene el usuario
         if (params.get('perfil') && checkboxPerfil && !checkboxPerfil.disabled) {
             checkboxPerfil.checked = params.get('perfil') === '1';
+        }
+
+        // Restaurar estado del checkbox de perfil de salud
+        const perfilSaludCheckbox = document.getElementById('aplicar_perfil_salud');
+        if (perfilSaludCheckbox) {
+            perfilSaludCheckbox.checked = params.get('aplicar_perfil_salud') === '1';
+            perfilSaludCheckbox.addEventListener('change', function() {
+                console.log('Cambio en el checkbox de perfil de salud');
+                aplicarFiltros();
+            });
         }
 
         console.log('Sistema de filtros inicializado correctamente');
