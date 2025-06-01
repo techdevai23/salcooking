@@ -84,13 +84,12 @@ $css_extra .= '<link rel="stylesheet" href="styles/dieta-semana-dias.css?v=' . f
                     <div class="filter-section">
                         <label for="selector-dieta">Nº dieta:</label>
                         <select id="selector-dieta" name="selector-dieta">
-                            <?php foreach ($lista_dietas as $idx => $dieta_item): ?>
+                            <?php foreach ($lista_dietas as $dieta_item): ?>
                                 <?php 
-                                $num = $idx + 1;
                                 $fecha = date('d-m-Y', strtotime($dieta_item['fecha_creacion']));
                                 $selected = ($dieta_item['id_dieta'] == $id_dieta_seleccionada) ? 'selected' : '';
                                 ?>
-                                <option value="<?= $dieta_item['id_dieta'] ?>" <?= $selected ?>>Dieta <?= $num ?> - <?= $fecha ?></option>
+                                <option value="<?= $dieta_item['id_dieta'] ?>" <?= $selected ?>>Dieta <?= $dieta_item['id_dieta'] ?> (creada el <?= $fecha ?>)</option>
                             <?php endforeach; ?>
                         </select>
                     </div>

@@ -186,7 +186,7 @@ if (isset($_GET['id_dieta'])) {
 }
 
 // --- FIN LÓGICA PARA OBTENER INGREDIENTES ---
-$conexion->close();
+
 ?>
 
 <!-- LISTA DE LA COMPRA SEMANAL -->
@@ -213,6 +213,39 @@ $conexion->close();
         <div class="titulo">
             <img src="sources/iconos/Shopping-Basket-3--Streamline-Ultimate.svg" width="48px" alt="Carrito de la compra"> 
             <h1>Lista de la compra de la Semana</h1>
+        </div>
+
+        <div class="subtitulo">
+            <?php
+            // Mostrar subtítulo con nick, id_dieta y fecha
+            include_once 'controllers/session.php';
+            $nick = htmlspecialchars(getUserNick());
+            $id_dieta = isset($_GET['id_dieta']) ? intval($_GET['id_dieta']) : '';
+            $fecha_dieta = '';
+            $error_subtitulo = '';
+            if ($id_dieta) {
+                try {
+                    $sql = "SELECT fecha_creacion FROM dietas WHERE id_dieta = ?";
+                    $stmt = $conexion->prepare($sql);
+                    if (!$stmt) throw new Exception($conexion->error);
+                    $stmt->bind_param("i", $id_dieta);
+                    $stmt->execute();
+                    $result = $stmt->get_result();
+                    if ($row = $result->fetch_assoc()) {
+                        $fecha_dieta = date('d-m-Y', strtotime($row['fecha_creacion']));
+                    }
+                    $stmt->close();
+                } catch (Exception $e) {
+                    $error_subtitulo = 'No se pudo obtener la información de la dieta.';
+                    echo '<script>console.error(' . json_encode($e->getMessage()) . ');</script>';
+                }
+            }
+            if ($nick && $id_dieta && $fecha_dieta) {
+                echo '<h3 style="font-size:1.1em; font-weight:normal; margin-top:10px; color:#666;">Hola: ' . $nick . '😄. tu Dieta ID: ' . $id_dieta . '  con fecha: ' . $fecha_dieta . ', tiene todos estos ingredientes💖. Buena compra!👍</h3>';
+            } elseif ($error_subtitulo) {
+                echo '<div style="color: #b94a48; font-size:1em; margin-top:10px;">' . $error_subtitulo . '</div>';
+            }
+            ?>
         </div>
        
         <div class="contenido-lista-semana">
