@@ -128,8 +128,9 @@ document.getElementById('btn-descargar-receta').addEventListener('click', functi
             text: 'Debes registrarte gratis para poder descargar la ficha de la receta.',
             icon: 'info',
             showCancelButton: true,
+            showCloseButton: true,
             confirmButtonText: 'Registrarme ahora',
-            cancelButtonText: 'Registrarme más tarde',
+            cancelButtonText: 'Iniciar sesión',
             customClass: {
                 container: 'my-swal-container',
                 popup: 'my-swal-popup',
@@ -137,12 +138,20 @@ document.getElementById('btn-descargar-receta').addEventListener('click', functi
                 title: 'my-swal-title',
                 content: 'my-swal-content',
                 confirmButton: 'my-swal-confirm-button',
-                cancelButton: 'my-swal-cancel-button'
+                cancelButton: 'my-swal-cancel-button',
+                closeButton: 'my-swal-close-button'
             },
-            footer: '<a href="planes.php" style="color: var(--color-principal); text-decoration: underline;">Ver Planes de suscripción</a>'
+            footer: '<a href="planes.php" style="color: var(--color-principal); text-decoration: underline;">Ver Planes de suscripción</a>',
+            html: `
+                <div style="position: absolute; top: 10px; right: 50px; font-size: 0.8em; color: #666;">
+                    Registrarme más tarde
+                </div>
+            `
         }).then((result) => {
             if (result.isConfirmed) {
                 window.location.href = 'perfil.php';
+            } else if (result.dismiss === Swal.DismissReason.cancel) {
+                window.location.href = 'login.php';
             }
         });
     } else {
