@@ -2,7 +2,8 @@
 $css_extra = '';
 include 'controllers/conexion.php';
 // página detalle-receta, ficha final de la receta
-$css_extra .= '<link rel="stylesheet" href="styles/filosofia.css?v=' . filemtime('styles/filosofia.css') . '">'; 
+$css_extra .= '<link rel="stylesheet" href="styles/filosofia.css?v=' . filemtime('styles/filosofia.css') . '">';
+$css_extra .= '<link rel="stylesheet" href="styles/modal.css?v=' . filemtime('styles/modal.css') . '">';
 include 'header.php';
 
 // En esta versión definitiva, los datos ya han sido obtenidos por el controlador
@@ -42,7 +43,7 @@ if (!isset($receta)) {
           echo "<img src='sources/platos/default.png' alt='Imagen no disponible' width='300px'>";
         }
         ?>
-        
+
         <button class="descargar-lista-btn" id="btn-descargar-receta">
           <img src="sources/iconos/Arrow-Double-Down-1--Streamline-Ultimate.svg" alt="Descargar" width="30px">
           Descargar receta
@@ -100,7 +101,7 @@ if (!isset($receta)) {
           <h3>Sustitutos usados</h3>
           <p><?= nl2br(htmlspecialchars($receta['sustitutos'])) ?></p>
         <?php endif; ?>
-        
+
         <p class="ver-fuente">
           <a href="<?= htmlspecialchars($receta['enlace_receta']) ?>" target="_blank">Ver fuente original</a>
         </p>
@@ -114,49 +115,50 @@ if (!isset($receta)) {
 
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script>
-// Función para comprobar si el usuario está logueado (PHP -> JS)
-const usuarioLogueado = <?php echo isset($_SESSION['id_usuario']) ? 'true' : 'false'; ?>;
+  // Función para comprobar si el usuario está logueado (PHP -> JS)
+  const usuarioLogueado = <?php echo isset($_SESSION['id_usuario']) ? 'true' : 'false'; ?>;
 
-// Obtener el nombre de la receta para el PDF
-const nombreReceta = <?php echo json_encode($receta['nombre']); ?>;
+  // Obtener el nombre de la receta para el PDF
+  const nombreReceta = <?php echo json_encode($receta['nombre']); ?>;
 
-document.getElementById('btn-descargar-receta').addEventListener('click', function(e) {
-    e.preventDefault();
-    if (!usuarioLogueado) {
-        Swal.fire({
-            title: 'Descarga solo para usuarios registrados',
-            text: 'Debes registrarte gratis para poder descargar la ficha de la receta.',
-            icon: 'info',
+  document.getElementById('btn-descargar-receta').addEventListener('click', function(e) {
+        e.preventDefault();
+        if (!usuarioLogueado) {
+          Swal.fire({
+
+            title: "¡Descarga solo para usuarios registrados!",
+            text: "Debes registrarte gratis para poder descargar la ficha de la receta.",
+            icon: "info",
             showCancelButton: true,
             showCloseButton: true,
             confirmButtonText: 'Registrarme ahora',
             cancelButtonText: 'Iniciar sesión',
+            buttonsStyling: true,
             customClass: {
-                container: 'my-swal-container',
-                popup: 'my-swal-popup',
-                header: 'my-swal-header',
-                title: 'my-swal-title',
-                content: 'my-swal-content',
-                confirmButton: 'my-swal-confirm-button',
-                cancelButton: 'my-swal-cancel-button',
-                closeButton: 'my-swal-close-button'
+              container: "my-swal-container",
+              popup: "my-swal-popup",
+              header: "my-swal-header",
+              title: "my-swal-title",
+              content: "my-swal-content",
+              confirmButton: "my-swal-confirm-button",
+              cancelButton: "my-swal-cancel-button-receta",
+              closeButton: 'my-swal-close-button',
+              footer: 'my-swal-footer-receta'
             },
-            footer: '<a href="planes.php" style="color: var(--color-principal); text-decoration: underline;">Ver Planes de suscripción</a>',
-            html: `
-                <div style="position: absolute; top: 10px; right: 50px; font-size: 0.8em; color: #666;">
-                    Registrarme más tarde
-                </div>
-            `
-        }).then((result) => {
-            if (result.isConfirmed) {
-                window.location.href = 'perfil.php';
-            } else if (result.dismiss === Swal.DismissReason.cancel) {
-                window.location.href = 'login.php';
-            }
-        });
-    } else {
-        // Si está logueado, permitir la descarga
-        descargarFichaRecetaPDF('ficha-receta.pdf', nombreReceta);
-    }
+            footer: '<a href="planes.php">Ver Planes de suscripción</a>'
+          }).then((result) => {
+if (result.isConfirmed) {
+window.location.href = 'perfil.php';
+} else if (result.dismiss === Swal.DismissReason.cancel) {
+window.location.href = 'login.php';
+}
+});
+} else {
+// Si está logueado, permitir la descarga
+descargarFichaRecetaPDF('ficha-receta.pdf', nombreReceta);
+}
 });
 </script>
+
+
+

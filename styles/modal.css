@@ -49,7 +49,7 @@
 }
 
 .my-swal-confirm-button:hover {
-    background-color: var(--naranja-corp) !important;
+    background-color: var(--primary-dark) !important;
     box-shadow: 0 5px 15px rgba(180, 169, 7, 0.3) !important;
 }
 
@@ -66,4 +66,35 @@
 
 .my-swal-cancel-button:hover {
     background-color: #e9ebef !important;
+}
+
+.my-swal-cancel-button-receta {
+    background-color: #76d3ebc9 !important;
+    color: #333 !important;
+    border-radius: 5px !important;
+    padding: 10px 24px !important;
+    font-size: 16px !important;
+    font-weight: 500 !important;
+    box-shadow: none !important;
+    margin-left: 10px !important;
+}
+
+.my-swal-cancel-button-receta:hover {
+    background-color: #2ec3e9c9 !important;
+}
+.my-swal-footer-receta a {
+    color: var(--primary-dark) !important;
+    text-decoration: underline !important;
+   font-weight: bolder !important;
+}
+
+.my-swal-mas-tarde {
+    position: absolute;
+    top: 10px;
+    right: 50px;
+    font-size: 0.8em;
+    color: var(--primary-dark);
+    cursor: pointer;
+    z-index: 10;
+    user-select: none;
 }
