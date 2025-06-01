@@ -7,7 +7,26 @@ function descargarFichaRecetaPDF(nombreArchivo, tituloReceta) {
       return;
   }
   const { jsPDF } = window.jspdf;
-  const doc = new jsPDF();
+
+  // Configuración inicial del documento
+  const doc = new jsPDF({
+      orientation: 'portrait',
+      unit: 'mm',
+      format: 'a4'
+  });
+  
+  // Configuración de márgenes y dimensiones
+  const marginLeft = 20;
+  const marginRight = 20;
+  const marginTop = 20;
+  const pageWidth = doc.internal.pageSize.getWidth();
+  const pageHeight = doc.internal.pageSize.getHeight();
+  const contentWidth = pageWidth - marginLeft - marginRight;
+  
+  // Configuración de estilos
+  const lineHeightSmall = 5;
+  const lineHeightDefault = 6;
+  const sectionSpacing = 10;
 
   if (typeof doc.autoTable !== 'function') {
       alert("El plugin jsPDF-AutoTable no está cargado o no está correctamente adjunto a la instancia de jsPDF.");
@@ -15,17 +34,8 @@ function descargarFichaRecetaPDF(nombreArchivo, tituloReceta) {
       return;
   }
 
-  let yPos = 20;
-  const pageHeight = doc.internal.pageSize.height;
-  const pageWidth = doc.internal.pageSize.width;
-  const marginLeft = 14;
-  const marginRight = 14;
-  const contentWidth = pageWidth - marginLeft - marginRight;
-  const marginBottom = 20;
-  const lineHeightDefault = 6;
-  const lineHeightSmall = 5;
-  const sectionSpacing = 8;
-
+  let yPos = marginTop;
+  
   // --- Función auxiliar para limpiar texto de emojis ---
   function limpiarEmojis(texto) {
       if (typeof texto !== 'string') return '';
@@ -41,29 +51,41 @@ function descargarFichaRecetaPDF(nombreArchivo, tituloReceta) {
       return currentY;
   }
 
-  // --- Título de la Receta ---
-  yPos = checkAndAddPage(yPos, 10);
+    // --- Título de la Receta ---
+  yPos = checkAndAddPage(yPos, 15);
   doc.setFontSize(18);
   doc.setFont(undefined, 'bold');
-  doc.text(tituloReceta, marginLeft, yPos); // Asumimos que tituloReceta ya viene limpio o no tiene emojis
+  doc.setTextColor(0, 0, 0); // Texto en negro
+  doc.text(tituloReceta, marginLeft, yPos, { maxWidth: contentWidth });
   yPos += 10;
+  
+  // Línea divisoria
+  doc.setDrawColor(200, 200, 200);
+  doc.setLineWidth(0.3);
+  doc.line(marginLeft, yPos, pageWidth - marginRight, yPos);
+  yPos += 10;
+  
   doc.setFont(undefined, 'normal');
 
   // --- Tiempo de Preparación y Porciones ---
-  // Buscar el texto de tiempo y porciones en el primer <div class="foto"> > <p>
   let tiempoPrep = '';
   let porciones = '';
-  const fotoDiv = document.querySelector('.foto p');
-  if (fotoDiv) {
-      const texto = fotoDiv.innerText;
-      // Buscar "Tiempo: XX minutos" y "Porciones: YY"
-      const tiempoMatch = texto.match(/Tiempo:\s*([^\n]+)/);
-      const porcionesMatch = texto.match(/Porciones:\s*([^\n]+)/);
-      if (tiempoMatch) tiempoPrep = tiempoMatch[1].trim();
-      if (porcionesMatch) porciones = porcionesMatch[1].trim();
+  
+  // Obtener tiempo y porciones directamente de los elementos
+  const tiempoElement = document.querySelector('.foto p');
+  if (tiempoElement) {
+      const tiempoText = tiempoElement.textContent;
+      const lineas = tiempoText.split('\n').map(linea => linea.trim()).filter(linea => linea);
+      
+      if (lineas.length >= 2) {
+          tiempoPrep = lineas[0].replace('Tiempo:', '').trim();
+          porciones = lineas[1].replace('Porciones:', '').trim();
+      }
   }
 
-  doc.setFontSize(10);
+  // Información de tiempo y porciones
+  doc.setFontSize(11);
+  
   if (tiempoPrep) {
       yPos = checkAndAddPage(yPos, lineHeightDefault);
       doc.text(limpiarEmojis('Tiempo: ' + tiempoPrep), marginLeft, yPos);
@@ -72,172 +94,311 @@ function descargarFichaRecetaPDF(nombreArchivo, tituloReceta) {
   if (porciones) {
       yPos = checkAndAddPage(yPos, lineHeightDefault);
       doc.text(limpiarEmojis('Porciones: ' + porciones), marginLeft, yPos);
-      yPos += sectionSpacing;
+      yPos += sectionSpacing + 5;
   }
 
   // --- Ingredientes ---
-  // Buscar el primer <h3>Ingredientes</h3> seguido de <ul>
-  let ingredientesLista = null;
-  const h3s = document.querySelectorAll('.texto h3');
-  h3s.forEach(h3 => {
-      if (h3.textContent.trim().toLowerCase().includes('ingredientes')) {
-          const nextUl = h3.nextElementSibling;
-          if (nextUl && nextUl.tagName === 'UL') {
-              ingredientesLista = nextUl;
-          }
-      }
-  });
+  const ingredientesSection = Array.from(document.querySelectorAll('.texto h3')).find(h3 => 
+      h3.textContent.trim().toLowerCase().includes('ingredientes')
+  );
+  
   const tableRowsIng = [];
-  if (ingredientesLista) {
-      const items = ingredientesLista.getElementsByTagName('li');
-      for (let i = 0; i < items.length; i++) {
-          tableRowsIng.push([limpiarEmojis(items[i].innerText.trim())]);
+  
+  if (ingredientesSection) {
+      let nextElement = ingredientesSection.nextElementSibling;
+      while (nextElement && nextElement.tagName !== 'H3') {
+          if (nextElement.tagName === 'UL') {
+              const items = nextElement.querySelectorAll('li');
+              items.forEach(item => {
+                  tableRowsIng.push([`• ${limpiarEmojis(item.textContent.trim())}`]);
+              });
+              break;
+          }
+          nextElement = nextElement.nextElementSibling;
       }
   }
 
+  // Título de Ingredientes
+  yPos = checkAndAddPage(yPos, 15);
+  doc.setFontSize(14);
+  doc.setFont(undefined, 'bold');
+  doc.text('INGREDIENTES', marginLeft, yPos);
+  yPos += 8;
+  
+  // Línea sutil
+  doc.setDrawColor(0, 0, 0);
+  doc.setLineWidth(0.3);
+  doc.line(marginLeft, yPos, marginLeft + 35, yPos);
+  yPos += 10;
+
+  // Lista de ingredientes
   if (tableRowsIng.length > 0) {
-      doc.autoTable({
-          body: tableRowsIng,
-          startY: yPos,
-          theme: 'plain',
-          styles: { fontSize: 9, cellPadding: 1.5, overflow: 'linebreak' },
-          columnStyles: { 0: { cellWidth: contentWidth } },
-          margin: { left: marginLeft, right: marginRight },
+      doc.setFontSize(11);
+      doc.setFont(undefined, 'normal');
+      
+      tableRowsIng.forEach((row, index) => {
+          yPos = checkAndAddPage(yPos, lineHeightDefault);
+          doc.text(row[0], marginLeft + 5, yPos);
+          yPos += lineHeightDefault;
       });
-      yPos = doc.lastAutoTable.finalY + sectionSpacing;
+      
+      yPos += 5;
   } else {
       yPos = checkAndAddPage(yPos, lineHeightSmall);
-      doc.text("No hay ingredientes especificados.", marginLeft, yPos);
-      yPos += lineHeightSmall + sectionSpacing;
+      doc.setFontSize(10);
+      doc.text("No hay ingredientes especificados.", marginLeft + 5, yPos);
+      yPos += lineHeightSmall + 5;
   }
+  
+  // Espaciado entre secciones
+  yPos += 5;
 
   // --- Instrucciones ---
-  // Buscar el primer <h3>Instrucciones</h3> seguido de <p>
-  let instruccionesElement = null;
-  h3s.forEach(h3 => {
-      if (h3.textContent.trim().toLowerCase().includes('instrucciones')) {
-          const nextP = h3.nextElementSibling;
-          if (nextP && nextP.tagName === 'P') {
-              instruccionesElement = nextP;
-          }
+  const instruccionesSection = Array.from(document.querySelectorAll('.texto h3')).find(h3 => 
+      h3.textContent.trim().toLowerCase().includes('instrucciones')
+  );
+  
+  // Sección de Instrucciones
+  yPos = checkAndAddPage(yPos, 15);
+  doc.setFontSize(14);
+  doc.setFont(undefined, 'bold');
+  doc.text('INSTRUCCIONES', marginLeft, yPos);
+  yPos += 8;
+  
+  // Línea sutil
+  doc.setDrawColor(0, 0, 0);
+  doc.setLineWidth(0.3);
+  doc.line(marginLeft, yPos, marginLeft + 40, yPos);
+  yPos += 10;
+
+  if (instruccionesSection) {
+      let instruccionesElement = instruccionesSection.nextElementSibling;
+      // Buscar el siguiente elemento que sea un párrafo
+      while (instruccionesElement && instruccionesElement.tagName !== 'P') {
+          instruccionesElement = instruccionesElement.nextElementSibling;
       }
-  });
-  if (instruccionesElement) {
-      let instruccionesTexto = limpiarEmojis(instruccionesElement.innerText.trim());
-      const splitText = doc.splitTextToSize(instruccionesTexto, contentWidth);
-      for (let i = 0; i < splitText.length; i++) {
-          yPos = checkAndAddPage(yPos, lineHeightSmall);
-          doc.text(splitText[i], marginLeft, yPos);
+      
+      if (instruccionesElement) {
+          doc.setFontSize(11);
+          doc.setFont(undefined, 'normal');
+          
+          let instruccionesTexto = limpiarEmojis(instruccionesElement.textContent.trim());
+          // Reemplazar saltos de línea múltiples por un solo salto
+          instruccionesTexto = instruccionesTexto.replace(/\n\s*\n/g, '\n\n');
+          
+          // Dividir por párrafos
+          const parrafos = instruccionesTexto.split('\n\n');
+          
+          parrafos.forEach(parrafo => {
+              if (parrafo.trim() === '') return;
+              
+              const lineas = doc.splitTextToSize(parrafo.trim(), contentWidth - 10);
+              for (let i = 0; i < lineas.length; i++) {
+                  yPos = checkAndAddPage(yPos, lineHeightSmall);
+                  doc.text(lineas[i], marginLeft + 5, yPos, { align: 'justify' });
+                  yPos += lineHeightSmall + 1;
+              }
+              // Espacio entre párrafos
+              yPos += 3;
+          });
+      } else {
+          doc.setFontSize(10);
+          doc.text("No se encontró el texto de instrucciones.", marginLeft + 5, yPos);
           yPos += lineHeightSmall;
       }
-      yPos += sectionSpacing - lineHeightSmall;
   } else {
-      yPos = checkAndAddPage(yPos, lineHeightSmall);
-      doc.text("No hay instrucciones especificadas.", marginLeft, yPos);
+      doc.setFontSize(10);
+      doc.text("No se encontró la sección de instrucciones.", marginLeft + 5, yPos);
       yPos += lineHeightSmall;
   }
-  yPos += sectionSpacing;
+  
+  // Línea decorativa
+  doc.setDrawColor(80, 166, 101);
+  doc.setLineWidth(0.5);
+  doc.line(marginLeft, yPos - 3, pageWidth - marginRight, yPos - 3);
+  yPos += 10;
 
   // --- Función auxiliar para añadir una sección con título y lista de items de texto ---
   function addSectionWithTextList(title, listElement, currentYPos) {
       let newYPos = currentYPos;
-      newYPos = checkAndAddPage(newYPos, lineHeightDefault + sectionSpacing);
-      doc.setFontSize(12);
+      
+      // Estilo del título de la sección
+      newYPos = checkAndAddPage(newYPos, 15);
+      doc.setFontSize(14);
       doc.setFont(undefined, 'bold');
+      doc.setTextColor(14, 124, 84); // Verde oscuro corporativo
       doc.text(title, marginLeft, newYPos);
-      newYPos += 7;
+      newYPos += 10;
+      
+      // Estilo del contenido
       doc.setFont(undefined, 'normal');
-      doc.setFontSize(9);
+      doc.setFontSize(10);
+      doc.setTextColor(45, 62, 46); // Negro verdoso
+      
       if (listElement) {
           const items = listElement.getElementsByTagName('li');
           if (items.length > 0 && !(items.length === 1 && limpiarEmojis(items[0].innerText.trim()).toLowerCase().includes("ninguna"))) {
               for (let i = 0; i < items.length; i++) {
                   const itemText = "• " + limpiarEmojis(items[i].innerText.trim());
-                  const splitItemText = doc.splitTextToSize(itemText, contentWidth - 2);
+                  const splitItemText = doc.splitTextToSize(itemText, contentWidth - 10);
+                  
                   for (let j = 0; j < splitItemText.length; j++) {
                       newYPos = checkAndAddPage(newYPos, lineHeightSmall);
-                      doc.text(splitItemText[j], marginLeft + (j > 0 ? 2 : 0), newYPos);
-                      newYPos += lineHeightSmall;
+                      doc.text(splitItemText[j], marginLeft + (j > 0 ? 10 : 5), newYPos);
+                      newYPos += lineHeightSmall + 1;
                   }
               }
           } else {
               newYPos = checkAndAddPage(newYPos, lineHeightSmall);
-              doc.text("No especificado.", marginLeft + 2, newYPos);
-              newYPos += lineHeightSmall;
+              doc.text("No especificado.", marginLeft + 5, newYPos);
+              newYPos += lineHeightSmall + 2;
           }
       } else {
           newYPos = checkAndAddPage(newYPos, lineHeightSmall);
-          doc.text("Sección no encontrada en la página.", marginLeft + 2, newYPos);
-          newYPos += lineHeightSmall;
+          doc.text("Información no disponible.", marginLeft + 5, newYPos);
+          newYPos += lineHeightSmall + 2;
       }
-      return newYPos + sectionSpacing;
+      
+      // Línea decorativa
+      doc.setDrawColor(80, 166, 101);
+      doc.setLineWidth(0.5);
+      doc.line(marginLeft, newYPos - 3, pageWidth - marginRight, newYPos - 3);
+      
+      return newYPos + 10;
   }
 
   // --- Sustitutos ---
-  // Buscar <h3>Sustitutos usados</h3> seguido de <p>
-  let sustitutosTitleElement = null;
-  let sustitutosContentElement = null;
-  h3s.forEach(h3 => {
-      if (h3.textContent.trim().toLowerCase().includes('sustitutos')) {
-          sustitutosTitleElement = h3;
-          const nextP = h3.nextElementSibling;
-          if (nextP && nextP.tagName === 'P') {
-              sustitutosContentElement = nextP;
-          }
-      }
-  });
-
-  if (sustitutosTitleElement && sustitutosContentElement) {
-      yPos = checkAndAddPage(yPos, lineHeightDefault + sectionSpacing);
-      doc.setFontSize(12);
-      doc.setFont(undefined, 'bold');
-      doc.text(limpiarEmojis(sustitutosTitleElement.innerText.trim()), marginLeft, yPos); // CORREGIDO
-      yPos += 7;
-      doc.setFont(undefined, 'normal');
-      doc.setFontSize(9);
-
-      const sustitutosText = limpiarEmojis(sustitutosContentElement.innerText.trim()); // CORREGIDO
-      if (sustitutosText) {
-          const splitSustitutos = doc.splitTextToSize(sustitutosText, contentWidth);
-          for (let i = 0; i < splitSustitutos.length; i++) {
-              yPos = checkAndAddPage(yPos, lineHeightSmall);
-              doc.text(splitSustitutos[i], marginLeft, yPos);
+  const sustitutosSection = document.querySelector('.texto h3:contains("Sustitutos"), .texto h3:contains("sustitutos")');
+  
+  if (sustitutosSection) {
+      const sustitutosContent = sustitutosSection.nextElementSibling;
+      if (sustitutosContent && sustitutosContent.tagName === 'P') {
+          // Sección de Sustitutos
+          yPos = checkAndAddPage(yPos, 15);
+          doc.setFontSize(14);
+          doc.setFont(undefined, 'bold');
+          doc.setTextColor(14, 124, 84); // Verde oscuro corporativo
+          doc.text('Sustitutos', marginLeft, yPos);
+          yPos += 10;
+          
+          // Contenido de sustitutos
+          doc.setFontSize(10);
+          doc.setFont(undefined, 'normal');
+          doc.setTextColor(45, 62, 46); // Negro verdoso
+          
+          const sustitutosText = limpiarEmojis(sustitutosContent.innerText.trim());
+          if (sustitutosText) {
+              const splitSustitutos = doc.splitTextToSize(sustitutosText, contentWidth - 10);
+              for (let i = 0; i < splitSustitutos.length; i++) {
+                  yPos = checkAndAddPage(yPos, lineHeightSmall);
+                  doc.text(splitSustitutos[i], marginLeft + 5, yPos, { align: 'justify' });
+                  yPos += lineHeightSmall + 1;
+              }
+              yPos += 3;
+          } else {
+              doc.text("No se especificaron sustitutos.", marginLeft + 5, yPos);
               yPos += lineHeightSmall;
           }
-      } else {
-          yPos = checkAndAddPage(yPos, lineHeightSmall);
-          doc.text("No especificado.", marginLeft, yPos);
-          yPos += lineHeightSmall;
+          
+          // Línea decorativa
+          doc.setDrawColor(80, 166, 101);
+          doc.setLineWidth(0.5);
+          doc.line(marginLeft, yPos - 3, pageWidth - marginRight, yPos - 3);
+          yPos += 10;
       }
-      yPos += sectionSpacing;
   }
 
   // --- Alergias ---
-  // Buscar <h3>Alergias</h3> seguido de <ul>
-  let alergiasLista = null;
-  h3s.forEach(h3 => {
-      if (h3.textContent.trim().toLowerCase().includes('alergias')) {
-          const nextUl = h3.nextElementSibling;
-          if (nextUl && nextUl.tagName === 'UL') {
-              alergiasLista = nextUl;
+  const alergiasSection = Array.from(document.querySelectorAll('.texto h3')).find(h3 => 
+      h3.textContent.trim().toLowerCase().includes('alergias')
+  );
+  
+  if (alergiasSection) {
+      let nextElement = alergiasSection.nextElementSibling;
+      while (nextElement && nextElement.tagName !== 'H3') {
+          if (nextElement.tagName === 'UL') {
+              yPos = addSectionWithTextList('ALERGIAS', nextElement, yPos);
+              break;
           }
+          nextElement = nextElement.nextElementSibling;
       }
-  });
+  }
+  
   // --- Enfermedades ---
-  // Buscar <h3>Información sobre enfermedades:</h3> seguido de <ul>
-  let enfermedadesLista = null;
-  h3s.forEach(h3 => {
-      if (h3.textContent.trim().toLowerCase().includes('enfermedades')) {
-          const nextUl = h3.nextElementSibling;
-          if (nextUl && nextUl.tagName === 'UL') {
-              enfermedadesLista = nextUl;
+  const enfermedadesSection = Array.from(document.querySelectorAll('.texto h3')).find(h3 => 
+      h3.textContent.trim().toLowerCase().includes('enfermedad')
+  );
+  
+  if (enfermedadesSection) {
+      let nextElement = enfermedadesSection.nextElementSibling;
+      while (nextElement && nextElement.tagName !== 'H3') {
+          if (nextElement.tagName === 'UL') {
+              yPos = addSectionWithTextList('INFORMACIÓN SOBRE ENFERMEDADES', nextElement, yPos);
+              break;
           }
+          nextElement = nextElement.nextElementSibling;
       }
+  }
+  
+  // --- Sustitutos ---
+  const sustitutosSection = Array.from(document.querySelectorAll('.texto h3')).find(h3 => 
+      h3.textContent.trim().toLowerCase().includes('sustitutos')
+  );
+  
+  if (sustitutosSection) {
+      let nextElement = sustitutosSection.nextElementSibling;
+      while (nextElement && nextElement.tagName !== 'H3') {
+          if (nextElement.tagName === 'P') {
+              const sustitutosTexto = limpiarEmojis(nextElement.textContent.trim());
+              if (sustitutosTexto) {
+                  yPos = checkAndAddPage(yPos, 15);
+                  doc.setFontSize(14);
+                  doc.setFont(undefined, 'bold');
+                  doc.text('SUSTITUTOS', marginLeft, yPos);
+                  yPos += 8;
+                  
+                  // Línea sutil
+                  doc.setDrawColor(0, 0, 0);
+                  doc.setLineWidth(0.3);
+                  doc.line(marginLeft, yPos, marginLeft + 35, yPos);
+                  yPos += 10;
+                  
+                  doc.setFontSize(11);
+                  doc.setFont(undefined, 'normal');
+                  
+                  const lineas = doc.splitTextToSize(sustitutosTexto, contentWidth - 10);
+                  for (let i = 0; i < lineas.length; i++) {
+                      yPos = checkAndAddPage(yPos, lineHeightSmall);
+                      doc.text(lineas[i], marginLeft + 5, yPos, { align: 'justify' });
+                      yPos += lineHeightSmall + 1;
+                  }
+              }
+              break;
+          }
+          nextElement = nextElement.nextElementSibling;
+      }
+  }
+
+  // Pie de página
+  yPos = checkAndAddPage(yPos, 15);
+  doc.setDrawColor(200, 200, 200);
+  doc.setLineWidth(0.3);
+  doc.line(marginLeft, yPos, pageWidth - marginRight, yPos);
+  yPos += 5;
+  
+  doc.setFontSize(8);
+  doc.setTextColor(100, 100, 100);
+  doc.text('Receta generada desde SalCooking', marginLeft, yPos);
+  
+  // Fecha de generación
+  const today = new Date();
+  const dateString = today.toLocaleDateString('es-ES', {
+      year: 'numeric',
+      month: 'long',
+      day: 'numeric'
   });
+  doc.text(`Generado el ${dateString}`, pageWidth - marginRight, yPos, { align: 'right' });
 
-  yPos = addSectionWithTextList("Alergias Asociadas:", alergiasLista, yPos);
-  yPos = addSectionWithTextList("Indicaciones para Enfermedades:", enfermedadesLista, yPos);
-
-  // --- Guardar el PDF ---
+  // Guardar el PDF
   doc.save(nombreArchivo);
 }
