@@ -68,6 +68,9 @@
 <!-- AutoTable plugin (debe ir después de jsPDF) -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.28/jspdf.plugin.autotable.min.js"></script>
 
+<!-- html2canvas para captura de pantalla para descargar las recetas -->
+<script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
+
 <!-- Tu función personalizada -->
 <?php
 

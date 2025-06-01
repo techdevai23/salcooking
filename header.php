@@ -119,7 +119,7 @@ startSession();
                     </div>
                     <!-- boton premium -->
                     <div class="premium-button">
-                        <a href="contacto.php" title="Solo puedes ganar: Hazte Prémium" class="btn-premium">Hazte Prémium</a>
+                        <a href="perfil.php" title="Solo puedes ganar: Registrate gratis" class="btn-premium">Registrate gratis</a>
                     </div>
                     <!-- icono de usuario con enlace a web de usuario -->
                     <div class="header-actions">
@@ -128,7 +128,7 @@ startSession();
                             <!-- si se muestra el icono llevará a una página u otra, dependiendo de si está logueado o no -->
                             <?php if (!isLoggedIn()): ?>
                                 <a href="<?php echo isLoggedIn() ? 'perfil-logueado.php' : 'login.php'; ?>">
-                                    <img src="sources/iconos/Single-Neutral-Circle--Streamline-Ultimate.svg" alt="User Icon" width="34px">
+                                    <img src="sources/iconos/Single-Neutral-Circle--Streamline-Ultimate.svg" title="Accede a tu perfil" alt="User Icon" width="34px">
                                 </a>
                             <?php else: ?>
                                 <p style="color:var(--text-color);">Usuario: <?php echo htmlspecialchars(getUserNick()); ?></p>

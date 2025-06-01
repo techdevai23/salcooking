@@ -110,10 +110,13 @@ if (!isset($receta)) {
   </div>
 </section>
 
-<script src="scripts/descargarFichaReceta.js"></script>
-<?php include 'footer.php'; ?>
+<?php 
+// Incluir el footer primero para cargar las dependencias
+include 'footer.php'; 
+?>
 
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script src="scripts/descargarFichaReceta.js"></script>
 <script>
   // Función para comprobar si el usuario está logueado (PHP -> JS)
   const usuarioLogueado = <?php echo isset($_SESSION['id_usuario']) ? 'true' : 'false'; ?>;
