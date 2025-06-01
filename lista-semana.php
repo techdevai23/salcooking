@@ -247,6 +247,13 @@ if (isset($_GET['id_dieta'])) {
             }
             ?>
         </div>
+        <!-- Descargar lista de ingredientes -->
+        <div class="acciones-lista">
+                <button class="descargar-lista-btn" onclick="descargarListaPDF('lista-compra-semana.pdf', 'Lista de la Compra de la Semana')">
+                    <img src="sources/iconos/Arrow-Double-Down-1--Streamline-Ultimate.svg" alt="Descargar">
+                    Descargar lista ingredientes
+                </button>
+            </div>
        
         <div class="contenido-lista-semana">
             <?php if (!empty($ingredientes_compra)): ?>

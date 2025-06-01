@@ -43,7 +43,7 @@ if (!isset($receta)) {
         }
         ?>
         
-        <button class="descargar-lista-btn" onclick="descargarListaPDF('lista-para-descargar.pdf', 'Receta <?php echo htmlspecialchars($receta['nombre']); ?>')">
+        <button class="descargar-lista-btn" id="btn-descargar-receta">
           <img src="sources/iconos/Arrow-Double-Down-1--Streamline-Ultimate.svg" alt="Descargar" width="30px">
           Descargar receta
         </button>
@@ -109,4 +109,45 @@ if (!isset($receta)) {
   </div>
 </section>
 
+<script src="scripts/descargarFichaReceta.js"></script>
 <?php include 'footer.php'; ?>
+
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script>
+// Función para comprobar si el usuario está logueado (PHP -> JS)
+const usuarioLogueado = <?php echo isset($_SESSION['id_usuario']) ? 'true' : 'false'; ?>;
+
+// Obtener el nombre de la receta para el PDF
+const nombreReceta = <?php echo json_encode($receta['nombre']); ?>;
+
+document.getElementById('btn-descargar-receta').addEventListener('click', function(e) {
+    e.preventDefault();
+    if (!usuarioLogueado) {
+        Swal.fire({
+            title: 'Descarga solo para usuarios registrados',
+            text: 'Debes registrarte gratis para poder descargar la ficha de la receta.',
+            icon: 'info',
+            showCancelButton: true,
+            confirmButtonText: 'Registrarme ahora',
+            cancelButtonText: 'Registrarme más tarde',
+            customClass: {
+                container: 'my-swal-container',
+                popup: 'my-swal-popup',
+                header: 'my-swal-header',
+                title: 'my-swal-title',
+                content: 'my-swal-content',
+                confirmButton: 'my-swal-confirm-button',
+                cancelButton: 'my-swal-cancel-button'
+            },
+            footer: '<a href="planes.php" style="color: var(--color-principal); text-decoration: underline;">Ver Planes de suscripción</a>'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                window.location.href = 'perfil.php';
+            }
+        });
+    } else {
+        // Si está logueado, permitir la descarga
+        descargarFichaRecetaPDF('ficha-receta.pdf', nombreReceta);
+    }
+});
+</script>

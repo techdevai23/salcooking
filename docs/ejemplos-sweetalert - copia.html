@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Ejemplos REALES de SweetAlert2 en SalCooking</title>
+    <link rel="stylesheet" href="../styles/modal.css">
+    <link rel="stylesheet" href="../styles/cambio.css">
+    <link rel="stylesheet" href="../styles/styles.css">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <style>
+        body { font-family: 'Nunito', 'Segoe UI', sans-serif; background: #f7f7f7; padding: 40px; }
+        h1 { text-align: center; margin-bottom: 30px; }
+        .swal-demo-btns { display: flex; flex-wrap: wrap; gap: 20px; justify-content: center; }
+        .swal-demo-btns button { padding: 12px 24px; font-size: 1.1em; border-radius: 6px; border: none; cursor: pointer; background: #eee; transition: background 0.2s; }
+        .swal-demo-btns button:hover { background: #ddd; }
+    </style>
+</head>
+<body>
+    <h1>Ejemplos REALES de SweetAlert2 usados en SalCooking</h1>
+    <div class="swal-demo-btns">
+        <button onclick="swalPagoExito()" title="Usado en pasarela de pago (scripts/pasarela.js)">Pago procesado correctamente</button>
+        <button onclick="swalPagoError()" title="Usado en pasarela de pago (scripts/pasarela.js)">Error en pago/código premium</button>
+        <button onclick="swalValidacionTarjeta()" title="Usado en pasarela de pago (scripts/pasarela.js)">Error validación tarjeta</button>
+        <button onclick="swalValidacionPaypal()" title="Usado en pasarela de pago (scripts/pasarela.js)">Error validación PayPal</button>
+        <button onclick="swalPremiumContacto()" title="Usado en contacto.php (usuario premium)">Premium: cerrar sesión</button>
+        <button onclick="swalRequisitosPass()" title="Usado en validación de contraseña (scripts/validacion-password.js)">Requisitos contraseña</button>
+        <button onclick="swalErrorPass()" title="Usado en validación de contraseña (scripts/validacion-password.js)">Error contraseñas no coinciden</button>
+        <button onclick="swalCambioPassExito()" title="Usado en cambio-pass.php (cambio correcto)">Contraseña actualizada</button>
+    </div>
+    <script>
+    // PASARELA DE PAGO
+    function swalPagoExito() {
+        Swal.fire({
+            title: '¡Pago Procesado Correctamente!',
+            html: `<p>Su pedido ha sido procesado y confirmado. Se envió un correo electrónico con el código Prémium.</p>
+                   <p>Introduzca éste código en su área de perfil para activar su cuenta Prémium.</p>
+                   <p>Código Prémium: <strong>1234567</strong></p>`,
+            icon: 'success',
+            showCancelButton: true,
+            confirmButtonText: 'Volver al inicio',
+            cancelButtonText: 'Cerrar',
+            customClass: {
+                container: 'my-swal-container',
+                popup: 'my-swal-popup',
+                header: 'my-swal-header',
+                title: 'my-swal-title',
+                content: 'my-swal-content',
+                confirmButton: 'my-swal-confirm-button',
+                cancelButton: 'my-swal-cancel-button',
+            },
+        });
+    }
+    function swalPagoError() {
+        Swal.fire({
+            title: 'Error',
+            text: 'Hubo un error al procesar el código premium. Por favor, contacte con soporte.',
+            icon: 'error',
+            confirmButtonText: 'Aceptar',
+            customClass: {
+                container: 'my-swal-container',
+                popup: 'my-swal-popup',
+                title: 'my-swal-title',
+                confirmButton: 'my-swal-confirm-button'
+            }
+        });
+    }
+    function swalValidacionTarjeta() {
+        Swal.fire({
+            title: 'Error de Validación',
+            text: 'Por favor, completa correctamente todos los campos de la tarjeta de crédito.',
+            icon: 'error',
+            confirmButtonText: 'Aceptar',
+            customClass: {
+                container: 'my-swal-container',
+                popup: 'my-swal-popup',
+                title: 'my-swal-title',
+                confirmButton: 'my-swal-confirm-button'
+            }
+        });
+    }
+    function swalValidacionPaypal() {
+        Swal.fire({
+            title: 'Error de Validación',
+            text: 'Por favor, introduce una dirección de correo electrónico válida para PayPal.',
+            icon: 'error',
+            confirmButtonText: 'Aceptar',
+            customClass: {
+                container: 'my-swal-container',
+                popup: 'my-swal-popup',
+                title: 'my-swal-title',
+                confirmButton: 'my-swal-confirm-button'
+            }
+        });
+    }
+    // CONTACTO
+    function swalPremiumContacto() {
+        Swal.fire({
+            title: '¡Ya eres usuario Premium!',
+            text: '¿Deseas cerrar sesión para registrar a otra persona?',
+            icon: 'info',
+            showCancelButton: true,
+            confirmButtonText: 'Cerrar sesión',
+            cancelButtonText: 'Cancelar',
+            customClass: {
+                container: 'my-swal-container',
+                popup: 'my-swal-popup',
+                header: 'my-swal-header',
+                title: 'my-swal-title',
+                content: 'my-swal-content',
+                confirmButton: 'my-swal-confirm-button',
+                cancelButton: 'my-swal-cancel-button'
+            }
+        });
+    }
+    // VALIDACIÓN CONTRASEÑA
+    function swalRequisitosPass() {
+        Swal.fire({
+            title: 'Requisitos de contraseña',
+            html: `La contraseña debe cumplir los siguientes requisitos:<br><br>
+                  <ul style='text-align:left;'>
+                    <li>Ser de al menos 8 carácteres</li>
+                    <li>Tener al menos 1 letra mayúscula</li>
+                    <li>Tener al menos 1 número</li>
+                    <li>Tener al menos un caracter especial</li>
+                  </ul>` ,
+            icon: 'warning',
+            confirmButtonText: 'Entendido',
+            customClass: {
+                container: 'my-swal-container',
+                popup: 'my-swal-popup',
+                title: 'my-swal-title',
+                confirmButton: 'my-swal-confirm-button'
+            }
+        });
+    }
+    function swalErrorPass() {
+        Swal.fire({
+            title: 'Error',
+            text: 'Las contraseñas no coinciden',
+            icon: 'error',
+            confirmButtonText: 'Entendido',
+            customClass: {
+                container: 'my-swal-container',
+                popup: 'my-swal-popup',
+                title: 'my-swal-title',
+                confirmButton: 'my-swal-confirm-button'
+            }
+        });
+    }
+    // CAMBIO CONTRASEÑA
+    function swalCambioPassExito() {
+        Swal.fire({
+            title: '¡Contraseña Actualizada!',
+            text: 'Tu contraseña ha sido actualizada correctamente.',
+            icon: 'success',
+            confirmButtonText: 'Aceptar',
+            customClass: {
+                container: 'my-swal-container',
+                popup: 'my-swal-popup',
+                header: 'my-swal-header',
+                title: 'my-swal-title',
+                content: 'my-swal-content',
+                confirmButton: 'my-swal-confirm-button'
+            }
+        });
+    }
+    </script>
+</body>
+</html> 
