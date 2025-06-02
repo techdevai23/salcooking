@@ -112,7 +112,14 @@
             },
             body: 'codigo=' + codigoPremium
         })
-        .then(response => response.json())
+        .then(response => {
+            if (!response.ok) {
+                return response.text().then(text => {
+                    throw new Error(`Error del servidor: ${text}`);
+                });
+            }
+            return response.json();
+        })
         .then(data => {
             if (data.success) {
                 Swal.fire({
@@ -143,17 +150,17 @@
             } else {
                 Swal.fire({
                     title: 'Error',
-                    text: 'Hubo un error al procesar el código premium. Por favor, contacte con soporte.',
+                    text: data.message,
                     icon: 'error',
                     confirmButtonText: 'Aceptar'
                 });
             }
         })
         .catch(error => {
-            console.error('Error:', error);
+            console.error('Error completo:', error);
             Swal.fire({
                 title: 'Error',
-                text: 'Hubo un error al procesar el pago. Por favor, inténtelo de nuevo.',
+                text: 'Hubo un error al procesar el pago: ' + error.message,
                 icon: 'error',
                 confirmButtonText: 'Aceptar'
             });
