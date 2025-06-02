@@ -101,7 +101,15 @@
             return; // Detener si hay errores de validación
         }
 
-        // Si todo está validado, mostrar el modal de SweetAlert, se crea un código prémium aleatorio
+        // Desactiva el botón de pago (prevengo que se pueda pulsar mientras se procesa la petición) y muestra un loader mientras se procesa la petición
+        const botonPago = document.querySelector('.btn-opciones');
+        botonPago.disabled = true;
+        const loader = document.createElement('div');
+        loader.className = 'loader-pago';
+        loader.innerHTML = 'Procesando pago...';
+        botonPago.parentNode.insertBefore(loader, botonPago.nextSibling);
+
+        // Se genera el código prémium aleatorio
         const codigoPremium = Math.floor(1000000 + Math.random() * 9000000).toString();
         
         // Guardar el código en la base de datos
@@ -121,6 +129,7 @@
             return response.json();
         })
         .then(data => {
+            // Solo se muestra el modal de éxito si el código se guardó correctamente
             if (data.success) {
                 Swal.fire({
                     title: '¡Pago Procesado Correctamente!',
@@ -148,6 +157,7 @@
                     }
                 });
             } else {
+                // Si hay error, se muestra el mensaje de error devuelto por el backend
                 Swal.fire({
                     title: 'Error',
                     text: data.message,
@@ -157,6 +167,7 @@
             }
         })
         .catch(error => {
+            // Se muestra un mensaje de error detallado en caso de fallo en la petición
             console.error('Error completo:', error);
             Swal.fire({
                 title: 'Error',
@@ -164,6 +175,11 @@
                 icon: 'error',
                 confirmButtonText: 'Aceptar'
             });
+        })
+        .finally(() => {
+            // Se reactiva el botón de pago y se elimina el loader tras finalizar la petición
+            botonPago.disabled = false;
+            if (loader && loader.parentNode) loader.parentNode.removeChild(loader);
         });
     });
 

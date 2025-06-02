@@ -1,6 +1,6 @@
 <?php
 session_start();
-include 'controllers/conexion.php';
+include 'conexion.php';
 
 header('Content-Type: application/json');
 
@@ -24,7 +24,7 @@ if (empty($codigo)) {
 }
 
 // Verificar el código premium si existe y no está usado en la base de datos
-$sql_codigo = "SELECT id_codigo, usado FROM codigos_premium WHERE codigo = ? AND usado = FALSE";
+$sql_codigo = "SELECT id_codigo, activo FROM codigos_premium WHERE codigo = ? AND activo = 1";
 $stmt_codigo = $conexion->prepare($sql_codigo);
 $stmt_codigo->bind_param("s", $codigo);
 $stmt_codigo->execute();
@@ -44,7 +44,7 @@ try {
     
     // Actualizar el código como usado
     // esta query es compleja, ya que se actualiza el código como usado y se guarda el id_usuario y la fecha de uso
-    $sql_update_codigo = "UPDATE codigos_premium SET usado = TRUE, id_usuario = ?, fecha_uso = NOW() WHERE codigo = ?";
+    $sql_update_codigo = "UPDATE codigos_premium SET activo = 0, usado_por_usuario_id = ?, fecha_uso = NOW() WHERE codigo = ?";
     $stmt_update_codigo = $conexion->prepare($sql_update_codigo);
     $stmt_update_codigo->bind_param("is", $id_usuario, $codigo);
     $stmt_update_codigo->execute();

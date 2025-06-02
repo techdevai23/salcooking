@@ -214,7 +214,7 @@ $css_extra .= '<script src="scripts/validacion-password.js"></script>';
               <div class="premium-status">
                 <label for="codigo_registro">Código de registro:</label>
                 <input type="text" id="codigo_registro" name="codigo_registro" placeholder="">
-                <button type="button" id="validarCodigoBtn" title="Aplicar Código" class="premium-button">➤</button>
+                <button type="button" id="validarCodigoBtn" title="Aplicar Código" class="action-btn-verde">Validar</button>
               </div>
               <div id="mensajeCodigo"></div>
             </div>
