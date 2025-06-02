@@ -40,10 +40,10 @@ if (!isset($_SESSION['id_usuario']) && isset($_COOKIE['remember_token'])) {
 
 // continuamos  comprobando si hay usuario y contraseña
 if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['login_submit'])) {
-    // DEBUG
-    echo '<pre>';
-    print_r($_POST);
-    echo '</pre>';
+    // // DEBUG
+    // echo '<pre>';
+    // print_r($_POST);
+    // echo '</pre>';
     $usuario_input = trim($_POST['usuario']); // Puede ser email o nick
     $contrasena_input = trim($_POST['contrasena']);
     // si no hay usuario o contraseña, error
@@ -66,10 +66,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['login_submit'])) {
             if ($resultado->num_rows === 1) {
                 // con este fetch_assoc obtenemos el resultado de la consulta
                 $usuario_db = $resultado->fetch_assoc();
-                // DEBUG
-                echo '<pre>';
-                print_r($usuario_db);
-                echo '</pre>';
+                    // // DEBUG
+                    // echo '<pre>';
+                    // print_r($usuario_db);
+                    // echo '</pre>';
 
                 // con este if comprobamos si la contraseña es correcta
                 if (password_verify($contrasena_input, $usuario_db['contrasena_hash'])) {
@@ -104,8 +104,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['login_submit'])) {
                     }
                     exit();
                 } else {
-                    echo "Hash en BD: " . $usuario_db['contrasena_hash'] . "<br>";
-                    echo "Contraseña introducida: " . $contrasena_input . "<br>";
+                    // // DEBUG
+                    // echo "Hash en BD: " . $usuario_db['contrasena_hash'] . "<br>";
+                    // echo "Contraseña introducida: " . $contrasena_input . "<br>";
                     $error_login = "Lo siento: Usuario o contraseña incorrectos.";
                 }
             } else {

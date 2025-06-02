@@ -26,9 +26,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $resultado = $stmt->get_result();
 
       if ($resultado->num_rows === 0) {
-        $mensaje = '<span style="color: red;">* Lo siento. El email proporcionado no está registrado en el sistema.*</span>';
+        $mensaje = '<div class="mensaje-error">* Lo siento. El email proporcionado no está registrado en el sistema.*</div>';
     } else if ($nueva_contrasena !== $confirmar_contrasena) {
-        $mensaje = '<span style="color: red;">* Lo siento. Las contraseñas no coinciden.*</span>';
+        $mensaje = '<div class="mensaje-error">* Lo siento. Las contraseñas no coinciden.*</div>';
     } else {
         // Actualizar contraseña
         $usuario = $resultado->fetch_assoc();
@@ -36,29 +36,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $stmt_update = $conexion->prepare("UPDATE usuarios SET contrasena_hash = ? WHERE id_usuario = ?");
         $stmt_update->bind_param("si", $contrasena_hash, $usuario['id_usuario']);
         if ($stmt_update->execute()) {
-            echo "<script>
-                Swal.fire({
-                    title: '¡Contraseña Actualizada!',
-                    text: 'Tu contraseña ha sido actualizada correctamente.',
-                    icon: 'success',
-                    confirmButtonText: 'Aceptar',
-                    customClass: {
-                        container: 'my-swal-container',
-                        popup: 'my-swal-popup',
-                        header: 'my-swal-header',
-                        title: 'my-swal-title',
-                        content: 'my-swal-content',
-                        confirmButton: 'my-swal-confirm-button'
-                    }
-                }).then((result) => {
-                    if (result.isConfirmed) {
-                        window.location.href = 'login.php';
-                    }
-                });
-            </script>";
-            exit();
+            $mensaje = "<div class='mensaje-exito'>¡Contraseña actualizada correctamente! </br> <a href='login.php'>Iniciar sesión</a> o <a href='index.php'>Ir al inicio</a></div>";
         } else {
-            $mensaje = "Error al actualizar la contraseña.";
+            $mensaje = '<div class="mensaje-error">Error al actualizar la contraseña.</div>';
         }
         $stmt_update->close();
     }
@@ -120,10 +100,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
             <div class="cambio-contrasena-form">
                 <?php if (!empty($mensaje)): ?>
-                    <div class="mensaje-error"><?php echo $mensaje; ?></div>
+                    <?php echo $mensaje; ?>
                 <?php endif; ?>
 
-                <form method="post" action="accion-completada.php" onsubmit="return validarFormularioContrasena();">
+                <form method="post" action="" onsubmit="return validarFormularioContrasena();">
                     <div class="form-group">
                         <label for="email">Email:</label>
                         <input type="email" id="email" name="email" placeholder="Introduce tu email" class="form-control" required>

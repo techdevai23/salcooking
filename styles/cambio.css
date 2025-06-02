@@ -259,6 +259,21 @@
   background-color: var(--naranja-corp);
 }
 
+.mensaje-exito {
+  background-color: #d4edda; /* Verde claro */
+  color: #155724;            /* Verde oscuro */
+  border: 1px solid #c3e6cb;
+  padding: 12px 18px;
+  border-radius: 6px;
+  margin-bottom: 18px;
+  font-size: 1.1em;
+}
+
+.mensaje-exito a {
+  color: #155724;
+  text-decoration: underline;
+}
+
 /* Mensajes de error */
 .mensaje-error {
   background-color: #f8d7da;
