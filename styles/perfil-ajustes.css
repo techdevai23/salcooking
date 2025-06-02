@@ -190,7 +190,7 @@ h6{
     vertical-align: middle;
 }
 
-.premium-button {
+/* .premium-button {
     padding: 10px 20px !important;
     color: var(--color-text);
     background-color: var(--naranja-corp);
@@ -200,7 +200,7 @@ h6{
     font-size: 1rem;
     text-decoration: none;
     display: inline-block;
-}
+} */
 
 .premium-button:hover {
     background-color: var(--naranja-corp);
