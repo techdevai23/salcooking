@@ -118,20 +118,32 @@ startSession();
                         </form>
                     </div>
                     <!-- boton premium -->
-                    <div class="premium-button">
-                        <a href="perfil.php" title="Solo puedes ganar: Registrate gratis" class="btn-premium">Registrate gratis</a>
-                    </div>
+                    <?php if (!isLoggedIn()): ?>
+                    <!-- <div class="premium-button">
+                        <a href="perfil.php" title="Solo puedes ganar: Registrate gratis" class="btn-premium">Regístrate gratis</a>
+                    </div> -->
+                    <?php endif; ?>
                     <!-- icono de usuario con enlace a web de usuario -->
                     <div class="header-actions">
                         <div class="user-icon">
                             <!-- Mostraremos el icono o el nick de usuario, según si el usuario está logueado o no -->
                             <!-- si se muestra el icono llevará a una página u otra, dependiendo de si está logueado o no -->
                             <?php if (!isLoggedIn()): ?>
-                                <a href="<?php echo isLoggedIn() ? 'perfil-logueado.php' : 'login.php'; ?>">
+                                <!-- el usuario no está logueado, por lo que se le ofrece registrarse gratis -->
+                                <a href="perfil.php" title="Solo puedes ganar: Registrate gratis" class="btn-premium">Regístrate gratis</a>
+                                <a href="login.php">
                                     <img src="sources/iconos/Single-Neutral-Circle--Streamline-Ultimate.svg" title="Accede a tu perfil" alt="User Icon" width="34px">
                                 </a>
                             <?php else: ?>
+                                <!-- el usuario está logueado, por lo que se le muestra info de perfil -->
                                 <p style="color:var(--text-color);">Usuario: <?php echo htmlspecialchars(getUserNick()); ?></p>
+                                <!-- si el usuario es premium, se le muestra un boton de confirmacion premium -->    
+                                <?php if (isset($_SESSION['es_premium']) && $_SESSION['es_premium']): ?>
+                                    <!-- Usuario premium: no mostrar botón premium -->
+                                <?php else: ?>
+                                    <!-- Usuario logueado pero no premium: mostrar botón para hacerse premium -->
+                                    <a href="contacto.php" title="Hazte Prémium" class="btn-premium">Hazte Prémium</a>
+                                <?php endif; ?>
                             <?php endif; ?>
 
 
