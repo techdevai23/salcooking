@@ -1113,3 +1113,89 @@ ajustes para arreglar individualmete landings
 
 */
 
+/* Panel para visitantes */
+.user-panel-visitante {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+/* Panel para usuarios logueados en dos columnas */
+.user-panel-logueado {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 18px;
+    min-width: 220px;
+}
+
+.user-panel-col {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-end;
+    gap: 4px;
+}
+
+.user-panel-col-cta {
+    align-items: flex-start;
+    min-width: 120px;
+}
+
+.user-panel-col-info {
+    align-items: flex-end;
+    min-width: 100px;
+}
+
+.user-nick {
+    font-weight: normal;
+    color: var(--primary-dark);
+    font-size: 1rem;
+    text-align: right;
+    line-height: 1.2;
+}
+
+.user-nick-nombre {
+    font-weight: bold;
+    color: var(--primary-dark);
+    font-size: 1.1rem;
+}
+
+.btn-cerrar-sesion {
+    color: var(--primary-dark);
+    text-decoration: underline;
+    font-size: 0.95rem;
+    margin: 0;
+    padding: 0;
+    background: none;
+    border: none;
+    cursor: pointer;
+    text-align: right;
+}
+
+.user-icon-link {
+    display: block;
+}
+
+.user-icon-img {
+    width: 34px;
+    height: 34px;
+    display: block;
+}
+
+@media (max-width: 768px) {
+    .user-panel-logueado {
+        flex-direction: column;
+        align-items: flex-end;
+        gap: 6px;
+    }
+    .user-panel-col-cta, .user-panel-col-info {
+        min-width: unset;
+        align-items: flex-end;
+    }
+    .user-icon-img {
+        width: 24px;
+        height: 24px;
+    }
+}
+

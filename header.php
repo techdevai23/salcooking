@@ -125,36 +125,35 @@ startSession();
                     <?php endif; ?>
                     <!-- icono de usuario con enlace a web de usuario -->
                     <div class="header-actions">
-                        <div class="user-icon">
-                            <!-- Mostraremos el icono o el nick de usuario, según si el usuario está logueado o no -->
-                            <!-- si se muestra el icono llevará a una página u otra, dependiendo de si está logueado o no -->
-                            <?php if (!isLoggedIn()): ?>
-                                <!-- el usuario no está logueado, por lo que se le ofrece registrarse gratis -->
-                                <a href="perfil.php" title="Solo puedes ganar: Registrate gratis" class="btn-premium">Regístrate gratis</a>
-                                <a href="login.php">
-                                    <img src="sources/iconos/Single-Neutral-Circle--Streamline-Ultimate.svg" title="Accede a tu perfil" alt="User Icon" width="34px">
+                        <!-- Mostraremos el icono o el nick de usuario, según si el usuario está logueado o no -->
+                        <!-- si se muestra el icono llevará a una página u otra, dependiendo de si está logueado o no -->
+                        <?php if (!isLoggedIn()): ?>
+                            <!-- el usuario no está logueado, por lo que se le ofrece registrarse gratis y el icono -->
+                            <div class="user-panel-visitante">
+                                <a href="perfil.php" class="btn-premium">Regístrate gratis</a>
+                                <a href="login.php" class="user-icon-link">
+                                    <img src="sources/iconos/Single-Neutral-Circle--Streamline-Ultimate.svg" title="Accede a tu perfil" alt="User Icon" class="user-icon-img">
                                 </a>
-                            <?php else: ?>
-                                <!-- el usuario está logueado, por lo que se le muestra info de perfil -->
-                                <p style="color:var(--text-color);">Usuario: <?php echo htmlspecialchars(getUserNick()); ?></p>
-                                <!-- si el usuario es premium, se le muestra un boton de confirmacion premium -->    
-                                <?php if (isset($_SESSION['es_premium']) && $_SESSION['es_premium']): ?>
-                                    <!-- Usuario premium: no mostrar botón premium -->
-                                <?php else: ?>
-                                    <!-- Usuario logueado pero no premium: mostrar botón para hacerse premium -->
-                                    <a href="contacto.php" title="Hazte Prémium" class="btn-premium">Hazte Prémium</a>
-                                <?php endif; ?>
-                            <?php endif; ?>
-
-
-                            <!-- inserción para cerrar sesión si está iniciada -->
-                            <div class="cerrar-sesion">
-                                <?php if (isLoggedIn()): ?>
-                                    <a href="logout.php" class="btn-cerrar-sesion" style="margin-left:10px;">Cerrar sesión </a>
-                                    <img src="sources/iconos/Login-1--Streamline-Ultimate.svg" alt="User Icon" style=" width:14px !important;">
-                                <?php endif; ?>
                             </div>
-                        </div>
+                        <?php else: ?>
+                            <!-- el usuario está logueado, se muestra su info y opciones -->
+                            <div class="user-panel-logueado">
+                                <!-- Columna izquierda: CTA si no es premium -->
+                                <div class="user-panel-col user-panel-col-cta">
+                                    <?php if (!isset($_SESSION['es_premium']) || !$_SESSION['es_premium']): ?>
+                                        <a href="contacto.php" class="btn-premium">Hazte Prémium</a>
+                                    <?php endif; ?>
+                                </div>
+                                <!-- Columna derecha: info usuario y cerrar sesión -->
+                                <div class="user-panel-col user-panel-col-info">
+                                    <div class="user-nick">
+                                        Usuario/a:<br>
+                                        <span class="user-nick-nombre"><?php echo htmlspecialchars(getUserNick()); ?></span>
+                                    </div>
+                                    <a href="logout.php" class="btn-cerrar-sesion">Cerrar sesión</a>
+                                </div>
+                            </div>
+                        <?php endif; ?>
                     </div>
                 </div>
 
