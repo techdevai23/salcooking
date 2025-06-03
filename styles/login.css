@@ -174,6 +174,53 @@ html, body {
   overflow-x: hidden;
   width: 100%;
 }
+/********* Gestion de la bienvenida por recordasr credenciales*******/
+.login-saludo {
+  background: var(--primary-color);
+  border: 1px solid var(--negro-verdoso);
+  padding: 18px;
+  border-radius: 8px;
+  margin-bottom: 20px;
+  text-align: center;
+  font-size: 1.1rem;
+}
+.login-olvidar-link {
+  color: black;
+  text-decoration: underline;
+  font-size: 0.95rem;
+  cursor: pointer;
+}
+.login-olvidar-link:hover {
+  color: var(--secondary-color);
+}
+
+.btn-continuar-sesion {
+  display: inline-block;
+  background-color:var(--verde-corp) ;
+  color: #fff;
+  font-weight: bold;
+  border: none;
+  border-radius: 5px;
+  padding: 10px 25px;
+  font-size: 1.05rem;
+  text-align: center;
+  text-decoration: none;
+  cursor: pointer;
+  transition: background 0.3s, color 0.3s;
+  margin-top: 10px;
+}
+.btn-continuar-sesion:hover {
+  background-color: var(--primary-dark);
+  color: #fff;
+}
+
+
+
+
+
+
+
+
   /* Responsive  Styles */
 @media (max-width: 992px) {
   .results-container {
@@ -229,3 +276,4 @@ html, body {
        
     }
 }
+
