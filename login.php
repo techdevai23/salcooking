@@ -9,7 +9,7 @@ if (isset($_SESSION['id_usuario'])) {
     header("Location: perfil-logueado.php");
     exit();
 }
-
+//  
 include 'controllers/conexion.php'; // Conexión a la BD
 
 $error_login = '';
