@@ -116,9 +116,12 @@ $css_extra .= '<link rel="stylesheet" href="styles/ayuda.css?v=' . filemtime('st
           <div class="faq-answer">Haz clic en "Hazte Prémium", sigue los pasos del formulario, realiza el pago externo y recibirás un código de activación que podrás introducir en tu perfil.</div>
         </div>
 
+        <div class="mas">
+          <a href="contacto.php" class="action-btn-rosa">¿Tu pregunta no está aquí? Haznosla llegar en nuestro formulario de contacto</a>
+        </div>
 
         <div class="contact-info-card">
-          <h2>Nuestros Datos</h2>
+          <h2>Nuestros Datos de contacto</h2>
           <ul class="contact-info-list">
             <li><i class="bi bi-geo-alt-fill"></i> Avenida Salud 69, El Burgo de Ebro, Zaragoza,
               España</li>

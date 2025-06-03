@@ -4,6 +4,7 @@
 
 
 .contact-info-card {
+  margin-top: 40px;
     background: var(--naranja-corp);
     color: var(--light-color);
     padding: 20px;
@@ -183,7 +184,11 @@ select#tipoConsulta option.opcion {
   color: var(--primary-color) !important;
 }
 
-
+.mas {
+  text-align: center;
+  
+  margin: 20px auto;
+}
 
 html, body {
   overflow-x: hidden;

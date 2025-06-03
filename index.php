@@ -41,10 +41,10 @@ if ($page === 'buscar' || $page === 'detalle-receta') {
                 </div>
 
                 <div class="mensaje row-md-6 col-md-3 fondo-tarjeta d-flex flex-column justify-content-center">
-                    <p>Puedes <i>consultar y descargar</i> todas las recetas, incluyendo los <b>alérgenos</b> que tiene, de manera <b>gratuita</b>,
-                        y haciéndote <span class="premium">Prémium</span>,
+                    <p>Puedes <i>consultar y descargar</i> las más de <strong>200 recetas</strong> que tenemos, incluyendo información de <b>alérgenos</b> que tiene cada una, de manera <b>gratuita</b>.
+</br> Y haciéndote <span class="premium">Prémium</span>,
                         da un paso más hacia una <span class="saludable"> alimentación saludable y segura</span> encontrando recetas <strong>aptas para distintas enfermedades</strong>,
-                        y crearte un <strong>plan de dietas semanal</strong>, podrás <strong> descargar recetas</strong>... ¡Y muchas funciones más! ¿A qué estas esperando? 
+                        crear un <strong>plan de dietas semanal</strong>, hasta podrás <strong> descargar listas de la compra</strong>... ¡Y muchas funciones más! ¿A qué estas esperando? 
                     </p>
                     <div>
                         <a href="contacto.php" title="Solo puedes ganar: Hazte Prémium" class="btn-premium">Hazte Prémium</a>
