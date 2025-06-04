@@ -63,19 +63,19 @@ $css_extra .= '<link rel="stylesheet" href="styles/planes.css?v=' . filemtime('s
                         </thead>
                         <tbody>
                             <tr>
-                                <td>1. Buscar recetas*</td>
+                                <td>1. Atención al cliente </td>
                                 <td class="check">✓</td>
                                 <td class="check">✓</td>
                                 <td class="check">✓</td>
                             </tr>
                             <tr>
-                                <td>2. Ver trucos de cocina (blog)</td>
+                                <td>2. Buscar recetas* </td>
                                 <td class="check">✓</td>
                                 <td class="check">✓</td>
                                 <td class="check">✓</td>
                             </tr>
                             <tr>
-                                <td>3. Ver resultado de recetas con alérgenos</td>
+                                <td>3. Ver recetas con alérgenos</td>
                                 <td class="check">✓</td>
                                 <td class="check">✓</td>
                                 <td class="check">✓</td>
@@ -87,7 +87,7 @@ $css_extra .= '<link rel="stylesheet" href="styles/planes.css?v=' . filemtime('s
                                 <td class="check">✓</td>
                             </tr>
                               <tr>
-                                <td>5. Crear 2 perfiles</td>
+                                <td>5. Ver trucos de cocina (blog)</td>
                                 <td class="cross">·</td>
                                 <td class="check-note">✓<span class="nota"></span></td>
                                 <td class="check-note">✓<span class="nota"></span></td>
@@ -143,29 +143,30 @@ $css_extra .= '<link rel="stylesheet" href="styles/planes.css?v=' . filemtime('s
 
                 <div class="plan-card visitante">
                     <h3>Visitante</h3>
-                    <p>Acceso básico a nuestra plataforma sin necesidad de registro. Podrás buscar recetas y conocer nuestro contenido de forma limitada. Destacamos:</p>
+                    <p>Acceso básico a nuestra plataforma <b>sin necesidad de registro</b>. Podrás buscar recetas y conocer nuestro contenido de forma limitada. Destacamos:</p>
                     <ul>
-                        <li>Búsqueda básica de recetas</li>
-                        <li>Consulta de trucos de cocina</li>
-                        <li>Vista de recetas incluyendo alérgenos</li>
+                        
+                        <li>Atención al cliente completa</li>
+                        <li>Búsqueda básica de recetas por título</li>
+                        <li>Vista de fichas de recetas incluyendo alérgenos</li>
                         <li>Filtrado de resultados por alérgenos</li>
                         <li>Otros filtros básicos y de ordenamiento</li>
                     </ul>
                 </div>
 
                 <div class="plan-card registrado">
-                    <h3>Usuario Registrado</h3>
-                    <p>Regístrate gratuitamente y disfruta de más funcionalidades para mejorar tu experiencia. Destacamos:</p>
+                    <h3 style="color: var(--primary-dark);">Usuario Registrado</h3>
+                    <p>Regístrate <b>de forma gratuita</b> y disfruta de más funcionalidades para mejorar tu experiencia. Destacamos:</p>
                     <ul>
-                        <li>Todo lo del plan Visitante</li>
-                        <li>Creación de hasta 2 perfiles distintos en una misma cuenta</li>
-                        <li>Descarga de recetas</li>
+                        <li>Todo lo que incluye el plan Visitante</li>
+                        <li>Acceso libre al blog de trucos de cocina</li>
+                        <li>Descarga de las fichas de recetas</li>
                     </ul>
                 </div>
 
                 <div class="plan-card premium">
-                    <h3>Usuario Prémium</h3>
-                    <p>Suscríbete a nuestro plan de pago y desbloquea todas las características avanzadas para sacar el máximo partido a tu cocina. Destacamos:</p>
+                    <h3 style="color: #a46302;">Usuario Prémium</h3>
+                    <p>Suscríbete a nuestro plan de pago y <b>desbloquea todas</b> las características avanzadas para sacar el máximo partido a tu cocina, y a tu estado de salud:</p>
                     <ul>
                         <li>Todo lo del plan Registrado</li>
                         <li>Filtros avanzados de búsqueda</li>
