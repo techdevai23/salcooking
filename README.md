@@ -24,7 +24,7 @@
 
 1. Clona el repositorio:
     ```bash
-    git clone https://github.com/tu-usuario/salcooking.git
+    git clone https://github.com/techdevai23/salcooking.git
     ```
 
 2. Copia el contenido a la carpeta de tu servidor local:
@@ -38,7 +38,7 @@
 
 5. Accede a la aplicación:
     ```
-    http://localhost/salcooking/index.php?page=inicio
+    http://localhost/salcooking/index.php
     ```
 
 ## 📁 Estructura del proyecto
