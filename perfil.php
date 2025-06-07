@@ -129,7 +129,7 @@ $css_extra .= '<link rel="stylesheet" href="styles/perfil-ajustes.css?v=' . file
     <div class="container migas-flex">
       <ul class="migas">
         <li><a href="index.php">Inicio</a></li>
-        <li class="current"><?php echo htmlspecialchars($nombre_pagina); ?></li>
+        <li class="current"><?php echo htmlspecialchars((string)($nombre_pagina ?? '')); ?></li>
       </ul>
       <div class="volver-atras-contenedor">
         <a href="javascript:history.back()" class="volver-atras"><img src="sources/iconos/Arrow-Thick-Left-3--Streamline-Ultimate.svg" width="32px" alt="icono atrás" title="Pantalla anterior"></a>
@@ -143,7 +143,7 @@ $css_extra .= '<link rel="stylesheet" href="styles/perfil-ajustes.css?v=' . file
 
       <div class="titulo">
         <img src="sources/iconos/Book-Star--Streamline-Ultimate.svg" alt="Icono Perfil">
-        <h1><?php echo htmlspecialchars($nombre_pagina); ?></h1>
+        <h1><?php echo htmlspecialchars((string)($nombre_pagina ?? '')); ?></h1>
       </div>
 
       <div class="contenido-Perfil-Ajustes">
@@ -151,43 +151,43 @@ $css_extra .= '<link rel="stylesheet" href="styles/perfil-ajustes.css?v=' . file
           <div class="mensaje-feedback <?php echo $tipo_mensaje; ?>"><?php echo $mensaje_feedback; ?></div>
         <?php endif; ?>
 
-        <form id="perfilForm" method="POST" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>">
+        <form id="perfilForm" method="POST" action="<?php echo htmlspecialchars((string)($_SERVER["PHP_SELF"] ?? '')); ?>">
           <div class="perfil-form-grid">
             <div class="form-group">
               <label for="nombre_completo">Nombre Completo: <span class="required">*</span></label>
-              <input type="text" id="nombre_completo" name="nombre_completo" value="<?php echo isset($_POST['nombre_completo']) ? htmlspecialchars($_POST['nombre_completo']) : ''; ?>" required>
+              <input type="text" id="nombre_completo" name="nombre_completo" value="<?php echo isset($_POST['nombre_completo']) ? htmlspecialchars((string)($_POST['nombre_completo'] ?? '')) : ''; ?>" required>
             </div>
 
             <div class="form-group">
               <label for="nick">Nick: <span class="required">*</span></label>
-              <input type="text" id="nick" name="nick" value="<?php echo isset($_POST['nick']) ? htmlspecialchars($_POST['nick']) : ''; ?>" required>
+              <input type="text" id="nick" name="nick" value="<?php echo isset($_POST['nick']) ? htmlspecialchars((string)($_POST['nick'] ?? '')) : ''; ?>" required>
             </div>
 
             <div class="form-group">
               <label for="email">Email: <span class="required">*</span></label>
-              <input type="email" id="email" name="email" value="<?php echo isset($_POST['email']) ? htmlspecialchars($_POST['email']) : ''; ?>" required>
+              <input type="email" id="email" name="email" value="<?php echo isset($_POST['email']) ? htmlspecialchars((string)($_POST['email'] ?? '')) : ''; ?>" required>
             </div>
 
             <div class="form-group">
               <label for="direccion">Dirección:</label>
-              <input type="text" id="direccion" name="direccion" value="<?php echo isset($_POST['direccion']) ? htmlspecialchars($_POST['direccion']) : ''; ?>">
+              <input type="text" id="direccion" name="direccion" value="<?php echo isset($_POST['direccion']) ? htmlspecialchars((string)($_POST['direccion'] ?? '')) : ''; ?>">
             </div>
 
             <div class="form-group edad-group">
               <label for="fecha_nacimiento">Fecha de nacimiento:</label>
               <input type="date" id="fecha_nacimiento" name="fecha_nacimiento" 
-                     value="<?php echo isset($_POST['fecha_nacimiento']) ? htmlspecialchars($_POST['fecha_nacimiento']) : ''; ?>" 
+                     value="<?php echo isset($_POST['fecha_nacimiento']) ? htmlspecialchars((string)($_POST['fecha_nacimiento'] ?? '')) : ''; ?>" 
                      class="form-control" style="width: 200px;">
             </div>
 
             <div class="form-group">
               <label for="ciudad">Ciudad:</label>
-              <input type="text" id="ciudad" name="ciudad" value="<?php echo isset($_POST['ciudad']) ? htmlspecialchars($_POST['ciudad']) : ''; ?>">
+              <input type="text" id="ciudad" name="ciudad" value="<?php echo isset($_POST['ciudad']) ? htmlspecialchars((string)($_POST['ciudad'] ?? '')) : ''; ?>">
             </div>
 
             <div class="form-group">
               <label for="pais">País:</label>
-              <input type="text" id="pais" name="pais" value="<?php echo isset($_POST['pais']) ? htmlspecialchars($_POST['pais']) : ''; ?>">
+              <input type="text" id="pais" name="pais" value="<?php echo isset($_POST['pais']) ? htmlspecialchars((string)($_POST['pais'] ?? '')) : ''; ?>">
             </div>
 
             <div class="form-group">

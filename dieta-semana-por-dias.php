@@ -117,7 +117,7 @@ $css_extra .= '<link rel="stylesheet" href="styles/dieta-semana-dias.css?v=' . f
                 <div class="instrucciones banner-redondeado">
                     <h2>Indicaciones</h2>
                     <p>Esta es una dieta semanal personalizada <b>exclusivamente para ti <?php 
-                    $userNick = htmlspecialchars(getUserNick());
+                    $userNick = htmlspecialchars((string)(getUserNick() ?? ''));
                     echo $userNick . '</b>.';
                     
                     if (isset($_SESSION['id_usuario'])): 
@@ -136,14 +136,14 @@ $css_extra .= '<link rel="stylesheet" href="styles/dieta-semana-dias.css?v=' . f
                         
                         if (!empty($usuarioAlergias)) {
                             $nombresAlergias = array_map(function($a) { 
-                                return htmlspecialchars($a['nombre']); 
+                                return htmlspecialchars((string)($a['nombre'] ?? '')); 
                             }, $usuarioAlergias);
                             $mensaje[] = 'tenemos en cuenta tu/s alergia/s a <strong><u>' . formatearLista($nombresAlergias) . '</u></strong>';
                         }
 
                         if (!empty($usuarioEnfermedades)) {
                             $nombresEnfermedades = array_map(function($e) { 
-                                return htmlspecialchars($e['nombre']); 
+                                return htmlspecialchars((string)($e['nombre'] ?? '')); 
                             }, $usuarioEnfermedades);
                             $mensaje[] = 'consideramos tus enfermedades <strong><u>' . formatearLista($nombresEnfermedades) . '</u></strong>';
                         }

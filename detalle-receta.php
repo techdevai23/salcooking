@@ -56,7 +56,7 @@ if (!isset($receta)) {
 
       <!-- Columna de contenido -->
       <div class="texto">
-        <h1><?= htmlspecialchars($receta['nombre']) ?></h1>
+        <h1><?= htmlspecialchars((string)($receta['nombre'] ?? '')) ?></h1>
 
         <h3>Ingredientes</h3>
         <ul>
@@ -70,7 +70,7 @@ if (!isset($receta)) {
         </ul>
 
         <h3>Instrucciones</h3>
-        <p><?= nl2br(htmlspecialchars($receta['instrucciones'])) ?></p>
+        <p><?= nl2br(htmlspecialchars((string)($receta['instrucciones'] ?? ''))) ?></p>
 
         <?php if ($alergias && $alergias->num_rows > 0): ?>
           <h3>Alergias</h3>

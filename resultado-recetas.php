@@ -126,7 +126,7 @@ $css_extra .= '<link rel="stylesheet" href="styles/resultado-recetas.css?v=' . f
                                 <?php if (!isset($_SESSION['id_usuario'])): ?>
                                     <a href="contacto.php" title="Solo puedes ganar: Hazte Prémium" class="btn-premium">Hazte Prémium</a>
                                 <?php else: ?>
-                                    <span class="usuario-premium">¡Funciones Premium Activas <?php echo htmlspecialchars(getUserNick()); ?>!</span>
+                                    <span class="usuario-premium">¡Funciones Premium Activas <?php echo htmlspecialchars((string)(getUserNick() ?? '')); ?>!</span>
                                 <?php endif; ?>
                             </div>
                             <div class="premium-options">
@@ -170,7 +170,7 @@ $css_extra .= '<link rel="stylesheet" href="styles/resultado-recetas.css?v=' . f
                                                         if (!empty($usuarioAlergias)) {
                                                             echo "<p><strong>Evitando alérgenos:</strong><br>";
                                                             foreach ($usuarioAlergias as $alergia) {
-                                                                echo "- " . htmlspecialchars($alergia['nombre']) . "<br>";
+                                                                echo "- " . htmlspecialchars((string)($alergia['nombre'] ?? '')) . "<br>";
                                                             }
                                                             echo "</p>";
                                                         }
@@ -178,7 +178,7 @@ $css_extra .= '<link rel="stylesheet" href="styles/resultado-recetas.css?v=' . f
                                                         if (!empty($usuarioEnfermedades)) {
                                                             echo "<p><strong>Considerando enfermedades:</strong><br>";
                                                             foreach ($usuarioEnfermedades as $enfermedad) {
-                                                                echo "- " . htmlspecialchars($enfermedad['nombre']) . "<br>";
+                                                                echo "- " . htmlspecialchars((string)($enfermedad['nombre'] ?? '')) . "<br>";
                                                             }
                                                             echo "</p>";
                                                         }
@@ -271,9 +271,10 @@ $css_extra .= '<link rel="stylesheet" href="styles/resultado-recetas.css?v=' . f
                                             $imagePath = "sources/platos/id{$resultados[0]['id']}.png";
                                             $imageUrl = file_exists($imagePath) ? $imagePath : "sources/platos/default.png";
                                             ?>
-                                            <img src="<?= $imageUrl ?>" alt="<?= htmlspecialchars($resultados[0]['nombre']) ?>"></a>
+                                            <img src="<?= $imageUrl ?>" alt="<?= htmlspecialchars((string)($resultados[0]['nombre'] ?? '')) ?>">
+                                        </a>
                                         <div class="recipiente-info">
-                                            <h4><?= htmlspecialchars($resultados[0]['nombre']) ?></h4>
+                                            <h4><?= htmlspecialchars((string)($resultados[0]['nombre'] ?? '')) ?></h4>
                                             <div class="recipiente-tags">
                                                 <?php if (!empty($resultados[0]['tipo_plato'])): ?>
                                                     <span class="tag tag-plato"><?= strtoupper($resultados[0]['tipo_plato']) ?></span>
@@ -283,14 +284,14 @@ $css_extra .= '<link rel="stylesheet" href="styles/resultado-recetas.css?v=' . f
                                                 if (!empty($resultados[0]['alergenos'])) {
                                                     foreach ($resultados[0]['alergenos'] as $alergeno) {
                                                         $clase = strtolower(str_replace(' ', '-', $alergeno['nombre']));
-                                                        echo '<span class="tag ' . $clase . '">' . htmlspecialchars($alergeno['nombre']) . '</span>';
+                                                        echo '<span class="tag ' . $clase . '">' . htmlspecialchars((string)($alergeno['nombre'] ?? '')) . '</span>';
                                                     }
                                                 }
                                                 // Mostrar enfermedades (solo las NO aptas como advertencia)
                                                 if (!empty($resultados[0]['enfermedades'])) {
                                                     foreach ($resultados[0]['enfermedades'] as $enfermedad) {
                                                         $clase = strtolower($enfermedad['nombre']);
-                                                        echo '<span class="tag ' . $clase . '">No apto ' . htmlspecialchars($enfermedad['nombre']) . '</span>';
+                                                        echo '<span class="tag ' . $clase . '">No apto ' . htmlspecialchars((string)($enfermedad['nombre'] ?? '')) . '</span>';
                                                     }
                                                 }
                                                 ?>
@@ -307,9 +308,10 @@ $css_extra .= '<link rel="stylesheet" href="styles/resultado-recetas.css?v=' . f
                                             $imagePath = "sources/platos/id{$resultados[1]['id']}.png";
                                             $imageUrl = file_exists($imagePath) ? $imagePath : "sources/platos/default.png";
                                             ?>
-                                            <img src="<?= $imageUrl ?>" alt="<?= htmlspecialchars($resultados[1]['nombre']) ?>"></a>
+                                            <img src="<?= $imageUrl ?>" alt="<?= htmlspecialchars((string)($resultados[1]['nombre'] ?? '')) ?>">
+                                        </a>
                                         <div class="recipiente-info">
-                                            <h4><?= htmlspecialchars($resultados[1]['nombre']) ?></h4>
+                                            <h4><?= htmlspecialchars((string)($resultados[1]['nombre'] ?? '')) ?></h4>
                                             <div class="recipiente-tags">
                                                 <?php if (!empty($resultados[1]['tipo_plato'])): ?>
                                                     <span class="tag tag-plato"><?= strtoupper($resultados[1]['tipo_plato']) ?></span>
@@ -319,14 +321,14 @@ $css_extra .= '<link rel="stylesheet" href="styles/resultado-recetas.css?v=' . f
                                                 if (!empty($resultados[1]['alergenos'])) {
                                                     foreach ($resultados[1]['alergenos'] as $alergeno) {
                                                         $clase = strtolower(str_replace(' ', '-', $alergeno['nombre']));
-                                                        echo '<span class="tag ' . $clase . '">' . htmlspecialchars($alergeno['nombre']) . '</span>';
+                                                        echo '<span class="tag ' . $clase . '">' . htmlspecialchars((string)($alergeno['nombre'] ?? '')) . '</span>';
                                                     }
                                                 }
                                                 // Mostrar enfermedades (solo las NO aptas como advertencia)
                                                 if (!empty($resultados[1]['enfermedades'])) {
                                                     foreach ($resultados[1]['enfermedades'] as $enfermedad) {
                                                         $clase = strtolower($enfermedad['nombre']);
-                                                        echo '<span class="tag ' . $clase . '">No apto ' . htmlspecialchars($enfermedad['nombre']) . '</span>';
+                                                        echo '<span class="tag ' . $clase . '">No apto ' . htmlspecialchars((string)($enfermedad['nombre'] ?? '')) . '</span>';
                                                     }
                                                 }
                                                 ?>
@@ -343,9 +345,10 @@ $css_extra .= '<link rel="stylesheet" href="styles/resultado-recetas.css?v=' . f
                                             $imagePath = "sources/platos/id{$resultados[2]['id']}.png";
                                             $imageUrl = file_exists($imagePath) ? $imagePath : "sources/platos/default.png";
                                             ?>
-                                            <img src="<?= $imageUrl ?>" alt="<?= htmlspecialchars($resultados[2]['nombre']) ?>"></a>
+                                            <img src="<?= $imageUrl ?>" alt="<?= htmlspecialchars((string)($resultados[2]['nombre'] ?? '')) ?>">
+                                        </a>
                                         <div class="recipiente-info">
-                                            <h4><?= htmlspecialchars($resultados[2]['nombre']) ?></h4>
+                                            <h4><?= htmlspecialchars((string)($resultados[2]['nombre'] ?? '')) ?></h4>
                                             <div class="recipiente-tags">
                                                 <?php if (!empty($resultados[2]['tipo_plato'])): ?>
                                                     <span class="tag tag-plato"><?= strtoupper($resultados[2]['tipo_plato']) ?></span>
@@ -355,14 +358,14 @@ $css_extra .= '<link rel="stylesheet" href="styles/resultado-recetas.css?v=' . f
                                                 if (!empty($resultados[2]['alergenos'])) {
                                                     foreach ($resultados[2]['alergenos'] as $alergeno) {
                                                         $clase = strtolower(str_replace(' ', '-', $alergeno['nombre']));
-                                                        echo '<span class="tag ' . $clase . '">' . htmlspecialchars($alergeno['nombre']) . '</span>';
+                                                        echo '<span class="tag ' . $clase . '">' . htmlspecialchars((string)($alergeno['nombre'] ?? '')) . '</span>';
                                                     }
                                                 }
                                                 // Mostrar enfermedades (solo las NO aptas como advertencia)
                                                 if (!empty($resultados[2]['enfermedades'])) {
                                                     foreach ($resultados[2]['enfermedades'] as $enfermedad) {
                                                         $clase = strtolower($enfermedad['nombre']);
-                                                        echo '<span class="tag ' . $clase . '">No apto ' . htmlspecialchars($enfermedad['nombre']) . '</span>';
+                                                        echo '<span class="tag ' . $clase . '">No apto ' . htmlspecialchars((string)($enfermedad['nombre'] ?? '')) . '</span>';
                                                     }
                                                 }
                                                 ?>

@@ -29,9 +29,9 @@ if (!isset($_SESSION['id_usuario']) && isset($_COOKIE['remember_token'])) {
         if (!isset($_GET['continuar'])) {
             $bloque_bienvenida = "
                 <div class='login-saludo'>
-                    Hola, <b>" . htmlspecialchars($usuario['nick']) . "</b>.<br>
+                    Hola, <b>" . htmlspecialchars((string)($usuario['nick'] ?? '')) . "</b>.<br>
                     <a href='login.php?olvidar=1' class='login-olvidar-link'>¿No eres tú? Inicia sesión con otra cuenta</a><br><br>
-                    <a href='login.php?continuar=1' class='btn-continuar-sesion'>Sí, continuar como " . htmlspecialchars($usuario['nick']) . "</a>
+                    <a href='login.php?continuar=1' class='btn-continuar-sesion'>Sí, continuar como " . htmlspecialchars((string)($usuario['nick'] ?? '')) . "</a>
                 </div>
             ";
         } else {
@@ -176,14 +176,14 @@ $css_extra .= '<link rel="stylesheet" href="styles/login.css?v=' . filemtime('st
                 // Opcional: return; // Si quieres ocultar el formulario cuando hay bienvenida
             }
             ?>
-            <form class="login-form" method="POST" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>">
+            <form class="login-form" method="POST" action="<?php echo htmlspecialchars((string)($_SERVER["PHP_SELF"] ?? '')); ?>">
                 <?php if (!empty($error_login)): ?>
                     <div class="mensaje-feedback mensaje-error" style="margin-bottom: 15px;"><?php echo $error_login; ?></div>
                 <?php endif; ?>
 
                 <div class="form-group">
                     <label for="usuario">Usuario (Email o Nick):</label>
-                    <input type="text" id="usuario" name="usuario" placeholder="Introduce email o nick" class="form-control" required value="<?php echo isset($_POST['usuario']) ? htmlspecialchars($_POST['usuario']) : ''; ?>">
+                    <input type="text" id="usuario" name="usuario" placeholder="Introduce email o nick" class="form-control" required value="<?php echo isset($_POST['usuario']) ? htmlspecialchars((string)($_POST['usuario'] ?? '')) : ''; ?>">
                 </div>
 
                 <div class="form-group">

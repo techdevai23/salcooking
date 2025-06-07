@@ -205,6 +205,6 @@ function actualizarEnfermedadesUsuario($pdo, $id_usuario, $ids_enfermedades_sele
 
 // Función para obtener un valor de forma segura de un array (para rellenar el formulario)
 function old($array, $key, $default = '') {
-    return isset($array[$key]) ? htmlspecialchars($array[$key], ENT_QUOTES, 'UTF-8') : $default;
+    return isset($array[$key]) ? htmlspecialchars((string)($array[$key] ?? ''), ENT_QUOTES, 'UTF-8') : $default;
 }
 ?>

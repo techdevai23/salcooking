@@ -115,33 +115,33 @@ $css_extra .= '<script src="scripts/validacion-password.js"></script>';
           <div class="perfil-form-grid">
             <div class="form-group">
               <label for="nombre_completo">Nombre Completo: <span class="required">*</span></label>
-              <input type="text" id="nombre_completo" name="nombre_completo" value="<?php echo htmlspecialchars($usuario['nombre_completo']); ?>" required>
+              <input type="text" id="nombre_completo" name="nombre_completo" value="<?php echo htmlspecialchars((string)($usuario['nombre_completo'] ?? '')); ?>" required>
             </div>
 
             <div class="form-group">
               <label for="nick">Nick: <span class="required">*</span></label>
-              <input type="text" id="nick" name="nick" value="<?php echo htmlspecialchars($usuario['nick']); ?>" required>
+              <input type="text" id="nick" name="nick" value="<?php echo htmlspecialchars((string)($usuario['nick'] ?? '')); ?>" required>
             </div>
 
             <div class="form-group">
               <label for="email">Email: <span class="required">*</span></label>
-              <input type="email" id="email" name="email" value="<?php echo htmlspecialchars($usuario['email']); ?>" required>
+              <input type="email" id="email" name="email" value="<?php echo htmlspecialchars((string)($usuario['email'] ?? '')); ?>" required>
             </div>
 
             <div class="form-group">
               <label for="direccion">Dirección:</label>
-              <input type="text" id="direccion" name="direccion" value="<?php echo htmlspecialchars($usuario['direccion']); ?>">
+              <input type="text" id="direccion" name="direccion" value="<?php echo htmlspecialchars((string)($usuario['direccion'] ?? '')); ?>">
             </div>
 
             <div class="form-group">
               <label for="ciudad">Ciudad:</label>
-              <input type="text" id="ciudad" name="ciudad" value="<?php echo htmlspecialchars($usuario['ciudad']); ?>">
+              <input type="text" id="ciudad" name="ciudad" value="<?php echo htmlspecialchars((string)($usuario['ciudad'] ?? '')); ?>">
             </div>
 
 
             <div class="form-group">
               <label for="pais">País:</label>
-              <input type="text" id="pais" name="pais" value="<?php echo htmlspecialchars($usuario['pais']); ?>">
+              <input type="text" id="pais" name="pais" value="<?php echo htmlspecialchars((string)($usuario['pais'] ?? '')); ?>">
             </div>
 
             <div class="form-group edad-group">
@@ -242,7 +242,7 @@ $css_extra .= '<script src="scripts/validacion-password.js"></script>';
                                        value="<?php echo $alergia['id']; ?>"
                                        <?php echo in_array($alergia['id'], array_column($alergias_usuario, 'id')) ? 'checked' : ''; ?>>
                                 <span class="checkmark"></span>
-                                <?php echo htmlspecialchars($alergia['nombre']); ?>
+                                <?php echo htmlspecialchars((string)($alergia['nombre'] ?? '')); ?>
                             </label>
                         <?php endforeach; ?>
                     </div>
@@ -257,7 +257,7 @@ $css_extra .= '<script src="scripts/validacion-password.js"></script>';
                                        value="<?php echo $enfermedad['id']; ?>"
                                        <?php echo in_array($enfermedad['id'], array_column($enfermedades_usuario, 'id')) ? 'checked' : ''; ?>>
                                 <span class="checkmark"></span>
-                                <?php echo htmlspecialchars($enfermedad['nombre']); ?>
+                                <?php echo htmlspecialchars((string)($enfermedad['nombre'] ?? '')); ?>
                             </label>
                         <?php endforeach; ?>
                     </div>

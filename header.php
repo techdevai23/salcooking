@@ -150,7 +150,7 @@ startSession();
                                 <div class="user-panel-col user-panel-col-info">
                                     <div class="user-nick">
                                         Usuario/a:<br>
-                                        <span class="user-nick-nombre"><?php echo htmlspecialchars(getUserNick()); ?></span>
+                                        <span class="user-nick-nombre"><?php echo htmlspecialchars((string)(getUserNick() ?? '')); ?></span>
                                     </div>
                                     <a href="logout.php" class="btn-cerrar-sesion">Cerrar sesión</a>
                                 </div>
