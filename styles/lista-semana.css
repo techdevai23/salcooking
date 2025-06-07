@@ -42,7 +42,11 @@
  
 
 
-/* Estilos para la lista de ingredientes (AÑADIR ESTO) */
+/* Estilos para la lista de ingredientes  */
+
+h3{
+    font-size:1.1em; font-weight:normal; margin-top:10px; color:#666;}
+
 .lista-ingredientes-compra {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); /* 2 o 3 columnas según espacio */

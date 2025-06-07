@@ -241,7 +241,9 @@ if (isset($_GET['id_dieta'])) {
                 }
             }
             if ($nick && $id_dieta && $fecha_dieta) {
-                echo '<h3 style="font-size:1.1em; font-weight:normal; margin-top:10px; color:#666;">Hola: ' . $nick . '😄. tu Dieta ID: ' . $id_dieta . '  con fecha: ' . $fecha_dieta . ', tiene todos estos ingredientes💖. Buena compra!👍</h3>';
+                echo '<h3>Hola: ' . $nick . '😄. </h3>';
+                echo '<h3> tu Dieta ID: ' . $id_dieta . '  con fecha: ' . $fecha_dieta . ',</h3>';
+                echo '<h3> tiene todos estos ingredientes💖. Buena compra!👍</h3>';
             } elseif ($error_subtitulo) {
                 echo '<div style="color: #b94a48; font-size:1em; margin-top:10px;">' . $error_subtitulo . '</div>';
             }

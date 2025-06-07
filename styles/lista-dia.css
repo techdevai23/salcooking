@@ -40,7 +40,7 @@
     margin-bottom: 20px; dependiendo de los elementos para no pisar el landing*/
 }
  
-/* Estilos para la lista de ingredientes (AÑADIR ESTO) */
+/* Estilos para la lista de ingredientes*/
 .lista-ingredientes-compra {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); /* 2 o 3 columnas según espacio */
@@ -49,6 +49,9 @@
     margin-top: 20px;
     margin-bottom: 30px;
 }
+
+h3{
+    font-size:1.1em; font-weight:normal; margin-top:10px; color:#666;}
 
 .ingrediente-item {
     background-color: rgba(255, 255, 255, 0.7); /* Fondo blanco semi-transparente para destacar sobre el fondo general */

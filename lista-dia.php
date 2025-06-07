@@ -144,7 +144,9 @@ if (isset($_GET['id_dieta']) && isset($_GET['dia'])) {
             include_once 'controllers/session.php';
             $nick = htmlspecialchars(getUserNick());
             if ($nick && $id_plan_semanal && $fecha_dieta && $nombre_dia) {
-                echo '<h3 style="font-size:1.1em; font-weight:normal; margin-top:10px; color:#666;">Hola: ' . $nick . '😄. Has elegido de tu Dieta ID: ' . $id_plan_semanal . ' con fecha: ' . $fecha_dieta . ', que te muestre los ingredientes del <b>' . $nombre_dia . '</b>, aquí los tienes💖. Buena compra!👍</h3>';
+                echo '<h3 >Hola: ' . $nick . '😄. </h3>';
+                echo '<h3> Has elegido de tu Dieta ID: ' . $id_plan_semanal . ' con fecha: ' . $fecha_dieta . ',</h3>';
+                echo '<h3> que te muestre los ingredientes del <b>' . $nombre_dia . '</b>, aquí los tienes💖. Buena compra!👍</h3>';
             } elseif (!empty($error)) {
                 echo '<div style="color: #b94a48; font-size:1em; margin-top:10px;">' . $error . '</div>';
             }
