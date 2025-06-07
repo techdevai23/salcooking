@@ -211,7 +211,7 @@ $css_extra .= '<link rel="stylesheet" href="styles/dieta-semana-dias.css?v=' . f
                                 <br>
                                 <!-- Mostrar la receta si existe -->
                                 <?php if ($planDieta[$diaLabel][$tipo] ?? null && is_array($planDieta[$diaLabel][$tipo])): ?>
-                                    <a href="detalle-receta.php?id=<?= htmlspecialchars($planDieta[$diaLabel][$tipo]['id'] ?? '') ?>" title="Ver receta de <?= htmlspecialchars($planDieta[$diaLabel][$tipo]['nombre'] ?? '') ?>">
+                                    <a href="index.php?page=detalle-receta&id=<?= htmlspecialchars($planDieta[$diaLabel][$tipo]['id'] ?? '') ?>" title="Ver receta de <?= htmlspecialchars($planDieta[$diaLabel][$tipo]['nombre'] ?? '') ?>">
                                         <img src="sources/platos/id<?= htmlspecialchars($planDieta[$diaLabel][$tipo]['id'] ?? '') ?>.png" alt="<?= htmlspecialchars($planDieta[$diaLabel][$tipo]['nombre'] ?? '') ?>">
                                     </a>
                                     <p><?= htmlspecialchars($planDieta[$diaLabel][$tipo]['nombre'] ?? '') ?></p>
