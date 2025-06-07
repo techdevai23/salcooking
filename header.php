@@ -249,6 +249,7 @@ startSession();
         // Función para comprobar si el usuario está logueado (PHP -> JS)
         const usuarioLogueadoHeader = <?php echo isset($_SESSION['id_usuario']) ? 'true' : 'false'; ?>;
 
+        // Evento para los enlaces de trucos, no permite si no eres usuario registrado
         document.querySelectorAll('#trucos, #trucosMobile, #trucosDesplegable').forEach(element => {
             element.addEventListener('click', function(e) {
                 e.preventDefault();
@@ -258,8 +259,10 @@ startSession();
                         html: "Debes registrarte gratis para poder acceder a esta página:<strong> Trucos de cocina</strong>.",
                         icon: "info",
                         showCancelButton: true,
+                        showDenyButton: true,
                         showCloseButton: true,
                         confirmButtonText: 'Registrarme ahora',
+                        denyButtonText: 'Iniciar sesión',
                         cancelButtonText: 'Volver a la página principal',
                         buttonsStyling: true,
                         customClass: {
@@ -269,6 +272,7 @@ startSession();
                             title: "my-swal-title",
                             content: "my-swal-content",
                             confirmButton: "my-swal-confirm-button",
+                            denyButton: "my-swal-deny-button",
                             cancelButton: "my-swal-cancel-button-trucos",
                             closeButton: 'my-swal-close-button',
                             footer: 'my-swal-footer-trucos'
@@ -277,6 +281,8 @@ startSession();
                     }).then((result) => {
                         if (result.isConfirmed) {
                             window.location.href = 'perfil.php';
+                        } else if (result.isDenied) {
+                            window.location.href = 'login.php';
                         } else if (result.dismiss === Swal.DismissReason.cancel) {
                             window.location.href = 'index.php';
                         }
@@ -299,8 +305,10 @@ startSession();
                         html: "Debes registrarte gratis para poder acceder a esta página:<strong> Dieta semanal</strong>.",
                         icon: "info",
                         showCancelButton: true,
+                        showDenyButton: true,
                         showCloseButton: true,
                         confirmButtonText: 'Registrarme ahora',
+                        denyButtonText: 'Iniciar sesión',
                         cancelButtonText: 'Volver a la página principal',
                         buttonsStyling: true,
                         customClass: {
@@ -310,14 +318,17 @@ startSession();
                             title: "my-swal-title",
                             content: "my-swal-content",
                             confirmButton: "my-swal-confirm-button",
-                            cancelButton: "my-swal-cancel-button-dieta",
+                            denyButton: "my-swal-deny-button",
+                            cancelButton: "my-swal-cancel-button-trucos",
                             closeButton: 'my-swal-close-button',
-                            footer: 'my-swal-footer-dieta'
+                            footer: 'my-swal-footer-trucos'
                         },
                         footer: '<a href="planes.php">Ver tipos de acceso</a>'
                     }).then((result) => {
                         if (result.isConfirmed) {
                             window.location.href = 'perfil.php';
+                        } else if (result.isDenied) {
+                            window.location.href = 'login.php';
                         } else if (result.dismiss === Swal.DismissReason.cancel) {
                             window.location.href = 'index.php';
                         }

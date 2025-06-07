@@ -68,6 +68,7 @@
     background-color: #e9ebef !important;
 }
 
+/*  para los modales de recetas */
 .my-swal-cancel-button-receta {
     background-color: #76d3ebc9 !important;
     color: #333 !important;
@@ -80,7 +81,7 @@
 }
 
 .my-swal-cancel-button-receta:hover {
-    background-color: #2ec3e9c9 !important;
+    background-color: #76d3ebc9 !important;
 }
 
 .my-swal-footer-receta a {
@@ -98,4 +99,10 @@
     cursor: pointer;
     z-index: 10;
     user-select: none;
+}
+
+.my-swal-deny-button {
+    background-color:#76d3ebc9  !important; /* azul claro */
+    color: #fff !important;
+    border: none !important;
 }

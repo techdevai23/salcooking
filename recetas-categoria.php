@@ -31,11 +31,13 @@ $css_extra .= '<link rel="stylesheet" href="styles/trucos.css?v=' . filemtime('s
 
                 <div class="contenido-trucos">
                     <div class="intro">
-                        <p>Desde un desayuno energético para empezar el día, hasta el postre más dulce para acabarlo con una sonrisa.
-                            En esta sección encontrarás recetas saludables clasificadas por tipo de plato: ideas rápidas y nutritivas para el desayuno,
-                            entrantes ligeros que despiertan el apetito, platos principales completos y equilibrados, y postres que combinan sabor y bienestar.
-                            Cada tarjetón te llevará a un mundo de opciones adaptadas a tus gustos, necesidades y estilo de vida. ¡Elige por dónde empezar tu próxima comida saludable!</p>
+                        <h4>Todas nuestras recetas son <u>exclusivas</u>, no las encontrarás en ningún otro sitio.</h4>
+                        <p>Desde un desayuno energético para empezar el día, hasta el postre más dulce para acabarlo con una sonrisa.</p>
+                        <p>En esta sección encontrarás <strong>recetas saludables</strong> clasificadas por tipo de plato: ideas rápidas y nutritivas para el desayuno,
+                            entrantes ligeros que despiertan el apetito, platos principales completos y equilibrados, y postres que combinan sabor y bienestar.</p>
+                        <p>Cada categoríate llevará a un mundo de opciones adaptadas a tus gustos, necesidades y estilo de vida.</p>
 
+                        <h4>¡Elige por dónde empezar tu próxima comida saludable!</h4>
                     </div>
 
                     <article class="tarjeta-truco receta">
