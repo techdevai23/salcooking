@@ -82,7 +82,7 @@ $css_extra .= '<link rel="stylesheet" href="styles/dieta-semana.css?v=' . filemt
                 <a href="dieta-semana-por-dias.php?id_dieta=<?= $id_dieta ?>" class="action-btn-naranja">Dieta de la semana</a>
             </div>
             <div class="filter-section">
-                <a href="lista-semana.php?id_dieta=<?= $id_dieta ?>" class="action-btn-rosa">Lista compra semanal</a>
+                <a href="lista-dia.php?id_dieta=<?= $id_dieta ?>&dia=<?= $dia ?>" class="action-btn-rosa">Lista compra de éste día</a>
             </div>
             <div class="filter-section">
                 <a href="perfil-logueado.php" class="action-btn-verde">Editar perfil-salud</a>
@@ -126,8 +126,10 @@ $css_extra .= '<link rel="stylesheet" href="styles/dieta-semana.css?v=' . filemt
                 <div class="meal-container">
                     <?php if ($recetaDesayuno && is_array($recetaDesayuno)): ?>
                         <div class="meal-item">
+                        <a href="index.php?page=detalle-receta&id=<?= htmlspecialchars($recetaDesayuno['id'] ?? '') ?>" title="Ver receta de <?= htmlspecialchars($recetaDesayuno['nombre'] ?? '') ?>">
                             <img src="sources/platos/id<?= htmlspecialchars($recetaDesayuno['id'] ?? '') ?>.png" alt="<?= htmlspecialchars($recetaDesayuno['nombre']) ?>">
                             <h3><?= htmlspecialchars($recetaDesayuno['nombre']) ?></h3>
+                        </a>
                         </div>
                     <?php else: ?>
                         <div class="meal-item">
@@ -147,8 +149,10 @@ $css_extra .= '<link rel="stylesheet" href="styles/dieta-semana.css?v=' . filemt
                     ?>
                         <div class="meal-item">
                             <?php if ($recetaComida && is_array($recetaComida)): ?>
-                                <img src="sources/platos/id<?= htmlspecialchars($recetaComida['id'] ?? '') ?>.png" alt="<?= htmlspecialchars($recetaComida['nombre']) ?>">
-                                <h3><?= htmlspecialchars($recetaComida['nombre']) ?></h3>
+                                <a href="index.php?page=detalle-receta&id=<?= htmlspecialchars($recetaComida['id'] ?? '') ?>" title="Ver receta de <?= htmlspecialchars($recetaComida['nombre'] ?? '') ?>">
+                                    <img src="sources/platos/id<?= htmlspecialchars($recetaComida['id'] ?? '') ?>.png" alt="<?= htmlspecialchars($recetaComida['nombre']) ?>">
+                                    <h3><?= htmlspecialchars($recetaComida['nombre']) ?></h3>
+                                </a>
                                 <p style="font-size: 0.9em; color: #888; margin:0;">(<?= $labelComida ?>)</p>
                             <?php else: ?>
                                 <p>No asignada<br><span style="font-size: 0.9em; color: #888;">(<?= $labelComida ?>)</span></p>
@@ -164,8 +168,10 @@ $css_extra .= '<link rel="stylesheet" href="styles/dieta-semana.css?v=' . filemt
                 <div class="meal-container">
                     <?php if ($recetaCena && is_array($recetaCena)): ?>
                         <div class="meal-item">
-                            <img src="sources/platos/id<?= htmlspecialchars($recetaCena['id'] ?? '') ?>.png" alt="<?= htmlspecialchars($recetaCena['nombre']) ?>">
-                            <h3><?= htmlspecialchars($recetaCena['nombre']) ?></h3>
+                            <a href="index.php?page=detalle-receta&id=<?= htmlspecialchars($recetaCena['id'] ?? '') ?>" title="Ver receta de <?= htmlspecialchars($recetaCena['nombre'] ?? '') ?>">
+                                <img src="sources/platos/id<?= htmlspecialchars($recetaCena['id'] ?? '') ?>.png" alt="<?= htmlspecialchars($recetaCena['nombre']) ?>">
+                                <h3><?= htmlspecialchars($recetaCena['nombre']) ?></h3>
+                            </a>
                         </div>
                     <?php else: ?>
                         <div class="meal-item">
@@ -176,7 +182,7 @@ $css_extra .= '<link rel="stylesheet" href="styles/dieta-semana.css?v=' . filemt
             </div>
         </div>
 
-        <a href="lista-semana.php?id_dieta=<?= $id_dieta ?>" class="btn-opciones">Ver lista de la compra de la semana</a>
+        <a href="lista-dia.php?id_dieta=<?= $id_dieta ?>&dia=<?= $dia ?>" class="btn-opciones">Ver lista de la compra del día</a>
         <a href="index.php" class="btn-opciones">Volver al Inicio</a>
     </div>
 </section>

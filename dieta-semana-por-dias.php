@@ -206,7 +206,7 @@ $css_extra .= '<link rel="stylesheet" href="styles/dieta-semana-dias.css?v=' . f
                             <div class="meal-item" data-day="<?= strtolower($diaLabel) ?>">
                                 <a href="dieta-dia.php?dia=<?= $diaKey ?>&id_dieta=<?= $id_dieta_seleccionada ?>" title="Ver dieta completa de <?= $diaLabel ?>">
                                     <h3><?= $diaLabel ?></h3>
-                                    <h3>Ver dieta completa</h3>
+                                    <h3>Ver dieta del día</h3>
                                 </a>
                                 <br>
                                 <!-- Mostrar la receta si existe -->

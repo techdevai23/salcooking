@@ -40,7 +40,9 @@ html, body {
   opacity: 0.5;
 }
 
-
+.gif-container{
+ margin-top: 50px;
+}
 
 .contenido-filosofia {
   display: grid;
