@@ -45,6 +45,9 @@ if ($id_dieta_seleccionada) {
 // Cargar los estilos CSS
 $css_extra = '';
 $css_extra .= '<link rel="stylesheet" href="styles/dieta-semana-dias.css?v=' . filemtime('styles/dieta-semana-dias.css') . '">';
+
+// Definir $dia para el selector móvil
+$dia = isset($_GET['dia']) ? strtolower($_GET['dia']) : 'lunes';
 ?>
 <?php include 'header.php'; ?>
 
@@ -166,7 +169,7 @@ $css_extra .= '<link rel="stylesheet" href="styles/dieta-semana-dias.css?v=' . f
                 </div>
 
                 <!-- Barra de navegación de días (para móvil) -->
-                <div class="mobile-day-nav">
+                <!-- <div class="mobile-day-nav">
                     <?php
                     $dias = [
                         ['key' => 'lunes', 'label' => 'Lunes'],
@@ -183,7 +186,47 @@ $css_extra .= '<link rel="stylesheet" href="styles/dieta-semana-dias.css?v=' . f
                             <a href="dieta-dia.php?dia=<?= $diaKey ?>&id_dieta=<?= $id_dieta_seleccionada ?>" class="action-btn<?= (strtolower($dia) == $diaKey ? ' active-day' : '') ?>"><?= $diaLabel ?></a>
                         </div>
                     <?php endforeach; ?>
+                </div> -->
+
+                <!-- Añadir después de la barra de navegación de días (mobile-day-nav) -->
+                ?>
+                <div class="mobile-day-select" style="display:none; margin-bottom: 20px;">
+                    <label for="selector-dia" style="font-weight:bold;">Selecciona un día:</label>
+                    <select id="selector-dia" name="selector-dia" style="width:100%; padding:10px; border-radius:6px;">
+                        <?php foreach ([
+                            'lunes' => 'Lunes',
+                            'martes' => 'Martes',
+                            'miercoles' => 'Miércoles',
+                            'jueves' => 'Jueves',
+                            'viernes' => 'Viernes',
+                            'sabado' => 'Sábado',
+                            'domingo' => 'Domingo'
+                        ] as $diaKey => $diaLabel): ?>
+                            <option value="<?= $diaKey ?>" <?= ($dia == $diaKey ? 'selected' : '') ?>><?= $diaLabel ?></option>
+                        <?php endforeach; ?>
+                    </select>
                 </div>
+                <script>
+                // Mostrar el select solo en móvil
+                function mostrarSelectDiaMobile() {
+                    if(window.innerWidth <= 768) {
+                        document.querySelector('.mobile-day-select').style.display = 'block';
+                    } else {
+                        document.querySelector('.mobile-day-select').style.display = 'none';
+                    }
+                }
+                window.addEventListener('DOMContentLoaded', mostrarSelectDiaMobile);
+                window.addEventListener('resize', mostrarSelectDiaMobile);
+                // Redirigir al cambiar el select
+                const selectorDia = document.getElementById('selector-dia');
+                if(selectorDia) {
+                    selectorDia.addEventListener('change', function() {
+                        const dia = this.value;
+                        const idDieta = <?= json_encode($id_dieta_seleccionada) ?>;
+                        window.location.href = 'dieta-semana-por-dias.php?dia=' + dia + '&id_dieta=' + idDieta;
+                    });
+                }
+                </script>
 
                 <!-- Bucle dinámico para cada tipo de comida -->
                 <?php
@@ -203,12 +246,9 @@ $css_extra .= '<link rel="stylesheet" href="styles/dieta-semana-dias.css?v=' . f
                     </div>
                     <div class="meal-container">
                         <?php foreach ($dias as $diaData): $diaKey = $diaData['key']; $diaLabel = $diaData['label']; ?>
-                            <div class="meal-item" data-day="<?= strtolower($diaLabel) ?>">
-                                <a href="dieta-dia.php?dia=<?= $diaKey ?>&id_dieta=<?= $id_dieta_seleccionada ?>" title="Ver dieta completa de <?= $diaLabel ?>">
-                                    <h3><?= $diaLabel ?></h3>
-                                    <h3>Ver dieta del día</h3>
-                                </a>
-                                <br>
+                            <div class="filter-section day-col day-col-<?= $diaKey ?><?= ($dia == $diaKey ? ' active-mobile-day' : '') ?>">
+                                <a href="dieta-dia.php?dia=<?= $diaKey ?>&id_dieta=<?= $id_dieta_seleccionada ?>" class="action-btn<?= (strtolower($dia) == $diaKey ? ' active-day' : '') ?>"><?= $diaLabel ?></a>
+                                <h3>Ver dieta del día</h3>
                                 <!-- Mostrar la receta si existe -->
                                 <?php if ($planDieta[$diaLabel][$tipo] ?? null && is_array($planDieta[$diaLabel][$tipo])): ?>
                                     <a href="index.php?page=detalle-receta&id=<?= htmlspecialchars($planDieta[$diaLabel][$tipo]['id'] ?? '') ?>" title="Ver receta de <?= htmlspecialchars($planDieta[$diaLabel][$tipo]['nombre'] ?? '') ?>">

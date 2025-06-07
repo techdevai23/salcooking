@@ -263,7 +263,7 @@ $css_extra .= '<script src="scripts/validacion-password.js"></script>';
                     </div>
                 </div>
               </div>
-              <button type="button" class="action-btn-naranja">Generar dieta semanal</button>
+              
             </div>
           <?php else: ?>
             <!-- Contenido para usuarios no premium -->

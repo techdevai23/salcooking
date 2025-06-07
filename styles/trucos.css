@@ -172,34 +172,64 @@ body {
     }
 }
 
+/* === BLOQUE RESPONSIVE MEJORADO PARA TARJETAS DE TRUCOS Y RECETAS === */
+
 @media (max-width: 768px) {
-   
-
-    .container-trucos::before {
-        background-size: cover;
-        background-position: left;
-        
-        
-    }
-    .tarjeta-receta {
+    .tarjeta-truco, .tarjeta-receta {
+        display: flex;
+        flex-direction: column;
+        align-items: stretch;
+        justify-content: flex-start;
         padding: 15px;
-        margin: 0 auto;
-        margin-bottom: 20px;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
+        margin: 0 auto 20px auto;
+        width: 100%;
+        min-width: 0;
+        box-sizing: border-box;
     }
 
-    .tarjeta-truco {
-          padding: 15px;
-        margin: 0 auto;
-        margin-bottom: 20px;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-
+    /* Ordena los elementos de la tarjeta para móvil */
+    .tarjeta-truco .foto-truco,
+    .tarjeta-receta .foto-truco {
+        order: 1; /* Cambia este valor para reordenar la imagen */
+        align-self: center;
+        width: 100%;
+        max-width: 180px;
+        min-width: 120px;
+        margin-bottom: 10px;
+    }
+    .tarjeta-truco h2,
+    .tarjeta-receta h2 {
+        order: 2; /* Cambia este valor para reordenar el título */
+        font-size: 1.2rem;
+        margin-bottom: 10px;
+        text-align: center;
+    }
+    .tarjeta-truco .texto-truco,
+    .tarjeta-receta .texto-truco {
+        order: 3; /* Cambia este valor para reordenar el texto */
+        width: 100%;
+        padding: 0;
+        margin: 0;
+    }
+    .tarjeta-truco .tip-content,
+    .tarjeta-receta .tip-content {
+        order: 4; /* Cambia este valor para reordenar el contenido extra */
+        width: 100%;
+        margin-top: 5px;
+        margin-bottom: 5px;
+    }
+    .tarjeta-receta img,
+    .tarjeta-truco img {
+        max-width: 100%;
+        height: auto;
+        object-fit: cover;
+        border-radius: 8px;
+    }
+    .tip-content p {
+        min-width: 0;
+        width: 100%;
+        font-size: 1em;
+        word-break: break-word;
     }
 }
 
@@ -212,13 +242,14 @@ body {
         background-repeat: repeat;
     }
 
-    .tarjeta-truco {
-        padding: 15px;
+    .tarjeta-truco, .tarjeta-receta {
+        padding: 10px 2px;
         width: 100%;
+        min-width: 0;
     }
     
     .container-trucos {
-        padding: 20px 10px;
+        padding: 10px 2px;
     }
 
     .results-grid {
@@ -228,4 +259,19 @@ body {
     .recipe-title {
         font-size: 1.5rem;
     }
+
+    .tarjeta-truco .foto-truco,
+    .tarjeta-receta .foto-truco {
+        max-width: 120px;
+        min-width: 80px;
+    }
+    .tarjeta-truco h2,
+    .tarjeta-receta h2 {
+        font-size: 1.1rem;
+    }
+    .tip-content p {
+        font-size: 0.98em;
+    }
 }
+
+/* === FIN BLOQUE RESPONSIVE MEJORADO === */

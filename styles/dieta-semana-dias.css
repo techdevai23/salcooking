@@ -641,6 +641,44 @@
     padding: 15px;
     box-sizing: border-box;
   }
+
+  /* Selector de día solo visible en móvil */
+  .mobile-day-select {
+    display: block !important;
+    width: 100%;
+    margin-bottom: 20px;
+  }
+  .mobile-day-select label {
+    display: block;
+    margin-bottom: 6px;
+    font-size: 1.1em;
+    color: var(--primary-dark);
+  }
+  .mobile-day-select select {
+    width: 100%;
+    padding: 12px 10px;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+    font-size: 1.1em;
+    background: #fff;
+    color: var(--text-color);
+    box-shadow: 0 2px 6px rgba(0,0,0,0.04);
+    margin-bottom: 10px;
+  }
+  .mobile-day-nav {
+    display: none !important;
+  }
+
+  /* Oculta todas las columnas de días por defecto */
+  .day-col {
+    display: none !important;
+  }
+  /* Muestra solo la columna activa */
+  .day-col.active-mobile-day {
+    display: flex !important;
+    flex-direction: column;
+    width: 100%;
+  }
 }
 
 /* Estilos para el tooltip de perfil de salud */
