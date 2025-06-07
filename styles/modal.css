@@ -82,10 +82,11 @@
 .my-swal-cancel-button-receta:hover {
     background-color: #2ec3e9c9 !important;
 }
+
 .my-swal-footer-receta a {
     color: var(--primary-dark) !important;
     text-decoration: underline !important;
-   font-weight: bolder !important;
+    font-weight: bolder !important;
 }
 
 .my-swal-mas-tarde {
