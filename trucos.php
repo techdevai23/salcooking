@@ -20,11 +20,14 @@ if (!isset($_SESSION['id_usuario'])) {
 
 <!-- migas -->
 <div class="migas-container">
-    <div class="container">
+    <div class="container migas-flex">
         <ul class="migas">
             <li><a href="index.php">Inicio</a></li>
             <li class="current">Trucos de cocina</li>
         </ul>
+        <div class="volver-atras-contenedor">
+          <a href="javascript:history.back()" class="volver-atras"><img src="sources/iconos/Arrow-Thick-Left-3--Streamline-Ultimate.svg" width="32px" alt="icono atrás" title="Pantalla anterior"></a>
+        </div>
     </div>
 </div>
 

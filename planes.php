@@ -12,7 +12,7 @@ $css_extra .= '<link rel="stylesheet" href="styles/planes.css?v=' . filemtime('s
     <div class="container migas-flex">
         <ul class="migas">
             <li><a href="index.php">Inicio</a></li>
-            <li class="current">Planes de uso</li>
+            <li class="current">Planes de suscripción</li>
            
         </ul>
         <div class="volver-atras-contenedor">
