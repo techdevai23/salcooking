@@ -1,5 +1,6 @@
 <?php
 require_once __DIR__ . '/../controllers/conexion.php';
+
 require_once __DIR__ . '/receta.php';
 
 class Dieta

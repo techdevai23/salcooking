@@ -20,7 +20,7 @@ if (!isset($receta)) {
     <ul class="migas">
       <li><a href="index.php">Inicio</a></li>
       <li><a href="recetas-categoria.php">Recetas</a></li>
-      <li class="current"><?php echo htmlspecialchars($receta['nombre']); ?></li>
+      <li class="current"><?php echo htmlspecialchars((string)($receta['nombre'] ?? '')); ?></li>
     </ul>
     <div class="volver-atras-contenedor">
       <a href="javascript:history.back()" class="volver-atras"><img src="sources/iconos/Arrow-Thick-Left-3--Streamline-Ultimate.svg" width="32px" alt="icono atrás" title="Pantalla anterior"></a>
@@ -99,7 +99,7 @@ if (!isset($receta)) {
 
         <?php if ($receta['sustitutos']): ?>
           <h3>Sustitutos usados</h3>
-          <p><?= nl2br(htmlspecialchars($receta['sustitutos'])) ?></p>
+          <p><?= nl2br(htmlspecialchars((string)($receta['sustitutos'] ?? ''))) ?></p>
         <?php endif; ?>
         
       </div>
@@ -119,7 +119,7 @@ include 'footer.php';
   const usuarioLogueado = <?php echo isset($_SESSION['id_usuario']) ? 'true' : 'false'; ?>;
 
   // Obtener el nombre de la receta para el PDF
-  const nombreReceta = <?php echo json_encode($receta['nombre']); ?>;
+  const nombreReceta = <?php echo json_encode($receta['nombre'] ?? ''); ?>;
 
   document.getElementById('btn-descargar-receta').addEventListener('click', function(e) {
     e.preventDefault();

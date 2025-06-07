@@ -6,9 +6,7 @@ class Receta
         global $conexion;
         
         // Debug: Mensaje de inicio muy visible
-        echo "\n<!-- ===== INICIO DEBUG ===== -->";
-        echo "\n<!-- MÉTODO buscarRecetas EJECUTÁNDOSE -->";
-        echo "\n<!-- ====================== -->\n";
+        error_log("MÉTODO buscarRecetas EJECUTÁNDOSE");
 
         $stopwords = ['de', 'la', 'el', 'y', 'con', 'en', 'a', 'una', 'para'];
         $palabras = array_filter(explode(' ', strtolower($termino)), fn($w) => !in_array($w, $stopwords));
@@ -101,7 +99,7 @@ class Receta
                     )";
                     
                     // Debug: Mostrar las enfermedades del usuario
-                    echo "<!-- DEBUG - Enfermedades del usuario: " . print_r($enfermedadesUsuario, true) . " -->";
+                    error_log("DEBUG - Enfermedades del usuario: " . print_r($enfermedadesUsuario, true));
                 }
             }
 
@@ -113,17 +111,6 @@ class Receta
                     WHERE i.nombre LIKE '%$ingrediente%'
                 )";
             }
-
-            // if ($enfermedad && $enfermedad !== '') {
-            //     // Manejar múltiples enfermedades separadas por comas
-            //     $enfermedades = explode(',', $enfermedad);
-            //     $enfermedadesInt = array_map('intval', $enfermedades);
-            //     $enfermedadesStr = implode(',', $enfermedadesInt);
-            //     $condiciones[] = "r.id IN (
-            //         SELECT id_receta FROM receta_enfermedad 
-            //         WHERE id_enfermedad IN ($enfermedadesStr) AND apta = 1
-            //     )";
-            // }
 
             if ($enfermedad && $enfermedad !== '') {
                 // Manejar múltiples enfermedades separadas por comas
@@ -140,27 +127,6 @@ class Receta
                 )";
             }
 
-            // if ($tiempoPrep && $tiempoPrep !== '') {
-            //     // Manejar múltiples rangos de tiempo
-            //     $opcionesTiempo = explode(',', $tiempoPrep);
-            //     $condicionesTiempo = [];
-
-            //     foreach ($opcionesTiempo as $opcion) {
-            //         $opcion = trim($opcion);
-            //         if ($opcion == 'menos-30') {
-            //             $condicionesTiempo[] = "r.tiempo_preparacion < 30";
-            //         } elseif ($opcion == '31-60') {
-            //             $condicionesTiempo[] = "r.tiempo_preparacion BETWEEN 31 AND 60";
-            //         } elseif ($opcion == 'mas-60') {
-            //             $condicionesTiempo[] = "r.tiempo_preparacion > 60";
-            //         }
-            //     }
-
-            //     if (!empty($condicionesTiempo)) {
-            //         $condiciones[] = "(" . implode(" OR ", $condicionesTiempo) . ")";
-            //     }
-            // }
-            // Modificar el filtro de tiempo para que coincida con los valores del formulario
             if ($tiempoPrep && $tiempoPrep !== '') {
                 $opcionesTiempo = explode(',', $tiempoPrep);
                 $condicionesTiempo = [];
@@ -185,8 +151,8 @@ class Receta
             }
         }
 
-        // Debug: Mostrar condiciones de filtrado*****************
-        echo "<!-- DEBUG - Condiciones de filtrado: " . print_r($condiciones, true) . " -->";
+        // Debug: Mostrar condiciones de filtrado
+        error_log("DEBUG - Condiciones de filtrado: " . print_r($condiciones, true));
         
         // Construir la consulta SQL
         $sql = "SELECT DISTINCT r.* FROM recetas r";
@@ -202,8 +168,8 @@ class Receta
             $where = " WHERE " . implode(' AND ', $condiciones);
         }
 
-        // Debug: Mostrar consulta SQL antes de la ordenación*****************
-        $sqlDebug = $sql . $where;
+        // Debug: Mostrar consulta SQL antes de la ordenación
+        error_log("DEBUG - SQL antes de ordenación: " . $sql . $where);
 
         // Añadir ordenación
         $orderBy = " ORDER BY r.id DESC"; // Por defecto
@@ -249,43 +215,26 @@ class Receta
                     $orderBy = " ORDER BY (
                         SELECT COUNT(*) FROM receta_ingrediente ri2 
                         WHERE ri2.id_receta = r.id
-                    ) DESC";
+                    ) ASC";
                     break;
             }
         }
 
-        // Construir consulta final
-        $sql = $sql . $where . $orderBy;
+        $sql .= $where . $orderBy;
         
         // Debug: Mostrar consulta SQL final
-        echo "<!-- DEBUG - Consulta SQL final: " . htmlspecialchars($sql) . " -->";
+        error_log("DEBUG - SQL final: " . $sql);
 
         $resultado = $conexion->query($sql);
-
+        
         if (!$resultado) {
-            echo "<!-- Error en la consulta: " . $conexion->error . " -->";
+            error_log("Error en la consulta SQL: " . $conexion->error);
             return [];
         }
 
-        $recetas = $resultado->fetch_all(MYSQLI_ASSOC);
-
-        // Agregar alérgenos y enfermedades para cada receta
-        foreach ($recetas as &$receta) {
-            // Obtener alérgenos
-            $sqlAlergenos = "SELECT a.id, a.nombre, ra.observaciones 
-                           FROM receta_alergia ra 
-                           JOIN alergias a ON ra.id_alergia = a.id 
-                           WHERE ra.id_receta = " . $receta['id'];
-            $resAlergenos = $conexion->query($sqlAlergenos);
-            $receta['alergenos'] = $resAlergenos ? $resAlergenos->fetch_all(MYSQLI_ASSOC) : [];
-
-            // Obtener enfermedades (solo las NO aptas para mostrar como advertencia)
-            $sqlEnfermedades = "SELECT e.id, e.nombre, re.indicaciones, re.apta 
-                              FROM receta_enfermedad re 
-                              JOIN enfermedades e ON re.id_enfermedad = e.id 
-                              WHERE re.id_receta = " . $receta['id'] . " AND re.apta = 0";
-            $resEnfermedades = $conexion->query($sqlEnfermedades);
-            $receta['enfermedades'] = $resEnfermedades ? $resEnfermedades->fetch_all(MYSQLI_ASSOC) : [];
+        $recetas = [];
+        while ($row = $resultado->fetch_assoc()) {
+            $recetas[] = $row;
         }
 
         return $recetas;
@@ -294,9 +243,15 @@ class Receta
     public function getRecetaPorId($id)
     {
         global $conexion;
+        
         $id = intval($id);
         $sql = "SELECT * FROM recetas WHERE id = $id";
         $resultado = $conexion->query($sql);
+        
+        if (!$resultado || $resultado->num_rows === 0) {
+            return null;
+        }
+        
         return $resultado->fetch_assoc();
     }
 }
