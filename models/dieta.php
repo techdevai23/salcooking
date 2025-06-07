@@ -5,7 +5,8 @@ require_once __DIR__ . '/receta.php';
 class Dieta
 {
     // Obtiene la última dieta generada por el usuario
-    public static function getUltimaDietaUsuario($id_usuario) {
+    public static function getUltimaDietaUsuario($id_usuario)
+    {
         global $conexion;
         $id_usuario = intval($id_usuario);
         $sql = "SELECT id_dieta, fecha_creacion FROM dietas WHERE id_usuario = ? ORDER BY fecha_creacion DESC LIMIT 1";
@@ -24,12 +25,14 @@ class Dieta
     }
 
     // Alias para compatibilidad con el código existente
-    public static function obtenerDietaUsuario($id_usuario) {
+    public static function obtenerDietaUsuario($id_usuario)
+    {
         return self::getUltimaDietaUsuario($id_usuario);
     }
 
     // Obtiene las alergias del usuario con sus nombres
-    public static function getAlergiasUsuario($id_usuario) {
+    public static function getAlergiasUsuario($id_usuario)
+    {
         global $conexion;
         $sql = "SELECT a.id, a.nombre 
                 FROM alergias a 
@@ -47,7 +50,8 @@ class Dieta
     }
 
     // Obtiene las enfermedades del usuario con sus nombres
-    public static function getEnfermedadesUsuario($id_usuario) {
+    public static function getEnfermedadesUsuario($id_usuario)
+    {
         global $conexion;
         $sql = "SELECT e.id, e.nombre 
                 FROM enfermedades e 
@@ -65,7 +69,8 @@ class Dieta
     }
 
     // Obtiene recetas aptas para el usuario (sin alergias ni enfermedades prohibidas)
-    public static function getRecetasAptas($alergias, $enfermedades) {
+    public static function getRecetasAptas($alergias, $enfermedades)
+    {
         global $conexion;
         $condiciones = [];
 
@@ -102,9 +107,10 @@ class Dieta
     }
 
     // Genera el plan semanal aleatorio, sin repeticiones salvo necesidad
-    public static function generarPlanSemanal($recetasAptas) {
+    public static function generarPlanSemanal($recetasAptas)
+    {
         $tiposPlato = ['Desayuno', 'Entrante', 'Principal', 'Postre', 'Cena'];
-        $diasSemana = ['Lunes','Martes','Miércoles','Jueves','Viernes','Sábado','Domingo'];
+        $diasSemana = ['Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado', 'Domingo'];
 
         // Agrupar recetas por tipo
         $recetasPorTipo = [];
@@ -154,7 +160,8 @@ class Dieta
     }
 
     // Guarda la dieta y las recetas asignadas
-    public static function crearYGuardarDieta($id_usuario, $plan) {
+    public static function crearYGuardarDieta($id_usuario, $plan)
+    {
         global $conexion;
         // Crear dieta
         $sql = "INSERT INTO dietas (id_usuario, nombre_dieta, tipo, fecha_creacion) VALUES ($id_usuario, 'Dieta personalizada', 'Semanal', NOW())";
@@ -175,7 +182,8 @@ class Dieta
     }
 
     // Recupera el plan de una dieta para mostrarlo (con nombre, imagen, etc)
-    public static function getPlanDieta($id_dieta) {
+    public static function getPlanDieta($id_dieta)
+    {
         global $conexion;
         $sql = "SELECT dr.comida, dr.dia_semana, r.id, r.nombre
                 FROM dieta_receta dr
@@ -192,3 +200,4 @@ class Dieta
         return $plan;
     }
 }
+?>
