@@ -101,10 +101,7 @@ if (!isset($receta)) {
           <h3>Sustitutos usados</h3>
           <p><?= nl2br(htmlspecialchars($receta['sustitutos'])) ?></p>
         <?php endif; ?>
-
-        <p class="ver-fuente">
-          <a href="<?= htmlspecialchars($receta['enlace_receta']) ?>" target="_blank">Ver fuente original</a>
-        </p>
+        
       </div>
     </div>
   </div>

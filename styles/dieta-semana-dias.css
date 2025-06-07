@@ -168,11 +168,11 @@
   display: flex;
   flex-wrap: wrap;
   gap: 15px;
+  max-width: 60%;
   background-color: #f9f9f9;
   border-radius: 8px;
   padding: 20px;
-  margin-left: 60px;
-  margin-right: 60px;
+  margin: 0 auto;
   margin-bottom: 35px;
   ;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
@@ -214,11 +214,11 @@
 
 
 .instrucciones.banner-redondeado {
-  background-color: var(--border-color);
+  background-color: #d4edda;
   /* Fondo gris por defecto */
   border-radius: 10px;
   /* Bordes redondeados */
-  width: 50%;
+  width: 80%;
   margin: 0 auto;
   padding: 20px;
   /* Espaciado interno */

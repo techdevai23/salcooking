@@ -1,5 +1,58 @@
-
 <?php
+require_once __DIR__ . '/models/usuario.php';
+require_once __DIR__ . '/models/dieta.php';
+session_start();
+
+// Verificar si el usuario está logueado
+if (!isset($_SESSION['id_usuario'])) {
+    $_SESSION['redirect_after_login'] = 'dieta-dia.php';
+    header('Location: login.php');
+    exit;
+}
+
+$usuarioModel = new Usuario();
+$usuario = $usuarioModel->obtenerPorId($_SESSION['id_usuario']);
+if (!$usuario) {
+    session_destroy();
+    header('Location: login.php');
+    exit;
+}
+
+$es_premium = isset($usuario['es_premium']) && $usuario['es_premium'] == 1;
+
+// Obtener todas las dietas del usuario (ordenadas por fecha DESC)
+$lista_dietas = [];
+if ($es_premium) {
+    $sql = "SELECT id_dieta, fecha_creacion FROM dietas WHERE id_usuario = ? ORDER BY fecha_creacion DESC";
+    $stmt = $conexion->prepare($sql);
+    $stmt->bind_param("i", $_SESSION['id_usuario']);
+    $stmt->execute();
+    $result = $stmt->get_result();
+    while ($row = $result->fetch_assoc()) {
+        $lista_dietas[] = $row;
+    }
+    $stmt->close();
+}
+
+// Mapeo de días sin acentos a días con acentos
+$dias_map = [
+    'lunes' => 'Lunes',
+    'martes' => 'Martes',
+    'miercoles' => 'Miércoles',
+    'jueves' => 'Jueves',
+    'viernes' => 'Viernes',
+    'sabado' => 'Sábado',
+    'domingo' => 'Domingo'
+];
+$dias = array_keys($dias_map);
+$dia = isset($_GET['dia']) && in_array(strtolower($_GET['dia']), $dias) ? strtolower($_GET['dia']) : 'lunes';
+$dia_clave = $dias_map[$dia];
+$id_dieta = isset($_GET['id_dieta']) ? intval($_GET['id_dieta']) : ($lista_dietas[0]['id_dieta'] ?? null);
+
+// Obtener la dieta semanal
+$planDieta = $id_dieta ? Dieta::getPlanDieta($id_dieta) : null;
+
+// Cargar los estilos CSS
 $css_extra = '';
 $css_extra .= '<link rel="stylesheet" href="styles/dieta-semana.css?v=' . filemtime('styles/dieta-semana.css') . '">';
 ?>
@@ -15,128 +68,125 @@ $css_extra .= '<link rel="stylesheet" href="styles/dieta-semana.css?v=' . filemt
     </div>
 </div>
 
-
 <!-- Contenido principal-->
 <section class="dieta-semana">
     <div class="main-content">
         <div class="titulo">
             <img src="sources/iconos/semana.svg" alt="calendario semana">
             <h1>Dieta del Día</h1>
-
         </div>
 
         <!-- barra de navegación de opciones -->
         <div class="top-filters-bar">
             <div class="filter-section">
-                <a href="dieta-semana-por-dias.php" class="action-btn-naranja">Dieta de la semana</a>
+                <a href="dieta-semana-por-dias.php?id_dieta=<?= $id_dieta ?>" class="action-btn-naranja">Dieta de la semana</a>
             </div>
             <div class="filter-section">
-                <a href="lista-semana.php" class="action-btn-rosa">Lista compra semanal</a>
+                <a href="lista-semana.php?id_dieta=<?= $id_dieta ?>" class="action-btn-rosa">Lista compra semanal</a>
             </div>
-
             <div class="filter-section">
                 <a href="perfil-logueado.php" class="action-btn-verde">Editar perfil-salud</a>
             </div>
+            <div class="filter-section">
+                <label for="selector-dieta">Nº dieta:</label>
+                <select id="selector-dieta" name="selector-dieta">
+                    <?php foreach ($lista_dietas as $dieta_item): ?>
+                        <?php 
+                        $fecha = date('d-m-Y', strtotime($dieta_item['fecha_creacion']));
+                        $selected = ($dieta_item['id_dieta'] == $id_dieta) ? 'selected' : '';
+                        ?>
+                        <option value="<?= $dieta_item['id_dieta'] ?>" <?= $selected ?>>Dieta <?= $dieta_item['id_dieta'] ?> (<?= $fecha ?>)</option>
+                    <?php endforeach; ?>
+                </select>
+            </div>
         </div>
 
-        <!-- 2ª barra de navegación  -->
+        <!-- Barra de navegación de días -->
         <div class="top-filters-bar">
-
-
-            <div class="filter-section">
-                <a href="#" class="action-btn">Lunes</a>
-            </div>
-            <div class="filter-section">
-                <a href="#" class="action-btn">Martes</a>
-            </div>
-            <div class="filter-section">
-                <a href="#" class="action-btn">Miércoles</a>
-            </div>
-            <div class="filter-section">
-                <a href="#" class="action-btn">Jueves</a>
-            </div>
-            <div class="filter-section">
-                <a href="#" class="action-btn">Viernes</a>
-            </div>
-            <div class="filter-section">
-                <a href="#" class="action-btn">Sábado</a>
-            </div>
-            <div class="filter-section">
-                <a href="#" class="action-btn">Domingo</a>
-            </div>
-
+            <?php foreach ($dias_map as $diaKey => $diaLabel): ?>
+                <div class="filter-section">
+                    <a href="dieta-dia.php?dia=<?= $diaKey ?>&id_dieta=<?= $id_dieta ?>" class="action-btn<?= ($dia == $diaKey ? ' active-day' : '') ?>"><?= $diaLabel ?></a>
+                </div>
+            <?php endforeach; ?>
         </div>
-
-
-        <!-- script que maneja la seleccion del desplegable -->
-        <script>
-            function selectorDesplegable(value) {
-                if (value === "franjas") {
-                    window.location.href = "dieta-semana3.php";
-                } else if (value === "dias") {
-                    window.location.href = "dieta-semana-por-dias.php";
-                } else {
-                    // No action needed for the default option
-                }
-            }
-        </script>
-
-
 
         <!-- recetas -->
-
         <div class="meal-schedule">
-            <div class="meal-section" id="izq">
+            <?php
+            $tipos = [
+                'Desayuno' => 'Desayuno',
+                'Comida' => 'Comida',
+                'Cena' => 'Cena'
+            ];
+            // Desayuno
+            $recetaDesayuno = $planDieta[$dia_clave]['Desayuno'] ?? null;
+            ?>
+            <div class="meal-section" id="desayuno">
                 <h2>Desayuno</h2>
                 <div class="meal-container">
-                    <div class="meal-item"><img src="sources/platos/id17.png" alt="Desayuno Martes">
-                        <h3>Lunes</h3>
-                        <p>Yogur Natural con Copos de Avena y Plátano</p>
-                    </div>
-
+                    <?php if ($recetaDesayuno && is_array($recetaDesayuno)): ?>
+                        <div class="meal-item">
+                            <img src="sources/platos/id<?= htmlspecialchars($recetaDesayuno['id'] ?? '') ?>.png" alt="<?= htmlspecialchars($recetaDesayuno['nombre']) ?>">
+                            <h3><?= htmlspecialchars($recetaDesayuno['nombre']) ?></h3>
+                        </div>
+                    <?php else: ?>
+                        <div class="meal-item">
+                            <p>No asignada</p>
+                        </div>
+                    <?php endif; ?>
                 </div>
             </div>
-
-            <div class="meal-section">
+            <!-- Comida: mostrar Entrante, Principal y Postre -->
+            <div class="meal-section" id="comida">
                 <h2>Comida</h2>
                 <div class="meal-container">
-
-                    <div class="meal-item"><img src="sources/platos/id33.png" alt="Almuerzo Martes">
-                        <h3>Martes</h3>
-                        <p>Lentejas Estofadas con Verduras</p>
-                    </div>
-                    <div class="meal-item"><img src="sources/platos/id16.png" alt="Almuerzo Miércoles">
-                        <h3>Miércoles</h3>
-                        <p>Bonito a la plancha con Pimientos al Ajillo</p>
-                    </div>
-
-                    <div class="meal-item"><img src="sources/platos/id30.png" alt="Almuerzo Sábado">
-                        <h3>Sábado</h3>
-                        <p></p>
-                    </div>
-
+                    <?php
+                    $comidaTipos = ['Entrante' => 'Entrante', 'Principal' => 'Principal', 'Postre' => 'Postre'];
+                    foreach ($comidaTipos as $tipoComida => $labelComida):
+                        $recetaComida = $planDieta[$dia_clave][$tipoComida] ?? null;
+                    ?>
+                        <div class="meal-item">
+                            <?php if ($recetaComida && is_array($recetaComida)): ?>
+                                <img src="sources/platos/id<?= htmlspecialchars($recetaComida['id'] ?? '') ?>.png" alt="<?= htmlspecialchars($recetaComida['nombre']) ?>">
+                                <h3><?= htmlspecialchars($recetaComida['nombre']) ?></h3>
+                                <p style="font-size: 0.9em; color: #888; margin:0;">(<?= $labelComida ?>)</p>
+                            <?php else: ?>
+                                <p>No asignada<br><span style="font-size: 0.9em; color: #888;">(<?= $labelComida ?>)</span></p>
+                            <?php endif; ?>
+                        </div>
+                    <?php endforeach; ?>
                 </div>
             </div>
-
-            <div class="meal-section" id="der">
+            <!-- Cena -->
+            <?php $recetaCena = $planDieta[$dia_clave]['Cena'] ?? null; ?>
+            <div class="meal-section" id="cena">
                 <h2>Cena</h2>
                 <div class="meal-container">
-
-                    <div class="meal-item"><img src="sources/platos/id26.png" alt="Cena lunes">
-                        <h3>Lunes</h3>
-                        <p>Bowl Macrobiótico de Mijo con Verduras y Tahini</p>
-                    </div>
-
+                    <?php if ($recetaCena && is_array($recetaCena)): ?>
+                        <div class="meal-item">
+                            <img src="sources/platos/id<?= htmlspecialchars($recetaCena['id'] ?? '') ?>.png" alt="<?= htmlspecialchars($recetaCena['nombre']) ?>">
+                            <h3><?= htmlspecialchars($recetaCena['nombre']) ?></h3>
+                        </div>
+                    <?php else: ?>
+                        <div class="meal-item">
+                            <p>No asignada</p>
+                        </div>
+                    <?php endif; ?>
                 </div>
             </div>
         </div>
 
-        <a href="#" class="btn-opciones">Ver lista de ingredientes</a>
-        <div class="premium-message">
-            ¡Gracias por seguir apoyándonos siendo un usuario Prémium!
-        </div>
-        <br>
+        <a href="lista-semana.php?id_dieta=<?= $id_dieta ?>" class="btn-opciones">Ver lista de la compra de la semana</a>
+        <a href="index.php" class="btn-opciones">Volver al Inicio</a>
     </div>
 </section>
 
+<script>
+document.getElementById('selector-dieta').addEventListener('change', function() {
+    const idDieta = this.value;
+    const urlParams = new URLSearchParams(window.location.search);
+    const dia = urlParams.get('dia') || 'lunes';
+    window.location.href = 'dieta-dia.php?dia=' + dia + '&id_dieta=' + idDieta;
+});
+</script>
 <?php include 'footer.php'; ?>

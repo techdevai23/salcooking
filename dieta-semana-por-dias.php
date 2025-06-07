@@ -138,14 +138,14 @@ $css_extra .= '<link rel="stylesheet" href="styles/dieta-semana-dias.css?v=' . f
                             $nombresAlergias = array_map(function($a) { 
                                 return htmlspecialchars($a['nombre']); 
                             }, $usuarioAlergias);
-                            $mensaje[] = 'tenemos en cuenta tu/s alergia/s a <u>' . formatearLista($nombresAlergias) . '</u>';
+                            $mensaje[] = 'tenemos en cuenta tu/s alergia/s a <strong><u>' . formatearLista($nombresAlergias) . '</u></strong>';
                         }
 
                         if (!empty($usuarioEnfermedades)) {
                             $nombresEnfermedades = array_map(function($e) { 
                                 return htmlspecialchars($e['nombre']); 
                             }, $usuarioEnfermedades);
-                            $mensaje[] = 'consideramos tus enfermedades <u>' . formatearLista($nombresEnfermedades) . '</u>';
+                            $mensaje[] = 'consideramos tus enfermedades <strong><u>' . formatearLista($nombresEnfermedades) . '</u></strong>';
                         }
                         
                         if (!empty($mensaje)) {
@@ -153,36 +153,47 @@ $css_extra .= '<link rel="stylesheet" href="styles/dieta-semana-dias.css?v=' . f
                         }
                     endif; 
                     ?></p>
-                    <p>Puedes ver los platos de cada día de la semana por franja del día. Puedes cambiar con el selector entre: <i>desayuno, comida, cena o la dieta completa.</i>
-                        Si <b>haces clic</b> en una <b>la imagen de una receta</b> podrás ver la <b>ficha completa.</b></p>
-                    <p>Puedes <b>seleccionar en el día</b> de la semana para ver la <b> dieta completa</b> de ese día.</p>
+                    
+                        <ul style="list-style-type:disc; margin-left: 2em;">
+                        <p>Puedes ver los platos de cada día de la semana por franja del día.</p>
+                            <li>Puedes cambiar con el selector entre: <i>desayuno, comida, cena o la dieta completa.</i></li>
+                            <li>Si <b>haces clic</b> en <b>la imagen de una receta</b> podrás ver la <b>ficha completa.</b></li>
+                            <li>Puedes <b>seleccionar en el día</b> de la semana para ver la <b>dieta completa</b> de ese día.</li>
+                            <li>Y por supuesto, puedes <b>generar una nueva dieta</b> en cualquier momento y seleccionar la que quieras ver.</li>
+                        </ul>
+                        <p>Si tienes alguna duda, puedes contactar con nosotros en el <a href="contacto.php"><u><i>formulario de contacto</i></a></u>.</p>
                     <p>¡Buen provecho!</p>
                 </div>
 
                 <!-- Barra de navegación de días (para móvil) -->
                 <div class="mobile-day-nav">
-                    <button class="day-tab active" data-daynav="lunes">L</button>
-                    <button class="day-tab" data-daynav="martes">M</button>
-                    <button class="day-tab" data-daynav="miercoles">X</button>
-                    <button class="day-tab" data-daynav="jueves">J</button>
-                    <button class="day-tab" data-daynav="viernes">V</button>
-                    <button class="day-tab" data-daynav="sabado">S</button>
-                    <button class="day-tab" data-daynav="domingo">D</button>
+                    <?php
+                    $dias = [
+                        ['key' => 'lunes', 'label' => 'Lunes'],
+                        ['key' => 'martes', 'label' => 'Martes'],
+                        ['key' => 'miercoles', 'label' => 'Miércoles'],
+                        ['key' => 'jueves', 'label' => 'Jueves'],
+                        ['key' => 'viernes', 'label' => 'Viernes'],
+                        ['key' => 'sabado', 'label' => 'Sábado'],
+                        ['key' => 'domingo', 'label' => 'Domingo']
+                    ];
+                    ?>
+                    <?php foreach ($dias as $diaData): $diaKey = $diaData['key']; $diaLabel = $diaData['label']; ?>
+                        <div class="filter-section">
+                            <a href="dieta-dia.php?dia=<?= $diaKey ?>&id_dieta=<?= $id_dieta_seleccionada ?>" class="action-btn<?= (strtolower($dia) == $diaKey ? ' active-day' : '') ?>"><?= $diaLabel ?></a>
+                        </div>
+                    <?php endforeach; ?>
                 </div>
 
                 <!-- Bucle dinámico para cada tipo de comida -->
                 <?php
-                $dias = ['Lunes','Martes','Miércoles','Jueves','Viernes','Sábado','Domingo'];
-                if (!isset($planDieta) || !is_array($planDieta)) {
-                    echo "<p>No se pudo generar el plan de dieta. Por favor, inténtalo de nuevo.</p>";
-                } else {
-                    $tipos = [
-                        'Desayuno' => 'DESAYUNOS',
-                        'Entrante' => 'ENTRANTES',
-                        'Principal' => 'PRINCIPALES',
-                        'Postre' => 'POSTRES',
-                        'Cena' => 'CENAS'
-                    ];
+                $tipos = [
+                    'Desayuno' => 'DESAYUNOS',
+                    'Entrante' => 'ENTRANTES',
+                    'Principal' => 'PRINCIPALES',
+                    'Postre' => 'POSTRES',
+                    'Cena' => 'CENAS'
+                ];
                 ?>
                 <!-- Bucle dinámico para cada tipo de comida -->
                 <?php foreach ($tipos as $tipo => $tipoLabel): ?>
@@ -191,21 +202,19 @@ $css_extra .= '<link rel="stylesheet" href="styles/dieta-semana-dias.css?v=' . f
                         <span><?= $tipoLabel ?></span>
                     </div>
                     <div class="meal-container">
-                        <?php foreach ($dias as $dia): 
-                            // Obtener la receta para el día y tipo de comida
-                            $receta = $planDieta[$dia][$tipo] ?? null;
-                        ?>
-                            <div class="meal-item" data-day="<?= strtolower($dia) ?>">
-                                <a href="dieta-dia.php?dia=<?= strtolower($dia) ?>&tipo=<?= strtolower($tipo) ?>" title="Ver receta de <?= $dia ?>">
-                                    <h3><?= $dia ?></h3>
+                        <?php foreach ($dias as $diaData): $diaKey = $diaData['key']; $diaLabel = $diaData['label']; ?>
+                            <div class="meal-item" data-day="<?= strtolower($diaLabel) ?>">
+                                <a href="dieta-dia.php?dia=<?= $diaKey ?>&id_dieta=<?= $id_dieta_seleccionada ?>" title="Ver dieta completa de <?= $diaLabel ?>">
+                                    <h3><?= $diaLabel ?></h3>
+                                    <h3>Ver dieta completa</h3>
                                 </a>
                                 <br>
                                 <!-- Mostrar la receta si existe -->
-                                <?php if ($receta && is_array($receta)): ?>
-                                    <a href="detalle-receta.php?id=<?= htmlspecialchars($receta['id'] ?? '') ?>" title="Ver receta de <?= htmlspecialchars($receta['nombre']) ?>">
-                                        <img src="sources/platos/id<?= htmlspecialchars($receta['id'] ?? '') ?>.png" alt="<?= htmlspecialchars($receta['nombre']) ?>">
+                                <?php if ($planDieta[$diaLabel][$tipo] ?? null && is_array($planDieta[$diaLabel][$tipo])): ?>
+                                    <a href="detalle-receta.php?id=<?= htmlspecialchars($planDieta[$diaLabel][$tipo]['id'] ?? '') ?>" title="Ver receta de <?= htmlspecialchars($planDieta[$diaLabel][$tipo]['nombre'] ?? '') ?>">
+                                        <img src="sources/platos/id<?= htmlspecialchars($planDieta[$diaLabel][$tipo]['id'] ?? '') ?>.png" alt="<?= htmlspecialchars($planDieta[$diaLabel][$tipo]['nombre'] ?? '') ?>">
                                     </a>
-                                    <p><?= htmlspecialchars($receta['nombre']) ?></p>
+                                    <p><?= htmlspecialchars($planDieta[$diaLabel][$tipo]['nombre'] ?? '') ?></p>
                                 <?php else: ?>
                                     <p>No asignada</p>
                                 <?php endif; ?>
@@ -214,7 +223,7 @@ $css_extra .= '<link rel="stylesheet" href="styles/dieta-semana-dias.css?v=' . f
                     </div>
                 </div>
                 <?php endforeach; ?>
-                <?php } ?>
+                
             </div>
 
             <a href="lista-semana.php?id_dieta=<?= $id_dieta_seleccionada ?>" class="btn-opciones">Ver lista de la compra de la semana</a>
