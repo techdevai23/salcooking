@@ -102,7 +102,7 @@ class Dieta
             $recetas[] = $row;
         }
         foreach ($recetas as $receta) {
-            echo $receta['id'] . ' - ' . $receta['nombre'] . ' - ' . $receta['tipo_plato'] . '<br>';
+            error_log("DEBUG - Receta: " . $receta['id'] . ' - ' . $receta['nombre'] . ' - ' . $receta['tipo_plato']);
         }
         return $recetas;
     }

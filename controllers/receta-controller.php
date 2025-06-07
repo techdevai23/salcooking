@@ -29,24 +29,13 @@ class RecetaController {
         }
 
         // Debug: Mostrar parámetros recibidos*****************
-        echo "<!-- DEBUG - Parámetros de búsqueda: 
-        Término: " . htmlspecialchars($termino) . "
-        Tipo Plato: " . htmlspecialchars($tipoPlato) . "
-        Alérgeno: " . htmlspecialchars($alergeno) . "
-        Porciones: " . htmlspecialchars($porciones) . "
-        Ingrediente: " . htmlspecialchars($ingrediente) . "
-        Enfermedad: " . htmlspecialchars($enfermedad) . "
-        Tiempo Prep: " . htmlspecialchars($tiempoPrep) . "
-        Es Premium: " . ($esPremium ? 'Sí' : 'No') . "
-        Orden: " . htmlspecialchars($orden) . "
-        Usar Perfil: " . ($usarPerfil ? 'Sí' : 'No') . "
-        -->";
+        error_log("DEBUG - Parámetros de búsqueda: " . print_r($_GET, true));
 
         $modelo = new Receta();
         $resultados = $modelo->buscarRecetas($termino, $tipoPlato, $alergeno, $porciones, $ingrediente, $enfermedad, $tiempoPrep, $esPremium, $orden, $usarPerfil);
 
         // Debug: Mostrar número de resultados*****************
-        echo "<!-- DEBUG - Número de resultados: " . count($resultados) . " -->";
+        error_log("DEBUG - Número de resultados: " . count($resultados));
 
         require 'resultado-recetas.php';
     }
@@ -88,8 +77,8 @@ class RecetaController {
         
         // Verificar si la consulta falló
         if (!$ingredientes) {
-            echo "Error en consulta de ingredientes: " . $conexion->error . "<br>";
-            echo "SQL: " . $sqlIngredientes . "<br>";
+            error_log("Error en consulta de ingredientes: " . $conexion->error);
+            error_log("SQL: " . $sqlIngredientes);
         }
         
         // Obtener alergias
@@ -101,8 +90,8 @@ class RecetaController {
         
         // Verificar si la consulta falló
         if (!$alergias) {
-            echo "Error en consulta de alergias: " . $conexion->error . "<br>";
-            echo "SQL: " . $sqlAlergias . "<br>";
+            error_log("Error en consulta de alergias: " . $conexion->error);
+            error_log("SQL: " . $sqlAlergias);
         }
         
         // Obtener enfermedades (todas para mostrar en detalle)
@@ -114,8 +103,8 @@ class RecetaController {
         
         // Verificar si la consulta falló
         if (!$enfermedades) {
-            echo "Error en consulta de enfermedades: " . $conexion->error . "<br>";
-            echo "SQL: " . $sqlEnfermedades . "<br>";
+            error_log("Error en consulta de enfermedades: " . $conexion->error);
+            error_log("SQL: " . $sqlEnfermedades);
         }
         
         require 'detalle-receta.php';
