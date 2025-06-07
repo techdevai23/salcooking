@@ -247,16 +247,17 @@ $dia = isset($_GET['dia']) ? strtolower($_GET['dia']) : 'lunes';
                     <div class="meal-container">
                         <?php foreach ($dias as $diaData): $diaKey = $diaData['key']; $diaLabel = $diaData['label']; ?>
                             <div class="filter-section day-col day-col-<?= $diaKey ?><?= ($dia == $diaKey ? ' active-mobile-day' : '') ?>">
-                                <a href="dieta-dia.php?dia=<?= $diaKey ?>&id_dieta=<?= $id_dieta_seleccionada ?>" class="action-btn<?= (strtolower($dia) == $diaKey ? ' active-day' : '') ?>"><?= $diaLabel ?></a>
-                                <h3>Ver dieta del día</h3>
-                                <!-- Mostrar la receta si existe -->
+                                <a href="dieta-dia.php?dia=<?= $diaKey ?>&id_dieta=<?= $id_dieta_seleccionada ?>" class="enlace-dia-semana">
+                                    <div class="dia-semana-label action-btn"><?= $diaLabel ?></div>
+                                    <div class="ver-dieta-dia">Dieta del día</div>
+                                </a>
                                 <?php if ($planDieta[$diaLabel][$tipo] ?? null && is_array($planDieta[$diaLabel][$tipo])): ?>
                                     <a href="index.php?page=detalle-receta&id=<?= htmlspecialchars($planDieta[$diaLabel][$tipo]['id'] ?? '') ?>" title="Ver receta de <?= htmlspecialchars($planDieta[$diaLabel][$tipo]['nombre'] ?? '') ?>">
-                                        <img src="sources/platos/id<?= htmlspecialchars($planDieta[$diaLabel][$tipo]['id'] ?? '') ?>.png" alt="<?= htmlspecialchars($planDieta[$diaLabel][$tipo]['nombre'] ?? '') ?>">
+                                        <img src="sources/platos/id<?= htmlspecialchars($planDieta[$diaLabel][$tipo]['id'] ?? '') ?>.png" alt="<?= htmlspecialchars($planDieta[$diaLabel][$tipo]['nombre'] ?? '') ?>" class="img-receta-dia" />
                                     </a>
-                                    <p><?= htmlspecialchars($planDieta[$diaLabel][$tipo]['nombre'] ?? '') ?></p>
+                                    <div class="nombre-receta-dia"><?= htmlspecialchars($planDieta[$diaLabel][$tipo]['nombre'] ?? '') ?></div>
                                 <?php else: ?>
-                                    <p>No asignada</p>
+                                    <div class="nombre-receta-dia">No asignada</div>
                                 <?php endif; ?>
                             </div>
                         <?php endforeach; ?>
@@ -266,7 +267,7 @@ $dia = isset($_GET['dia']) ? strtolower($_GET['dia']) : 'lunes';
                 
             </div>
 
-            <a href="lista-semana.php?id_dieta=<?= $id_dieta_seleccionada ?>" class="btn-opciones">Ver lista de la compra de la semana</a>
+            <a href="lista-semana.php?id_dieta=<?= $id_dieta_seleccionada ?>" style="background-color: var(--terciary-color);" class="btn-opciones">Ver lista de la compra de la semana</a>
             <a href="index.php" class="btn-opciones">Volver al Inicio</a>
         </div>
     </div>
@@ -389,4 +390,12 @@ document.getElementById('generarNuevaDietaBtn').addEventListener('click', functi
     }
 });
 </script>
+<style>
+.enlace-dia-semana:hover .dia-semana-label,
+.enlace-dia-semana:hover .ver-dieta-dia {
+    background: #388e3c;
+    color: #fff;
+    transition: background 0.2s, color 0.2s;
+}
+</style>
 <?php include 'footer.php'; ?>

@@ -182,7 +182,7 @@ $css_extra .= '<link rel="stylesheet" href="styles/dieta-semana.css?v=' . filemt
             </div>
         </div>
 
-        <a href="lista-dia.php?id_dieta=<?= $id_dieta ?>&dia=<?= $dia ?>" class="btn-opciones">Ver lista de la compra del día</a>
+        <a href="lista-dia.php?id_dieta=<?= $id_dieta ?>&dia=<?= $dia ?>" style="background-color: var(--terciary-color);" class="btn-opciones">Ver lista de la compra del día</a>
         <a href="index.php" class="btn-opciones">Volver al Inicio</a>
     </div>
 </section>

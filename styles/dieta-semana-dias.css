@@ -679,6 +679,51 @@
     flex-direction: column;
     width: 100%;
   }
+
+  /* Selectores apilados y 100% ancho */
+  .top-filters-row-selectores {
+    flex-direction: column;
+    gap: 10px;
+  }
+  .top-filters-row-selectores .filter-section {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    margin-bottom: 0;
+  }
+  .top-filters-row-selectores .filter-section label,
+  .top-filters-row-selectores .filter-section select {
+    width: 100%;
+    text-align: left;
+    margin-bottom: 4px;
+  }
+  .top-filters-row-selectores .filter-section select {
+    margin-bottom: 8px;
+  }
+  /* Botones en fila */
+  .top-filters-row-botones {
+    flex-direction: row;
+    gap: 10px;
+    margin-top: 10px;
+    width: 100%;
+    justify-content: space-between;
+  }
+}
+
+@media (max-width: 576px) {
+  /* Ajustes extra para móviles muy pequeños */
+  .top-filters-row-selectores {
+    gap: 6px;
+  }
+  .top-filters-row-selectores .filter-section label,
+  .top-filters-row-selectores .filter-section select {
+    font-size: 0.98em;
+    margin-bottom: 2px;
+  }
+  .top-filters-row-botones {
+    gap: 6px;
+  }
 }
 
 /* Estilos para el tooltip de perfil de salud */
@@ -801,6 +846,11 @@
   .meal-type-title-mobile {
     display: none;
   }
+
+  .main-content .top-filters-bar {
+    width: 100%;
+  }
+
 }
 
 
@@ -844,6 +894,14 @@
     .tarjeta-truco {
         padding: 15px;
     }
+    .filter-section{
+    /* para que se vea en todo el ancho */
+    width: 100%;
+    }
+
+   .top-filters-bar {
+      max-width: 100%;
+    }
 
      .contenedor-Contacto::before {
         background-image: url('../sources/fono-nuevo-movil.png');
@@ -867,4 +925,64 @@
   gap: 20px;
   align-items: center;
   margin-top: 10px;
+}
+
+/* ESCRITORIO: cada celda ocupa todo el ancho, todo alineado a stretch */
+.day-col {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    justify-content: flex-start;
+    height: 100%;
+}
+.enlace-dia-semana {
+    text-decoration: none;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0;
+    width: 100%;
+}
+.dia-semana-label, .ver-dieta-dia {
+    width: 100%;
+    text-align: center;
+}
+.dia-semana-label {
+   
+    color: #4CAF50;
+    border-radius: 6px;
+    font-weight: bold;
+    margin-bottom: 4px;
+    padding: 6px 0;
+    font-size: 1.1em;
+}
+.ver-dieta-dia {
+    color: #218838;
+    font-weight: bold;
+    font-size: 1.1em;
+    margin-bottom: 8px;
+    background: none;
+}
+.img-receta-dia {
+    margin: 0 auto 8px auto;
+    max-width: 120px;
+    width: 100%;
+    display: block;
+}
+.nombre-receta-dia {
+    text-align: center;
+    margin-top: 8px;
+    font-size: 1em;
+    color: #222;
+}
+
+/* MOVIL: centrado y columna */
+@media (max-width: 768px) {
+  .day-col, .enlace-dia-semana {
+    align-items: center !important;
+  }
+  .img-receta-dia {
+    margin-left: auto;
+    margin-right: auto;
+  }
 }
