@@ -3,7 +3,7 @@ $css_extra = '';
 include 'controllers/conexion.php';
 // página detalle-receta, ficha final de la receta
 $css_extra .= '<link rel="stylesheet" href="styles/filosofia.css?v=' . filemtime('styles/filosofia.css') . '">';
-$css_extra .= '<link rel="stylesheet" href="styles/modal.css?v=' . filemtime('styles/modal.css') . '">';
+$css_extra .= '  ';
 include 'header.php';
 
 // En esta versión definitiva, los datos ya han sido obtenidos por el controlador
@@ -110,9 +110,9 @@ if (!isset($receta)) {
   </div>
 </section>
 
-<?php 
+<?php
 // Incluir el footer primero para cargar las dependencias
-include 'footer.php'; 
+include 'footer.php';
 ?>
 
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
@@ -125,43 +125,40 @@ include 'footer.php';
   const nombreReceta = <?php echo json_encode($receta['nombre']); ?>;
 
   document.getElementById('btn-descargar-receta').addEventListener('click', function(e) {
-        e.preventDefault();
-        if (!usuarioLogueado) {
-          Swal.fire({
-
-            title: "¡Descarga solo para usuarios registrados!",
-            text: "Debes registrarte gratis para poder descargar la ficha de la receta.",
-            icon: "info",
-            showCancelButton: true,
-            showCloseButton: true,
-            confirmButtonText: 'Registrarme ahora',
-            cancelButtonText: 'Iniciar sesión',
-            buttonsStyling: true,
-            customClass: {
-              container: "my-swal-container",
-              popup: "my-swal-popup",
-              header: "my-swal-header",
-              title: "my-swal-title",
-              content: "my-swal-content",
-              confirmButton: "my-swal-confirm-button",
-              cancelButton: "my-swal-cancel-button-receta",
-              closeButton: 'my-swal-close-button',
-              footer: 'my-swal-footer-receta'
-            },
-            footer: '<a href="planes.php">Ver Planes de suscripción</a>'
-          }).then((result) => {
-if (result.isConfirmed) {
-window.location.href = 'perfil.php';
-} else if (result.dismiss === Swal.DismissReason.cancel) {
-window.location.href = 'login.php';
-}
-});
-} else {
-// Si está logueado, permitir la descarga
-descargarFichaRecetaPDF('ficha-receta.pdf', nombreReceta);
-}
-});
+    e.preventDefault();
+    if (!usuarioLogueado) {
+      Swal.fire({
+        title: "¡Descarga solo para usuarios registrados!",
+        html: "Debes registrarte gratis para poder descargar la <strong>ficha de la receta</strong>.",
+        icon: "info",
+        showCancelButton: true,
+        showCloseButton: true,
+        confirmButtonText: 'Registrarme ahora',
+        cancelButtonText: 'Iniciar sesión',
+        buttonsStyling: true,
+        customClass: {
+          container: "my-swal-container",
+          popup: "my-swal-popup",
+          header: "my-swal-header",
+          title: "my-swal-title",
+          content: "my-swal-content",
+          confirmButton: "my-swal-confirm-button",
+          cancelButton: "my-swal-cancel-button-receta",
+          closeButton: 'my-swal-close-button',
+          footer: 'my-swal-footer-receta'
+        },
+        footer: '<a href="planes.php">Ver tipos de acceso</a>'
+      }).then((result) => {
+        if (result.isConfirmed) {
+          window.location.href = 'perfil.php';
+        } else if (result.dismiss === Swal.DismissReason.cancel) {
+          window.location.href = 'login.php';
+        }
+      });
+    } else {
+      // Si está logueado, permitir la descarga
+      descargarFichaRecetaPDF('ficha-receta.pdf', nombreReceta);
+    }
+     
+  });
 </script>
-
-
-

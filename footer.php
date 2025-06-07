@@ -60,10 +60,11 @@
 </footer>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/scripts/bootstrap.bundle.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script src="scripts/scripts.js"></script>
 
 <!-- jsPDF (UMD version es preferible para compatibilidad con plugins) -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script> <!-- Cambio: Usar jspdf.umd.min.js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 
 <!-- AutoTable plugin (debe ir después de jsPDF) -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.28/jspdf.plugin.autotable.min.js"></script>
@@ -83,6 +84,9 @@ if (isset($scripts_extra)) {
     echo $scripts_extra;
 }
 ?>
+
+<!-- Scripts específicos para la descarga de recetas -->
+<script src="scripts/descargarFichaReceta.js"></script>
 
 </body>
 

@@ -2,12 +2,12 @@
 $css_extra = '';
 
 $css_extra .= '<link rel="stylesheet" href="styles/contacto.css?v=' . filemtime('styles/contacto.css') . '">
-<link rel="stylesheet" href="styles/modal.css?v=' . filemtime('styles/modal.css') . '">
+  
 ';
 
 // Iniciar sesión si no está iniciada
 if (session_status() === PHP_SESSION_NONE) {
-    session_start();
+  session_start();
 }
 
 // Determinar el tipo de usuario
@@ -15,35 +15,10 @@ $es_usuario_logueado = isset($_SESSION['id_usuario']);
 $es_usuario_premium = isset($_SESSION['es_premium']) && $_SESSION['es_premium'] == 1;
 
 // Si es usuario premium, mostrar mensaje y opción de cerrar sesión
-if ($es_usuario_premium) {
-    echo '<script>
-        Swal.fire({
-            title: "¡Ya eres usuario Premium!",
-            text: "¿Deseas cerrar sesión para registrar a otra persona?",
-            icon: "info",
-            showCancelButton: true,
-            confirmButtonText: "Cerrar sesión",
-            cancelButtonText: "Cancelar",
-            customClass: {
-                container: "my-swal-container",
-                popup: "my-swal-popup",
-                header: "my-swal-header",
-                title: "my-swal-title",
-                content: "my-swal-content",
-                confirmButton: "my-swal-confirm-button",
-                cancelButton: "my-swal-cancel-button"
-            }
-        }).then((result) => {
-            if (result.isConfirmed) {
-                window.location.href = "logout.php";
-            }
-        });
-    </script>';
-}
-?>
 
 
-<?php include 'header.php'; ?>
+
+include 'header.php'; ?>
 
 <!-- migas -->
 
@@ -108,38 +83,38 @@ if ($es_usuario_premium) {
             $_SESSION['csrf_token'] = $csrf_token;
             ?>
             <input type="hidden" name="csrf_token" value="<?php echo $csrf_token; ?>">
-            
+
             <?php if (!$es_usuario_logueado): ?>
-            <!-- Campos solo para visitantes no registrados -->
-            <div class="form-group">
-              <label for="nombre"><i class="bi bi-person"></i> Nombre<b><span style="color:crimson">*</span></b>:</label>
-              <input type="text" class="form-control" id="nombre" name="nombre" required
-                data-bs-toggle="tooltip" data-bs-placement="top"
-                title="Campo obligatorio. Introduce tu nombre ">
-              <div class="invalid-feedback">
-                Por favor, introduce tu nombre.
+              <!-- Campos solo para visitantes no registrados -->
+              <div class="form-group">
+                <label for="nombre"><i class="bi bi-person"></i> Nombre<b><span style="color:crimson">*</span></b>:</label>
+                <input type="text" class="form-control" id="nombre" name="nombre" required
+                  data-bs-toggle="tooltip" data-bs-placement="top"
+                  title="Campo obligatorio. Introduce tu nombre ">
+                <div class="invalid-feedback">
+                  Por favor, introduce tu nombre.
+                </div>
               </div>
-            </div>
 
-            <div class="form-group">
-              <label for="email"><i class="bi bi-envelope"></i> Email<b><span style="color:crimson">*</span></b>:</label>
-              <input type="email" class="form-control" id="email" name="email" required
-                pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" data-bs-toggle="tooltip"
-                data-bs-placement="top" title="Campo obligatorio. Introduce un email válido">
-              <div class="invalid-feedback">
-                Por favor, introduce un email válido.
+              <div class="form-group">
+                <label for="email"><i class="bi bi-envelope"></i> Email<b><span style="color:crimson">*</span></b>:</label>
+                <input type="email" class="form-control" id="email" name="email" required
+                  pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" data-bs-toggle="tooltip"
+                  data-bs-placement="top" title="Campo obligatorio. Introduce un email válido">
+                <div class="invalid-feedback">
+                  Por favor, introduce un email válido.
+                </div>
               </div>
-            </div>
 
-            <div class="form-group">
-              <label for="telefono"><i class="bi bi-telephone"></i> Teléfono:</label>
-              <input type="tel" class="form-control" id="telefono" name="telefono" pattern="[0-9]{9}"
-                data-bs-toggle="tooltip" data-bs-placement="top"
-                title="Introduce un número de teléfono válido (9 dígitos)">
-              <div class="invalid-feedback">
-                Por favor, introduce un número de teléfono válido.
+              <div class="form-group">
+                <label for="telefono"><i class="bi bi-telephone"></i> Teléfono:</label>
+                <input type="tel" class="form-control" id="telefono" name="telefono" pattern="[0-9]{9}"
+                  data-bs-toggle="tooltip" data-bs-placement="top"
+                  title="Introduce un número de teléfono válido (9 dígitos)">
+                <div class="invalid-feedback">
+                  Por favor, introduce un número de teléfono válido.
+                </div>
               </div>
-            </div>
             <?php endif; ?>
 
             <p>Es obligatorio que elijas una opción de uno de los selectores <b><span style="color:crimson">*</span></b></p>
@@ -184,19 +159,19 @@ if ($es_usuario_premium) {
           </form>
           <?php
           if (isset($_SESSION['contact_errors'])) {
-              echo '<div class="alert alert-danger mt-3">';
-              foreach ($_SESSION['contact_errors'] as $error) {
-                  echo '<p>' . htmlspecialchars($error) . '</p>';
-              }
-              echo '</div>';
-              unset($_SESSION['contact_errors']);
+            echo '<div class="alert alert-danger mt-3">';
+            foreach ($_SESSION['contact_errors'] as $error) {
+              echo '<p>' . htmlspecialchars($error) . '</p>';
+            }
+            echo '</div>';
+            unset($_SESSION['contact_errors']);
           }
-          
+
           if (isset($_SESSION['contact_success'])) {
-              echo '<div class="alert alert-success mt-3">';
-              echo '<p>' . htmlspecialchars($_SESSION['contact_success']) . '</p>';
-              echo '</div>';
-              unset($_SESSION['contact_success']);
+            echo '<div class="alert alert-success mt-3">';
+            echo '<p>' . htmlspecialchars($_SESSION['contact_success']) . '</p>';
+            echo '</div>';
+            unset($_SESSION['contact_success']);
           }
           ?>
         </div>
@@ -317,7 +292,37 @@ if ($es_usuario_premium) {
           // Validaciones específicas según el tipo de usuario
           if (esUsuarioLogueado) {
             if (modeloRobot.value === 'problemas') {
-              if (!esUsuarioPremium) {
+              if (esUsuarioPremium) {
+                Swal.fire({
+                  title: "¡Ya eres usuario Premium!",
+                  html: "¿Qué deseas hacer?<br><br>Si quieres comprar un código para otra persona, primero puedes cerrar tu sesión o ir directamente a la pasarela de pago.",
+                  icon: "info",
+                  showDenyButton: true,
+                  showCancelButton: true,
+                  confirmButtonText: "Cerrar sesión",
+                  denyButtonText: "Comprar código para otro",
+                  cancelButtonText: "Cancelar",
+                  customClass: {
+                    container: "my-swal-container",
+                    popup: "my-swal-popup",
+                    header: "my-swal-header",
+                    title: "my-swal-title",
+                    content: "my-swal-content",
+                    confirmButton: "my-swal-confirm-button",
+                    denyButton: "my-swal-cancel-button",
+                    cancelButton: "my-swal-cancel-button"
+                  }
+                }).then((result) => {
+                  if (result.isConfirmed) {
+                    window.location.href = "logout.php";
+                  } else if (result.isDenied) {
+                    window.location.href = "pasarela-pago.php";
+                  }
+                  // Si cancela, no hace nada
+                });
+                return;
+              } else {
+                // Aquí va el código para usuarios no premium (redirigir a pasarela de pago)
                 Swal.fire({
                   title: 'Redirigiendo a pasarela de pago',
                   text: 'Serás redirigido a la pasarela de pago para hacerte premium.',

@@ -22,7 +22,7 @@ startSession();
 
     <!-- Seguridad: Prevención XSS, Clickjacking, MIME sniffing -->
     <meta http-equiv="X-Content-Type-Options" content="nosniff">
-    
+
     <meta http-equiv="X-XSS-Protection" content="1; mode=block">
     <meta http-equiv="Cross-Origin-Opener-Policy" content="same-origin">
     <meta http-equiv="Cross-Origin-Embedder-Policy" content="require-corp">
@@ -53,6 +53,8 @@ startSession();
 
     <!-- CSS adicional si se define -->
     <?php if (isset($css_extra)) echo $css_extra; ?>
+    <!-- CSS para los modales DE ALERTAS -->
+    <link rel="stylesheet" href="styles/modal.css?v=<?php echo filemtime('styles/modal.css');?>">
 </head>
 
 
@@ -79,10 +81,10 @@ startSession();
                         <a href="recetas-categoria.php">Recetas</a>
                     </li>
                     <li class="<?php echo in_array(basename($_SERVER['PHP_SELF']), ['dieta-semana-por-dias.php', 'primera-vez.php', 'no-premium.php']) ? 'active' : ''; ?>">
-                        <a href="<?php echo isLoggedIn() ? 'dieta-semana-por-dias.php' : 'login.php'; ?>">Dieta</a>
+                        <a id="dieta" href="<?php echo isLoggedIn() ? 'dieta-semana-por-dias.php' : '#'; ?>">Dieta</a>
                     </li>
                     <li class="<?php echo basename($_SERVER['PHP_SELF']) == 'trucos.php' ? 'active' : ''; ?>">
-                        <a href="trucos.php">Trucos</a>
+                        <a id="trucos" href="trucos.php">Trucos</a>
                     </li>
                     <li class="<?php echo basename($_SERVER['PHP_SELF']) == 'planes.php' ? 'active' : ''; ?>">
                         <a href="planes.php">Planes</a>
@@ -111,7 +113,7 @@ startSession();
                     <!-- barra de búsqueda -->
                     <div class="search-box">
                         <form action="index.php" method="get">
-                             <input type="hidden" name="page" value="buscar">
+                            <input type="hidden" name="page" value="buscar">
                             <input type="text" placeholder="Busca titulo de receta, deja en blanco para ver todas" name="q">
                             <button type="submit">
                                 <img src="sources/iconos/Search-Circle--Streamline-Ultimate.svg" width="28px" alt="búsqueda Icon"></button>
@@ -119,7 +121,7 @@ startSession();
                     </div>
                     <!-- boton premium -->
                     <?php if (!isLoggedIn()): ?>
-                    <!-- <div class="premium-button">
+                        <!-- <div class="premium-button">
                         <a href="perfil.php" title="Solo puedes ganar: Registrate gratis" class="btn-premium">Regístrate gratis</a>
                     </div> -->
                     <?php endif; ?>
@@ -178,10 +180,10 @@ startSession();
                 <a href="recetas-categoria.php">Recetas</a>
             </li>
             <li class="<?php echo in_array(basename($_SERVER['PHP_SELF']), ['dieta-semana-por-dias.php', 'primera-vez.php', 'no-premium.php']) ? 'active' : ''; ?>">
-                <a href="<?php echo isLoggedIn() ? 'dieta-semana-por-dias.php' : 'login.php'; ?>">Dieta</a>
+                <a id="dietaMobile" href="<?php echo isLoggedIn() ? 'dieta-semana-por-dias.php' : '#'; ?>">Dieta</a>
             </li>
             <li class="<?php echo basename($_SERVER['PHP_SELF']) == 'trucos.php' ? 'active' : ''; ?>">
-                <a href="trucos.php">Trucos</a>
+                <a id="trucosMobile" href="trucos.php">Trucos</a>
             </li>
             <li class="<?php echo basename($_SERVER['PHP_SELF']) == 'planes.php' ? 'active' : ''; ?>">
                 <a href="planes.php">Planes</a>
@@ -212,7 +214,7 @@ startSession();
             <li><a href="recetas-categoria.php">Categorías</a></li>
             <li><a href="resultado-recetas.php">Búsqueda de recetas</a></li>
             <li><a href="detalle-receta.php?id=23">La receta del día</a></li>
-            <li><a href="trucos.php">Trucos de cocina</a></li>
+            <li><a id="trucosDesplegable" href="trucos.php">Trucos de cocina</a></li>
             <hr style="border: 0.5px solid #ccc; margin: 0;">
             <li class="cabecera">INFORMACIÓN</li>
             <li><a href="filosofia.php">Nuestra filosofía</a></li>
@@ -220,12 +222,12 @@ startSession();
             <li><a href="ayuda.php">Ayuda</a></li>
             <li><a href="planes.php">Planes</a></li>
             <hr style="border: 0.5px solid #ccc; margin: 0;">
-     
+
             <!-- solo boton de selecccion no redirección -->
             <!-- <li class="cabecera">PERFIL</li>
             <li><a href="perfil-logueado.php">Mi Perfil</a></li> -->
             <li class="cabeceraP">ZONA PRÉMIUM- DIETAS</li>
-            <li class="cabeceraPF"><a href="dieta-semana-por-dias.php">Dieta semanal</a></li>
+            <li class="cabeceraPF"><a id="dietaDesplegable" href="<?php echo isLoggedIn() ? 'dieta-semana-por-dias.php' : '#'; ?>">Dieta semanal</a></li>
             <li class="cabeceraPF"><a href="dieta-dia.php">Dieta del día</a></li>
             <li class="cabeceraPF"><a href="lista-semana.php">Lista compra semanal</a></li>
             <li class="cabeceraPF"><a href="lista-dia.php">Lista compra del día</a></li>
@@ -240,3 +242,90 @@ startSession();
 
         </ul>
     </div>
+
+    <!-- Scripts para manejar los swal de error para los usuarios que no estan registrados -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script>
+        // Función para comprobar si el usuario está logueado (PHP -> JS)
+        const usuarioLogueadoHeader = <?php echo isset($_SESSION['id_usuario']) ? 'true' : 'false'; ?>;
+
+        document.querySelectorAll('#trucos, #trucosMobile, #trucosDesplegable').forEach(element => {
+            element.addEventListener('click', function(e) {
+                e.preventDefault();
+                if (!usuarioLogueadoHeader) {
+                    Swal.fire({
+                        title: "¡Acceso solo para usuarios registrados!",
+                        html: "Debes registrarte gratis para poder acceder a esta página:<strong> Trucos de cocina</strong>.",
+                        icon: "info",
+                        showCancelButton: true,
+                        showCloseButton: true,
+                        confirmButtonText: 'Registrarme ahora',
+                        cancelButtonText: 'Volver a la página principal',
+                        buttonsStyling: true,
+                        customClass: {
+                            container: "my-swal-container",
+                            popup: "my-swal-popup",
+                            header: "my-swal-header",
+                            title: "my-swal-title",
+                            content: "my-swal-content",
+                            confirmButton: "my-swal-confirm-button",
+                            cancelButton: "my-swal-cancel-button-trucos",
+                            closeButton: 'my-swal-close-button',
+                            footer: 'my-swal-footer-trucos'
+                        },
+                        footer: '<a href="planes.php">Ver tipos de acceso</a>'
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            window.location.href = 'perfil.php';
+                        } else if (result.dismiss === Swal.DismissReason.cancel) {
+                            window.location.href = 'index.php';
+                        }
+                    });
+                } else {
+                    window.location.href = 'trucos.php';
+                }
+                 
+            });
+        });
+
+        //evento para los enlaces pra entrar a la sección de dietas
+        // Evento para los enlaces de dieta
+        document.querySelectorAll('#dieta, #dietaMobile, #dietaDesplegable').forEach(element => {
+            element.addEventListener('click', function(e) {
+                e.preventDefault();
+                if (!usuarioLogueadoHeader) {
+                    Swal.fire({
+                        title: "¡Acceso solo para usuarios Prémium!",
+                        html: "Debes registrarte gratis para poder acceder a esta página:<strong> Dieta semanal</strong>.",
+                        icon: "info",
+                        showCancelButton: true,
+                        showCloseButton: true,
+                        confirmButtonText: 'Registrarme ahora',
+                        cancelButtonText: 'Volver a la página principal',
+                        buttonsStyling: true,
+                        customClass: {
+                            container: "my-swal-container",
+                            popup: "my-swal-popup",
+                            header: "my-swal-header",
+                            title: "my-swal-title",
+                            content: "my-swal-content",
+                            confirmButton: "my-swal-confirm-button",
+                            cancelButton: "my-swal-cancel-button-dieta",
+                            closeButton: 'my-swal-close-button',
+                            footer: 'my-swal-footer-dieta'
+                        },
+                        footer: '<a href="planes.php">Ver tipos de acceso</a>'
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            window.location.href = 'perfil.php';
+                        } else if (result.dismiss === Swal.DismissReason.cancel) {
+                            window.location.href = 'index.php';
+                        }
+                    });
+                } else {
+                    window.location.href = 'dieta-semana-por-dias.php';
+                }
+                 
+            });
+        });
+    </script>

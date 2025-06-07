@@ -3,7 +3,18 @@ $css_extra = '';
 // se comparte esta hoja por estructura con recetas categoría
 $css_extra .= '<link rel="stylesheet" href="styles/trucos.css?v=' . filemtime('styles/trucos.css') . '">';
 ?>
-<?php include('header.php'); ?>
+<?php include('header.php'); 
+// Verificar si el usuario está logueado
+if (!isset($_SESSION['id_usuario'])) {
+    $_SESSION['redirect_after_login'] = 'dieta-semana-por-dias.php';
+    header('Location: loginPaginaReservada.php');
+    exit;
+}
+
+
+
+
+?>
 
 
 
