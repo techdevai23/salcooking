@@ -126,7 +126,7 @@ $css_extra .= '<link rel="stylesheet" href="styles/resultado-recetas.css?v=' . f
                             <div class="premium-header" title="Despliega para ver los filtros">
                                 <h4>Filtros Premium </h4>
                                 <img src="sources/iconos/Vip-Circle--Streamline-Ultimate.png" alt="info" class="info-icon" title="Funcionalidades exclusivas para usuarios Prémium" style="width:40px; height:40px;">
-                                <?php if (!isset($_SESSION['id_usuario'])): ?>
+                                <?php if (!isset($_SESSION['id_usuario']) || $_SESSION['es_premium'] == 0): ?>
                                     <a href="contacto.php" title="Solo puedes ganar: Hazte Prémium" class="btn-premium">Hazte Prémium</a>
                                 <?php else: ?>
                                     <span class="usuario-premium">¡Funciones Premium Activas <?php echo htmlspecialchars((string)(getUserNick() ?? '')); ?>!</span>

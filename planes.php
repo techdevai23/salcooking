@@ -155,7 +155,9 @@ $css_extra .= '<link rel="stylesheet" href="styles/planes.css?v=' . filemtime('s
                 </div>
 
                 <div class="plan-card registrado">
-                    <h3 style="color: var(--primary-dark);">Usuario Registrado</h3>
+                    <!-- <h3 style="color: var(--primary-dark);">Usuario Registrado</h3> -->
+                    <a href="perfil.php" title="Solo puedes ganar: Regístrate gratis"   class="btn-premium-gratis">Regístrate gratis</a>
+                    <br>
                     <p>Regístrate <b>de forma gratuita</b> y disfruta de más funcionalidades para mejorar tu experiencia. Destacamos:</p>
                     <ul>
                         <li>Todo lo que incluye el plan Visitante</li>
@@ -165,7 +167,10 @@ $css_extra .= '<link rel="stylesheet" href="styles/planes.css?v=' . filemtime('s
                 </div>
 
                 <div class="plan-card premium">
-                    <h3 style="color: #a46302;">Usuario Prémium</h3>
+                    <!-- <h3 style="color: #a46302;">Usuario Prémium</h3> -->
+                  
+                        <a href="contacto.php" title="Solo puedes ganar: Hazte Prémium" class="btn-premium">Hazte Prémium</a>
+                   <br>
                     <p>Suscríbete a nuestro plan de pago y <b>desbloquea todas</b> las características avanzadas para sacar el máximo partido a tu cocina, y a tu estado de salud:</p>
                     <ul>
                         <li>Todo lo del plan Registrado</li>

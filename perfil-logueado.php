@@ -73,6 +73,7 @@ $tipo_mensaje = '';
 
 $css_extra = '';
 $css_extra .= '<link rel="stylesheet" href="styles/perfil-ajustes.css?v=' . filemtime('styles/perfil-ajustes.css') . '">';
+$css_extra .= '<link rel="stylesheet" href="styles/password-validation.css?v=' . filemtime('styles/password-validation.css') . '">';
 $css_extra .= '<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>';
 $css_extra .= '<script src="scripts/validacion-password.js"></script>';
 ?>
@@ -111,7 +112,7 @@ $css_extra .= '<script src="scripts/validacion-password.js"></script>';
           <div class="mensaje-feedback <?php echo $tipo_mensaje; ?>"><?php echo $mensaje_feedback; ?></div>
         <?php endif; ?>
 
-        <form id="perfilForm" method="POST" action="actualizar-perfil.php">
+        <form id="perfilForm" method="POST" action="actualizar-perfil.php" onsubmit="return validarFormulario();">
           <div class="perfil-form-grid">
             <div class="form-group">
               <label for="nombre_completo">Nombre Completo: <span class="required">*</span></label>
@@ -174,115 +175,120 @@ $css_extra .= '<script src="scripts/validacion-password.js"></script>';
             <!-- Sección de cambio de contraseña -->
             <div class="form-group">
               <label for="nueva_contrasena">Nueva contraseña:</label>
-              <input type="password" id="nueva_contrasena" name="nueva_contrasena" placeholder="Nueva contraseña">
-              <a href="#" class="show-password">Muestrame la contraseña</a>
+              <div style="position: relative; display: inline-block;">
+                <input type="password" id="nueva_contrasena" name="nueva_contrasena" placeholder="Nueva contraseña">
+                <button type="button" onclick="togglePassword('nueva_contrasena', this)" style="position: absolute; right: 5px; top: 50%; transform: translateY(-50%); background: none; border: none; cursor: pointer;" title="Mostrar contraseña">
+                  👁️
+                </button>
+              </div>
+             
             </div>
             <div class="form-group">
               <label for="confirmar_contrasena">Confirmar nueva contraseña:</label>
-              <input type="password" id="confirmar_contrasena" name="confirmar_contrasena" placeholder="Confirmar nueva contraseña">
+              <div style="position: relative; display: inline-block;">
+                <input type="password" id="confirmar_contrasena" name="confirmar_contrasena" placeholder="Confirmar nueva contraseña" oninput="validarPassword()" style="padding-right: 30px;">
+                <button type="button" onclick="togglePassword('confirmar_contrasena', this)" style="position: absolute; right: 5px; top: 50%; transform: translateY(-50%); background: none; border: none; cursor: pointer;" title="Mostrar contraseña">
+                  👁️
+                </button>
+              </div>
+              <div id="password-match" class="password-match"></div>
             </div>
             <!-- Fin sección de cambio de contraseña -->
-          </div>
 
 
 
-          <!-- SECCIÓN PREMIUM (como en la imagen) -->
-          <?php if ($usuario['es_premium']): ?>
-            <!-- Contenido para usuarios premium -->
-            <div class="premium-container">
-              <div class="premium-status">
-                <img src="sources/iconos/Vip-Circle--Streamline-Ultimate.png" alt="Premium">
-                <span>Eres usuario Premium</span>
-              </div>
-              <a href="pasarela-pago.php">
-                <button type="button" class="premium-button" title="Comprar un nuevo código de registro">
-                  Renovar plan premium
+            <!-- SECCIÓN PREMIUM (como en la imagen) -->
+            <?php if ($usuario['es_premium']): ?>
+              <!-- Contenido para usuarios premium -->
+              <div class="premium-container">
+                <div class="premium-status">
+                  <img src="sources/iconos/Vip-Circle--Streamline-Ultimate.png" alt="Premium">
+                  <span>Eres usuario Premium</span>
+                </div>
+                <a href="pasarela-pago.php">
+                  <button type="button" class="premium-button" title="Comprar un nuevo código de registro">
+                    Renovar plan premium
+                  </button>
+                </a>
+                <button type="submit" name="accion" value="guardar_cambios" class="action-btn-verde">
+                  Actualizar datos
                 </button>
-              </a>
-              <button type="submit" name="accion" value="guardar_cambios" class="action-btn-verde">
+              </div>
+            <?php else: ?>
+              <!-- Contenido para usuarios no premium -->
+              <div class="premium-container">
+                <a href="contacto.php">
+                  <button type="button" class="premium-button">
+                    Hazte Prémium
+                  </button>
+                </a>
+                <div class="premium-status">
+                  <label for="codigo_registro">Código de registro:</label>
+                  <input type="text" id="codigo_registro" name="codigo_registro" placeholder="">
+                  <button type="button" id="validarCodigoBtn" title="Aplicar Código" class="action-btn-verde">Validar</button>
+                </div>
+                <div id="mensajeCodigo"></div>
+              </div>
+            <?php endif; ?>
+
+            <!-- selección de opciones premium filtros -->
+            <?php if ($usuario['es_premium']): ?>
+              <!-- filtros para usuarios premium -->
+              <div class="premium-section" style="margin-top:30px;">
+                <h3>
+                  Opciones Prémium
+                  <img src="sources/iconos/Vip-Circle--Streamline-Ultimate.png" alt="info" class="info-icon" title="Funcionalidades exclusivas para usuarios Prémium" style="width:40px; height:40px;">
+                </h3>
+                <div class="premium-instructions">
+                  Selecciona todas las opciones que necesites. Haz clic nuevamente para deseleccionar.
+                </div>
+                <div class="premium-options-grid">
+                  <div class="form-group">
+                    <label>Alérgenos</label>
+                    <div class="checkbox-list">
+                      <?php foreach ($todas_alergias as $alergia): ?>
+                        <label class="checkbox-option">
+                          <input type="checkbox"
+                            name="intolerancias[]"
+                            value="<?php echo $alergia['id']; ?>"
+                            <?php echo in_array($alergia['id'], array_column($alergias_usuario, 'id')) ? 'checked' : ''; ?>>
+                          <span class="checkmark"></span>
+                          <?php echo htmlspecialchars((string)($alergia['nombre'] ?? '')); ?>
+                        </label>
+                      <?php endforeach; ?>
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label>Enfermedades</label>
+                    <div class="checkbox-list">
+                      <?php foreach ($todas_enfermedades as $enfermedad): ?>
+                        <label class="checkbox-option">
+                          <input type="checkbox"
+                            name="enfermedades[]"
+                            value="<?php echo $enfermedad['id']; ?>"
+                            <?php echo in_array($enfermedad['id'], array_column($enfermedades_usuario, 'id')) ? 'checked' : ''; ?>>
+                          <span class="checkmark"></span>
+                          <?php echo htmlspecialchars((string)($enfermedad['nombre'] ?? '')); ?>
+                        </label>
+                      <?php endforeach; ?>
+                    </div>
+                  </div>
+                </div>
+
+              </div>
+            <?php else: ?>
+              <!-- Contenido para usuarios no premium -->
+              <h5>
+                Posibilidad de opciones Prémium disponibles una vez completado el registro
+              </h5>
+              <p>Filtros para especificar alergias, intolerancias, enfermedades y generar dieta semanal.</p>
+            <?php endif; ?>
+
+            <div class="form-actions" style="margin-top:30px;">
+              <button type="submit" name="accion" value="guardar_cambios" class="action-btn-verde" style="background-color: #2D3E2E; color: white; padding: 12px 30px !important; font-size: 1.1rem;">
                 Actualizar datos
               </button>
             </div>
-          <?php else: ?>
-            <!-- Contenido para usuarios no premium -->
-            <div class="premium-container">
-              <a href="contacto.php">
-                <button type="button" class="premium-button">
-                  Hazte Prémium
-                </button>
-              </a>
-              <div class="premium-status">
-                <label for="codigo_registro">Código de registro:</label>
-                <input type="text" id="codigo_registro" name="codigo_registro" placeholder="">
-                <button type="button" id="validarCodigoBtn" title="Aplicar Código" class="action-btn-verde">Validar</button>
-              </div>
-              <div id="mensajeCodigo"></div>
-            </div>
-          <?php endif; ?>
-
-          <!-- selección de opciones premium filtros -->
-          <?php if ($usuario['es_premium']): ?>
-            <!-- filtros para usuarios premium -->
-            <div class="premium-section" style="margin-top:30px;">
-              <h3>
-                Opciones Prémium
-                <img src="sources/iconos/Vip-Circle--Streamline-Ultimate.png" alt="info" class="info-icon" title="Funcionalidades exclusivas para usuarios Prémium" style="width:40px; height:40px;">
-              </h3>
-              <div class="premium-instructions">
-                Selecciona todas las opciones que necesites. Haz clic nuevamente para deseleccionar.
-              </div>
-              <div class="premium-options-grid">
-                <div class="form-group">
-                    <label>Alérgenos</label>
-                    <div class="checkbox-list">
-                        <?php foreach ($todas_alergias as $alergia): ?>
-                            <label class="checkbox-option">
-                                <input type="checkbox" 
-                                       name="intolerancias[]" 
-                                       value="<?php echo $alergia['id']; ?>"
-                                       <?php echo in_array($alergia['id'], array_column($alergias_usuario, 'id')) ? 'checked' : ''; ?>>
-                                <span class="checkmark"></span>
-                                <?php echo htmlspecialchars((string)($alergia['nombre'] ?? '')); ?>
-                            </label>
-                        <?php endforeach; ?>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label>Enfermedades</label>
-                    <div class="checkbox-list">
-                        <?php foreach ($todas_enfermedades as $enfermedad): ?>
-                            <label class="checkbox-option">
-                                <input type="checkbox" 
-                                       name="enfermedades[]" 
-                                       value="<?php echo $enfermedad['id']; ?>"
-                                       <?php echo in_array($enfermedad['id'], array_column($enfermedades_usuario, 'id')) ? 'checked' : ''; ?>>
-                                <span class="checkmark"></span>
-                                <?php echo htmlspecialchars((string)($enfermedad['nombre'] ?? '')); ?>
-                            </label>
-                        <?php endforeach; ?>
-                    </div>
-                </div>
-              </div>
-              
-            </div>
-          <?php else: ?>
-            <!-- Contenido para usuarios no premium -->
-            <h5>
-              Posibilidad de opciones Prémium disponibles una vez completado el registro
-            </h5>
-            <p>Filtros para especificar alergias, intolerancias, enfermedades y generar dieta semanal.</p>
-          <?php endif; ?>
-
-          <div class="form-actions" style="margin-top:30px;">
-            <button type="submit" name="accion" value="guardar_cambios" class="action-btn-verde" style="background-color: #2D3E2E; color: white; padding: 12px 30px !important; font-size: 1.1rem;">
-              Actualizar datos
-            </button>
-          </div>
-
-
-          <!-- <div class="form-actions" style="margin-top:30px;">
-            <button type="submit" class="action-btn-verde">Guardar cambios</button>
-          </div> -->
         </form>
       </div>
     </div>
@@ -291,6 +297,67 @@ $css_extra .= '<script src="scripts/validacion-password.js"></script>';
   <?php include 'footer.php'; ?>
 
   <script>
+    // Función para alternar la visibilidad de la contraseña
+    function togglePassword(inputId, button) {
+      const input = document.getElementById(inputId);
+      if (input.type === 'password') {
+        input.type = 'text';
+        button.title = 'Ocultar contraseña';
+      } else {
+        input.type = 'password';
+        button.title = 'Mostrar contraseña';
+      }
+    }
+
+    // Función para validar la contraseña en tiempo real
+    function validarPassword() {
+      const password = document.getElementById('nueva_contrasena').value;
+      const confirm = document.getElementById('confirmar_contrasena').value;
+
+      // Validar requisitos de contraseña
+      const hasLength = password.length >= 8;
+      const hasUppercase = /[A-Z]/.test(password);
+      const hasNumber = /[0-9]/.test(password);
+      const hasSpecial = /[!@#$%^&*(),.?":{}|<>]/.test(password);
+
+      // Actualizar indicadores visuales
+      document.getElementById('length').style.color = hasLength ? 'green' : 'red';
+      document.getElementById('uppercase').style.color = hasUppercase ? 'green' : 'red';
+      document.getElementById('number').style.color = hasNumber ? 'green' : 'red';
+      document.getElementById('special').style.color = hasSpecial ? 'green' : 'red';
+
+      // Validar coincidencia de contraseñas
+      const matchElement = document.getElementById('password-match');
+      if (password && confirm) {
+        if (password === confirm) {
+          matchElement.textContent = 'Las contraseñas coinciden';
+          matchElement.style.color = 'green';
+        } else {
+          matchElement.textContent = 'Las contraseñas no coinciden';
+          matchElement.style.color = 'red';
+        }
+      } else {
+        matchElement.textContent = '';
+      }
+    }
+
+    // Toggle para mostrar/ocultar contraseña
+    document.querySelector('.show-password').addEventListener('click', function(e) {
+      e.preventDefault();
+      const passwordInput = document.getElementById('nueva_contrasena');
+      const confirmInput = document.getElementById('confirmar_contrasena');
+
+      if (passwordInput.type === 'password') {
+        passwordInput.type = 'text';
+        confirmInput.type = 'text';
+        this.textContent = 'Ocultar contraseñas';
+      } else {
+        passwordInput.type = 'password';
+        confirmInput.type = 'password';
+        this.textContent = 'Mostrar contraseñas';
+      }
+    });
+
     document.addEventListener('DOMContentLoaded', function() {
       // Script para validar código premium
       const validarCodigoBtn = document.getElementById('validarCodigoBtn');
@@ -300,7 +367,7 @@ $css_extra .= '<script src="scripts/validacion-password.js"></script>';
       if (validarCodigoBtn) {
         validarCodigoBtn.addEventListener('click', function() {
           const codigo = codigoInput.value.trim();
-          
+
           if (!codigo) {
             mostrarMensaje('Por favor, introduce un código', 'error');
             return;
@@ -310,24 +377,24 @@ $css_extra .= '<script src="scripts/validacion-password.js"></script>';
           formData.append('codigo', codigo);
 
           fetch('controllers/validar-codigo-premium.php', {
-            method: 'POST',
-            body: formData
-          })
-          .then(response => response.json())
-          .then(data => {
-            if (data.success) {
-              mostrarMensaje(data.message, 'success');
-              setTimeout(() => {
-                window.location.reload();
-              }, 2000);
-            } else {
-              mostrarMensaje(data.message, 'error');
-            }
-          })
-          .catch(error => {
-            mostrarMensaje('Error al procesar la solicitud', 'error');
-            console.error('Error:', error);
-          });
+              method: 'POST',
+              body: formData
+            })
+            .then(response => response.json())
+            .then(data => {
+              if (data.success) {
+                mostrarMensaje(data.message, 'success');
+                setTimeout(() => {
+                  window.location.reload();
+                }, 2000);
+              } else {
+                mostrarMensaje(data.message, 'error');
+              }
+            })
+            .catch(error => {
+              mostrarMensaje('Error al procesar la solicitud', 'error');
+              console.error('Error:', error);
+            });
         });
       }
 
@@ -336,5 +403,57 @@ $css_extra .= '<script src="scripts/validacion-password.js"></script>';
         mensajeCodigo.className = tipo === 'success' ? 'mensaje-exito' : 'mensaje-error';
       }
     });
+
+    // Asegurarnos de que la validación se aplique a ambos botones
+    document.querySelectorAll('button[type="submit"]').forEach(button => {
+      button.addEventListener('click', function(e) {
+        if (!validarFormulario()) {
+          e.preventDefault();
+        }
+      });
+    });
+
+    function validarFormulario() {
+      const password = document.getElementById('nueva_contrasena').value;
+      const confirm = document.getElementById('confirmar_contrasena').value;
+
+      // Si alguno de los campos de contraseña está lleno, validar ambos
+      if (password || confirm) {
+        if (!password || !confirm) {
+          Swal.fire({
+            icon: 'error',
+            title: 'Error',
+            text: 'Debes completar ambos campos de contraseña'
+          });
+          return false;
+        }
+
+        // Validar requisitos de contraseña
+        const hasLength = password.length >= 8;
+        const hasUppercase = /[A-Z]/.test(password);
+        const hasNumber = /[0-9]/.test(password);
+        const hasSpecial = /[!@#$%^&*(),.?":{}|<>]/.test(password);
+
+        if (!hasLength || !hasUppercase || !hasNumber || !hasSpecial) {
+          Swal.fire({
+            icon: 'error',
+            title: 'Contraseña no válida',
+            text: 'La contraseña debe tener al menos 8 caracteres, una mayúscula, un número y un carácter especial.'
+          });
+          return false;
+        }
+
+        if (password !== confirm) {
+          Swal.fire({
+            icon: 'error',
+            title: 'Error',
+            text: 'Las contraseñas no coinciden'
+          });
+          return false;
+        }
+      }
+
+      return true;
+    }
   </script>
 </body>

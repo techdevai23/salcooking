@@ -122,7 +122,7 @@
 }
 
 .planes-tabla th.columna-premium {
-    background-color: var(--naranja-corp);
+    background-color: var(--secondary-color);
     color: black
 }
 
@@ -227,6 +227,49 @@
 
 .notas p {
     margin: 5px 0;
+}
+
+.btn-premium {
+   
+   display: block;
+   width: 100%;
+   max-width: 200px;
+   margin: 0 auto;
+
+    padding: 10px 20px;
+   
+    
+    border-radius: 5px;
+    text-decoration: none;
+    text-align: center;
+
+}
+.btn-premium-gratis:hover {
+    background-color: var(--primary-dark);
+    color: black;
+}
+
+.btn-premium-gratis {
+    background-color: var(--verde-corp);
+    color: white;
+    padding: 10px 20px;
+    border-radius: 5px;
+    text-decoration: none;
+    display: block;
+    width: 100%;
+    max-width: 200px;
+    margin: 0 auto;
+ 
+     padding: 10px 20px;
+    
+     
+     border-radius: 5px;
+     text-decoration: none;
+     text-align: center;
+}
+.btn-premium-gratis:hover {
+    background-color: var(--primary-dark);
+    color: black;
 }
 
 html, body {

@@ -3,6 +3,13 @@
 if (session_status() === PHP_SESSION_NONE) {
   session_start();
 }
+
+// Si el usuario ya está logueado, redirigir a su perfil
+if (isset($_SESSION['id_usuario'])) {
+  header("Location: perfil-logueado.php");
+  exit();
+}
+
 include 'controllers/conexion.php'; // Conexión a la BD
 
 $nombre_pagina = "Crear Perfil"; // Para el título y migas cuando es nuevo
@@ -102,6 +109,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['accion']) && $_POST['a
     if ($stmt_insert->execute()) {
       $mensaje_feedback = "¡Usuario registrado con éxito! Ahora puedes iniciar sesión.";
       $tipo_mensaje = 'mensaje-exito';
+      // Limpiar el formulario después de un registro exitoso
+      $_POST = array();
     } else {
       $mensaje_feedback = "Error al registrar el usuario: " . $stmt_insert->error;
       $tipo_mensaje = 'mensaje-error';
@@ -151,68 +160,78 @@ $css_extra .= '<link rel="stylesheet" href="styles/perfil-ajustes.css?v=' . file
           <div class="mensaje-feedback <?php echo $tipo_mensaje; ?>"><?php echo $mensaje_feedback; ?></div>
         <?php endif; ?>
 
-        <form id="perfilForm" method="POST" action="<?php echo htmlspecialchars((string)($_SERVER["PHP_SELF"] ?? '')); ?>">
+        <form id="perfilForm" method="POST" action="<?php echo htmlspecialchars((string)($_SERVER["PHP_SELF"] ?? '')); ?>" autocomplete="off">
           <div class="perfil-form-grid">
             <div class="form-group">
               <label for="nombre_completo">Nombre Completo: <span class="required">*</span></label>
-              <input type="text" id="nombre_completo" name="nombre_completo" value="<?php echo isset($_POST['nombre_completo']) ? htmlspecialchars((string)($_POST['nombre_completo'] ?? '')) : ''; ?>" required>
+              <input type="text" id="nombre_completo" name="nombre_completo" value="" required autocomplete="off">
             </div>
 
             <div class="form-group">
               <label for="nick">Nick: <span class="required">*</span></label>
-              <input type="text" id="nick" name="nick" value="<?php echo isset($_POST['nick']) ? htmlspecialchars((string)($_POST['nick'] ?? '')) : ''; ?>" required>
+              <input type="text" id="nick" name="nick" value="" required autocomplete="off">
             </div>
 
             <div class="form-group">
               <label for="email">Email: <span class="required">*</span></label>
-              <input type="email" id="email" name="email" value="<?php echo isset($_POST['email']) ? htmlspecialchars((string)($_POST['email'] ?? '')) : ''; ?>" required>
+              <input type="email" id="email" name="email" value="" required autocomplete="off">
             </div>
 
             <div class="form-group">
               <label for="direccion">Dirección:</label>
-              <input type="text" id="direccion" name="direccion" value="<?php echo isset($_POST['direccion']) ? htmlspecialchars((string)($_POST['direccion'] ?? '')) : ''; ?>">
+              <input type="text" id="direccion" name="direccion" value="" autocomplete="off">
             </div>
 
             <div class="form-group edad-group">
               <label for="fecha_nacimiento">Fecha de nacimiento:</label>
               <input type="date" id="fecha_nacimiento" name="fecha_nacimiento" 
-                     value="<?php echo isset($_POST['fecha_nacimiento']) ? htmlspecialchars((string)($_POST['fecha_nacimiento'] ?? '')) : ''; ?>" 
-                     class="form-control" style="width: 200px;">
+                     value="" 
+                     class="form-control" style="width: 200px;" autocomplete="off">
             </div>
 
             <div class="form-group">
               <label for="ciudad">Ciudad:</label>
-              <input type="text" id="ciudad" name="ciudad" value="<?php echo isset($_POST['ciudad']) ? htmlspecialchars((string)($_POST['ciudad'] ?? '')) : ''; ?>">
+              <input type="text" id="ciudad" name="ciudad" value="" autocomplete="off">
             </div>
 
             <div class="form-group">
               <label for="pais">País:</label>
-              <input type="text" id="pais" name="pais" value="<?php echo isset($_POST['pais']) ? htmlspecialchars((string)($_POST['pais'] ?? '')) : ''; ?>">
+              <input type="text" id="pais" name="pais" value="" autocomplete="off">
             </div>
 
             <div class="form-group">
               <label>Sexo:</label>
-              <select id="sexo" name="sexo" style="padding: 5px; width: 150px;">
-                <option value="" <?php echo (isset($_POST['sexo']) && $_POST['sexo'] == '') ? 'selected' : ''; ?>>Seleccionar...</option>
-                <option value="Masculino" <?php echo (isset($_POST['sexo']) && $_POST['sexo'] == 'Masculino') ? 'selected' : ''; ?>>Masculino</option>
-                <option value="Femenino" <?php echo (isset($_POST['sexo']) && $_POST['sexo'] == 'Femenino') ? 'selected' : ''; ?>>Femenino</option>
-                <option value="Otro" <?php echo (isset($_POST['sexo']) && $_POST['sexo'] == 'Otro') ? 'selected' : ''; ?>>Otro</option>
+              <select id="sexo" name="sexo" style="padding: 5px; width: 150px;" autocomplete="off">
+                <option value="" selected>Seleccionar...</option>
+                <option value="Masculino">Masculino</option>
+                <option value="Femenino">Femenino</option>
+                <option value="Otro">Otro</option>
               </select>
             </div>
 
             <div class="form-group">
               <label for="peso_kg_display">Peso (kg):</label>
-              <input type="text" id="peso_kg_display" name="peso_kg_display" placeholder="ej: 65.5" value="<?php echo isset($_POST['peso_kg_display']) ? htmlspecialchars($_POST['peso_kg_display']) : ''; ?>" style="width: 80px;">
+              <input type="text" id="peso_kg_display" name="peso_kg_display" placeholder="ej: 65.5" value="" style="width: 80px;" autocomplete="off">
             </div>
 
             <!-- Sección de Contraseña para NUEVO REGISTRO -->
             <div class="form-group">
               <label for="nueva_contrasena">Contraseña: <span class="required">*</span></label>
-              <input type="password" id="nueva_contrasena" name="nueva_contrasena" placeholder="Nueva contraseña" required>
+              <div style="position: relative; display: inline-block;">
+                <input type="password" id="nueva_contrasena" name="nueva_contrasena" placeholder="Nueva contraseña" required autocomplete="new-password">
+                <button type="button" onclick="togglePassword('nueva_contrasena', this)" style="position: absolute; right: 5px; top: 50%; transform: translateY(-50%); background: none; border: none; cursor: pointer;" title="Mostrar contraseña">
+                  👁️
+                </button>
+              </div>
             </div>
             <div class="form-group">
               <label for="confirmar_contrasena">Confirmar Contraseña: <span class="required">*</span></label>
-              <input type="password" id="confirmar_contrasena" name="confirmar_contrasena" placeholder="Confirmar nueva contraseña" required>
+              <div style="position: relative; display: inline-block;">
+                <input type="password" id="confirmar_contrasena" name="confirmar_contrasena" placeholder="Confirmar nueva contraseña" required autocomplete="new-password">
+                <button type="button" onclick="togglePassword('confirmar_contrasena', this)" style="position: absolute; right: 5px; top: 50%; transform: translateY(-50%); background: none; border: none; cursor: pointer;" title="Mostrar contraseña">
+                  👁️
+                </button>
+              </div>
             </div>
             <!-- Fin Sección de Contraseña para NUEVO REGISTRO -->
 
@@ -276,15 +295,16 @@ $css_extra .= '<link rel="stylesheet" href="styles/perfil-ajustes.css?v=' . file
 
   <!-- <script src="scripts/perfil-ajustes.js"></script> --> <!-- Descomentar si tienes JS específico -->
   <script>
-    // Simular que el enlace de cambiar contraseña muestra los campos (para cuando sea perfil de usuario logueado)
-    // const cambiarContrasenaLink = document.getElementById('cambiarContrasenaLink');
-    // const cambiarContrasenaCampos = document.getElementById('cambiarContrasenaCampos');
-    // if (cambiarContrasenaLink && cambiarContrasenaCampos) {
-    //   cambiarContrasenaLink.addEventListener('click', function(e) {
-    //     e.preventDefault();
-    //     cambiarContrasenaCampos.classList.toggle('visible'); // 'visible' o quita/añade 'hidden'
-    //     cambiarContrasenaCampos.classList.toggle('hidden');
-    //   });
-    // }
+    // Función para alternar la visibilidad de la contraseña
+    function togglePassword(inputId, button) {
+      const input = document.getElementById(inputId);
+      if (input.type === 'password') {
+        input.type = 'text';
+        button.title = 'Ocultar contraseña';
+      } else {
+        input.type = 'password';
+        button.title = 'Mostrar contraseña';
+      }
+    }
   </script>
 </body>
