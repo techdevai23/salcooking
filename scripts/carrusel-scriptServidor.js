@@ -148,7 +148,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
     // Actualizar en cambio de tamaño de ventana
     window.addEventListener('resize', function() {
-        const wasMobile = isMobile;
+        let wasMobile = isMobile;
         isMobile = window.innerWidth <= 767;
         
         if (wasMobile !== isMobile) {

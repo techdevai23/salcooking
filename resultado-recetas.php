@@ -43,9 +43,9 @@ $css_extra .= '<link rel="stylesheet" href="styles/resultado-recetas.css?v=' . f
                                 <option value="">Más recientes</option>
                                 <option value="nombre-asc">Nombre (A-Z)</option>
                                 <option value="nombre-desc">Nombre (Z-A)</option>
-                                <option value="ing-menos-6">Ingredientes (menos de 6)</option>
+                                <!-- <option value="ing-menos-6">Ingredientes (menos de 6)</option>
                                 <option value="ing-7-10">Ingredientes (7-10)</option>
-                                <option value="ing-mas-10">Ingredientes (más de 10)</option>
+                                <option value="ing-mas-10">Ingredientes (más de 10)</option> -->
                             </select>
                         </div>
 

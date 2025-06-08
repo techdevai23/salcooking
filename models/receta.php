@@ -5,7 +5,7 @@ class Receta
     {
         global $conexion;
         
-        // Debug: Mensaje de inicio muy visible
+        // Debug: MÉTODO buscarRecetas EJECUTÁNDOSE
         error_log("MÉTODO buscarRecetas EJECUTÁNDOSE");
 
         $stopwords = ['de', 'la', 'el', 'y', 'con', 'en', 'a', 'una', 'para'];
@@ -155,7 +155,7 @@ class Receta
         error_log("DEBUG - Condiciones de filtrado: " . print_r($condiciones, true));
         
         // Construir la consulta SQL
-        $sql = "SELECT DISTINCT r.* FROM recetas r";
+        $sql = "SELECT r.*, (SELECT COUNT(*) FROM receta_ingrediente ri WHERE ri.id_receta = r.id) AS num_ingredientes FROM recetas r";
 
         // Añadir joins necesarios para los filtros
         if ($ingrediente) {
@@ -183,45 +183,29 @@ class Receta
                     break;
                 case 'ing-menos-6':
                     // Filtrar recetas con menos de 6 ingredientes y ordenar por cantidad
-                    $condiciones[] = "r.id IN (
-                        SELECT id_receta FROM receta_ingrediente 
-                        GROUP BY id_receta 
-                        HAVING COUNT(*) < 6
-                    )";
-                    $orderBy = " ORDER BY (
-                        SELECT COUNT(*) FROM receta_ingrediente ri2 
-                        WHERE ri2.id_receta = r.id
-                    ) ASC";
+                    $condiciones[] = "(SELECT COUNT(*) FROM receta_ingrediente ri WHERE ri.id_receta = r.id) < 6";
+                    $orderBy = " ORDER BY num_ingredientes ASC";
                     break;
                 case 'ing-7-10':
                     // Filtrar recetas con entre 7 y 10 ingredientes y ordenar por cantidad
-                    $condiciones[] = "r.id IN (
-                        SELECT id_receta FROM receta_ingrediente 
-                        GROUP BY id_receta 
-                        HAVING COUNT(*) BETWEEN 7 AND 10
-                    )";
-                    $orderBy = " ORDER BY (
-                        SELECT COUNT(*) FROM receta_ingrediente ri2 
-                        WHERE ri2.id_receta = r.id
-                    ) ASC";
+                    $condiciones[] = "(SELECT COUNT(*) FROM receta_ingrediente ri WHERE ri.id_receta = r.id) BETWEEN 7 AND 10";
+                    $orderBy = " ORDER BY num_ingredientes ASC";
                     break;
                 case 'ing-mas-10':
                     // Filtrar recetas con más de 10 ingredientes y ordenar por cantidad
-                    $condiciones[] = "r.id IN (
-                        SELECT id_receta FROM receta_ingrediente 
-                        GROUP BY id_receta 
-                        HAVING COUNT(*) > 10
-                    )";
-                    $orderBy = " ORDER BY (
-                        SELECT COUNT(*) FROM receta_ingrediente ri2 
-                        WHERE ri2.id_receta = r.id
-                    ) ASC";
+                    $condiciones[] = "(SELECT COUNT(*) FROM receta_ingrediente ri WHERE ri.id_receta = r.id) > 10";
+                    $orderBy = " ORDER BY num_ingredientes ASC";
                     break;
             }
         }
 
         $sql .= $where . $orderBy;
         
+        // Mostrar la consulta SQL final para depuración
+        echo '<pre style="color:red;z-index:99999;position:relative;">SQL FINAL: ' . htmlspecialchars(
+            $sql
+        ) . '</pre>';
+        error_log('SQL FINAL: ' . $sql);
         // Debug: Mostrar consulta SQL final
         error_log("DEBUG - SQL final: " . $sql);
 
