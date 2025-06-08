@@ -619,19 +619,24 @@
 }
 
 /* Ajustes para móviles */
-@media (max-width: 900px) {
+@media (max-width: 767px) {
   .recipiente-carrusel {
     height: auto;
-    flex-wrap: wrap;
+    min-height: 400px;
+    display: flex;
     justify-content: center;
+    align-items: center;
+    padding: 20px 0;
   }
   
   .recipiente-card {
-    margin-bottom: 20px;
+    margin: 0;
+    width: 90%;
+    max-width: 320px;
   }
   
   .featured-card, .side-card {
-    width: 280px;
+    width: 100%;
     transform: none;
     opacity: 1;
   }
@@ -640,149 +645,49 @@
     transform: translateY(-5px);
   }
   
-  .left-card:nth-child(n+1),
-  .right-card:nth-child(n+1) {
+  .side-card {
     display: none;
   }
   
-  
-}
-
-@media (max-width: 768px) {
-
- .checkbox-container{
-  font-size: 12px;
- }
-  .results-container {
-    padding: 15px;
-    margin: 0 auto;
-  }
-  .top-filters-bar {
-    padding: 15px;
-    gap: 15px;
+  .carrusel-nav {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 10;
   }
   
-  .filter-section {
-    width: 100%;
-    margin-bottom: 10px;
+  .prev-btn {
+    left: 5px;
   }
   
-  .filter-section select {
-    width: 100%;
-  }
-  
-  .checkbox-group {
-    padding: 8px;
-  }
-  
-  .checkbox-group h4 {
-    font-size: 0.85rem;
-    margin-bottom: 8px;
-  }
-  
-  .checkbox-options {
-    gap: 10px;
-  }
-  
-  .checkbox-group .checkbox-container {
-    flex: 0 0 100%;
-    font-size: 0.8rem;
-    padding-left: 30px;
-  }
-  
-  .checkmark {
-    height: 18px;
-    width: 18px;
-  }
-  
-  .checkbox-container .checkmark:after {
-    left: 6px;
-    top: 2px;
-    width: 4px;
-    height: 9px;
-  }
-  
-  .premium-filters {
-    padding: 10px;
-  }
-  
-  .premium-header h4 {
-    font-size: 0.9rem;
-  }
-  
-  .premium-option.checkbox-group .checkbox-container {
-    flex: 0 0 100%;
+  .next-btn {
+    right: 5px;
   }
   
   .recipiente-info {
-    padding: 10px;
-    min-height: 150px;
+    min-height: 120px;
   }
+  
+  .recipiente-tags {
+    justify-content: center;
+  }
+}
+
+@media (max-width: 576px) {
   .recipiente-carrusel {
-    min-width: 250px;
-    /* flex-wrap: wrap; */
-    justify-content: center;
-    padding: 0;
+    min-height: 350px;
+    margin-top: 10px;
   }
   
-   .resultados-grid, 
-  .receta-carrusel, 
   .recipiente-card {
-    width: 90%;
-    margin: 0 auto;
-    padding: 10px;
-    box-sizing: border-box;
+    width: 95%;
   }
-
-    .recipiente.card img {
-    max-width: 100%;
-    height: auto;
-    display: block;
-    margin: 0 auto 10px;
-    border-radius: 8px;
-  }
-
-   .recipiente.card h3,
-  .recipiente.card p,
-  .recipiente.card .etiquetas,
-  .recipiente.card .boton .premium-options {
-    text-align: center;
-    font-size: 0.85rem;
-  }
-
-  .recipiente-tags{
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    margin-bottom: 5px;
-  }
-
-  .etiqueta {
-    font-size: 0.75rem;
-    padding: 5px 10px;
-    margin: 4px 6px;
-    display: inline-block;
-    text-align: center;
-  }
-
   
-  /* .boton {
-    display: block;
-    margin: 15px auto 0;
-    padding: 10px 20px;
+  .carrusel-nav {
+    width: 35px;
+    height: 35px;
     font-size: 1rem;
-  } */
-
-  .premium-header .btn-premium {
-    font-size: 0.7rem !important;
-    padding: 2px 3px !important;
-    margin: 0 !important;
-    width: 100% !important;
-    text-align: center !important;
-    display: block !important;
   }
-
-
 }
 
 .container-resultados::before{

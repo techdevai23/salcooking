@@ -1,4 +1,3 @@
-
 <?php
 $css_extra = '';
 $css_extra .= '<link rel="stylesheet" href="styles/sitemap.css?v=' . filemtime('styles/sitemap.css') . '">';
@@ -150,32 +149,7 @@ $css_extra .= '<link rel="stylesheet" href="styles/sitemap.css?v=' . filemtime('
           </ul>
         </div>
 
-        <!-- Mapa alternativo lineal para móviles -->
-        <!-- <div class="sitemap-mobile">
-          <h3>Mapa del sitio lineal</h3>
-          
-          <div class="mobile-section">
-            <h4>Página Principal</h4>
-            <ul>
-              <li><a href="index.php">Inicio</a></li>
-            </ul>
-          </div>
-
-          <div class="mobile-section">
-            <h4>Recetas</h4>
-            <ul>
-              <li><a href="recetas-categoria.php">Categorías</a></li>
-              <li><a href="resultado-recetas.php">Búsqueda de recetas</a></li>
-              <li><a href="detalle-receta.php?id=23">La receta del día</a></li>
-              <li><a href="detalle-receta.php?id=23">Trucos de cocina</a></li>
-            </ul>
-          </div>
-
-          <div class="mobile-section premium-mobile">
-            <h4>Zona Prémium <span class="premium-badge-small">★</span></h4>
-            <p>Contenido exclusivo para usuarios premium</p>
-          </div> -->
-
+      
                
           <div class="sitemap-mobile">
     <h3>Mapa del sitio lineal</h3>
@@ -275,3 +249,15 @@ document.addEventListener('DOMContentLoaded', function() {
   });
 });
 </script>
+
+<style>
+/* Mostrar solo el sitemap visual en escritorio */
+.sitemap-visual { display: block; }
+.sitemap-mobile { display: none; }
+
+/* Mostrar solo el sitemap lineal en móvil */
+@media (max-width: 768px) {
+  .sitemap-visual { display: none; }
+  .sitemap-mobile { display: block; }
+}
+</style>

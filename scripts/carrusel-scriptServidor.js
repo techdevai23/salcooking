@@ -13,6 +13,7 @@ document.addEventListener('DOMContentLoaded', function () {
     const recetas = window.recetasData;
     const totalRecetas = recetas.length;
     let currentIndex = 0;
+    const isMobile = window.innerWidth <= 767;
 
     // Obtener las tarjetas por posición
     const cards = {
@@ -42,14 +43,12 @@ document.addEventListener('DOMContentLoaded', function () {
         if (receta.tipo_plato) {
             tagsContainer.innerHTML += `<span class="tag tag-plato">${receta.tipo_plato.toUpperCase()}</span>`;
         }
-        // Agregar alérgenos
         if (receta.alergenos && receta.alergenos.length > 0) {
             receta.alergenos.forEach(alergeno => {
                 const clase = alergeno.nombre.toLowerCase().replace(/ /g, '-');
                 tagsContainer.innerHTML += `<span class="tag ${clase}">${alergeno.nombre}</span>`;
             });
         }
-        // Agregar enfermedades (solo las NO aptas como advertencia)
         if (receta.enfermedades && receta.enfermedades.length > 0) {
             receta.enfermedades.forEach(enfermedad => {
                 const clase = enfermedad.nombre.toLowerCase();
@@ -60,75 +59,102 @@ document.addEventListener('DOMContentLoaded', function () {
 
     // Función para actualizar el carrusel
     function updateCarrusel() {
-        // Calcular índices
-        const indices = {
-            'left-2': (currentIndex - 2 + totalRecetas) % totalRecetas,
-            'left-1': (currentIndex - 1 + totalRecetas) % totalRecetas,
-            'center': currentIndex,
-            'right-1': (currentIndex + 1) % totalRecetas,
-            'right-2': (currentIndex + 2) % totalRecetas
-        };
-
-        // Actualizar cada tarjeta
-        Object.keys(cards).forEach(position => {
-            const card = cards[position];
-            const recetaIndex = indices[position];
-            const receta = recetas[recetaIndex];
-
-            // Remover todas las clases
-            card.classList.remove('featured-card', 'side-card', 'hidden');
-
-            // Aplicar clases según la posición
-            if (position === 'center') {
-                card.classList.add('featured-card');
-            } else {
-                card.classList.add('side-card');
-                // Solo mostrar las tarjetas de la izquierda si ya hemos navegado
-                if ((position === 'left-1' || position === 'left-2') && currentIndex === 0) {
-                    card.classList.add('hidden');
+        if (isMobile) {
+            // En móvil, solo mostramos la receta actual
+            const centerCard = cards['center'];
+            const receta = recetas[currentIndex];
+            
+            centerCard.classList.remove('featured-card', 'side-card', 'hidden');
+            centerCard.classList.add('featured-card');
+            
+            updateCard(centerCard, receta);
+            
+            // Ocultar las otras tarjetas
+            Object.keys(cards).forEach(position => {
+                if (position !== 'center') {
+                    cards[position].classList.add('hidden');
                 }
-            }
+            });
+        } else {
+            // En escritorio, mantenemos la lógica original
+            const indices = {
+                'left-2': (currentIndex - 2 + totalRecetas) % totalRecetas,
+                'left-1': (currentIndex - 1 + totalRecetas) % totalRecetas,
+                'center': currentIndex,
+                'right-1': (currentIndex + 1) % totalRecetas,
+                'right-2': (currentIndex + 2) % totalRecetas
+            };
 
-            // Actualizar contenido
-            updateCard(card, receta);
-        });
+            Object.keys(cards).forEach(position => {
+                const card = cards[position];
+                const recetaIndex = indices[position];
+                const receta = recetas[recetaIndex];
+
+                card.classList.remove('featured-card', 'side-card', 'hidden');
+
+                if (position === 'center') {
+                    card.classList.add('featured-card');
+                } else {
+                    card.classList.add('side-card');
+                    if ((position === 'left-1' || position === 'left-2') && currentIndex === 0) {
+                        card.classList.add('hidden');
+                    }
+                }
+
+                updateCard(card, receta);
+            });
+        }
 
         // Actualizar indicadores
-        const activeIndicator = Math.floor(currentIndex / 2);
+        const activeIndicator = Math.floor(currentIndex / (isMobile ? 1 : 2));
         indicators.forEach((indicator, index) => {
-            if (index === activeIndicator) {
-                indicator.classList.add('active');
-            } else {
-                indicator.classList.remove('active');
-            }
+            indicator.classList.toggle('active', index === activeIndicator);
         });
+
+        // Actualizar estado de los botones
+        prevBtn.style.visibility = currentIndex === 0 ? 'hidden' : 'visible';
+        nextBtn.style.visibility = currentIndex === totalRecetas - 1 ? 'hidden' : 'visible';
     }
 
     // Eventos para los botones de navegación
     if (nextBtn) {
         nextBtn.addEventListener('click', function () {
-            currentIndex = (currentIndex + 1) % totalRecetas;
-            updateCarrusel();
+            if (currentIndex < totalRecetas - 1) {
+                currentIndex++;
+                updateCarrusel();
+            }
         });
     }
 
     if (prevBtn) {
         prevBtn.addEventListener('click', function () {
-            currentIndex = (currentIndex - 1 + totalRecetas) % totalRecetas;
-            updateCarrusel();
+            if (currentIndex > 0) {
+                currentIndex--;
+                updateCarrusel();
+            }
         });
     }
 
     // Eventos para los indicadores
     indicators.forEach((indicator, index) => {
         indicator.addEventListener('click', function () {
-            currentIndex = (index * 2) % totalRecetas;
+            currentIndex = index * (isMobile ? 1 : 2);
             updateCarrusel();
         });
     });
 
     // Inicializar carrusel
     updateCarrusel();
+
+    // Actualizar en cambio de tamaño de ventana
+    window.addEventListener('resize', function() {
+        const wasMobile = isMobile;
+        isMobile = window.innerWidth <= 767;
+        
+        if (wasMobile !== isMobile) {
+            updateCarrusel();
+        }
+    });
 
     // Opcional: Añadir funcionalidad de autoplay
     // let autoplayInterval = setInterval(() => {
