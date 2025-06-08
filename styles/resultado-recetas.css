@@ -234,7 +234,7 @@
 }
 
 .carrusel-nav {
-  background-color: var(--primary-color);
+  background-color: var(--secondary-color);
   color: white;
   border: none;
   width: 40px;
@@ -252,7 +252,7 @@
 }
 
 .carrusel-nav:hover {
-  background-color: var(--primary-dark);
+  background-color: var(--naranja-corp);
   transform: scale(1.1);
 }
 
@@ -642,7 +642,7 @@
   }
   
   .featured-card:hover, .side-card:hover {
-    transform: translateY(-5px);
+    transform: translateY(-1px);
   }
   
   .side-card {
@@ -652,7 +652,7 @@
   .carrusel-nav {
     position: absolute;
     top: 50%;
-    transform: translateY(-50%);
+    /* transform: translateY(-50%); */
     z-index: 10;
   }
   

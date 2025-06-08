@@ -105,7 +105,7 @@ async function descargarFichaRecetaPDF(nombreArchivo, nombreReceta) {
         const pdf = new jsPDF('p', 'mm', 'a4');
         const pageWidth = pdf.internal.pageSize.getWidth();
         const pageHeight = pdf.internal.pageSize.getHeight();
-        const margin = 10; // margen en mm
+        const margin = 15; // Aumentado el margen para mejor legibilidad
         const contentWidth = pageWidth - (2 * margin);
         
         // Función para capturar y añadir páginas al PDF
@@ -128,8 +128,35 @@ async function descargarFichaRecetaPDF(nombreArchivo, nombreReceta) {
                     style.textContent = `
                         .contenido-filosofia {
                             margin: 0 !important;
-                            padding: 20px !important;
+                            padding: 15px !important;
+                            min-height: 200px !important;
                             box-shadow: none !important;
+                        }
+                        .contenido-filosofia h1 {
+                            margin-top: 0 !important;
+                            min-height:50px !important;
+                            margin-bottom: 40px !important;
+                            font-size: 22px !important;
+                        }
+                        .contenido-filosofia h3 {
+                            margin-top: 15px !important;
+                            margin-bottom: 25px !important;
+                            font-size: 18px !important;
+                        }
+                        .contenido-filosofia ul {
+                            margin-top: 10px !important;
+                            margin-bottom: 15px !important;
+                            padding-left: 20px !important;
+                        }
+                        .contenido-filosofia li {
+                            margin-bottom: 5px !important;
+                            line-height: 1.4 !important;
+                        }
+                        .contenido-filosofia p {
+                            margin-top: 10px !important;
+                            margin-bottom: 15px !important;
+                            min-height: 100px !important;
+                            line-height: 1.4 !important;
                         }
                         @media print {
                             @page { margin: 0; }
