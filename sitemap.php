@@ -54,8 +54,8 @@ $css_extra .= '<link rel="stylesheet" href="styles/sitemap.css?v=' . filemtime('
                 <ul class="sitemap-links">
                   <li><a href="recetas-categoria.php">Categorías</a></li>
                   <li><a href="resultado-recetas.php">Búsqueda de recetas</a></li>
-                  <li><a href="detalle-receta.php?id=23">La receta del día</a></li>
-                  <li><a href="detalle-receta.php?id=23">Trucos de cocina</a></li>
+                  <li><a href="index.php?page=detalle-receta&id=213">La receta del día</a></li>
+                  <li><a href="trucos.php">Trucos de cocina</a></li>
                 </ul>
               </div>
               <div class="node-connections">
@@ -192,8 +192,8 @@ $css_extra .= '<link rel="stylesheet" href="styles/sitemap.css?v=' . filemtime('
         <ul>
             <li><a href="recetas-categoria.php">Categorías</a></li>
             <li><a href="resultado-recetas.php">Búsqueda de recetas</a></li>
-            <li><a href="detalle-receta.php?id=23">La receta del día</a></li>
-            <li><a href="detalle-receta.php?id=23">Trucos de cocina</a></li>
+            <li><a href="index.php?page=detalle-receta&id=213">La receta del día</a></li>
+            <li><a href="trucos.php">Trucos de cocina</a></li>
         </ul>
     </div>
 
@@ -202,13 +202,7 @@ $css_extra .= '<link rel="stylesheet" href="styles/sitemap.css?v=' . filemtime('
         <p>Contenido exclusivo para usuarios premium</p>
     </div>
 
-          <div class="mobile-section subsection-mobile">
-            <h4>Perfiles</h4>
-            <ul>
-              <li>Perfil principal</li>
-              <li>Perfil secundario</li>
-            </ul>
-          </div>
+         
 
             <div class="mobile-section subsection-mobile">
             <h4>Información</h4>

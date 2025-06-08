@@ -213,7 +213,7 @@ startSession();
             <li class="cabecera">RECETAS</li>
             <li><a href="recetas-categoria.php">Categorías</a></li>
             <li><a href="resultado-recetas.php">Búsqueda de recetas</a></li>
-            <li><a href="detalle-receta.php?id=23">La receta del día</a></li>
+            <li><a href="index.php?page=detalle-receta&id=213">La receta del día</a></li>
             <li><a id="trucosDesplegable" href="trucos.php">Trucos de cocina</a></li>
             <hr style="border: 0.5px solid #ccc; margin: 0;">
             <li class="cabecera">INFORMACIÓN</li>
