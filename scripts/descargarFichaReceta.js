@@ -94,6 +94,25 @@ async function descargarFichaRecetaPDF(nombreArchivo, nombreReceta) {
             throw new Error(errorMsg);
         }
         
+        // ====== NUEVO: Forzar estilos para asegurar captura completa ======
+        const padres = [];
+        let nodo = element;
+        while (nodo && nodo !== document.body) {
+            padres.push(nodo);
+            nodo = nodo.parentElement;
+        }
+        const estilosOriginales = padres.map(el => ({
+            overflow: el.style.overflow,
+            height: el.style.height,
+            maxHeight: el.style.maxHeight
+        }));
+        padres.forEach(el => {
+            el.style.overflow = 'visible';
+            el.style.height = 'auto';
+            el.style.maxHeight = 'none';
+        });
+        // ====== FIN NUEVO ======
+        
         console.log('[13] Contenido del elemento a capturar:', {
             height: element.offsetHeight,
             width: element.offsetWidth,
@@ -217,6 +236,15 @@ async function descargarFichaRecetaPDF(nombreArchivo, nombreReceta) {
             }
             if (header) header.style.display = headerDisplay;
             if (footer) footer.style.display = footerDisplay;
+            // ====== NUEVO: Restaurar estilos originales ======
+            if (typeof padres !== 'undefined' && Array.isArray(padres) && Array.isArray(estilosOriginales)) {
+                padres.forEach((el, i) => {
+                    el.style.overflow = estilosOriginales[i].overflow;
+                    el.style.height = estilosOriginales[i].height;
+                    el.style.maxHeight = estilosOriginales[i].maxHeight;
+                });
+            }
+            // ====== FIN NUEVO ======
         }
     } catch (error) {
         console.error('Error al generar el PDF:', error);
