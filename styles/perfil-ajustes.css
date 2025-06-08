@@ -581,3 +581,59 @@ body {
 
         }
     }
+}
+
+/* Estilos para la validación de contraseña */
+.password-validation {
+    margin-top: 10px;
+    padding: 10px;
+    border-radius: 4px;
+    background-color: #f8f9fa;
+}
+
+.requirements-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.requirements-list li {
+    margin: 5px 0;
+    font-size: 0.9rem;
+    color: #666;
+}
+
+.requirements-list li.valid {
+    color: var(--primary-color);
+}
+
+.requirements-list li.invalid {
+    color: #dc3545;
+}
+
+/* Estilos para SweetAlert2 personalizado */
+.my-swal-container {
+    z-index: 9999;
+}
+
+.my-swal-popup {
+    border-radius: 8px;
+    padding: 20px;
+}
+
+.my-swal-title {
+    color: var(--negro-verdoso);
+    font-size: 1.2rem;
+}
+
+.my-swal-confirm-button {
+    background-color: var(--primary-color) !important;
+    color: white !important;
+    padding: 10px 20px !important;
+    border-radius: 4px !important;
+    border: none !important;
+}
+
+.my-swal-confirm-button:hover {
+    background-color: var(--primary-dark) !important;
+}

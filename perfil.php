@@ -223,6 +223,15 @@ $css_extra .= '<link rel="stylesheet" href="styles/perfil-ajustes.css?v=' . file
                   👁️
                 </button>
               </div>
+              <a href="#" class="show-password form-link">Mostrar contraseña</a>
+              <div class="password-validation">
+                <ul class="requirements-list">
+                  <li id="length">Al menos 8 caracteres</li>
+                  <li id="uppercase">Al menos una mayúscula</li>
+                  <li id="number">Al menos un número</li>
+                  <li id="special">Al menos un carácter especial</li>
+                </ul>
+              </div>
             </div>
             <div class="form-group">
               <label for="confirmar_contrasena">Confirmar Contraseña: <span class="required">*</span></label>
@@ -232,6 +241,7 @@ $css_extra .= '<link rel="stylesheet" href="styles/perfil-ajustes.css?v=' . file
                   👁️
                 </button>
               </div>
+              <div id="password-match" class="password-match"></div>
             </div>
             <!-- Fin Sección de Contraseña para NUEVO REGISTRO -->
 
@@ -293,7 +303,8 @@ $css_extra .= '<link rel="stylesheet" href="styles/perfil-ajustes.css?v=' . file
 
   <?php include 'footer.php'; ?>
 
-  <!-- <script src="scripts/perfil-ajustes.js"></script> --> <!-- Descomentar si tienes JS específico -->
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <script src="scripts/validacion-password.js"></script>
   <script>
     // Función para alternar la visibilidad de la contraseña
     function togglePassword(inputId, button) {
