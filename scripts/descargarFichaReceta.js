@@ -105,159 +105,121 @@ async function descargarFichaRecetaPDF(nombreArchivo, nombreReceta) {
         const pdf = new jsPDF('p', 'mm', 'a4');
         const pageWidth = pdf.internal.pageSize.getWidth();
         const pageHeight = pdf.internal.pageSize.getHeight();
-        const margin = 15; // Aumentado el margen para mejor legibilidad
+        const margin = 10; // margen en mm
         const contentWidth = pageWidth - (2 * margin);
-        
-        // Función para capturar y añadir páginas al PDF
-        async function captureAndAddPage(element, position = 0, currentPage = 1) {
-            console.log(`[14] Capturando página ${currentPage}, posición inicial: ${position}px`);
-            
-            const options = {
+        const contentHeight = pageHeight - (2 * margin);
+
+        // Capturar todo el contenido como una sola imagen
+        console.log('[13] Capturando todo el contenido como una sola imagen...');
+        loadingMessage = document.createElement('div');
+        loadingMessage.textContent = 'Generando PDF, por favor espere...';
+        loadingMessage.style.position = 'fixed';
+        loadingMessage.style.top = '50%';
+        loadingMessage.style.left = '50%';
+        loadingMessage.style.transform = 'translate(-50%, -50%)';
+        loadingMessage.style.background = 'rgba(0, 0, 0, 0.8)';
+        loadingMessage.style.color = 'white';
+        loadingMessage.style.padding = '20px';
+        loadingMessage.style.borderRadius = '5px';
+        loadingMessage.style.zIndex = '9999';
+        document.body.appendChild(loadingMessage);
+
+        try {
+            const canvas = await html2canvas(element, {
                 scale: 2,
                 useCORS: true,
                 allowTaint: true,
                 logging: true,
-                windowHeight: window.innerHeight,
-                scrollY: position,
-                height: element.scrollHeight,
-                width: element.scrollWidth,
-                y: position,
+                backgroundColor: '#fff',
                 onclone: (clonedDoc) => {
-                    // Asegurarse de que el clon no tenga estilos que afecten la captura
                     const style = document.createElement('style');
                     style.textContent = `
                         .contenido-filosofia {
                             margin: 0 !important;
-                            padding: 15px !important;
-                            min-height: 200px !important;
+                            padding: 20px !important;
                             box-shadow: none !important;
+                            width: 100% !important;
+                            max-width: 100% !important;
+                            box-sizing: border-box !important;
+                            background: white !important;
                         }
-                        .contenido-filosofia h1 {
-                            margin-top: 0 !important;
-                            min-height:50px !important;
-                            margin-bottom: 40px !important;
-                            font-size: 22px !important;
+                        .contenido-filosofia * {
+                            max-width: 100% !important;
+                            font-size: 95% !important;
+                            line-height: 1.3 !important;
                         }
-                        .contenido-filosofia h3 {
-                            margin-top: 15px !important;
-                            margin-bottom: 25px !important;
-                            font-size: 18px !important;
-                        }
-                        .contenido-filosofia ul {
-                            margin-top: 10px !important;
-                            margin-bottom: 15px !important;
-                            padding-left: 20px !important;
-                        }
-                        .contenido-filosofia li {
-                            margin-bottom: 5px !important;
-                            line-height: 1.4 !important;
-                        }
-                        .contenido-filosofia p {
-                            margin-top: 10px !important;
-                            margin-bottom: 15px !important;
-                            min-height: 100px !important;
-                            line-height: 1.4 !important;
+                        .contenido-filosofia img {
+                            max-height: 120mm !important;
+                            width: auto !important;
+                            margin: 0 auto !important;
+                            display: block !important;
                         }
                         @media print {
-                            @page { margin: 0; }
+                            @page { margin: 0; size: A4; }
                             body { margin: 1.6cm; }
                         }
                     `;
                     clonedDoc.head.appendChild(style);
                 }
-            };
-            
-            // Mostrar mensaje de carga solo en la primera página
-            if (currentPage === 1) {
-                loadingMessage = document.createElement('div');
-                loadingMessage.textContent = 'Generando PDF, por favor espere...';
-                loadingMessage.style.position = 'fixed';
-                loadingMessage.style.top = '50%';
-                loadingMessage.style.left = '50%';
-                loadingMessage.style.transform = 'translate(-50%, -50%)';
-                loadingMessage.style.background = 'rgba(0, 0, 0, 0.8)';
-                loadingMessage.style.color = 'white';
-                loadingMessage.style.padding = '20px';
-                loadingMessage.style.borderRadius = '5px';
-                loadingMessage.style.zIndex = '9999';
-                document.body.appendChild(loadingMessage);
-            } else {
-                loadingMessage.textContent = `Generando PDF (página ${currentPage})...`;
+            });
+
+            // Calcular el tamaño de la imagen en mm
+            const imgWidth = contentWidth;
+            const imgHeight = (canvas.height * imgWidth) / canvas.width;
+            const pageHeightPx = (pageHeight - 2 * margin) * (canvas.width / imgWidth); // alto de página en px
+
+            let position = 0;
+            let pageNum = 1;
+            while (position < canvas.height) {
+                // Crear un canvas temporal para cada página
+                const pageCanvas = document.createElement('canvas');
+                pageCanvas.width = canvas.width;
+                pageCanvas.height = Math.min(pageHeightPx, canvas.height - position);
+                const ctx = pageCanvas.getContext('2d');
+                ctx.fillStyle = '#fff';
+                ctx.fillRect(0, 0, pageCanvas.width, pageCanvas.height);
+                ctx.drawImage(
+                    canvas,
+                    0, position, pageCanvas.width, pageCanvas.height, // origen
+                    0, 0, pageCanvas.width, pageCanvas.height // destino
+                );
+                const imgData = pageCanvas.toDataURL('image/png');
+                if (pageNum > 1) pdf.addPage();
+                pdf.addImage(imgData, 'PNG', margin, margin, imgWidth, (pageCanvas.height * imgWidth) / pageCanvas.width);
+                position += pageHeightPx;
+                pageNum++;
             }
-            
-            try {
-                console.log(`[15] Iniciando captura de la página ${currentPage}`);
-                const canvas = await html2canvas(element, options);
-                console.log(`[16] Captura de la página ${currentPage} completada`);
-                
-                // Calcular dimensiones manteniendo la relación de aspecto
-                const imgWidth = contentWidth;
-                const imgHeight = (canvas.height * imgWidth) / canvas.width;
-                
-                // Añadir nueva página si no es la primera
-                if (currentPage > 1) {
-                    pdf.addPage();
-                }
-                
-                // Añadir la imagen al PDF
-                pdf.addImage(canvas, 'PNG', margin, margin, imgWidth, imgHeight);
-                
-                // Verificar si necesitamos más páginas
-                const remainingHeight = element.scrollHeight - (position + window.innerHeight);
-                console.log(`[17] Altura restante: ${remainingHeight}px`);
-                
-                if (remainingHeight > 0) {
-                    // Capturar la siguiente página
-                    return captureAndAddPage(element, position + window.innerHeight, currentPage + 1);
-                }
-                
-                return Promise.resolve();
-                
-            } catch (error) {
-                console.error(`Error al capturar la página ${currentPage}:`, error);
-                throw new Error(`Error al capturar la página ${currentPage}: ${error.message}`);
+
+            if (loadingMessage && loadingMessage.parentNode) {
+                loadingMessage.parentNode.removeChild(loadingMessage);
             }
+
+            // Generar nombre de archivo con el nombre de la receta si está disponible
+            let nombreArchivoFinal = 'receta.pdf';
+            if (nombreReceta) {
+                const nombreLimpio = nombreReceta
+                    .toLowerCase()
+                    .replace(/[^a-z0-9áéíóúüñ\s-]/g, '')
+                    .replace(/\s+/g, '-')
+                    .replace(/--+/g, '-')
+                    .replace(/^-+|-+$/g, '');
+                nombreArchivoFinal = `receta-${nombreLimpio}.pdf`;
+            } else if (nombreArchivo) {
+                nombreArchivoFinal = nombreArchivo;
+            }
+            pdf.save(nombreArchivoFinal);
+        } catch (error) {
+            console.error('Error al generar el PDF:', error);
+            alert('Ocurrió un error al generar el PDF. Por favor, inténtalo de nuevo.');
+        } finally {
+            if (loadingMessage && document.body.contains(loadingMessage)) {
+                document.body.removeChild(loadingMessage);
+            }
+            if (header) header.style.display = headerDisplay;
+            if (footer) footer.style.display = footerDisplay;
         }
-        
-        // Iniciar la captura de la primera página
-        console.log('[13] Iniciando captura de páginas...');
-        await captureAndAddPage(element, 0, 1);
-        
-        // Eliminar el mensaje de carga una vez completado
-        if (loadingMessage && loadingMessage.parentNode) {
-            loadingMessage.parentNode.removeChild(loadingMessage);
-        }
-        
-        // Generar nombre de archivo con el nombre de la receta si está disponible
-        let nombreArchivoFinal = 'receta.pdf';
-        if (nombreReceta) {
-            // Limpiar el nombre de la receta para usarlo en el nombre del archivo
-            const nombreLimpio = nombreReceta
-                .toLowerCase()
-                .replace(/[^a-z0-9áéíóúüñ\s-]/g, '') // Eliminar caracteres especiales
-                .replace(/\s+/g, '-') // Reemplazar espacios con guiones
-                .replace(/--+/g, '-') // Reemplazar múltiples guiones con uno solo
-                .replace(/^-+|-+$/g, ''); // Eliminar guiones al inicio y final
-                
-            nombreArchivoFinal = `receta-${nombreLimpio}.pdf`;
-        } else if (nombreArchivo) {
-            nombreArchivoFinal = nombreArchivo;
-        }
-        
-        console.log(`[18] Descargando PDF (${pdf.internal.getNumberOfPages()} páginas) con nombre:`, nombreArchivoFinal);
-        pdf.save(nombreArchivoFinal);
-        
     } catch (error) {
         console.error('Error al generar el PDF:', error);
         alert('Ocurrió un error al generar el PDF. Por favor, inténtalo de nuevo.');
-    } finally {
-        // Eliminar el mensaje de carga si existe
-        if (loadingMessage && document.body.contains(loadingMessage)) {
-            document.body.removeChild(loadingMessage);
-        }
-        
-        // Restaurar header y footer
-        if (header) header.style.display = headerDisplay;
-        if (footer) footer.style.display = footerDisplay;
     }
 }
