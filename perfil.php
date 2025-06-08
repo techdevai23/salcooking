@@ -196,7 +196,31 @@ $css_extra .= '<link rel="stylesheet" href="styles/perfil-ajustes.css?v=' . file
 
             <div class="form-group">
               <label for="pais">País:</label>
-              <input type="text" id="pais" name="pais" value="" autocomplete="off">
+              <!-- solo paises de habla hispana -->
+              <select id="pais" name="pais" required>
+                <option value="" selected>Seleccionar...</option>
+                <option value="Argentina">Argentina</option>
+                <option value="Bolivia">Bolivia</option>
+                <option value="Chile">Chile</option>
+                <option value="Colombia">Colombia</option>
+                <option value="Costa Rica">Costa Rica</option>
+                <option value="Cuba">Cuba</option>
+                <option value="Ecuador">Ecuador</option>
+                <option value="El Salvador">El Salvador</option>
+                <option value="España">España</option>
+                <option value="Guatemala">Guatemala</option>
+                <option value="Honduras">Honduras</option>
+                <option value="México">México</option>
+                <option value="Nicaragua">Nicaragua</option>
+                <option value="Panamá">Panamá</option>
+                <option value="Paraguay">Paraguay</option>
+                <option value="Perú">Perú</option>
+                <option value="Puerto Rico">Puerto Rico</option>
+                <option value="República Dominicana">República Dominicana</option>
+                <option value="Uruguay">Uruguay</option>
+                <option value="Venezuela">Venezuela</option>
+                <option value="Guinea Ecuatorial">Guinea Ecuatorial</option>
+              </select>
             </div>
 
             <div class="form-group">

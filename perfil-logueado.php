@@ -142,7 +142,31 @@ $css_extra .= '<script src="scripts/validacion-password.js"></script>';
 
             <div class="form-group">
               <label for="pais">País:</label>
-              <input type="text" id="pais" name="pais" value="<?php echo htmlspecialchars((string)($usuario['pais'] ?? '')); ?>">
+              <!-- solo paises de habla hispana -->
+              <select id="pais" name="pais" required>
+                <option value="" <?php echo empty($usuario['pais']) ? 'selected' : ''; ?>>Seleccionar...</option>
+                <option value="Argentina" <?php echo ($usuario['pais'] == 'Argentina') ? 'selected' : ''; ?>>Argentina</option>
+                <option value="Bolivia" <?php echo ($usuario['pais'] == 'Bolivia') ? 'selected' : ''; ?>>Bolivia</option>
+                <option value="Chile" <?php echo ($usuario['pais'] == 'Chile') ? 'selected' : ''; ?>>Chile</option>
+                <option value="Colombia" <?php echo ($usuario['pais'] == 'Colombia') ? 'selected' : ''; ?>>Colombia</option>
+                <option value="Costa Rica" <?php echo ($usuario['pais'] == 'Costa Rica') ? 'selected' : ''; ?>>Costa Rica</option>
+                <option value="Cuba" <?php echo ($usuario['pais'] == 'Cuba') ? 'selected' : ''; ?>>Cuba</option>
+                <option value="Ecuador" <?php echo ($usuario['pais'] == 'Ecuador') ? 'selected' : ''; ?>>Ecuador</option>
+                <option value="El Salvador" <?php echo ($usuario['pais'] == 'El Salvador') ? 'selected' : ''; ?>>El Salvador</option>
+                <option value="España" <?php echo ($usuario['pais'] == 'España') ? 'selected' : ''; ?>>España</option>
+                <option value="Guatemala" <?php echo ($usuario['pais'] == 'Guatemala') ? 'selected' : ''; ?>>Guatemala</option>
+                <option value="Honduras" <?php echo ($usuario['pais'] == 'Honduras') ? 'selected' : ''; ?>>Honduras</option>
+                <option value="México" <?php echo ($usuario['pais'] == 'México') ? 'selected' : ''; ?>>México</option>
+                <option value="Nicaragua" <?php echo ($usuario['pais'] == 'Nicaragua') ? 'selected' : ''; ?>>Nicaragua</option>
+                <option value="Panamá" <?php echo ($usuario['pais'] == 'Panamá') ? 'selected' : ''; ?>>Panamá</option>
+                <option value="Paraguay" <?php echo ($usuario['pais'] == 'Paraguay') ? 'selected' : ''; ?>>Paraguay</option>
+                <option value="Perú" <?php echo ($usuario['pais'] == 'Perú') ? 'selected' : ''; ?>>Perú</option>
+                <option value="Puerto Rico" <?php echo ($usuario['pais'] == 'Puerto Rico') ? 'selected' : ''; ?>>Puerto Rico</option>
+                <option value="República Dominicana" <?php echo ($usuario['pais'] == 'República Dominicana') ? 'selected' : ''; ?>>República Dominicana</option>
+                <option value="Uruguay" <?php echo ($usuario['pais'] == 'Uruguay') ? 'selected' : ''; ?>>Uruguay</option>
+                <option value="Venezuela" <?php echo ($usuario['pais'] == 'Venezuela') ? 'selected' : ''; ?>>Venezuela</option>
+                <option value="Guinea Ecuatorial" <?php echo ($usuario['pais'] == 'Guinea Ecuatorial') ? 'selected' : ''; ?>>Guinea Ecuatorial</option>
+              </select>
             </div>
 
             <div class="form-group edad-group">
