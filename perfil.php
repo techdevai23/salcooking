@@ -267,6 +267,11 @@ $css_extra .= '<link rel="stylesheet" href="styles/perfil-ajustes.css?v=' . file
               </div>
               <div id="password-match" class="password-match"></div>
             </div>
+            <div class="form-actions" style="margin-top:30px;">
+            <button type="submit" name="accion" value="guardar_cambios" class="action-btn-verde" style="background-color: #2D3E2E; color: white; padding: 12px 30px !important; font-size: 1.1rem;">
+              <?php echo isset($_SESSION['id_usuario']) ? 'Guardar Cambios' : 'Crear Cuenta'; ?>
+            </button>
+          </div>
             <!-- Fin Sección de Contraseña para NUEVO REGISTRO -->
 
             <!-- El campo de contraseña actual y el enlace 'Cambio contraseña' son para usuarios logueados modificando su perfil -->
@@ -315,11 +320,7 @@ $css_extra .= '<link rel="stylesheet" href="styles/perfil-ajustes.css?v=' . file
             
           </div>
 
-          <div class="form-actions" style="margin-top:30px;">
-            <button type="submit" name="accion" value="guardar_cambios" class="action-btn-verde" style="background-color: #2D3E2E; color: white; padding: 12px 30px !important; font-size: 1.1rem;">
-              <?php echo isset($_SESSION['id_usuario']) ? 'Guardar Cambios' : 'Crear Cuenta'; ?>
-            </button>
-          </div>
+          
         </form>
       </div>
     </div>
