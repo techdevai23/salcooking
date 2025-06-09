@@ -87,10 +87,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['login_submit'])) {
             if ($resultado->num_rows === 1) {
                 // con este fetch_assoc obtenemos el resultado de la consulta
                 $usuario_db = $resultado->fetch_assoc();
-                    // // DEBUG
-                    // echo '<pre>';
-                    // print_r($usuario_db);
-                    // echo '</pre>';
+                // // DEBUG
+                // echo '<pre>';
+                // print_r($usuario_db);
+                // echo '</pre>';
 
                 // con este if comprobamos si la contraseña es correcta
                 if (password_verify($contrasena_input, $usuario_db['contrasena_hash'])) {
@@ -189,7 +189,13 @@ $css_extra .= '<link rel="stylesheet" href="styles/login.css?v=' . filemtime('st
                 <div class="form-group">
                     <label for="contrasena">Contraseña:</label>
                     <input type="password" id="contrasena" name="contrasena" placeholder="Introduce contraseña" class="form-control" required>
+                    <button type="button" onclick="togglePassword('contrasena', this)" style="position: relative; right: 30px; top: 15px; transform: translateY(-50%); background: none; border: none; cursor: pointer;" title="Mostrar contraseña">
+                        👁️
+                    </button>
                 </div>
+
+
+
 
                 <div class="form-options">
                     <div class="remember-option">
@@ -218,3 +224,16 @@ $css_extra .= '<link rel="stylesheet" href="styles/login.css?v=' . filemtime('st
 </section>
 
 <?php include 'footer.php'; ?>
+<script>
+    // Función para alternar la visibilidad de la contraseña
+    function togglePassword(inputId, button) {
+        const input = document.getElementById(inputId);
+        if (input.type === 'password') {
+            input.type = 'text';
+            button.title = 'Ocultar contraseña';
+        } else {
+            input.type = 'password';
+            button.title = 'Mostrar contraseña';
+        }
+    }
+</script>
