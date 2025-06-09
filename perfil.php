@@ -247,7 +247,7 @@ $css_extra .= '<link rel="stylesheet" href="styles/perfil-ajustes.css?v=' . file
                   👁️
                 </button>
               </div>
-              <a href="#" class="show-password form-link">Mostrar contraseña</a>
+             
               <div class="password-validation">
                 <ul class="requirements-list">
                   <li id="length">Al menos 8 caracteres</li>
