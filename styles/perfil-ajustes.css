@@ -157,7 +157,7 @@ h6{
 
 #btn-premium-perfil{
     margin: 20px auto;
-    
+
 }
 
 
@@ -398,6 +398,23 @@ html, body {
 @media (max-width: 768px) {
     .results-grid {
         grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    }
+    /* premium section responsive en una sola columna*/ 
+    .premium-container{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        width: 100%;
+    }
+    .premium-section{
+        padding: 10px;
+        margin: 0 auto;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        width: 100%;
     }
     
     .recipe-info-grid {
